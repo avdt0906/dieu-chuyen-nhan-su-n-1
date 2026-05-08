@@ -6,25 +6,25 @@
 <title>Đề xuất Điều chuyển Nhân sự N+1 — 30Shine</title>
 <style>
   :root {
-    --bg: #0F172A; --surface: #1E293B; --surface2: #263348; --border: #334155;
-    --text: #E2E8F0; --text-dim: #94A3B8; --text-muted: #64748B;
-    --orange: #F97316; --orange-dim: #EA580C; --orange-glow: rgba(249,115,22,0.15);
-    --green: #10B981; --red: #EF4444; --blue: #3B82F6; --amber: #F59E0B;
-    --purple: #8B5CF6; --pink: #EC4899; --teal: #14B8A6; --indigo: #6366F1;
+    --bg: #F1F5F9; --surface: #FFFFFF; --surface2: #F8FAFC; --border: #E2E8F0;
+    --text: #0F172A; --text-dim: #475569; --text-muted: #94A3B8;
+    --orange: #EA580C; --orange-dim: #C2410C; --orange-glow: rgba(234,88,12,0.08);
+    --green: #059669; --red: #DC2626; --blue: #2563EB; --amber: #D97706;
+    --purple: #7C3AED; --pink: #DB2777; --teal: #0D9488; --indigo: #4F46E5;
     --radius: 12px; --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
 
   /* HEADER */
-  .header { background: linear-gradient(135deg, #0F172A 0%, #1a1040 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
+  .header { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
   .logo { background: var(--orange); color: white; font-weight: 900; font-size: 18px; padding: 6px 14px; border-radius: 8px; letter-spacing: -0.5px; }
   .header-text h1 { font-size: 20px; font-weight: 700; color: var(--text); }
   .header-text p { font-size: 13px; color: var(--text-dim); margin-top: 2px; }
   .header-badge { margin-left: auto; background: var(--orange-glow); border: 1px solid var(--orange); color: var(--orange); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
 
   /* TABS */
-  .tabs-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 4px; }
+  .tabs-bar { background: #FFFFFF; border-bottom: 2px solid var(--border); padding: 0 32px; display: flex; gap: 4px; }
   .tab-btn { padding: 14px 24px; font-size: 14px; font-weight: 600; color: var(--text-dim); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
@@ -71,19 +71,19 @@
   .card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
   .rank-badge { background: var(--surface2); color: var(--text-dim); font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
   .vitri-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-  .vitri-badge.Skinner { background: rgba(59,130,246,0.2); color: #60A5FA; }
-  .vitri-badge.Stylist { background: rgba(139,92,246,0.2); color: #A78BFA; }
+  .vitri-badge.Skinner { background: #DBEAFE; color: #1D4ED8; }
+  .vitri-badge.Stylist { background: #EDE9FE; color: #6D28D9; }
   .same-gdkv-badge { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--green); }
   .cross-gdkv-badge { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--amber); }
   .score-num { background: var(--surface2); color: var(--text-dim); font-size: 11px; padding: 2px 7px; border-radius: 4px; }
 
   .salon-flow { display: flex; align-items: stretch; gap: 0; margin-bottom: 12px; }
-  .salon-box { flex: 1; background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px; min-width: 0; }
+  .salon-box { flex: 1; background: #F8FAFC; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; min-width: 0; }
   .salon-box.nhan { position: relative; }
   .salon-num { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1; }
   .salon-gdkv { font-size: 10px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .salon-stats { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-  .salon-stat { font-size: 11px; color: var(--text-dim); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; }
+  .salon-stat { font-size: 11px; color: var(--text-dim); background: #E2E8F0; padding: 2px 6px; border-radius: 4px; }
   .salon-stat.overload { color: var(--red); background: rgba(239,68,68,0.1); }
   .nhom-tag { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
   .nhom-Lon { background: rgba(249,115,22,0.15); color: var(--orange); }
@@ -99,7 +99,7 @@
 
   /* OUTPUT B CARDS */
   .b-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
-  .b-card { background: var(--surface); border: 1px solid rgba(239,68,68,0.3); border-left: 4px solid var(--red); border-radius: var(--radius); padding: 18px; }
+  .b-card { background: #FFF7F7; border: 1px solid #FECACA; border-left: 4px solid var(--red); border-radius: var(--radius); padding: 18px; }
   .b-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .alert-icon { font-size: 20px; }
   .b-salon-name { font-size: 17px; font-weight: 800; }
@@ -111,7 +111,7 @@
   .load-fill.over { background: var(--red); }
   .load-fill.after { background: var(--green); }
   .b-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .b-metric { background: var(--surface2); border-radius: 8px; padding: 10px; text-align: center; }
+  .b-metric { background: #F1F5F9; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
   .b-metric-val { font-size: 15px; font-weight: 800; }
   .b-metric-val.pos { color: var(--green); }
   .b-metric-val.neg { color: var(--red); }
@@ -145,11 +145,7 @@
 </div>
 
 <div class="tabs-bar">
-  <button class="tab-btn active" onclick="switchTab('t0508')">
-    Thứ Sáu
-    <span class="tab-day-label">08/05/2026 · Ngày thường</span>
-  </button>
-  <button class="tab-btn" onclick="switchTab('t0509')">
+  <button class="tab-btn active" onclick="switchTab('t0509')">
     Thứ Bảy
     <span class="tab-day-label">09/05/2026 · Cuối tuần</span>
   </button>
@@ -157,11 +153,15 @@
     Chủ Nhật
     <span class="tab-day-label">10/05/2026 · Cuối tuần</span>
   </button>
+  <button class="tab-btn" onclick="switchTab('t0511')">
+    Thứ Hai
+    <span class="tab-day-label">11/05/2026 · Ngày thường</span>
+  </button>
 </div>
 
-<div id="t0508" class="tab-content active"></div>
-<div id="t0509" class="tab-content"></div>
+<div id="t0509" class="tab-content active"></div>
 <div id="t0510" class="tab-content"></div>
+<div id="t0511" class="tab-content"></div>
 
 <script>
 // ============================================================
@@ -172,7 +172,8 @@ const SALON_NAMES = {
   44:"103 TN", 45:"25 TD", 46:"483 TN", 52:"451 PVT", 69:"312 LVS",
   144:"168 NVC", 145:"237 NTT", 146:"109 TQH", 147:"99 TSN", 182:"186 DTH",
   187:"116 TK", 188:"190 HB", 192:"264 LLQ", 193:"145 THT", 194:"90 NH",
-  196:"202 DC", 200:"39 HBT", 205:"341 XVNT", 228:"62 LH", 245:"55A NVL", 247:"1371 PVT"
+  196:"202 DC", 200:"39 HBT", 205:"341 XVNT", 228:"62 LH", 245:"55A NVL", 247:"1371 PVT",
+  51:"420 HTP", 58:"730 TL10", 61:"1180 QT", 106:"76 PVH", 212:"58 NVC NA", 240:"68 LN NA"
 };
 function sName(id) { return SALON_NAMES[id] ? SALON_NAMES[id] : 'S' + id; }
 
@@ -184,6 +185,7 @@ const GDKV_COLORS = {
   "Phan Thị Hồng Gấm": "#EC4899",
   "Nguyễn Như Quỳnh":  "#14B8A6",
   "Trịnh Văn Quang":   "#EF4444",
+  "Nguyễn Thị Huệ":   "#06B6D4",
 };
 function gdkvColor(name) {
   for (const [k,v] of Object.entries(GDKV_COLORS)) if (name.includes(k)) return v;
@@ -194,23 +196,28 @@ function fmtDT(n) { return new Intl.NumberFormat('vi-VN').format(n) + "đ"; }
 function fmtNum(n) { return new Intl.NumberFormat('vi-VN').format(n); }
 
 const DATES = {
-  t0508: {
-    label: "Thứ Sáu, 08/05/2026", typeLabel: "Ngày thường",
+  t0511: {
+    label: "Thứ Hai, 11/05/2026", typeLabel: "Ngày thường",
     transfers: [
-      {rank:1,nv_id:11975,vitri:"Skinner",sg:45,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.3,ddt:634416,score:14.3,kh_g:77,kh_n:72,nv_g:20,nv_n:7,kpn_g:3.9,kpn_n:10.3,aov_nv:311242,ng:"Lon",nn:"TB",hist:true},
-      {rank:2,nv_id:6248,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:409641,score:14.1,kh_g:80,kh_n:26,nv_g:11,nv_n:2,kpn_g:7.3,kpn_n:13.0,aov_nv:311517,ng:"Lon",nn:"Nho",hist:true},
-      {rank:3,nv_id:11533,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:402819,score:14.0,kh_g:80,kh_n:26,nv_g:11,nv_n:2,kpn_g:7.3,kpn_n:13.0,aov_nv:298578,ng:"Lon",nn:"Nho",hist:true},
-      {rank:4,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:385654,score:13.9,kh_g:36,kh_n:68,nv_g:18,nv_n:6,kpn_g:2.0,kpn_n:11.3,aov_nv:255294,ng:"TB",nn:"Lon",hist:true},
-      {rank:5,nv_id:5018,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:308165,score:13.1,kh_g:91,kh_n:97,nv_g:15,nv_n:10,kpn_g:6.1,kpn_n:9.7,aov_nv:224459,ng:"Lon",nn:"Lon",hist:true},
-      {rank:6,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:229433,score:12.3,kh_g:91,kh_n:97,nv_g:15,nv_n:10,kpn_g:6.1,kpn_n:9.7,aov_nv:246904,ng:"Lon",nn:"Lon",hist:true},
-      {rank:7,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:191578,score:11.9,kh_g:36,kh_n:89,nv_g:8,nv_n:10,kpn_g:4.5,kpn_n:8.9,aov_nv:242365,ng:"TB",nn:"Lon",hist:true},
-      {rank:8,nv_id:20218,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:190739,score:11.9,kh_g:25,kh_n:32,nv_g:12,nv_n:3,kpn_g:2.1,kpn_n:10.7,aov_nv:218314,ng:"Nho",nn:"Nho",hist:true},
-      {rank:9,nv_id:15635,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:190739,score:11.9,kh_g:25,kh_n:32,nv_g:12,nv_n:3,kpn_g:2.1,kpn_n:10.7,aov_nv:217303,ng:"Nho",nn:"Nho",hist:true},
-      {rank:10,nv_id:20537,vitri:"Skinner",sg:45,sn:145,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.6,ddt:372014,score:11.7,kh_g:77,kh_n:114,nv_g:20,nv_n:13,kpn_g:3.9,kpn_n:8.8,aov_nv:268609,ng:"Lon",nn:"Lon",hist:true},
-      {rank:11,nv_id:13583,vitri:"Skinner",sg:188,sn:147,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:4.3,ddt:303671,score:11.0,kh_g:50,kh_n:84,nv_g:10,nv_n:8,kpn_g:5.0,kpn_n:10.5,aov_nv:228145,ng:"TB",nn:"Lon",hist:true},
-      {rank:12,nv_id:16177,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:280482,score:9.8,kh_g:36,kh_n:89,nv_g:8,nv_n:10,kpn_g:4.5,kpn_n:8.9,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-      {rank:13,nv_id:229,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:287984,score:2.9,kh_g:53,kh_n:81,nv_g:10,nv_n:9,kpn_g:5.3,kpn_n:9.0,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-      {rank:14,nv_id:247,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:287984,score:2.9,kh_g:53,kh_n:81,nv_g:10,nv_n:9,kpn_g:5.3,kpn_n:9.0,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
+      {rank:1,nv_id:19605,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:619007,score:16.2,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:287923,ng:"Lon",nn:"Lon",hist:true},
+      {rank:2,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:575715,score:15.8,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:247754,ng:"TB",nn:"Lon",hist:true},
+      {rank:3,nv_id:13672,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:748034,score:14.5,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:270085,ng:"TB",nn:"Lon",hist:false},
+      {rank:4,nv_id:6248,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:387156,score:13.9,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:314353,ng:"Lon",nn:"Nho",hist:true},
+      {rank:5,nv_id:19569,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:663623,score:13.6,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:304412,ng:"Lon",nn:"Lon",hist:false},
+      {rank:6,nv_id:17035,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:362745,score:13.6,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:297709,ng:"Lon",nn:"Nho",hist:true},
+      {rank:7,nv_id:18642,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:200684,ng:"Lon",nn:"Lon",hist:true},
+      {rank:8,nv_id:18942,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:194892,ng:"Lon",nn:"Lon",hist:true},
+      {rank:9,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:271602,score:12.7,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:253162,ng:"Lon",nn:"Lon",hist:true},
+      {rank:10,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:270882,score:12.7,kh_g:44,kh_n:97,nv_g:15,nv_n:9,kpn_g:2.9,kpn_n:10.8,aov_nv:206172,ng:"TB",nn:"Lon",hist:true},
+      {rank:11,nv_id:18840,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:436270,score:12.4,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:0,ng:"Nho",nn:"Nho",hist:true},
+      {rank:12,nv_id:19760,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:234281,score:12.3,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:283566,ng:"Lon",nn:"Lon",hist:true},
+      {rank:13,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:216784,score:12.2,kh_g:44,kh_n:97,nv_g:8,nv_n:10,kpn_g:5.5,kpn_n:9.7,aov_nv:240690,ng:"TB",nn:"Lon",hist:true},
+      {rank:14,nv_id:14823,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:374982,score:11.7,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:192540,ng:"Nho",nn:"Nho",hist:true},
+      {rank:15,nv_id:17807,vitri:"Skinner",sg:61,sn:106,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:4.0,ddt:157176,score:9.6,kh_g:44,kh_n:39,nv_g:9,nv_n:5,kpn_g:4.9,kpn_n:7.8,aov_nv:296741,ng:"TB",nn:"TB",hist:true},
+      {rank:16,nv_id:12544,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
+      {rank:17,nv_id:12545,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
+      {rank:18,nv_id:13258,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:234040,ng:"TB",nn:"Lon",hist:false},
+      {rank:19,nv_id:247,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
     ],
     callbacks: []
   },
@@ -457,7 +464,7 @@ function switchTab(key) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById(key).classList.add('active');
-  const idx = ['t0508','t0509','t0510'].indexOf(key);
+  const idx = ['t0509','t0510','t0511'].indexOf(key);
   document.querySelectorAll('.tab-btn')[idx].classList.add('active');
 }
 
