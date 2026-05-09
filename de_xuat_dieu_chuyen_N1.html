@@ -3,440 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đề xuất Điều chuyển Nhân sự N+1 — 30Shine v2</title>
+<title>Đề xuất Điều chuyển Nhân sự N+1 — 30Shine V2</title>
 <style>
-  :root {
-    --bg: #F1F5F9; --surface: #FFFFFF; --surface2: #F8FAFC; --border: #E2E8F0;
-    --text: #0F172A; --text-dim: #475569; --text-muted: #94A3B8;
-    --orange: #EA580C; --orange-dim: #C2410C; --orange-glow: rgba(234,88,12,0.08);
-    --green: #059669; --red: #DC2626; --blue: #2563EB; --amber: #D97706;
-    --purple: #7C3AED; --pink: #DB2777; --teal: #0D9488; --indigo: #4F46E5;
-    --radius: 12px; --radius-sm: 8px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
-
-  /* HEADER */
-  .header { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
-  .logo { background: var(--orange); color: white; font-weight: 900; font-size: 18px; padding: 6px 14px; border-radius: 8px; letter-spacing: -0.5px; }
-  .header-text h1 { font-size: 20px; font-weight: 700; color: #F1F5F9; }
-  .header-text p { font-size: 13px; color: #94A3B8; margin-top: 2px; }
-  .header-badge { margin-left: auto; background: rgba(249,115,22,0.2); border: 1px solid #F97316; color: #FB923C; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-
-  /* TABS */
-  .tabs-bar { background: #FFFFFF; border-bottom: 2px solid var(--border); padding: 0 32px; display: flex; gap: 4px; }
-  .tab-btn { padding: 14px 24px; font-size: 14px; font-weight: 600; color: var(--text-dim); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
-  .tab-day-label { font-size: 11px; font-weight: 400; opacity: 0.7; display: block; }
-
-  /* MAIN CONTENT */
-  .tab-content { display: none; padding: 24px 32px 48px; max-width: 1400px; margin: 0 auto; }
-  .tab-content.active { display: block; }
-
-  /* SUMMARY BAR */
-  .summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; }
-  .stat-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-value { font-size: 26px; font-weight: 800; color: var(--text); margin-top: 4px; line-height: 1; }
-  .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
-  .stat-card.highlight { background: var(--orange-glow); border-color: var(--orange); }
-  .stat-card.highlight .stat-value { color: var(--orange); }
-
-  /* FILTER CHIPS */
-  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; align-items: center; }
-  .filter-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-  .chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 2px solid transparent; cursor: pointer; transition: all 0.15s; opacity: 0.6; }
-  .chip:hover { opacity: 0.9; }
-  .chip.active { opacity: 1; }
-  .chip-all { background: var(--surface2); color: var(--text); border-color: var(--border); }
-  .chip-all.active { border-color: var(--text); opacity: 1; }
-
-  /* SECTION HEADERS */
-  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; margin-top: 8px; }
-  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-  .section-icon.a { background: rgba(59,130,246,0.15); }
-  .section-icon.b { background: rgba(239,68,68,0.15); }
-  .section-title { font-size: 16px; font-weight: 700; }
-  .section-count { background: var(--surface2); border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 600; color: var(--text-dim); }
-  .section-empty { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
-
-  /* TRANSFER CARDS */
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.15s; position: relative; overflow: hidden; }
-  .card:hover { border-color: var(--text-muted); }
-  .card.cross-gdkv { border-left: 3px solid var(--amber); }
-  .card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0; }
-
-  .card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-  .rank-badge { background: var(--surface2); color: var(--text-dim); font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-  .vitri-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-  .vitri-badge.Skinner { background: #DBEAFE; color: #1D4ED8; }
-  .vitri-badge.Stylist { background: #EDE9FE; color: #6D28D9; }
-  .same-gdkv-badge { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--green); }
-  .cross-gdkv-badge { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--amber); }
-  .score-num { background: var(--surface2); color: var(--text-dim); font-size: 11px; padding: 2px 7px; border-radius: 4px; }
-
-  .salon-flow { display: flex; align-items: stretch; gap: 0; margin-bottom: 12px; }
-  .salon-box { flex: 1; background: #F8FAFC; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; min-width: 0; }
-  .salon-box.nhan { position: relative; }
-  .salon-num { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1; }
-  .salon-gdkv { font-size: 10px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .salon-stats { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-  .salon-stat { font-size: 11px; color: var(--text-dim); background: #E2E8F0; padding: 2px 6px; border-radius: 4px; }
-  .salon-stat.overload { color: var(--red); background: rgba(239,68,68,0.1); }
-  .nhom-tag { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
-  .nhom-Lon { background: rgba(249,115,22,0.15); color: var(--orange); }
-  .nhom-TB { background: rgba(59,130,246,0.15); color: var(--blue); }
-  .nhom-Nho { background: rgba(148,163,184,0.15); color: var(--text-dim); }
-  .arrow-col { display: flex; align-items: center; padding: 0 8px; color: var(--orange); font-size: 18px; flex-shrink: 0; }
-
-  .card-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .nv-info { font-size: 11px; color: var(--text-muted); }
-  .km-badge { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 3px; }
-  .delta-dt { margin-left: auto; font-size: 15px; font-weight: 800; color: var(--green); }
-  .history-badge { font-size: 10px; color: var(--teal); background: rgba(20,184,166,0.1); padding: 2px 6px; border-radius: 3px; }
-
-  /* OUTPUT B CARDS */
-  .b-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
-  .b-card { background: #FFF7F7; border: 1px solid #FECACA; border-left: 4px solid var(--red); border-radius: var(--radius); padding: 18px; }
-  .b-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .alert-icon { font-size: 20px; }
-  .b-salon-name { font-size: 17px; font-weight: 800; }
-  .b-gdkv { font-size: 12px; color: var(--text-dim); }
-  .load-bar-wrap { margin: 14px 0; }
-  .load-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-  .load-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-  .load-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
-  .load-fill.over { background: var(--red); }
-  .load-fill.after { background: var(--green); }
-  .b-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .b-metric { background: #F1F5F9; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
-  .b-metric-val { font-size: 15px; font-weight: 800; }
-  .b-metric-val.pos { color: var(--green); }
-  .b-metric-val.neg { color: var(--red); }
-  .b-metric-val.neu { color: var(--orange); }
-  .b-metric-lbl { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-
-  /* HIDDEN */
-  .card[data-hidden="true"] { display: none; }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .header { padding: 16px; flex-wrap: wrap; }
-    .tab-content { padding: 16px; }
-    .tabs-bar { padding: 0 16px; overflow-x: auto; }
-    .cards-grid { grid-template-columns: 1fr; }
-  }
-
-  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-  .section-b-sep { margin-top: 32px; }
+  :root{--bg:#F1F5F9;--surface:#FFFFFF;--surface2:#F8FAFC;--border:#E2E8F0;--text:#0F172A;--text-dim:#475569;--text-muted:#94A3B8;--orange:#EA580C;--orange-glow:rgba(234,88,12,0.08);--green:#059669;--red:#DC2626;--blue:#2563EB;--amber:#D97706;--teal:#0D9488;--radius:12px;--radius-sm:8px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;}
+  .header{background:linear-gradient(135deg,#1E293B 0%,#0F172A 100%);border-bottom:1px solid var(--border);padding:20px 32px;display:flex;align-items:center;gap:16px;}
+  .logo{background:var(--orange);color:white;font-weight:900;font-size:18px;padding:6px 14px;border-radius:8px;letter-spacing:-0.5px;}
+  .header-text h1{font-size:20px;font-weight:700;color:#F1F5F9;}
+  .header-text p{font-size:13px;color:#94A3B8;margin-top:2px;}
+  .header-badge{margin-left:auto;background:rgba(249,115,22,0.2);border:1px solid #F97316;color:#FB923C;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;}
+  .tabs-bar{background:#FFFFFF;border-bottom:2px solid var(--border);padding:0 32px;display:flex;gap:4px;}
+  .tab-btn{padding:14px 24px;font-size:14px;font-weight:600;color:var(--text-dim);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--orange);border-bottom-color:var(--orange);}
+  .tab-day-label{font-size:11px;font-weight:400;opacity:0.7;display:block;}
+  .tab-content{display:none;padding:24px 32px 48px;max-width:1400px;margin:0 auto;}
+  .tab-content.active{display:block;}
+  .summary-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;}
+  .stat-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;}
+  .stat-value{font-size:26px;font-weight:800;color:var(--text);margin-top:4px;line-height:1;}
+  .stat-sub{font-size:12px;color:var(--text-dim);margin-top:4px;}
+  .stat-card.highlight{background:var(--orange-glow);border-color:var(--orange);}
+  .stat-card.highlight .stat-value{color:var(--orange);}
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center;}
+  .filter-label{font-size:12px;color:var(--text-muted);font-weight:600;}
+  .chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:2px solid transparent;cursor:pointer;transition:all 0.15s;opacity:0.6;}
+  .chip:hover{opacity:0.9;}
+  .chip.active{opacity:1;}
+  .chip-all{background:var(--surface2);color:var(--text);border-color:var(--border);}
+  .chip-all.active{border-color:var(--text);}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;margin-top:8px;}
+  .section-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .section-icon.a{background:rgba(59,130,246,0.15);}
+  .section-icon.b{background:rgba(239,68,68,0.15);}
+  .section-title{font-size:16px;font-weight:700;}
+  .section-count{background:var(--surface2);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;color:var(--text-dim);}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:border-color 0.15s;position:relative;overflow:hidden;}
+  .card:hover{border-color:var(--text-muted);}
+  .card.cross-gdkv{border-left:3px solid var(--amber);}
+  .card[data-hidden="true"]{display:none;}
+  .card-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+  .card-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .rank-badge{background:var(--surface2);color:var(--text-dim);font-size:11px;font-weight:700;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+  .vitri-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;}
+  .vitri-badge.Skinner{background:#DBEAFE;color:#1D4ED8;}
+  .vitri-badge.Stylist{background:#EDE9FE;color:#6D28D9;}
+  .same-gdkv-badge{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);}
+  .cross-gdkv-badge{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--amber);}
+  .score-num{background:var(--surface2);color:var(--text-dim);font-size:11px;padding:2px 7px;border-radius:4px;}
+  .salon-flow{display:flex;align-items:stretch;gap:0;margin-bottom:12px;}
+  .salon-box{flex:1;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;min-width:0;}
+  .salon-num{font-size:18px;font-weight:800;color:var(--text);line-height:1;}
+  .salon-gdkv{font-size:10px;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .salon-stats{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+  .salon-stat{font-size:11px;color:var(--text-dim);background:#E2E8F0;padding:2px 6px;border-radius:4px;}
+  .salon-stat.overload{color:var(--red);background:rgba(239,68,68,0.1);}
+  .nhom-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;}
+  .nhom-Lon{background:rgba(249,115,22,0.15);color:var(--orange);}
+  .nhom-TB{background:rgba(59,130,246,0.15);color:var(--blue);}
+  .nhom-Nho{background:rgba(148,163,184,0.15);color:var(--text-dim);}
+  .arrow-col{display:flex;align-items:center;padding:0 8px;color:var(--orange);font-size:18px;flex-shrink:0;}
+  .card-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .nv-info{font-size:11px;color:var(--text-muted);}
+  .km-badge{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px;}
+  .delta-dt{margin-left:auto;font-size:15px;font-weight:800;color:var(--green);}
+  .history-badge{font-size:10px;color:var(--teal);background:rgba(20,184,166,0.1);padding:2px 6px;border-radius:3px;}
+  .b-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
+  .b-card{background:#FFF7F7;border:1px solid #FECACA;border-left:4px solid var(--red);border-radius:var(--radius);padding:18px;}
+  .b-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .alert-icon{font-size:20px;}
+  .b-salon-name{font-size:17px;font-weight:800;}
+  .b-gdkv{font-size:12px;color:var(--text-dim);}
+  .load-bar-wrap{margin:14px 0;}
+  .load-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+  .load-bar{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;}
+  .load-fill{height:100%;border-radius:4px;}
+  .load-fill.over{background:var(--red);}
+  .load-fill.after{background:var(--green);}
+  .b-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+  .b-metric{background:#F1F5F9;border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;}
+  .b-metric-val{font-size:15px;font-weight:800;}
+  .b-metric-val.pos{color:var(--green);}
+  .b-metric-val.neu{color:var(--orange);}
+  .b-metric-lbl{font-size:10px;color:var(--text-muted);margin-top:2px;}
+  .divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
+  .section-b-sep{margin-top:32px;}
+  @media(max-width:768px){.header{padding:16px;flex-wrap:wrap;}.tab-content{padding:16px;}.tabs-bar{padding:0 16px;overflow-x:auto;}.cards-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="logo">30Shine</div>
   <div class="header-text">
     <h1>Đề xuất Điều chuyển Nhân sự N+1</h1>
-    <p>Engine V2 · Dữ liệu 2 ngày: 10/05 – 11/05/2026</p>
+    <p>Engine V2 · 10/05 – 11/05/2026</p>
   </div>
   <div class="header-badge">Tự động · Engine V2</div>
 </div>
-
 <div class="tabs-bar">
   <button class="tab-btn active" onclick="switchTab('t0510')">
-    Chủ Nhật
-    <span class="tab-day-label">10/05/2026 · Cuối tuần</span>
+    Chủ Nhật <span class="tab-day-label">10/05/2026 · Cuối tuần</span>
   </button>
   <button class="tab-btn" onclick="switchTab('t0511')">
-    Thứ Hai
-    <span class="tab-day-label">11/05/2026 · Ngày thường</span>
+    Thứ Hai <span class="tab-day-label">11/05/2026 · Ngày thường</span>
   </button>
 </div>
-
 <div id="t0510" class="tab-content active"></div>
 <div id="t0511" class="tab-content"></div>
-
 <script>
-// ============================================================
-// DATA
-// ============================================================
-const SALON_NAMES = {
-  2:"346 KT", 11:"8 CVL", 12:"12 LDT", 20:"382 NT", 21:"575 AC", 22:"927 HG",
-  44:"103 TN", 45:"25 TD", 46:"483 TN", 52:"451 PVT", 69:"312 LVS",
-  144:"168 NVC", 145:"237 NTT", 146:"109 TQH", 147:"99 TSN", 182:"186 DTH",
-  187:"116 TK", 188:"190 HB", 192:"264 LLQ", 193:"145 THT", 194:"90 NH",
-  196:"202 DC", 200:"39 HBT", 205:"341 XVNT", 228:"62 LH", 245:"55A NVL", 247:"1371 PVT",
-  51:"420 HTP", 58:"730 TL10", 61:"1180 QT", 106:"76 PVH", 212:"58 NVC NA", 240:"68 LN NA"
-};
-function sName(id) { return SALON_NAMES[id] ? SALON_NAMES[id] : 'S' + id; }
+const SALON_NAMES={2:"346 KT",11:"8 CVL",12:"12 LDT",20:"382 NT",21:"575 AC",22:"927 HG",44:"103 TN",45:"25 TD",46:"483 TN",47:"708 LTT",51:"420 HTP",52:"451 PVT",58:"730 TL10",61:"1180 QT",65:"255 NAN",69:"312 LVS",106:"76 PVH",144:"168 NVC",145:"237 NTT",146:"109 TQH",147:"99 TSN",179:"50BT4 NPC",182:"186 DTH",187:"116 TK",188:"190 HB",192:"264 LLQ",193:"145 THT",194:"90 NH",196:"202 DC",197:"65 CD",200:"39 HBT",205:"341 XVNT",212:"58 NVC NA",228:"62 LH",240:"68 LN NA",244:"11 PKT",245:"55A NVL",247:"1371 PVT",274:"32 NAT",302:"362 NGT BN"};
+function sName(id){return SALON_NAMES[id]?SALON_NAMES[id]:'S'+id;}
+const GC={"Nguyễn Thanh Sang":"#3B82F6","Đoàn Trung Đức":"#10B981","Tống Xuân Quyền":"#8B5CF6","Nguyễn Việt Cường":"#F59E0B","Phan Thị Hồng Gấm":"#EC4899","Nguyễn Như Quỳnh":"#14B8A6","Trịnh Văn Quang":"#EF4444","Nguyễn Thị Huệ":"#06B6D4"};
+function gdkvColor(n){for(const[k,v]of Object.entries(GC))if(n.includes(k))return v;return"#94A3B8";}
+function cg(n){return n.replace(" GDKV","");}
+function fmtDT(n){return new Intl.NumberFormat('vi-VN').format(n)+"đ";}
+function fmtNum(n){return new Intl.NumberFormat('vi-VN').format(n);}
 
-const GDKV_COLORS = {
-  "Nguyễn Thanh Sang": "#3B82F6",
-  "Đoàn Trung Đức":    "#10B981",
-  "Tống Xuân Quyền":   "#8B5CF6",
-  "Nguyễn Việt Cường": "#F59E0B",
-  "Phan Thị Hồng Gấm": "#EC4899",
-  "Nguyễn Như Quỳnh":  "#14B8A6",
-  "Trịnh Văn Quang":   "#EF4444",
-  "Nguyễn Thị Huệ":   "#06B6D4",
-};
-function gdkvColor(name) {
-  for (const [k,v] of Object.entries(GDKV_COLORS)) if (name.includes(k)) return v;
-  return "#94A3B8";
-}
-function cleanGDKV(name) { return name.replace(" GDKV",""); }
-function fmtDT(n) { return new Intl.NumberFormat('vi-VN').format(n) + "đ"; }
-function fmtNum(n) { return new Intl.NumberFormat('vi-VN').format(n); }
-
-const DATES = {
-  t0510: {
-    label: "Chủ Nhật, 10/05/2026", typeLabel: "Cuối tuần",
-    transfers: [
-      {rank:1,nv_id:5018,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:753656,score:17.5,kh_g:121,kh_n:152,nv_g:16,nv_n:10,kpn_g:7.6,kpn_n:15.2,aov_nv:227309,ng:"Lon",nn:"Lon",hist:true},
-      {rank:2,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:634143,score:16.3,kh_g:121,kh_n:152,nv_g:16,nv_n:10,kpn_g:7.6,kpn_n:15.2,aov_nv:249469,ng:"Lon",nn:"Lon",hist:true},
-      {rank:3,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:599355,score:16.0,kh_g:46,kh_n:88,nv_g:18,nv_n:6,kpn_g:2.6,kpn_n:14.7,aov_nv:250155,ng:"TB",nn:"Lon",hist:true},
-      {rank:4,nv_id:13583,vitri:"Skinner",sg:188,sn:147,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:4.3,ddt:741218,score:15.4,kh_g:77,kh_n:129,nv_g:10,nv_n:8,kpn_g:7.7,kpn_n:16.1,aov_nv:227913,ng:"TB",nn:"Lon",hist:true},
-      {rank:5,nv_id:20343,vitri:"Skinner",sg:46,sn:12,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:3.4,ddt:448780,score:14.5,kh_g:73,kh_n:89,nv_g:13,nv_n:7,kpn_g:5.6,kpn_n:12.7,aov_nv:257408,ng:"TB",nn:"TB",hist:true},
-      {rank:6,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:435781,score:14.4,kh_g:55,kh_n:123,nv_g:15,nv_n:9,kpn_g:3.7,kpn_n:13.7,aov_nv:210959,ng:"TB",nn:"Lon",hist:true},
-      {rank:7,nv_id:20521,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:723039,score:14.2,kh_g:46,kh_n:88,nv_g:18,nv_n:6,kpn_g:2.6,kpn_n:14.7,aov_nv:265428,ng:"TB",nn:"Lon",hist:false},
-      {rank:8,nv_id:5403,vitri:"Skinner",sg:20,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:4.2,ddt:600641,score:14.0,kh_g:123,kh_n:42,nv_g:10,nv_n:2,kpn_g:12.3,kpn_n:21.0,aov_nv:302317,ng:"Lon",nn:"Nho",hist:true},
-      {rank:9,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:397281,score:14.0,kh_g:55,kh_n:123,nv_g:8,nv_n:10,kpn_g:6.9,kpn_n:12.3,aov_nv:240531,ng:"TB",nn:"Lon",hist:true},
-      {rank:10,nv_id:17766,vitri:"Skinner",sg:20,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:4.2,ddt:593073,score:13.9,kh_g:123,kh_n:42,nv_g:10,nv_n:2,kpn_g:12.3,kpn_n:21.0,aov_nv:277092,ng:"Lon",nn:"Nho",hist:true},
-      {rank:11,nv_id:20218,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:376319,score:13.8,kh_g:35,kh_n:45,nv_g:12,nv_n:3,kpn_g:2.9,kpn_n:15.0,aov_nv:224653,ng:"Nho",nn:"Nho",hist:true},
-      {rank:12,nv_id:1798,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:376319,score:13.8,kh_g:35,kh_n:45,nv_g:12,nv_n:3,kpn_g:2.9,kpn_n:15.0,aov_nv:210242,ng:"Nho",nn:"Nho",hist:true},
-      {rank:13,nv_id:20800,vitri:"Skinner",sg:11,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.9,ddt:633618,score:13.3,kh_g:95,kh_n:135,nv_g:13,nv_n:10,kpn_g:7.3,kpn_n:13.5,aov_nv:201812,ng:"Lon",nn:"Lon",hist:false},
-      {rank:14,nv_id:20765,vitri:"Skinner",sg:11,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.9,ddt:633618,score:13.3,kh_g:95,kh_n:135,nv_g:13,nv_n:10,kpn_g:7.3,kpn_n:13.5,aov_nv:200247,ng:"Lon",nn:"Lon",hist:false},
-      {rank:15,nv_id:13443,vitri:"Skinner",sg:196,sn:192,gg:"Phan Thị Hồng Gấm GDKV",gn:"Phan Thị Hồng Gấm GDKV",cung:true,km:3.7,ddt:601047,score:13.0,kh_g:63,kh_n:59,nv_g:9,nv_n:4,kpn_g:7.0,kpn_n:14.8,aov_nv:276717,ng:"TB",nn:"TB",hist:false},
-      {rank:16,nv_id:20537,vitri:"Skinner",sg:45,sn:145,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.6,ddt:487895,score:12.9,kh_g:104,kh_n:148,nv_g:20,nv_n:14,kpn_g:5.2,kpn_n:10.6,aov_nv:265303,ng:"Lon",nn:"Lon",hist:true},
-      {rank:17,nv_id:13857,vitri:"Skinner",sg:196,sn:192,gg:"Phan Thị Hồng Gấm GDKV",gn:"Phan Thị Hồng Gấm GDKV",cung:true,km:3.7,ddt:585374,score:12.9,kh_g:63,kh_n:59,nv_g:9,nv_n:4,kpn_g:7.0,kpn_n:14.8,aov_nv:0,ng:"TB",nn:"TB",hist:false},
-      {rank:18,nv_id:11039,vitri:"Skinner",sg:46,sn:12,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:3.4,ddt:538118,score:12.4,kh_g:73,kh_n:89,nv_g:13,nv_n:7,kpn_g:5.6,kpn_n:12.7,aov_nv:228805,ng:"TB",nn:"TB",hist:false},
-      {rank:19,nv_id:11975,vitri:"Skinner",sg:45,sn:145,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.6,ddt:663175,score:11.6,kh_g:104,kh_n:148,nv_g:20,nv_n:14,kpn_g:5.2,kpn_n:10.6,aov_nv:309788,ng:"Lon",nn:"Lon",hist:false},
-      {rank:20,nv_id:13391,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:505877,score:5.1,kh_g:56,kh_n:107,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:11.9,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-      {rank:21,nv_id:13291,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:505877,score:5.1,kh_g:56,kh_n:107,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:11.9,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-    ],
-    callbacks: [
-      {salon:228,vitri:"Skinner",nhom:"Nho",gdkv:"Đoàn Trung Đức GDKV",nv_lam:2,nv_nghi:1,kpn_now:21.0,kpn_after:14.0,nguong:10.0,inc_dt:931217,ln_tang:372487,bonus:300000,delta_ln:72487},
-      {salon:147,vitri:"Skinner",nhom:"Lon",gdkv:"Nguyễn Thanh Sang GDKV",nv_lam:8,nv_nghi:8,kpn_now:16.1,kpn_after:14.3,nguong:10.5,inc_dt:802619,ln_tang:321047,bonus:300000,delta_ln:21047},
-    ]
-  },
-  t0511: {
-    label: "Thứ Hai, 11/05/2026", typeLabel: "Ngày thường",
-    transfers: [
-      {rank:1,nv_id:19605,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:619007,score:16.2,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:287923,ng:"Lon",nn:"Lon",hist:true},
-      {rank:2,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:575715,score:15.8,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:247754,ng:"TB",nn:"Lon",hist:true},
-      {rank:3,nv_id:13672,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:748034,score:14.5,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:270085,ng:"TB",nn:"Lon",hist:false},
-      {rank:4,nv_id:6248,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:387156,score:13.9,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:314353,ng:"Lon",nn:"Nho",hist:true},
-      {rank:5,nv_id:19569,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:663623,score:13.6,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:304412,ng:"Lon",nn:"Lon",hist:false},
-      {rank:6,nv_id:17035,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:362745,score:13.6,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:297709,ng:"Lon",nn:"Nho",hist:true},
-      {rank:7,nv_id:18642,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:200684,ng:"Lon",nn:"Lon",hist:true},
-      {rank:8,nv_id:18942,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:194892,ng:"Lon",nn:"Lon",hist:true},
-      {rank:9,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:271602,score:12.7,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:253162,ng:"Lon",nn:"Lon",hist:true},
-      {rank:10,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:270882,score:12.7,kh_g:44,kh_n:97,nv_g:15,nv_n:9,kpn_g:2.9,kpn_n:10.8,aov_nv:206172,ng:"TB",nn:"Lon",hist:true},
-      {rank:11,nv_id:18840,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:436270,score:12.4,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:0,ng:"Nho",nn:"Nho",hist:true},
-      {rank:12,nv_id:19760,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:234281,score:12.3,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:283566,ng:"Lon",nn:"Lon",hist:true},
-      {rank:13,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:216784,score:12.2,kh_g:44,kh_n:97,nv_g:8,nv_n:10,kpn_g:5.5,kpn_n:9.7,aov_nv:240690,ng:"TB",nn:"Lon",hist:true},
-      {rank:14,nv_id:14823,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:374982,score:11.7,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:192540,ng:"Nho",nn:"Nho",hist:true},
-      {rank:15,nv_id:17807,vitri:"Skinner",sg:61,sn:106,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:4.0,ddt:157176,score:9.6,kh_g:44,kh_n:39,nv_g:9,nv_n:5,kpn_g:4.9,kpn_n:7.8,aov_nv:296741,ng:"TB",nn:"TB",hist:true},
-      {rank:16,nv_id:12544,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
-      {rank:17,nv_id:12545,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
-      {rank:18,nv_id:13258,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:234040,ng:"TB",nn:"Lon",hist:false},
-      {rank:19,nv_id:247,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-    ],
-    callbacks: []
-  }
+const DATES={
+  t0510:{"label":"Chủ Nhật, 10/05/2026","typeLabel":"Cuối tuần","transfers":[{"rank":1,"nv_id":5403,"vitri":"Skinner","sg":20,"sn":228,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4.2,"ddt":2884831,"score":36.8,"kh_g":123,"kh_n":42,"nv_g":10,"nv_n":1,"kpn_g":12.3,"kpn_n":42,"aov_nv":303246,"ng":"Lon","nn":"Nho","hist":true},{"rank":2,"nv_id":12032,"vitri":"Skinner","sg":20,"sn":228,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4.2,"ddt":3087689,"score":35.9,"kh_g":123,"kh_n":42,"nv_g":10,"nv_n":1,"kpn_g":12.3,"kpn_n":42,"aov_nv":333982,"ng":"Lon","nn":"Nho","hist":false},{"rank":3,"nv_id":14653,"vitri":"Skinner","sg":244,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":3.9,"ddt":2291328,"score":24.9,"kh_g":45,"kh_n":55,"nv_g":6,"nv_n":2,"kpn_g":7.5,"kpn_n":27.5,"aov_nv":343423,"ng":"Nho","nn":"TB","hist":false},{"rank":4,"nv_id":16769,"vitri":"Skinner","sg":244,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":3.9,"ddt":1425879,"score":19.3,"kh_g":45,"kh_n":55,"nv_g":6,"nv_n":2,"kpn_g":7.5,"kpn_n":27.5,"aov_nv":242801,"ng":"Nho","nn":"TB","hist":true},{"rank":5,"nv_id":19756,"vitri":"Stylist","sg":46,"sn":12,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":3.4,"ddt":665405,"score":16.7,"kh_g":73,"kh_n":89,"nv_g":7,"nv_n":5,"kpn_g":10.4,"kpn_n":17.8,"aov_nv":213082,"ng":"TB","nn":"TB","hist":true},{"rank":6,"nv_id":8643,"vitri":"Stylist","sg":46,"sn":12,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":3.4,"ddt":665405,"score":16.7,"kh_g":73,"kh_n":89,"nv_g":7,"nv_n":5,"kpn_g":10.4,"kpn_n":17.8,"aov_nv":220162,"ng":"TB","nn":"TB","hist":true},{"rank":7,"nv_id":20727,"vitri":"Skinner","sg":46,"sn":274,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4.3,"ddt":756702,"score":15.6,"kh_g":73,"kh_n":50,"nv_g":10,"nv_n":3,"kpn_g":7.3,"kpn_n":16.7,"aov_nv":193034,"ng":"TB","nn":"Nho","hist":true},{"rank":8,"nv_id":20790,"vitri":"Skinner","sg":46,"sn":274,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4.3,"ddt":631637,"score":14.3,"kh_g":73,"kh_n":50,"nv_g":10,"nv_n":3,"kpn_g":7.3,"kpn_n":16.7,"aov_nv":283553,"ng":"TB","nn":"Nho","hist":true},{"rank":9,"nv_id":5866,"vitri":"Skinner","sg":22,"sn":58,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":3.1,"ddt":727860,"score":14.3,"kh_g":135,"kh_n":135,"nv_g":10,"nv_n":7,"kpn_g":13.5,"kpn_n":19.3,"aov_nv":311913,"ng":"Lon","nn":"TB","hist":false},{"rank":10,"nv_id":942,"vitri":"Skinner","sg":22,"sn":58,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":3.1,"ddt":723368,"score":14.2,"kh_g":135,"kh_n":135,"nv_g":10,"nv_n":7,"kpn_g":13.5,"kpn_n":19.3,"aov_nv":309250,"ng":"Lon","nn":"TB","hist":false},{"rank":11,"nv_id":13977,"vitri":"Stylist","sg":144,"sn":200,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":false,"km":4.4,"ddt":1011255,"score":13.1,"kh_g":107,"kh_n":56,"nv_g":9,"nv_n":2,"kpn_g":11.9,"kpn_n":28,"aov_nv":300342,"ng":"Lon","nn":"TB","hist":true},{"rank":12,"nv_id":15231,"vitri":"Stylist","sg":11,"sn":193,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.3,"ddt":421152,"score":12.2,"kh_g":95,"kh_n":152,"nv_g":9,"nv_n":11,"kpn_g":10.6,"kpn_n":13.8,"aov_nv":208083,"ng":"TB","nn":"Lon","hist":true},{"rank":13,"nv_id":2530,"vitri":"Stylist","sg":11,"sn":22,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":3.9,"ddt":516272,"score":12.2,"kh_g":95,"kh_n":135,"nv_g":9,"nv_n":9,"kpn_g":10.6,"kpn_n":15,"aov_nv":223180,"ng":"TB","nn":"Lon","hist":false},{"rank":14,"nv_id":20009,"vitri":"Skinner","sg":194,"sn":146,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":2.8,"ddt":151763,"score":11.5,"kh_g":46,"kh_n":88,"nv_g":5,"nv_n":6,"kpn_g":9.2,"kpn_n":14.7,"aov_nv":250559,"ng":"TB","nn":"Lon","hist":true},{"rank":15,"nv_id":20795,"vitri":"Skinner","sg":197,"sn":146,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4.8,"ddt":622530,"score":11.2,"kh_g":39,"kh_n":88,"nv_g":5,"nv_n":6,"kpn_g":7.8,"kpn_n":14.7,"aov_nv":231230,"ng":"Nho","nn":"Lon","hist":false},{"rank":16,"nv_id":6684,"vitri":"Stylist","sg":144,"sn":200,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":false,"km":4.4,"ddt":816720,"score":11.2,"kh_g":107,"kh_n":56,"nv_g":9,"nv_n":2,"kpn_g":11.9,"kpn_n":28,"aov_nv":256579,"ng":"Lon","nn":"TB","hist":true},{"rank":17,"nv_id":21007,"vitri":"Skinner","sg":11,"sn":21,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.1,"ddt":614040,"score":11.1,"kh_g":95,"kh_n":92,"nv_g":9,"nv_n":5,"kpn_g":10.6,"kpn_n":18.4,"aov_nv":178180,"ng":"TB","nn":"TB","hist":false},{"rank":18,"nv_id":20800,"vitri":"Skinner","sg":11,"sn":21,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.1,"ddt":614040,"score":11.1,"kh_g":95,"kh_n":92,"nv_g":9,"nv_n":5,"kpn_g":10.6,"kpn_n":18.4,"aov_nv":203704,"ng":"TB","nn":"TB","hist":false},{"rank":19,"nv_id":20201,"vitri":"Stylist","sg":20,"sn":187,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4,"ddt":260321,"score":10.6,"kh_g":123,"kh_n":120,"nv_g":9,"nv_n":6,"kpn_g":13.7,"kpn_n":20,"aov_nv":196386,"ng":"Lon","nn":"Lon","hist":true},{"rank":20,"nv_id":1649,"vitri":"Stylist","sg":20,"sn":187,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4,"ddt":260321,"score":10.6,"kh_g":123,"kh_n":120,"nv_g":9,"nv_n":6,"kpn_g":13.7,"kpn_n":20,"aov_nv":220313,"ng":"Lon","nn":"Lon","hist":true},{"rank":21,"nv_id":5407,"vitri":"Stylist","sg":179,"sn":20,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":4.9,"ddt":436242,"score":7.4,"kh_g":91,"kh_n":123,"nv_g":9,"nv_n":9,"kpn_g":10.1,"kpn_n":13.7,"aov_nv":250559,"ng":"TB","nn":"Lon","hist":true},{"rank":22,"nv_id":1248,"vitri":"Stylist","sg":179,"sn":20,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":4.9,"ddt":436242,"score":4.4,"kh_g":91,"kh_n":123,"nv_g":9,"nv_n":9,"kpn_g":10.1,"kpn_n":13.7,"aov_nv":228152,"ng":"TB","nn":"Lon","hist":false}],"callbacks":[{"salon":228,"vitri":"Skinner","nhom":"Nho","gdkv":"Đoàn Trung Đức GDKV","nv_lam":1,"nv_nghi":1,"kpn_now":42,"kpn_after":21,"nguong":10,"inc_dt":2816694},{"salon":200,"vitri":"Stylist","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":2,"nv_nghi":4,"kpn_now":28,"kpn_after":18.7,"nguong":13,"inc_dt":1235744},{"salon":58,"vitri":"Skinner","nhom":"TB","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":7,"nv_nghi":3,"kpn_now":19.3,"kpn_after":16.9,"nguong":10.5,"inc_dt":1003709},{"salon":192,"vitri":"Skinner","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":3,"nv_nghi":2,"kpn_now":19.7,"kpn_after":14.8,"nguong":10.5,"inc_dt":980273},{"salon":188,"vitri":"Skinner","nhom":"TB","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":4,"nv_nghi":1,"kpn_now":19.3,"kpn_after":15.4,"nguong":10.5,"inc_dt":971112},{"salon":47,"vitri":"Skinner","nhom":"Nho","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":3,"nv_nghi":2,"kpn_now":19,"kpn_after":14.3,"nguong":10,"inc_dt":851164},{"salon":144,"vitri":"Skinner","nhom":"Lon","gdkv":"Nguyễn Như Quỳnh GDKV","nv_lam":7,"nv_nghi":1,"kpn_now":15.3,"kpn_after":13.4,"nguong":10.5,"inc_dt":808117},{"salon":147,"vitri":"Skinner","nhom":"Lon","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":8,"nv_nghi":3,"kpn_now":16.1,"kpn_after":14.3,"nguong":10.5,"inc_dt":799545},{"salon":205,"vitri":"Skinner","nhom":"Nho","gdkv":"Tống Xuân Quyền GDKV","nv_lam":2,"nv_nghi":1,"kpn_now":19.5,"kpn_after":13,"nguong":10,"inc_dt":765269},{"salon":274,"vitri":"Skinner","nhom":"Nho","gdkv":"Trịnh Văn Quang GDKV","nv_lam":3,"nv_nghi":2,"kpn_now":16.7,"kpn_after":12.5,"nguong":10,"inc_dt":756702}]},
+  t0511:{"label":"Thứ Hai, 11/05/2026","typeLabel":"Ngày thường","transfers":[{"rank":1,"nv_id":13779,"vitri":"Stylist","sg":51,"sn":45,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":2352387,"score":33.5,"kh_g":88,"kh_n":73,"nv_g":10,"nv_n":2,"kpn_g":8.8,"kpn_n":36.5,"aov_nv":198316,"ng":"Lon","nn":"Lon","hist":true},{"rank":2,"nv_id":10506,"vitri":"Stylist","sg":51,"sn":45,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":2352387,"score":30.5,"kh_g":88,"kh_n":73,"nv_g":10,"nv_n":2,"kpn_g":8.8,"kpn_n":36.5,"aov_nv":205141,"ng":"Lon","nn":"Lon","hist":false},{"rank":3,"nv_id":6248,"vitri":"Skinner","sg":187,"sn":228,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":2.8,"ddt":1509961,"score":25.1,"kh_g":94,"kh_n":31,"nv_g":10,"nv_n":1,"kpn_g":9.4,"kpn_n":31,"aov_nv":312235,"ng":"Lon","nn":"Nho","hist":true},{"rank":4,"nv_id":11533,"vitri":"Skinner","sg":187,"sn":228,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":2.8,"ddt":1458324,"score":24.6,"kh_g":94,"kh_n":31,"nv_g":10,"nv_n":1,"kpn_g":9.4,"kpn_n":31,"aov_nv":300886,"ng":"Lon","nn":"Nho","hist":true},{"rank":5,"nv_id":18311,"vitri":"Skinner","sg":143,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":1.9,"ddt":1175662,"score":18.8,"kh_g":67,"kh_n":44,"nv_g":9,"nv_n":2,"kpn_g":7.4,"kpn_n":22,"aov_nv":259915,"ng":"TB","nn":"TB","hist":true},{"rank":6,"nv_id":14653,"vitri":"Skinner","sg":244,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":3.9,"ddt":1663429,"score":18.6,"kh_g":32,"kh_n":44,"nv_g":6,"nv_n":2,"kpn_g":5.3,"kpn_n":22,"aov_nv":343429,"ng":"Nho","nn":"TB","hist":false},{"rank":7,"nv_id":18494,"vitri":"Stylist","sg":58,"sn":22,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":3.1,"ddt":278541,"score":12.8,"kh_g":81,"kh_n":99,"nv_g":9,"nv_n":9,"kpn_g":9,"kpn_n":11,"aov_nv":190002,"ng":"TB","nn":"Lon","hist":true},{"rank":8,"nv_id":19241,"vitri":"Stylist","sg":58,"sn":22,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":3.1,"ddt":278541,"score":12.8,"kh_g":81,"kh_n":99,"nv_g":9,"nv_n":9,"kpn_g":9,"kpn_n":11,"aov_nv":195665,"ng":"TB","nn":"Lon","hist":true},{"rank":9,"nv_id":19863,"vitri":"Stylist","sg":245,"sn":20,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":3.8,"ddt":271093,"score":12.7,"kh_g":44,"kh_n":97,"nv_g":5,"nv_n":9,"kpn_g":8.8,"kpn_n":10.8,"aov_nv":207105,"ng":"TB","nn":"Lon","hist":true},{"rank":10,"nv_id":18615,"vitri":"Stylist","sg":2,"sn":200,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":true,"km":2.7,"ddt":247715,"score":12.5,"kh_g":41,"kh_n":56,"nv_g":5,"nv_n":5,"kpn_g":8.2,"kpn_n":11.2,"aov_nv":194942,"ng":"TB","nn":"TB","hist":true},{"rank":11,"nv_id":11224,"vitri":"Skinner","sg":11,"sn":188,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.8,"ddt":746559,"score":12.5,"kh_g":71,"kh_n":55,"nv_g":9,"nv_n":3,"kpn_g":7.9,"kpn_n":18.3,"aov_nv":307274,"ng":"TB","nn":"TB","hist":false},{"rank":12,"nv_id":10345,"vitri":"Skinner","sg":12,"sn":46,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":3.4,"ddt":235424,"score":12.4,"kh_g":52,"kh_n":52,"nv_g":8,"nv_n":6,"kpn_g":6.5,"kpn_n":8.7,"aov_nv":238246,"ng":"TB","nn":"TB","hist":true},{"rank":13,"nv_id":5866,"vitri":"Skinner","sg":22,"sn":188,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4,"ddt":717142,"score":12.2,"kh_g":99,"kh_n":55,"nv_g":10,"nv_n":3,"kpn_g":9.9,"kpn_n":18.3,"aov_nv":313387,"ng":"Lon","nn":"TB","hist":false},{"rank":14,"nv_id":19797,"vitri":"Skinner","sg":61,"sn":46,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":3.8,"ddt":212864,"score":12.1,"kh_g":44,"kh_n":52,"nv_g":7,"nv_n":6,"kpn_g":6.3,"kpn_n":8.7,"aov_nv":252700,"ng":"TB","nn":"TB","hist":true},{"rank":15,"nv_id":17807,"vitri":"Skinner","sg":61,"sn":106,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4,"ddt":396358,"score":12,"kh_g":44,"kh_n":39,"nv_g":7,"nv_n":4,"kpn_g":6.3,"kpn_n":9.8,"aov_nv":296741,"ng":"TB","nn":"TB","hist":true},{"rank":16,"nv_id":20009,"vitri":"Skinner","sg":194,"sn":146,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":2.8,"ddt":185153,"score":11.9,"kh_g":43,"kh_n":73,"nv_g":5,"nv_n":5,"kpn_g":8.6,"kpn_n":14.6,"aov_nv":248870,"ng":"TB","nn":"Lon","hist":true},{"rank":17,"nv_id":1649,"vitri":"Stylist","sg":20,"sn":187,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4,"ddt":353232,"score":11.5,"kh_g":97,"kh_n":94,"nv_g":9,"nv_n":5,"kpn_g":10.8,"kpn_n":18.8,"aov_nv":220313,"ng":"Lon","nn":"Lon","hist":true},{"rank":18,"nv_id":20201,"vitri":"Stylist","sg":20,"sn":187,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4,"ddt":353232,"score":11.5,"kh_g":97,"kh_n":94,"nv_g":9,"nv_n":5,"kpn_g":10.8,"kpn_n":18.8,"aov_nv":191037,"ng":"Lon","nn":"Lon","hist":true},{"rank":19,"nv_id":13968,"vitri":"Skinner","sg":197,"sn":146,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4.8,"ddt":639350,"score":11.4,"kh_g":28,"kh_n":73,"nv_g":5,"nv_n":5,"kpn_g":5.6,"kpn_n":14.6,"aov_nv":270897,"ng":"Nho","nn":"Lon","hist":false},{"rank":20,"nv_id":20846,"vitri":"Skinner","sg":47,"sn":147,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.2,"ddt":305152,"score":11.1,"kh_g":36,"kh_n":102,"nv_g":4,"nv_n":7,"kpn_g":9,"kpn_n":14.6,"aov_nv":198474,"ng":"Nho","nn":"Lon","hist":true},{"rank":21,"nv_id":11317,"vitri":"Skinner","sg":232,"sn":233,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":1.4,"ddt":185353,"score":10.9,"kh_g":27,"kh_n":25,"nv_g":5,"nv_n":3,"kpn_g":5.4,"kpn_n":8.3,"aov_nv":222994,"ng":"Nho","nn":"Nho","hist":false},{"rank":22,"nv_id":19756,"vitri":"Stylist","sg":46,"sn":274,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4.3,"ddt":205269,"score":10.1,"kh_g":52,"kh_n":32,"nv_g":7,"nv_n":3,"kpn_g":7.4,"kpn_n":10.7,"aov_nv":213082,"ng":"TB","nn":"Nho","hist":true},{"rank":23,"nv_id":400,"vitri":"Stylist","sg":245,"sn":20,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":3.8,"ddt":271093,"score":9.7,"kh_g":44,"kh_n":97,"nv_g":5,"nv_n":9,"kpn_g":8.8,"kpn_n":10.8,"aov_nv":215659,"ng":"TB","nn":"Lon","hist":false},{"rank":24,"nv_id":1288,"vitri":"Stylist","sg":2,"sn":200,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":true,"km":2.7,"ddt":247715,"score":9.5,"kh_g":41,"kh_n":56,"nv_g":5,"nv_n":5,"kpn_g":8.2,"kpn_n":11.2,"aov_nv":207824,"ng":"TB","nn":"TB","hist":false},{"rank":25,"nv_id":11752,"vitri":"Skinner","sg":230,"sn":233,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":3.3,"ddt":185353,"score":8.9,"kh_g":23,"kh_n":25,"nv_g":4,"nv_n":3,"kpn_g":5.8,"kpn_n":8.3,"aov_nv":0,"ng":"Nho","nn":"Nho","hist":false},{"rank":26,"nv_id":16459,"vitri":"Skinner","sg":47,"sn":147,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":4.2,"ddt":224408,"score":7.2,"kh_g":36,"kh_n":102,"nv_g":4,"nv_n":7,"kpn_g":9,"kpn_n":14.6,"aov_nv":217692,"ng":"Nho","nn":"Lon","hist":false},{"rank":27,"nv_id":2976,"vitri":"Stylist","sg":46,"sn":274,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4.3,"ddt":205269,"score":7.1,"kh_g":52,"kh_n":32,"nv_g":7,"nv_n":3,"kpn_g":7.4,"kpn_n":10.7,"aov_nv":229341,"ng":"TB","nn":"Nho","hist":false},{"rank":28,"nv_id":14761,"vitri":"Stylist","sg":11,"sn":141,"gg":"Nguyễn Thanh Sang GDKV","gn":"Tống Xuân Quyền GDKV","cung":false,"km":4.7,"ddt":246577,"score":2.5,"kh_g":71,"kh_n":65,"nv_g":10,"nv_n":5,"kpn_g":7.1,"kpn_n":13,"aov_nv":255246,"ng":"TB","nn":"TB","hist":false},{"rank":29,"nv_id":817,"vitri":"Stylist","sg":11,"sn":141,"gg":"Nguyễn Thanh Sang GDKV","gn":"Tống Xuân Quyền GDKV","cung":false,"km":4.7,"ddt":238912,"score":2.4,"kh_g":71,"kh_n":65,"nv_g":10,"nv_n":5,"kpn_g":7.1,"kpn_n":13,"aov_nv":252354,"ng":"TB","nn":"TB","hist":false},{"rank":30,"nv_id":19783,"vitri":"Stylist","sg":44,"sn":205,"gg":"Nguyễn Việt Cường GDKV","gn":"Tống Xuân Quyền GDKV","cung":false,"km":4.2,"ddt":183735,"score":1.8,"kh_g":132,"kh_n":32,"nv_g":16,"nv_n":4,"kpn_g":8.3,"kpn_n":8,"aov_nv":242002,"ng":"Lon","nn":"Nho","hist":false},{"rank":31,"nv_id":14148,"vitri":"Stylist","sg":44,"sn":205,"gg":"Nguyễn Việt Cường GDKV","gn":"Tống Xuân Quyền GDKV","cung":false,"km":4.2,"ddt":183510,"score":1.8,"kh_g":132,"kh_n":32,"nv_g":16,"nv_n":4,"kpn_g":8.3,"kpn_n":8,"aov_nv":237681,"ng":"Lon","nn":"Nho","hist":false},{"rank":32,"nv_id":13258,"vitri":"Skinner","sg":200,"sn":144,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":false,"km":4.4,"ddt":174699,"score":1.7,"kh_g":56,"kh_n":88,"nv_g":6,"nv_n":7,"kpn_g":9.3,"kpn_n":12.6,"aov_nv":233043,"ng":"TB","nn":"Lon","hist":false},{"rank":33,"nv_id":9070,"vitri":"Skinner","sg":200,"sn":144,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":false,"km":4.4,"ddt":174699,"score":1.7,"kh_g":56,"kh_n":88,"nv_g":6,"nv_n":7,"kpn_g":9.3,"kpn_n":12.6,"aov_nv":232454,"ng":"TB","nn":"Lon","hist":false}],"callbacks":[{"salon":45,"vitri":"Stylist","nhom":"Lon","gdkv":"Tống Xuân Quyền GDKV","nv_lam":2,"nv_nghi":7,"kpn_now":36.5,"kpn_after":24.3,"nguong":10.5,"inc_dt":2352387},{"salon":45,"vitri":"Skinner","nhom":"Lon","gdkv":"Tống Xuân Quyền GDKV","nv_lam":3,"nv_nghi":7,"kpn_now":24.3,"kpn_after":18.3,"nguong":8.5,"inc_dt":1764290},{"salon":228,"vitri":"Skinner","nhom":"Nho","gdkv":"Đoàn Trung Đức GDKV","nv_lam":1,"nv_nghi":1,"kpn_now":31,"kpn_after":15.5,"nguong":8,"inc_dt":1541442},{"salon":188,"vitri":"Skinner","nhom":"TB","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":3,"nv_nghi":2,"kpn_now":18.3,"kpn_after":13.8,"nguong":8.5,"inc_dt":824194}]}
 };
 
-// ============================================================
-// RENDER
-// ============================================================
-function getGDKVs(transfers) {
-  const s = new Set();
-  transfers.forEach(t => { s.add(cleanGDKV(t.gg)); s.add(cleanGDKV(t.gn)); });
-  return [...s].sort();
-}
-
-function renderTransferCard(t) {
-  const ggClean = cleanGDKV(t.gg), gnClean = cleanGDKV(t.gn);
-  const color = gdkvColor(t.gg);
-  const overloadN = t.kpn_n >= 10;
-  const accentColor = t.cung ? color : '#F59E0B';
-  return `
-<div class="card ${t.cung ? '' : 'cross-gdkv'}" data-gg="${ggClean}" data-gn="${gnClean}">
-  <div class="card-accent" style="background:${accentColor}"></div>
+function renderCard(t){
+  const gg=cg(t.gg),gn=cg(t.gn),col=gdkvColor(t.gg),ac=t.cung?col:'#F59E0B';
+  return `<div class="card ${t.cung?'':'cross-gdkv'}" data-gg="${gg}" data-gn="${gn}">
+  <div class="card-accent" style="background:${ac}"></div>
   <div class="card-top">
     <div class="rank-badge">${t.rank}</div>
     <span class="vitri-badge ${t.vitri}">${t.vitri}</span>
-    ${t.hist ? '<span class="history-badge">✓ Từng làm</span>' : ''}
-    ${t.cung
-      ? `<span class="same-gdkv-badge" style="color:${color}">● Cùng GĐKV</span>`
-      : `<span class="cross-gdkv-badge">⇄ Khác GĐKV</span>`}
+    ${t.hist?'<span class="history-badge">✓ Từng làm</span>':''}
+    ${t.cung?'<span class="same-gdkv-badge" style="color:'+col+'">● Cùng GĐKV</span>':'<span class="cross-gdkv-badge">⇄ Khác GĐKV</span>'}
     <span class="score-num">⭐ ${t.score}</span>
   </div>
   <div class="salon-flow">
     <div class="salon-box">
       <div class="salon-num">${sName(t.sg)}</div>
-      <div class="salon-gdkv" style="color:${gdkvColor(t.gg)}">${ggClean} · S${t.sg}</div>
-      <div class="salon-stats">
-        <span class="salon-stat">${t.nv_g} NV</span>
-        <span class="salon-stat">${t.kpn_g} KH/NV</span>
-        <span class="nhom-tag nhom-${t.ng}">${t.ng === 'Lon' ? 'Lớn' : t.ng}</span>
-      </div>
+      <div class="salon-gdkv" style="color:${gdkvColor(t.gg)}">${gg} · S${t.sg}</div>
+      <div class="salon-stats"><span class="salon-stat">${t.nv_g} NV</span><span class="salon-stat">${t.kpn_g} KH/NV</span><span class="nhom-tag nhom-${t.ng}">${t.ng==='Lon'?'Lớn':t.ng}</span></div>
     </div>
     <div class="arrow-col">→</div>
-    <div class="salon-box nhan">
+    <div class="salon-box">
       <div class="salon-num">${sName(t.sn)}</div>
-      <div class="salon-gdkv" style="color:${gdkvColor(t.gn)}">${gnClean} · S${t.sn}</div>
-      <div class="salon-stats">
-        <span class="salon-stat">${t.nv_n} NV</span>
-        <span class="salon-stat ${overloadN ? 'overload' : ''}">${t.kpn_n} KH/NV</span>
-        <span class="nhom-tag nhom-${t.nn}">${t.nn === 'Lon' ? 'Lớn' : t.nn}</span>
-      </div>
+      <div class="salon-gdkv" style="color:${gdkvColor(t.gn)}">${gn} · S${t.sn}</div>
+      <div class="salon-stats"><span class="salon-stat">${t.nv_n} NV</span><span class="salon-stat ${t.kpn_n>=10?'overload':''}">${t.kpn_n} KH/NV</span><span class="nhom-tag nhom-${t.nn}">${t.nn==='Lon'?'Lớn':t.nn}</span></div>
     </div>
   </div>
   <div class="card-footer">
-    <span class="nv-info">NV #${t.nv_id}${t.aov_nv > 0 ? ' · AOV ' + fmtNum(t.aov_nv) + 'đ' : ''}</span>
+    <span class="nv-info">NV #${t.nv_id}${t.aov_nv>0?' · AOV '+fmtNum(t.aov_nv)+'đ':''}</span>
     <span class="km-badge">📍 ${t.km} km</span>
     <span class="delta-dt">+${fmtDT(t.ddt)}</span>
   </div>
-</div>`;
-}
+</div>`;}
 
-function renderCallbackCard(cb) {
-  const color = gdkvColor(cb.gdkv);
-  const maxLoad = 25;
-  const pctNow = Math.min(100, (cb.kpn_now / maxLoad) * 100);
-  const pctAfter = Math.min(100, (cb.kpn_after / maxLoad) * 100);
-  return `
-<div class="b-card">
-  <div class="b-card-header">
-    <span class="alert-icon">🔴</span>
-    <div>
-      <div class="b-salon-name">${sName(cb.salon)} — ${cb.vitri} <span style="font-size:13px;font-weight:400;color:var(--text-dim)">(S${cb.salon})</span></div>
-      <div class="b-gdkv" style="color:${color}">${cleanGDKV(cb.gdkv)} · Nhóm ${cb.nhom === 'Lon' ? 'Lớn' : cb.nhom}</div>
-    </div>
+function renderCB(cb){
+  const col=gdkvColor(cb.gdkv),mx=45;
+  return `<div class="b-card">
+  <div class="b-card-header"><span class="alert-icon">🔴</span>
+    <div><div class="b-salon-name">${sName(cb.salon)} — ${cb.vitri} <span style="font-size:13px;font-weight:400;color:var(--text-dim)">(S${cb.salon})</span></div>
+    <div class="b-gdkv" style="color:${col}">${cg(cb.gdkv)} · Nhóm ${cb.nhom==='Lon'?'Lớn':cb.nhom}</div></div>
   </div>
   <div class="load-bar-wrap">
-    <div class="load-label"><span>Hiện tại: ${cb.kpn_now} KH/NV (ngưỡng ${cb.nguong})</span><span>${cb.nv_lam} NV đang làm</span></div>
-    <div class="load-bar"><div class="load-fill over" style="width:${pctNow}%"></div></div>
+    <div class="load-label"><span>Hiện tại: ${cb.kpn_now} KH/NV (ngưỡng ${cb.nguong})</span><span>${cb.nv_lam} NV</span></div>
+    <div class="load-bar"><div class="load-fill over" style="width:${Math.min(100,cb.kpn_now/mx*100)}%"></div></div>
     <div class="load-label" style="margin-top:6px"><span>Sau khi gọi: ${cb.kpn_after} KH/NV</span><span>${cb.nv_lam+1} NV</span></div>
-    <div class="load-bar"><div class="load-fill after" style="width:${pctAfter}%"></div></div>
+    <div class="load-bar"><div class="load-fill after" style="width:${Math.min(100,cb.kpn_after/mx*100)}%"></div></div>
   </div>
-  <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px">${cb.nv_nghi} NV nghỉ có thể được gọi · Bonus 300K/NV</div>
+  <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px">${cb.nv_nghi} NV nghỉ có thể được gọi</div>
   <div class="b-metrics">
-    <div class="b-metric">
-      <div class="b-metric-val neu">${fmtNum(cb.inc_dt)}</div>
-      <div class="b-metric-lbl">Incremental DT</div>
-    </div>
-    <div class="b-metric">
-      <div class="b-metric-val neg">−${fmtNum(cb.bonus)}</div>
-      <div class="b-metric-lbl">Chi phí bonus</div>
-    </div>
-    <div class="b-metric">
-      <div class="b-metric-val pos">+${fmtNum(cb.delta_ln)}</div>
-      <div class="b-metric-lbl">ΔLN sau bonus</div>
-    </div>
+    <div class="b-metric"><div class="b-metric-val neu">${fmtNum(cb.inc_dt)}</div><div class="b-metric-lbl">Incremental DT</div></div>
+    <div class="b-metric"><div class="b-metric-val pos">${cb.nv_lam+1} NV</div><div class="b-metric-lbl">Sau khi gọi thêm</div></div>
   </div>
-</div>`;
-}
+</div>`;}
 
-function renderTab(key, data) {
-  const el = document.getElementById(key);
-  const ts = data.transfers;
-  const totalDDT = ts.reduce((a,t) => a+t.ddt, 0);
-  const gdkvSet = getGDKVs(ts);
-
-  const byGDKV = {};
-  ts.forEach(t => {
-    const g = cleanGDKV(t.gg);
-    if (!byGDKV[g]) byGDKV[g] = {count:0,ddt:0};
-    byGDKV[g].count++;
-    byGDKV[g].ddt += t.ddt;
-  });
-  const gdkvSorted = Object.entries(byGDKV).sort((a,b)=>b[1].ddt-a[1].ddt);
-
-  let summaryHtml = `
+function renderTab(key){
+  const d=DATES[key], ts=d.transfers;
+  const totalDDT=ts.reduce((a,t)=>a+t.ddt,0);
+  const gdkvSet=[...new Set([...ts.map(t=>cg(t.gg)),...ts.map(t=>cg(t.gn))])].sort();
+  const byG={};ts.forEach(t=>{const g=cg(t.gg);if(!byG[g])byG[g]={count:0,ddt:0};byG[g].count++;byG[g].ddt+=t.ddt;});
+  const gs=Object.entries(byG).sort((a,b)=>b[1].ddt-a[1].ddt);
+  document.getElementById(key).innerHTML=`
 <div class="summary-bar">
   <div class="stat-card highlight">
     <div class="stat-label">Tổng ΔDT Điều chuyển</div>
     <div class="stat-value">${fmtNum(Math.round(totalDDT/1000))}K</div>
     <div class="stat-sub">${ts.length} đề xuất · ${gdkvSet.length} GĐKV</div>
   </div>
-  ${gdkvSorted.slice(0,5).map(([g,v]) => `
-  <div class="stat-card" style="border-left:3px solid ${gdkvColor(g)}">
-    <div class="stat-label" style="color:${gdkvColor(g)}">${g}</div>
-    <div class="stat-value" style="font-size:20px">${fmtNum(Math.round(v.ddt/1000))}K</div>
-    <div class="stat-sub">${v.count} cặp điều chuyển</div>
-  </div>`).join('')}
-</div>`;
-
-  const filterHtml = `
+  ${gs.slice(0,5).map(([g,v])=>`<div class="stat-card" style="border-left:3px solid ${gdkvColor(g)}"><div class="stat-label" style="color:${gdkvColor(g)}">${g}</div><div class="stat-value" style="font-size:20px">${fmtNum(Math.round(v.ddt/1000))}K</div><div class="stat-sub">${v.count} cặp</div></div>`).join('')}
+</div>
 <div class="filter-row" id="filter-${key}">
   <span class="filter-label">Lọc theo GĐKV:</span>
   <button class="chip chip-all active" onclick="filterCards('${key}','ALL')">Tất cả</button>
-  ${gdkvSet.map(g => `<button class="chip active" style="background:${gdkvColor(g)}22;color:${gdkvColor(g)};border-color:${gdkvColor(g)}88" onclick="filterCards('${key}','${g}')">${g}</button>`).join('')}
-</div>`;
-
-  const cardsHtml = ts.map(renderTransferCard).join('');
-
-  let sectionB = '';
-  if (data.callbacks.length > 0) {
-    sectionB = `
-<div class="section-b-sep">
-  <hr class="divider">
-  <div class="section-header">
-    <div class="section-icon b">🔴</div>
-    <span class="section-title">Hướng 2 — Gọi NV Nghỉ Đi Làm Thêm</span>
-    <span class="section-count">${data.callbacks.length} đề xuất</span>
-  </div>
-  <div class="b-cards" id="bcards-${key}">
-    ${data.callbacks.map(renderCallbackCard).join('')}
-  </div>
-</div>`;
-  }
-
-  el.innerHTML = `
-${summaryHtml}
-${filterHtml}
-<div class="section-header">
-  <div class="section-icon a">🔄</div>
-  <span class="section-title">Hướng 1 — Điều chuyển Nhân sự</span>
-  <span class="section-count">${ts.length} đề xuất</span>
+  ${gdkvSet.map(g=>`<button class="chip active" style="background:${gdkvColor(g)}22;color:${gdkvColor(g)};border-color:${gdkvColor(g)}88" onclick="filterCards('${key}','${g}')">${g}</button>`).join('')}
 </div>
-<div class="cards-grid" id="cards-${key}">${cardsHtml}</div>
-${sectionB}`;
-}
+<div class="section-header"><div class="section-icon a">🔄</div><span class="section-title">Hướng 1 — Điều chuyển Nhân sự</span><span class="section-count">${ts.length} đề xuất</span></div>
+<div class="cards-grid" id="cards-${key}">${ts.map(renderCard).join('')}</div>
+${d.callbacks.length>0?`<div class="section-b-sep"><hr class="divider"><div class="section-header"><div class="section-icon b">🔴</div><span class="section-title">Hướng 2 — Gọi NV Nghỉ Đi Làm Thêm</span><span class="section-count">${d.callbacks.length} đề xuất</span></div><div class="b-cards">${d.callbacks.map(renderCB).join('')}</div></div>`:''}
+`;}
 
-function filterCards(tabKey, gdkv) {
-  const grid = document.getElementById('cards-' + tabKey);
-  const chips = document.querySelectorAll('#filter-' + tabKey + ' .chip');
-  chips.forEach(c => c.classList.remove('active'));
-  const allChip = document.querySelector('#filter-' + tabKey + ' .chip-all');
-
-  if (gdkv === 'ALL') {
-    allChip.classList.add('active');
-    grid.querySelectorAll('.card').forEach(c => c.removeAttribute('data-hidden'));
+function filterCards(key,gdkv){
+  const chips=document.querySelectorAll('#filter-'+key+' .chip');
+  chips.forEach(c=>c.classList.remove('active'));
+  if(gdkv==='ALL'){
+    document.querySelector('#filter-'+key+' .chip-all').classList.add('active');
+    document.querySelectorAll('#cards-'+key+' .card').forEach(c=>c.removeAttribute('data-hidden'));
   } else {
-    chips.forEach(c => { if (c.textContent.trim() === gdkv) c.classList.add('active'); });
-    grid.querySelectorAll('.card').forEach(c => {
-      const gg = c.getAttribute('data-gg');
-      const gn = c.getAttribute('data-gn');
-      c.setAttribute('data-hidden', (gg !== gdkv && gn !== gdkv) ? 'true' : 'false');
+    chips.forEach(c=>{if(c.textContent.trim()===gdkv)c.classList.add('active');});
+    document.querySelectorAll('#cards-'+key+' .card').forEach(c=>{
+      c.setAttribute('data-hidden',(c.getAttribute('data-gg')!==gdkv&&c.getAttribute('data-gn')!==gdkv)?'true':'false');
     });
   }
 }
 
-function switchTab(key) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+function switchTab(key){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
   document.getElementById(key).classList.add('active');
-  const idx = ['t0510','t0511'].indexOf(key);
-  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  document.querySelectorAll('.tab-btn')[['t0510','t0511'].indexOf(key)].classList.add('active');
 }
 
-// Init
-Object.entries(DATES).forEach(([key, data]) => renderTab(key, data));
+renderTab('t0510'); renderTab('t0511');
 </script>
 </body>
 </html>
