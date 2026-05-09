@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đề xuất Điều chuyển Nhân sự N+1 — 30Shine</title>
+<title>Đề xuất Điều chuyển Nhân sự N+1 — 30Shine v2</title>
 <style>
   :root {
     --bg: #F1F5F9; --surface: #FFFFFF; --surface2: #F8FAFC; --border: #E2E8F0;
@@ -139,17 +139,13 @@
   <div class="logo">30Shine</div>
   <div class="header-text">
     <h1>Đề xuất Điều chuyển Nhân sự N+1</h1>
-    <p>Engine V2 · Dữ liệu 3 ngày: 09/05 – 10/05 – 11/05/2026</p>
+    <p>Engine V2 · Dữ liệu 2 ngày: 10/05 – 11/05/2026</p>
   </div>
   <div class="header-badge">Tự động · Engine V2</div>
 </div>
 
 <div class="tabs-bar">
-  <button class="tab-btn active" onclick="switchTab('t0509')">
-    Thứ Bảy
-    <span class="tab-day-label">09/05/2026 · Cuối tuần</span>
-  </button>
-  <button class="tab-btn" onclick="switchTab('t0510')">
+  <button class="tab-btn active" onclick="switchTab('t0510')">
     Chủ Nhật
     <span class="tab-day-label">10/05/2026 · Cuối tuần</span>
   </button>
@@ -159,8 +155,7 @@
   </button>
 </div>
 
-<div id="t0509" class="tab-content active"></div>
-<div id="t0510" class="tab-content"></div>
+<div id="t0510" class="tab-content active"></div>
 <div id="t0511" class="tab-content"></div>
 
 <script>
@@ -196,55 +191,6 @@ function fmtDT(n) { return new Intl.NumberFormat('vi-VN').format(n) + "đ"; }
 function fmtNum(n) { return new Intl.NumberFormat('vi-VN').format(n); }
 
 const DATES = {
-  t0511: {
-    label: "Thứ Hai, 11/05/2026", typeLabel: "Ngày thường",
-    transfers: [
-      {rank:1,nv_id:19605,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:619007,score:16.2,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:287923,ng:"Lon",nn:"Lon",hist:true},
-      {rank:2,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:575715,score:15.8,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:247754,ng:"TB",nn:"Lon",hist:true},
-      {rank:3,nv_id:13672,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:748034,score:14.5,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:270085,ng:"TB",nn:"Lon",hist:false},
-      {rank:4,nv_id:6248,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:387156,score:13.9,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:314353,ng:"Lon",nn:"Nho",hist:true},
-      {rank:5,nv_id:19569,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:663623,score:13.6,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:304412,ng:"Lon",nn:"Lon",hist:false},
-      {rank:6,nv_id:17035,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:362745,score:13.6,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:297709,ng:"Lon",nn:"Nho",hist:true},
-      {rank:7,nv_id:18642,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:200684,ng:"Lon",nn:"Lon",hist:true},
-      {rank:8,nv_id:18942,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:194892,ng:"Lon",nn:"Lon",hist:true},
-      {rank:9,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:271602,score:12.7,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:253162,ng:"Lon",nn:"Lon",hist:true},
-      {rank:10,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:270882,score:12.7,kh_g:44,kh_n:97,nv_g:15,nv_n:9,kpn_g:2.9,kpn_n:10.8,aov_nv:206172,ng:"TB",nn:"Lon",hist:true},
-      {rank:11,nv_id:18840,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:436270,score:12.4,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:0,ng:"Nho",nn:"Nho",hist:true},
-      {rank:12,nv_id:19760,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:234281,score:12.3,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:283566,ng:"Lon",nn:"Lon",hist:true},
-      {rank:13,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:216784,score:12.2,kh_g:44,kh_n:97,nv_g:8,nv_n:10,kpn_g:5.5,kpn_n:9.7,aov_nv:240690,ng:"TB",nn:"Lon",hist:true},
-      {rank:14,nv_id:14823,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:374982,score:11.7,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:192540,ng:"Nho",nn:"Nho",hist:true},
-      {rank:15,nv_id:17807,vitri:"Skinner",sg:61,sn:106,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:4.0,ddt:157176,score:9.6,kh_g:44,kh_n:39,nv_g:9,nv_n:5,kpn_g:4.9,kpn_n:7.8,aov_nv:296741,ng:"TB",nn:"TB",hist:true},
-      {rank:16,nv_id:12544,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
-      {rank:17,nv_id:12545,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
-      {rank:18,nv_id:13258,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:234040,ng:"TB",nn:"Lon",hist:false},
-      {rank:19,nv_id:247,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-    ],
-    callbacks: []
-  },
-  t0509: {
-    label: "Thứ Bảy, 09/05/2026", typeLabel: "Cuối tuần",
-    transfers: [
-      {rank:1,nv_id:5018,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:612081,score:16.1,kh_g:125,kh_n:137,nv_g:16,nv_n:10,kpn_g:7.8,kpn_n:13.7,aov_nv:224320,ng:"Lon",nn:"Lon",hist:true},
-      {rank:2,nv_id:20893,vitri:"Skinner",sg:187,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.5,ddt:580920,score:15.8,kh_g:99,kh_n:85,nv_g:11,nv_n:6,kpn_g:9.0,kpn_n:14.2,aov_nv:185902,ng:"Lon",nn:"Lon",hist:true},
-      {rank:3,nv_id:17034,vitri:"Skinner",sg:187,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.5,ddt:580920,score:15.8,kh_g:99,kh_n:85,nv_g:11,nv_n:6,kpn_g:9.0,kpn_n:14.2,aov_nv:230830,ng:"Lon",nn:"Lon",hist:true},
-      {rank:4,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:525476,score:15.3,kh_g:125,kh_n:137,nv_g:16,nv_n:10,kpn_g:7.8,kpn_n:13.7,aov_nv:245389,ng:"Lon",nn:"Lon",hist:true},
-      {rank:5,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:413504,score:14.1,kh_g:60,kh_n:120,nv_g:15,nv_n:9,kpn_g:4.0,kpn_n:13.3,aov_nv:214399,ng:"TB",nn:"Lon",hist:true},
-      {rank:6,nv_id:20218,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:328078,score:13.3,kh_g:30,kh_n:42,nv_g:12,nv_n:3,kpn_g:2.5,kpn_n:14.0,aov_nv:222419,ng:"Nho",nn:"Nho",hist:true},
-      {rank:7,nv_id:1798,vitri:"Stylist",sg:52,sn:247,gg:"Nguyễn Việt Cường GDKV",gn:"Nguyễn Việt Cường GDKV",cung:true,km:2.9,ddt:328078,score:13.3,kh_g:30,kh_n:42,nv_g:12,nv_n:3,kpn_g:2.5,kpn_n:14.0,aov_nv:210242,ng:"Nho",nn:"Nho",hist:true},
-      {rank:8,nv_id:20537,vitri:"Skinner",sg:45,sn:145,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.6,ddt:526069,score:13.3,kh_g:90,kh_n:156,nv_g:20,nv_n:14,kpn_g:4.5,kpn_n:11.1,aov_nv:264980,ng:"Lon",nn:"Lon",hist:true},
-      {rank:9,nv_id:17236,vitri:"Skinner",sg:200,sn:2,gg:"Phan Thị Hồng Gấm GDKV",gn:"Phan Thị Hồng Gấm GDKV",cung:true,km:2.7,ddt:319830,score:13.2,kh_g:56,kh_n:65,nv_g:10,nv_n:6,kpn_g:5.6,kpn_n:10.8,aov_nv:260105,ng:"TB",nn:"TB",hist:true},
-      {rank:10,nv_id:13583,vitri:"Skinner",sg:188,sn:147,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:4.3,ddt:507728,score:13.1,kh_g:66,kh_n:108,nv_g:10,nv_n:8,kpn_g:6.6,kpn_n:13.5,aov_nv:228615,ng:"TB",nn:"Lon",hist:true},
-      {rank:11,nv_id:19020,vitri:"Skinner",sg:200,sn:2,gg:"Phan Thị Hồng Gấm GDKV",gn:"Phan Thị Hồng Gấm GDKV",cung:true,km:2.7,ddt:278641,score:12.8,kh_g:56,kh_n:65,nv_g:10,nv_n:6,kpn_g:5.6,kpn_n:10.8,aov_nv:245166,ng:"TB",nn:"TB",hist:true},
-      {rank:12,nv_id:9559,vitri:"Skinner",sg:21,sn:147,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.9,ddt:562762,score:12.6,kh_g:77,kh_n:108,nv_g:9,nv_n:8,kpn_g:8.6,kpn_n:13.5,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-      {rank:13,nv_id:20765,vitri:"Skinner",sg:11,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.9,ddt:558355,score:12.6,kh_g:91,kh_n:127,nv_g:13,nv_n:10,kpn_g:7.0,kpn_n:12.7,aov_nv:201408,ng:"Lon",nn:"Lon",hist:false},
-      {rank:14,nv_id:20800,vitri:"Skinner",sg:11,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.9,ddt:558355,score:12.6,kh_g:91,kh_n:127,nv_g:13,nv_n:10,kpn_g:7.0,kpn_n:12.7,aov_nv:201627,ng:"Lon",nn:"Lon",hist:false},
-      {rank:15,nv_id:11975,vitri:"Skinner",sg:45,sn:145,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:4.6,ddt:737266,score:12.4,kh_g:90,kh_n:156,nv_g:20,nv_n:14,kpn_g:4.5,kpn_n:11.1,aov_nv:306401,ng:"Lon",nn:"Lon",hist:false},
-      {rank:16,nv_id:16172,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:413504,score:11.1,kh_g:60,kh_n:120,nv_g:15,nv_n:9,kpn_g:4.0,kpn_n:13.3,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
-      {rank:17,nv_id:20874,vitri:"Skinner",sg:205,sn:44,gg:"Tống Xuân Quyền GDKV",gn:"Nguyễn Việt Cường GDKV",cung:false,km:4.2,ddt:569532,score:5.7,kh_g:40,kh_n:170,nv_g:5,nv_n:13,kpn_g:8.0,kpn_n:13.1,aov_nv:184474,ng:"Nho",nn:"Lon",hist:false},
-      {rank:18,nv_id:12545,vitri:"Skinner",sg:205,sn:44,gg:"Tống Xuân Quyền GDKV",gn:"Nguyễn Việt Cường GDKV",cung:false,km:4.2,ddt:569532,score:5.7,kh_g:40,kh_n:170,nv_g:5,nv_n:13,kpn_g:8.0,kpn_n:13.1,aov_nv:0,ng:"Nho",nn:"Lon",hist:false},
-    ],
-    callbacks: []
-  },
   t0510: {
     label: "Chủ Nhật, 10/05/2026", typeLabel: "Cuối tuần",
     transfers: [
@@ -274,6 +220,31 @@ const DATES = {
       {salon:228,vitri:"Skinner",nhom:"Nho",gdkv:"Đoàn Trung Đức GDKV",nv_lam:2,nv_nghi:1,kpn_now:21.0,kpn_after:14.0,nguong:10.0,inc_dt:931217,ln_tang:372487,bonus:300000,delta_ln:72487},
       {salon:147,vitri:"Skinner",nhom:"Lon",gdkv:"Nguyễn Thanh Sang GDKV",nv_lam:8,nv_nghi:8,kpn_now:16.1,kpn_after:14.3,nguong:10.5,inc_dt:802619,ln_tang:321047,bonus:300000,delta_ln:21047},
     ]
+  },
+  t0511: {
+    label: "Thứ Hai, 11/05/2026", typeLabel: "Ngày thường",
+    transfers: [
+      {rank:1,nv_id:19605,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:619007,score:16.2,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:287923,ng:"Lon",nn:"Lon",hist:true},
+      {rank:2,nv_id:20009,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:575715,score:15.8,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:247754,ng:"TB",nn:"Lon",hist:true},
+      {rank:3,nv_id:13672,vitri:"Skinner",sg:194,sn:146,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:748034,score:14.5,kh_g:43,kh_n:73,nv_g:18,nv_n:5,kpn_g:2.4,kpn_n:14.6,aov_nv:270085,ng:"TB",nn:"Lon",hist:false},
+      {rank:4,nv_id:6248,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:387156,score:13.9,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:314353,ng:"Lon",nn:"Nho",hist:true},
+      {rank:5,nv_id:19569,vitri:"Skinner",sg:45,sn:51,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.6,ddt:663623,score:13.6,kh_g:73,kh_n:88,nv_g:14,nv_n:9,kpn_g:5.2,kpn_n:9.8,aov_nv:304412,ng:"Lon",nn:"Lon",hist:false},
+      {rank:6,nv_id:17035,vitri:"Skinner",sg:187,sn:228,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:2.8,ddt:362745,score:13.6,kh_g:94,kh_n:31,nv_g:12,nv_n:2,kpn_g:7.8,kpn_n:15.5,aov_nv:297709,ng:"Lon",nn:"Nho",hist:true},
+      {rank:7,nv_id:18642,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:200684,ng:"Lon",nn:"Lon",hist:true},
+      {rank:8,nv_id:18942,vitri:"Skinner",sg:58,sn:22,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:3.1,ddt:341826,score:13.4,kh_g:81,kh_n:99,nv_g:11,nv_n:10,kpn_g:7.4,kpn_n:9.9,aov_nv:194892,ng:"Lon",nn:"Lon",hist:true},
+      {rank:9,nv_id:20487,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:271602,score:12.7,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:253162,ng:"Lon",nn:"Lon",hist:true},
+      {rank:10,nv_id:19863,vitri:"Stylist",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:270882,score:12.7,kh_g:44,kh_n:97,nv_g:15,nv_n:9,kpn_g:2.9,kpn_n:10.8,aov_nv:206172,ng:"TB",nn:"Lon",hist:true},
+      {rank:11,nv_id:18840,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:436270,score:12.4,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:0,ng:"Nho",nn:"Nho",hist:true},
+      {rank:12,nv_id:19760,vitri:"Skinner",sg:69,sn:193,gg:"Nguyễn Thanh Sang GDKV",gn:"Nguyễn Thanh Sang GDKV",cung:true,km:2.6,ddt:234281,score:12.3,kh_g:97,kh_n:112,nv_g:14,nv_n:10,kpn_g:6.9,kpn_n:11.2,aov_nv:283566,ng:"Lon",nn:"Lon",hist:true},
+      {rank:13,nv_id:15768,vitri:"Skinner",sg:245,sn:20,gg:"Đoàn Trung Đức GDKV",gn:"Đoàn Trung Đức GDKV",cung:true,km:3.8,ddt:216784,score:12.2,kh_g:44,kh_n:97,nv_g:8,nv_n:10,kpn_g:5.5,kpn_n:9.7,aov_nv:240690,ng:"TB",nn:"Lon",hist:true},
+      {rank:14,nv_id:14823,vitri:"Skinner",sg:240,sn:212,gg:"Nguyễn Thị Huệ GDKV",gn:"Nguyễn Thị Huệ GDKV",cung:true,km:4.0,ddt:374982,score:11.7,kh_g:29,kh_n:30,nv_g:6,nv_n:2,kpn_g:4.8,kpn_n:15.0,aov_nv:192540,ng:"Nho",nn:"Nho",hist:true},
+      {rank:15,nv_id:17807,vitri:"Skinner",sg:61,sn:106,gg:"Trịnh Văn Quang GDKV",gn:"Trịnh Văn Quang GDKV",cung:true,km:4.0,ddt:157176,score:9.6,kh_g:44,kh_n:39,nv_g:9,nv_n:5,kpn_g:4.9,kpn_n:7.8,aov_nv:296741,ng:"TB",nn:"TB",hist:true},
+      {rank:16,nv_id:12544,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
+      {rank:17,nv_id:12545,vitri:"Skinner",sg:205,sn:182,gg:"Tống Xuân Quyền GDKV",gn:"Tống Xuân Quyền GDKV",cung:true,km:3.1,ddt:236124,score:9.4,kh_g:32,kh_n:62,nv_g:5,nv_n:7,kpn_g:6.4,kpn_n:8.9,aov_nv:0,ng:"Nho",nn:"TB",hist:false},
+      {rank:18,nv_id:13258,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:234040,ng:"TB",nn:"Lon",hist:false},
+      {rank:19,nv_id:247,vitri:"Skinner",sg:200,sn:144,gg:"Phan Thị Hồng Gấm GDKV",gn:"Nguyễn Như Quỳnh GDKV",cung:false,km:4.4,ddt:342022,score:3.4,kh_g:56,kh_n:88,nv_g:10,nv_n:9,kpn_g:5.6,kpn_n:9.8,aov_nv:0,ng:"TB",nn:"Lon",hist:false},
+    ],
+    callbacks: []
   }
 };
 
@@ -376,7 +347,6 @@ function renderTab(key, data) {
   const totalDDT = ts.reduce((a,t) => a+t.ddt, 0);
   const gdkvSet = getGDKVs(ts);
 
-  // Summary per GĐKV
   const byGDKV = {};
   ts.forEach(t => {
     const g = cleanGDKV(t.gg);
@@ -401,7 +371,6 @@ function renderTab(key, data) {
   </div>`).join('')}
 </div>`;
 
-  // GĐKV filter chips
   const filterHtml = `
 <div class="filter-row" id="filter-${key}">
   <span class="filter-label">Lọc theo GĐKV:</span>
@@ -409,10 +378,8 @@ function renderTab(key, data) {
   ${gdkvSet.map(g => `<button class="chip active" style="background:${gdkvColor(g)}22;color:${gdkvColor(g)};border-color:${gdkvColor(g)}88" onclick="filterCards('${key}','${g}')">${g}</button>`).join('')}
 </div>`;
 
-  // Cards A
   const cardsHtml = ts.map(renderTransferCard).join('');
 
-  // Section B
   let sectionB = '';
   if (data.callbacks.length > 0) {
     sectionB = `
@@ -464,7 +431,7 @@ function switchTab(key) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById(key).classList.add('active');
-  const idx = ['t0509','t0510','t0511'].indexOf(key);
+  const idx = ['t0510','t0511'].indexOf(key);
   document.querySelectorAll('.tab-btn')[idx].classList.add('active');
 }
 
