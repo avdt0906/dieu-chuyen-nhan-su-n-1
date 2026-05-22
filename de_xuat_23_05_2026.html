@@ -12,7 +12,10 @@
   .logo{background:var(--orange);color:white;font-weight:900;font-size:18px;padding:6px 14px;border-radius:8px;letter-spacing:-0.5px;}
   .header-text h1{font-size:20px;font-weight:700;color:#F1F5F9;}
   .header-text p{font-size:13px;color:#94A3B8;margin-top:2px;}
-  .header-badge{margin-left:auto;background:rgba(249,115,22,0.2);border:1px solid #F97316;color:#FB923C;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .header-badge{background:rgba(249,115,22,0.2);border:1px solid #F97316;color:#FB923C;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;}
+  .nav-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#CBD5E1;font-size:13px;font-weight:600;padding:5px 14px;border-radius:8px;text-decoration:none;transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:rgba(255,255,255,0.16);color:#F1F5F9;}
   .tabs-bar{background:#FFFFFF;border-bottom:2px solid var(--border);padding:0 32px;display:flex;gap:4px;}
   .tab-btn{padding:14px 24px;font-size:14px;font-weight:600;color:var(--text-dim);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);}
@@ -86,6 +89,7 @@
   .km-badge{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px;}
   .delta-dt{margin-left:auto;font-size:15px;font-weight:800;color:var(--green);}
   .history-badge{font-size:10px;color:var(--teal);background:rgba(20,184,166,0.1);padding:2px 6px;border-radius:3px;}
+  .cum-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(20,184,166,0.15);color:#0D9488;}
   .b-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
   .b-card{background:#FFF7F7;border:1px solid #FECACA;border-left:4px solid var(--red);border-radius:var(--radius);padding:18px;}
   .b-card[data-hidden="true"]{display:none;}
@@ -116,9 +120,13 @@
   <div class="logo">30S</div>
   <div class="header-text">
     <h1>Đề xuất Điều chuyển Nhân sự N+1</h1>
-    <p>Engine V2 · 23/05/2026 · Lọc Trang_thai_ID=1</p>
+    <p>Engine V2 · 23/05/2026</p>
   </div>
-  <div class="header-badge">Tự động · Engine V2</div>
+  <div class="header-right">
+    <a class="nav-btn" href="de_xuat_22_05_2026.html">← 22/05</a>
+    <div class="header-badge">Tự động · Engine V2</div>
+    <a class="nav-btn" href="de_xuat_24_05_2026.html">24/05 →</a>
+  </div>
 </div>
 <div class="tabs-bar">
   <button class="tab-btn active" data-tabkey="t260523" onclick="switchTab('t260523')">
@@ -126,16 +134,18 @@
   </button>
 </div>
 <div id="t260523" class="tab-content active"></div>
-<div class="version-note">Trang_thai_ID = 1 (chỉ NV đang làm việc) · 22/5/2026</div>
+<div class="version-note">Engine V2 · 22/5/2026</div>
 <script>
 const SALON_NAMES={"2":"346 KT","11":"8 CVL","12":"12 LDT","20":"382 NT","21":"575 AC","22":"927 HG","39":"151 CG","44":"103 TN","45":"25 TD","46":"483 TN","47":"708 LTT","51":"420 HTP","52":"451 PVT","58":"730 TL10","60":"80 PL BD","61":"1180 QT","63":"29 HB","65":"255 NAN","69":"312 LVS","72":"113 THD AG","85":"363 LNQ TN","106":"76 PVH","141":"236 DBT","143":"10 TP","144":"168 NVC","145":"237 NTT","146":"109 TQH","147":"99 TSN","179":"50BT4 NPC LD","182":"186 DTH","184":"36 N1 BD","187":"116 TK","188":"190 HB","192":"264 LLQ","193":"145 THT","194":"90 NH","196":"202 DC","197":"65 CD","199":"7 DTP LA","200":"39 HBT","201":"4 LQD BN","204":"401/1 NDT","205":"341 XVNT","210":"148 TD","212":"58 NVC NA","228":"62 LH","230":"290 QT TH","231":"304 NT TH","232":"80 TP TH","233":"595 BT TH","239":"186 QT","240":"68 LN NA","241":"MOYO 6TT","244":"11 PKT","245":"55A NVL","247":"1371 PVT","249":"1146 KVC","250":"173 TN","274":"32 NAT","302":"362 NGT BN"};
 function sName(id){return SALON_NAMES[String(id)]?SALON_NAMES[String(id)]:'S'+id;}
+const CLUSTERS_DATA=[[12,46,274],[61,106],[244,143,239],[144,302,201],[240,212],[232,233,231,230],[63,249,204,44,65],[60,184],[247,52]];
+function inCum(sg,sn){for(const c of CLUSTERS_DATA){if(c.includes(+sg)&&c.includes(+sn))return true;}return false;}
 const GC={"Nguyễn Thanh Sang":"#3B82F6","Đoàn Trung Đức":"#10B981","Tống Xuân Quyền":"#8B5CF6","Nguyễn Việt Cường":"#F59E0B","Phan Thị Hồng Gấm":"#EC4899","Nguyễn Như Quỳnh":"#14B8A6","Trịnh Văn Quang":"#EF4444","Nguyễn Thị Huệ":"#06B6D4"};
 function gdkvColor(n){for(const[k,v]of Object.entries(GC))if(n&&n.includes(k))return v;return"#94A3B8";}
 function cg(n){return n?n.replace(" GDKV",""):"";}
 function fmtDT(n){return new Intl.NumberFormat('vi-VN').format(n)+"đ";}
 function fmtNum(n){return new Intl.NumberFormat('vi-VN').format(n);}
-const DATES={"t260523":{"label":"Thứ Bảy, 23/05/2026","typeLabel":"Cuối tuần","transfers":[{"rank":"1","nv_id":"14653","vitri":"Skinner","sg":"244","sn":"245","gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":3.9,"ddt":3518437,"score":37.2,"kh_g":47,"kh_n":64,"nv_g":6,"nv_n":2,"kpn_g":7.8,"kpn_n":32,"aov_nv":405170,"ng":"Nho","nn":"TB","hist":false},{"rank":"2","nv_id":"18311","vitri":"Skinner","sg":"143","sn":"245","gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":1.9,"ddt":1977874,"score":26.8,"kh_g":94,"kh_n":64,"nv_g":9,"nv_n":2,"kpn_g":10.4,"kpn_n":32,"aov_nv":273632,"ng":"TB","nn":"TB","hist":true},{"rank":"3","nv_id":"20456","vitri":"Stylist","sg":"239","sn":"143","gg":"Nguyễn Như Quỳnh GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":true,"km":3.7,"ddt":281209,"score":12.8,"kh_g":25,"kh_n":94,"nv_g":3,"nv_n":6,"kpn_g":8.3,"kpn_n":15.7,"aov_nv":160991,"ng":"Nho","nn":"TB","hist":true},{"rank":"4","nv_id":"20658","vitri":"Stylist","sg":"239","sn":"143","gg":"Nguyễn Như Quỳnh GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":true,"km":3.7,"ddt":281209,"score":12.8,"kh_g":25,"kh_n":94,"nv_g":3,"nv_n":6,"kpn_g":8.3,"kpn_n":15.7,"aov_nv":193438,"ng":"Nho","nn":"TB","hist":true},{"rank":"5","nv_id":"20572","vitri":"Skinner","sg":"141","sn":"145","gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":4.2,"ddt":738363,"score":12.4,"kh_g":72,"kh_n":155,"nv_g":9,"nv_n":11,"kpn_g":8,"kpn_n":14.1,"aov_nv":426477,"ng":"TB","nn":"Lon","hist":false},{"rank":"6","nv_id":"8010","vitri":"Stylist","sg":"45","sn":"51","gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":207296,"score":12.1,"kh_g":97,"kh_n":120,"nv_g":9,"nv_n":10,"kpn_g":10.8,"kpn_n":12,"aov_nv":264239,"ng":"Lon","nn":"Lon","hist":true},{"rank":"7","nv_id":"20836","vitri":"Skinner","sg":"141","sn":"145","gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":4.2,"ddt":388516,"score":11.9,"kh_g":72,"kh_n":155,"nv_g":9,"nv_n":11,"kpn_g":8,"kpn_n":14.1,"aov_nv":211427,"ng":"TB","nn":"Lon","hist":true},{"rank":"8","nv_id":"11998","vitri":"Stylist","sg":"45","sn":"51","gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":200746,"score":9,"kh_g":97,"kh_n":120,"nv_g":9,"nv_n":10,"kpn_g":10.8,"kpn_n":12,"aov_nv":255539,"ng":"Lon","nn":"Lon","hist":false},{"rank":"9","nv_id":"19797","vitri":"Skinner","sg":"61","sn":"106","gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4,"ddt":156296,"score":6.6,"kh_g":67,"kh_n":53,"nv_g":7,"nv_n":4,"kpn_g":9.6,"kpn_n":13.3,"aov_nv":252277,"ng":"TB","nn":"TB","hist":false},{"rank":"10","nv_id":"18312","vitri":"Skinner","sg":"61","sn":"106","gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4,"ddt":155849,"score":6.6,"kh_g":67,"kh_n":53,"nv_g":7,"nv_n":4,"kpn_g":9.6,"kpn_n":13.3,"aov_nv":266511,"ng":"TB","nn":"TB","hist":false}],"callbacks":[{"salon":"200","vitri":"Stylist","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":2,"nv_nghi":3,"kpn_now":33.5,"kpn_after":22.3,"nguong":11,"inc_dt":1806094},{"salon":"192","vitri":"Stylist","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":3,"nv_nghi":1,"kpn_now":22,"kpn_after":16.5,"nguong":11,"inc_dt":810105},{"salon":"146","vitri":"Stylist","nhom":"Lon","gdkv":"Đoàn Trung Đức GDKV","nv_lam":5,"nv_nghi":1,"kpn_now":20.4,"kpn_after":17,"nguong":10.5,"inc_dt":755420}]}};
+const DATES={"t260523":{"label":"Thứ Bảy, 23/05/2026","typeLabel":"Cuối tuần","transfers":[{"rank":"1","nv_id":14653,"vitri":"Skinner","sg":244,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":3.9,"ddt":3518437,"score":37.2,"kh_g":47,"kh_n":64,"nv_g":6,"nv_n":2,"kpn_g":7.8,"kpn_n":32,"aov_nv":405170,"ng":"Nho","nn":"TB","hist":false},{"rank":"2","nv_id":18311,"vitri":"Skinner","sg":143,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":1.9,"ddt":1977874,"score":26.8,"kh_g":94,"kh_n":64,"nv_g":9,"nv_n":2,"kpn_g":10.4,"kpn_n":32,"aov_nv":273632,"ng":"TB","nn":"TB","hist":true},{"rank":"3","nv_id":20456,"vitri":"Stylist","sg":239,"sn":143,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":true,"km":3.7,"ddt":281209,"score":12.8,"kh_g":25,"kh_n":94,"nv_g":3,"nv_n":6,"kpn_g":8.3,"kpn_n":15.7,"aov_nv":160991,"ng":"Nho","nn":"TB","hist":true},{"rank":"4","nv_id":20658,"vitri":"Stylist","sg":239,"sn":143,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Nguyễn Như Quỳnh GDKV","cung":true,"km":3.7,"ddt":281209,"score":12.8,"kh_g":25,"kh_n":94,"nv_g":3,"nv_n":6,"kpn_g":8.3,"kpn_n":15.7,"aov_nv":193214,"ng":"Nho","nn":"TB","hist":true},{"rank":"5","nv_id":20572,"vitri":"Skinner","sg":141,"sn":145,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":4.2,"ddt":761826,"score":12.6,"kh_g":72,"kh_n":155,"nv_g":9,"nv_n":11,"kpn_g":8,"kpn_n":14.1,"aov_nv":432949,"ng":"TB","nn":"Lon","hist":false},{"rank":"6","nv_id":8010,"vitri":"Stylist","sg":45,"sn":51,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":207932,"score":12.1,"kh_g":97,"kh_n":120,"nv_g":9,"nv_n":10,"kpn_g":10.8,"kpn_n":12,"aov_nv":263577,"ng":"Lon","nn":"Lon","hist":true},{"rank":"7","nv_id":20836,"vitri":"Skinner","sg":141,"sn":145,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":4.2,"ddt":388516,"score":11.9,"kh_g":72,"kh_n":155,"nv_g":9,"nv_n":11,"kpn_g":8,"kpn_n":14.1,"aov_nv":210702,"ng":"TB","nn":"Lon","hist":true},{"rank":"8","nv_id":11998,"vitri":"Stylist","sg":45,"sn":51,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":200746,"score":9,"kh_g":97,"kh_n":120,"nv_g":9,"nv_n":10,"kpn_g":10.8,"kpn_n":12,"aov_nv":255539,"ng":"Lon","nn":"Lon","hist":false},{"rank":"9","nv_id":19797,"vitri":"Skinner","sg":61,"sn":106,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4,"ddt":156296,"score":6.6,"kh_g":67,"kh_n":53,"nv_g":7,"nv_n":4,"kpn_g":9.6,"kpn_n":13.3,"aov_nv":252277,"ng":"TB","nn":"TB","hist":false},{"rank":"10","nv_id":17662,"vitri":"Skinner","sg":61,"sn":106,"gg":"Trịnh Văn Quang GDKV","gn":"Trịnh Văn Quang GDKV","cung":true,"km":4,"ddt":155857,"score":6.6,"kh_g":67,"kh_n":53,"nv_g":7,"nv_n":4,"kpn_g":9.6,"kpn_n":13.3,"aov_nv":266247,"ng":"TB","nn":"TB","hist":false}],"callbacks":[{"salon":200,"vitri":"Stylist","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":2,"nv_nghi":3,"kpn_now":33.5,"kpn_after":22.3,"nguong":11,"inc_dt":1806094},{"salon":192,"vitri":"Stylist","nhom":"TB","gdkv":"Phan Thị Hồng Gấm GDKV","nv_lam":3,"nv_nghi":1,"kpn_now":22,"kpn_after":16.5,"nguong":11,"inc_dt":810105},{"salon":146,"vitri":"Stylist","nhom":"Lon","gdkv":"Đoàn Trung Đức GDKV","nv_lam":5,"nv_nghi":1,"kpn_now":20.4,"kpn_after":17,"nguong":10.5,"inc_dt":755420}]}};
 const _gdkv={};
 
 function renderCard(t){
@@ -146,6 +156,7 @@ function renderCard(t){
     <div class="rank-badge">${t.rank}</div>
     <span class="vitri-badge ${t.vitri}">${t.vitri}</span>
     ${t.hist?'<span class="history-badge">✓ Từng làm</span>':''}
+    ${inCum(t.sg,t.sn)?'<span class="cum-badge">Cùng cụm</span>':''}
     ${t.cung?'<span class="same-gdkv-badge" style="color:'+col+'">● Cùng GĐKV</span>':'<span class="cross-gdkv-badge">⇄ Khác GĐKV</span>'}
     <span class="score-num">⭐ ${t.score}</span>
   </div>
