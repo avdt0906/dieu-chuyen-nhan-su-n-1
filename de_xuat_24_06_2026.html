@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề xuất Điều chuyển N+1 — 30Shine V2 · 24/06/2026</title>
+<style>
+  :root{--bg:#F1F5F9;--surface:#FFFFFF;--surface2:#F8FAFC;--border:#E2E8F0;--text:#0F172A;--text-dim:#475569;--text-muted:#94A3B8;--orange:#EA580C;--orange-glow:rgba(234,88,12,0.08);--green:#059669;--red:#DC2626;--blue:#2563EB;--amber:#D97706;--teal:#0D9488;--radius:12px;--radius-sm:8px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;}
+  .header{background:linear-gradient(135deg,#1E293B 0%,#0F172A 100%);border-bottom:1px solid var(--border);padding:20px 32px;display:flex;align-items:center;gap:16px;}
+  .logo{background:var(--orange);color:white;font-weight:900;font-size:18px;padding:6px 14px;border-radius:8px;letter-spacing:-0.5px;}
+  .header-text h1{font-size:20px;font-weight:700;color:#F1F5F9;}
+  .header-text p{font-size:13px;color:#94A3B8;margin-top:2px;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .header-badge{background:rgba(249,115,22,0.2);border:1px solid #F97316;color:#FB923C;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;}
+  .nav-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#CBD5E1;font-size:13px;font-weight:600;padding:5px 14px;border-radius:8px;text-decoration:none;transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:rgba(255,255,255,0.16);color:#F1F5F9;}
+  .tabs-bar{background:#FFFFFF;border-bottom:2px solid var(--border);padding:0 32px;display:flex;gap:4px;}
+  .tab-btn{padding:14px 24px;font-size:14px;font-weight:600;color:var(--text-dim);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--orange);border-bottom-color:var(--orange);}
+  .tab-day-label{font-size:11px;font-weight:400;opacity:0.7;display:block;}
+  .tab-content{display:none;padding:24px 32px 48px;max-width:1400px;margin:0 auto;}
+  .tab-content.active{display:block;}
+  .summary-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;}
+  .stat-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;}
+  .stat-value{font-size:26px;font-weight:800;color:var(--text);margin-top:4px;line-height:1;}
+  .stat-sub{font-size:12px;color:var(--text-dim);margin-top:4px;}
+  .stat-card.highlight{background:var(--orange-glow);border-color:var(--orange);}
+  .stat-card.highlight .stat-value{color:var(--orange);}
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center;}
+  .filter-label{font-size:12px;color:var(--text-muted);font-weight:600;}
+  .chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:2px solid transparent;cursor:pointer;transition:all 0.15s;opacity:0.6;}
+  .chip:hover{opacity:0.9;}
+  .chip.active{opacity:1;}
+  .chip-all{background:var(--surface2);color:var(--text);border-color:var(--border);}
+  .chip-all.active{border-color:var(--text);}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;margin-top:8px;}
+  .section-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .section-icon.warn{background:rgba(220,38,38,0.12);}
+  .section-icon.a{background:rgba(59,130,246,0.15);}
+  .section-icon.b{background:rgba(239,68,68,0.15);}
+  .section-title{font-size:16px;font-weight:700;}
+  .section-count{background:var(--surface2);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;color:var(--text-dim);}
+  .section-hint{font-size:11px;color:var(--text-muted);margin-left:4px;}
+  .alarm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-bottom:8px;}
+  .alarm-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid #94A3B8;border-radius:var(--radius-sm);padding:11px 13px;cursor:pointer;transition:box-shadow 0.15s,background 0.15s;user-select:none;}
+  .alarm-card:hover{box-shadow:0 2px 8px rgba(0,0,0,0.10);}
+  .alarm-card.selected{background:#FFF7ED;box-shadow:0 0 0 2px var(--orange);}
+  .alarm-card[data-hidden="true"]{display:none;}
+  .alarm-top{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+  .alarm-name{font-size:14px;font-weight:800;flex-shrink:0;}
+  .alarm-gdkv{font-size:11px;color:var(--text-muted);margin-bottom:6px;}
+  .alarm-foot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-dim);}
+  .alarm-foot b{color:var(--text);font-weight:700;}
+  .alarm-tag{font-size:11px;font-weight:700;color:var(--orange);}
+  .selected-badge{display:none;font-size:10px;font-weight:600;color:var(--orange);background:rgba(234,88,12,0.1);padding:1px 6px;border-radius:3px;margin-left:auto;}
+  .alarm-card.selected .selected-badge{display:inline;}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:border-color 0.15s;position:relative;overflow:hidden;}
+  .card:hover{border-color:var(--text-muted);}
+  .card.cross-gdkv{border-left:3px solid var(--amber);}
+  .card[data-hidden="true"]{display:none;}
+  .card-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+  .card-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .rank-badge{background:var(--surface2);color:var(--text-dim);font-size:11px;font-weight:700;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+  .vitri-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;}
+  .vitri-badge.Skinner{background:#DBEAFE;color:#1D4ED8;}
+  .vitri-badge.Stylist{background:#EDE9FE;color:#6D28D9;}
+  .same-gdkv-badge{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;}
+  .cross-gdkv-badge{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--amber);}
+  .score-num{background:var(--surface2);color:var(--text-dim);font-size:11px;padding:2px 7px;border-radius:4px;}
+  .salon-flow{display:flex;align-items:stretch;gap:0;margin-bottom:12px;}
+  .salon-box{flex:1;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;min-width:0;}
+  .salon-num{font-size:18px;font-weight:800;color:var(--text);line-height:1;}
+  .salon-gdkv{font-size:10px;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .salon-stats{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+  .salon-stat{font-size:11px;color:var(--text-dim);background:#E2E8F0;padding:2px 6px;border-radius:4px;}
+  .salon-stat.overload{color:var(--red);background:rgba(239,68,68,0.1);}
+  .nhom-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;}
+  .nhom-Lon{background:rgba(249,115,22,0.15);color:var(--orange);}
+  .nhom-TB{background:rgba(59,130,246,0.15);color:var(--blue);}
+  .nhom-Nho{background:rgba(148,163,184,0.15);color:var(--text-dim);}
+  .arrow-col{display:flex;align-items:center;padding:0 8px;color:var(--orange);font-size:18px;flex-shrink:0;}
+  .card-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .nv-info{font-size:11px;color:var(--text-muted);}
+  .km-badge{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px;}
+  .delta-dt{margin-left:auto;font-size:15px;font-weight:800;color:var(--green);}
+  .history-badge{font-size:10px;color:var(--teal);background:rgba(20,184,166,0.1);padding:2px 6px;border-radius:3px;}
+  .cum-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(20,184,166,0.15);color:#0D9488;}
+  .b-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
+  .b-card{background:#FFF7F7;border:1px solid #FECACA;border-left:4px solid var(--red);border-radius:var(--radius);padding:18px;}
+  .b-card[data-hidden="true"]{display:none;}
+  .b-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .alert-icon{font-size:20px;}
+  .b-salon-name{font-size:17px;font-weight:800;}
+  .b-gdkv{font-size:12px;color:var(--text-dim);}
+  .load-bar-wrap{margin:14px 0;}
+  .load-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-bottom:4px;}
+  .load-bar{height:10px;background:#F1F5F9;border-radius:5px;overflow:hidden;}
+  .load-fill{height:100%;border-radius:5px;}
+  .load-fill.over{background:var(--red);}
+  .load-fill.after{background:var(--green);}
+  .b-metrics{display:flex;gap:16px;}
+  .b-metric{flex:1;background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;}
+  .b-metric-val{font-size:16px;font-weight:800;}
+  .b-metric-val.pos{color:var(--green);}
+  .b-metric-val.neu{color:var(--blue);}
+  .b-metric-lbl{font-size:11px;color:var(--text-muted);margin-top:3px;}
+  .section-sep{margin-top:28px;}
+  .divider{border:none;border-top:2px solid var(--border);margin-bottom:20px;}
+  .empty-note{color:var(--text-muted);font-size:13px;padding:16px 0;}
+  .version-note{font-size:11px;color:var(--text-muted);padding:8px 32px;background:rgba(234,88,12,0.05);border-top:1px solid var(--border);text-align:right;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">30S</div>
+  <div class="header-text">
+    <h1>Đề xuất Điều chuyển Nhân sự N+1</h1>
+    <p>Engine V2 · 24/06/2026</p>
+  </div>
+  <div class="header-right">
+    <a class="nav-btn" href="de_xuat_23_06_2026.html">← 23/06</a>
+    <div class="header-badge">Tự động · Engine V2</div>
+    <a class="nav-btn" href="de_xuat_25_06_2026.html">25/06 →</a>
+  </div>
+</div>
+<div class="tabs-bar">
+  <button class="tab-btn active" data-tabkey="t260624" onclick="switchTab('t260624')">
+    Thứ Tư <span class="tab-day-label">24/06/2026 · Ngày thường</span>
+  </button>
+</div>
+<div id="t260624" class="tab-content active"></div>
+<div class="version-note">Engine V2 · 23/6/2026</div>
+<script>
+const SALON_NAMES={"2":"346 KT","11":"8 CVL","12":"12 LDT","20":"382 NT","21":"575 AC","22":"927 HG","39":"151 CG","44":"103 TN","45":"25 TD","46":"483 TN","47":"708 LTT","51":"420 HTP","52":"451 PVT","58":"730 TL10","60":"80 PL BD","61":"1180 QT","63":"29 HB","65":"255 NAN","69":"312 LVS","72":"113 THD AG","85":"363 LNQ TN","106":"76 PVH","141":"236 DBT","143":"10 TP","144":"168 NVC","145":"237 NTT","146":"109 TQH","147":"99 TSN","179":"50BT4 NPC LD","182":"186 DTH","184":"36 N1 BD","187":"116 TK","188":"190 HB","192":"264 LLQ","193":"145 THT","194":"90 NH","196":"202 DC","197":"65 CD","199":"7 DTP LA","200":"39 HBT","201":"4 LQD BN","204":"401/1 NDT","205":"341 XVNT","210":"148 TD","212":"58 NVC NA","228":"62 LH","230":"290 QT TH","231":"304 NT TH","232":"80 TP TH","233":"595 BT TH","239":"186 QT","240":"68 LN NA","241":"MOYO 6TT","244":"11 PKT","245":"55A NVL","247":"1371 PVT","249":"1146 KVC","250":"173 TN","274":"32 NAT","302":"362 NGT BN"};
+function sName(id){return SALON_NAMES[String(id)]?SALON_NAMES[String(id)]:'S'+id;}
+const CLUSTERS_DATA=[[12,46,274],[61,106],[244,143,239],[144,302,201],[240,212],[232,233,231,230],[63,249,204,44,65],[60,184],[247,52],[182,205],[141,145,51,45],[11,193,22,188,58],[11,193,21,69],[69,21,147],[47,147,21]];
+function inCum(sg,sn){for(const c of CLUSTERS_DATA){if(c.includes(+sg)&&c.includes(+sn))return true;}return false;}
+const GC={"Nguyễn Thanh Sang":"#3B82F6","Đoàn Trung Đức":"#10B981","Tống Xuân Quyền":"#8B5CF6","Nguyễn Việt Cường":"#F59E0B","Phan Thị Hồng Gấm":"#EC4899","Nguyễn Như Quỳnh":"#14B8A6","Trịnh Văn Quang":"#EF4444","Nguyễn Thị Huệ":"#06B6D4"};
+function gdkvColor(n){for(const[k,v]of Object.entries(GC))if(n&&n.includes(k))return v;return"#94A3B8";}
+function cg(n){return n?n.replace(" GDKV",""):"";}
+function fmtDT(n){return new Intl.NumberFormat('vi-VN').format(n)+"đ";}
+function fmtNum(n){return new Intl.NumberFormat('vi-VN').format(n);}
+const DATES={"t260624":{"label":"Thứ Tư, 24/06/2026","typeLabel":"Ngày thường","transfers":[{"rank":"1","nv_id":13728,"vitri":"Skinner","sg":143,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":1.9,"ddt":710844,"score":14.1,"kh_g":64,"kh_n":48,"nv_g":9,"nv_n":3,"kpn_g":7.1,"kpn_n":16,"aov_nv":262316,"ng":"TB","nn":"TB","hist":true},{"rank":"2","nv_id":20989,"vitri":"Skinner","sg":143,"sn":245,"gg":"Nguyễn Như Quỳnh GDKV","gn":"Đoàn Trung Đức GDKV","cung":false,"km":1.9,"ddt":634794,"score":13.3,"kh_g":64,"kh_n":48,"nv_g":9,"nv_n":3,"kpn_g":7.1,"kpn_n":16,"aov_nv":219692,"ng":"TB","nn":"TB","hist":true},{"rank":"3","nv_id":21285,"vitri":"Skinner","sg":228,"sn":20,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":4.2,"ddt":448095,"score":12.5,"kh_g":37,"kh_n":103,"nv_g":6,"nv_n":9,"kpn_g":6.2,"kpn_n":11.4,"aov_nv":0,"ng":"Nho","nn":"Lon","hist":true},{"rank":"4","nv_id":19541,"vitri":"Skinner","sg":228,"sn":187,"gg":"Đoàn Trung Đức GDKV","gn":"Đoàn Trung Đức GDKV","cung":true,"km":2.8,"ddt":230852,"score":12.3,"kh_g":37,"kh_n":108,"nv_g":6,"nv_n":10,"kpn_g":6.2,"kpn_n":10.8,"aov_nv":213546,"ng":"Nho","nn":"Lon","hist":true},{"rank":"5","nv_id":11761,"vitri":"Skinner","sg":45,"sn":51,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":194407,"score":11.9,"kh_g":80,"kh_n":93,"nv_g":9,"nv_n":10,"kpn_g":8.9,"kpn_n":9.3,"aov_nv":268404,"ng":"Lon","nn":"Lon","hist":true},{"rank":"6","nv_id":13683,"vitri":"Skinner","sg":45,"sn":51,"gg":"Tống Xuân Quyền GDKV","gn":"Tống Xuân Quyền GDKV","cung":true,"km":3.6,"ddt":180995,"score":11.8,"kh_g":80,"kh_n":93,"nv_g":9,"nv_n":10,"kpn_g":8.9,"kpn_n":9.3,"aov_nv":278884,"ng":"Lon","nn":"Lon","hist":true},{"rank":"7","nv_id":21269,"vitri":"Skinner","sg":21,"sn":147,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":2.9,"ddt":430618,"score":11.3,"kh_g":60,"kh_n":100,"nv_g":6,"nv_n":6,"kpn_g":10,"kpn_n":16.7,"aov_nv":199005,"ng":"TB","nn":"Lon","hist":false},{"rank":"8","nv_id":13775,"vitri":"Skinner","sg":21,"sn":147,"gg":"Nguyễn Thanh Sang GDKV","gn":"Nguyễn Thanh Sang GDKV","cung":true,"km":2.9,"ddt":430618,"score":11.3,"kh_g":60,"kh_n":100,"nv_g":6,"nv_n":6,"kpn_g":10,"kpn_n":16.7,"aov_nv":230031,"ng":"TB","nn":"Lon","hist":false},{"rank":"9","nv_id":20652,"vitri":"Skinner","sg":232,"sn":233,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":1.4,"ddt":184155,"score":10.8,"kh_g":29,"kh_n":25,"nv_g":5,"nv_n":3,"kpn_g":5.8,"kpn_n":8.3,"aov_nv":244543,"ng":"Nho","nn":"Nho","hist":false},{"rank":"10","nv_id":14640,"vitri":"Skinner","sg":210,"sn":2,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":true,"km":4.6,"ddt":162561,"score":9.6,"kh_g":25,"kh_n":44,"nv_g":4,"nv_n":4,"kpn_g":6.3,"kpn_n":11,"aov_nv":208008,"ng":"Nho","nn":"TB","hist":true},{"rank":"11","nv_id":19890,"vitri":"Stylist","sg":232,"sn":230,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":2.2,"ddt":185027,"score":8.9,"kh_g":29,"kh_n":31,"nv_g":5,"nv_n":3,"kpn_g":5.8,"kpn_n":10.3,"aov_nv":216180,"ng":"Nho","nn":"Nho","hist":false},{"rank":"12","nv_id":9317,"vitri":"Stylist","sg":232,"sn":230,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":2.2,"ddt":185027,"score":8.9,"kh_g":29,"kh_n":31,"nv_g":5,"nv_n":3,"kpn_g":5.8,"kpn_n":10.3,"aov_nv":247171,"ng":"Nho","nn":"Nho","hist":false},{"rank":"13","nv_id":19992,"vitri":"Skinner","sg":230,"sn":233,"gg":"Nguyễn Thị Huệ GDKV","gn":"Nguyễn Thị Huệ GDKV","cung":true,"km":3.3,"ddt":184155,"score":8.8,"kh_g":31,"kh_n":25,"nv_g":5,"nv_n":3,"kpn_g":6.2,"kpn_n":8.3,"aov_nv":186538,"ng":"Nho","nn":"Nho","hist":false},{"rank":"14","nv_id":19424,"vitri":"Skinner","sg":210,"sn":200,"gg":"Phan Thị Hồng Gấm GDKV","gn":"Phan Thị Hồng Gấm GDKV","cung":true,"km":4,"ddt":169828,"score":6.7,"kh_g":25,"kh_n":65,"nv_g":4,"nv_n":6,"kpn_g":6.3,"kpn_n":10.8,"aov_nv":211964,"ng":"Nho","nn":"TB","hist":false}],"callbacks":[{"salon":147,"vitri":"Skinner","nhom":"Lon","gdkv":"Nguyễn Thanh Sang GDKV","nv_lam":6,"nv_nghi":2,"kpn_now":16.7,"kpn_after":14.3,"nguong":8.5,"inc_dt":858580}]}};
+const _gdkv={};
+
+function renderCard(t){
+  const gg=cg(t.gg),gn=cg(t.gn),col=gdkvColor(t.gg),ac=t.cung?col:'#F59E0B';
+  return `<div class="card ${t.cung?'':'cross-gdkv'}" data-gg="${gg}" data-gn="${gn}" data-sg="${t.sg}" data-sn="${t.sn}" data-vitri="${t.vitri}">
+  <div class="card-accent" style="background:${ac}"></div>
+  <div class="card-top">
+    <div class="rank-badge">${t.rank}</div>
+    <span class="vitri-badge ${t.vitri}">${t.vitri}</span>
+    ${t.hist?'<span class="history-badge">✓ Từng làm</span>':''}
+    ${inCum(t.sg,t.sn)?'<span class="cum-badge">Cùng cụm</span>':''}
+    ${t.cung?'<span class="same-gdkv-badge" style="color:'+col+'">● Cùng GĐKV</span>':'<span class="cross-gdkv-badge">⇄ Khác GĐKV</span>'}
+    <span class="score-num">⭐ ${t.score}</span>
+  </div>
+  <div class="salon-flow">
+    <div class="salon-box">
+      <div class="salon-num">${sName(t.sg)}</div>
+      <div class="salon-gdkv" style="color:${gdkvColor(t.gg)}">${gg} · S${t.sg}</div>
+      <div class="salon-stats"><span class="salon-stat">${t.nv_g} NV</span><span class="salon-stat">${t.kpn_g} KH/NV</span><span class="nhom-tag nhom-${t.ng}">${t.ng==='Lon'?'Lớn':t.ng}</span></div>
+    </div>
+    <div class="arrow-col">→</div>
+    <div class="salon-box">
+      <div class="salon-num">${sName(t.sn)}</div>
+      <div class="salon-gdkv" style="color:${gdkvColor(t.gn)}">${gn} · S${t.sn}</div>
+      <div class="salon-stats"><span class="salon-stat">${t.nv_n} NV</span><span class="salon-stat ${t.kpn_n>=10?'overload':''}">${t.kpn_n} KH/NV</span><span class="nhom-tag nhom-${t.nn}">${t.nn==='Lon'?'Lớn':t.nn}</span></div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="nv-info">NV #${t.nv_id}${t.aov_nv>0?' · AOV '+fmtNum(t.aov_nv)+'đ':''}</span>
+    <span class="km-badge">📍 ${t.km} km</span>
+    <span class="delta-dt">+${fmtDT(t.ddt)}</span>
+  </div>
+</div>`;}
+
+function renderCB(cb){
+  const col=gdkvColor(cb.gdkv),mx=Math.max(45,cb.kpn_now+5),gg=cg(cb.gdkv);
+  return `<div class="b-card" data-salon="${cb.salon}" data-vitri="${cb.vitri}" data-gdkv="${gg}">
+  <div class="b-card-header"><span class="alert-icon">🔴</span>
+    <div><div class="b-salon-name">${sName(cb.salon)} — ${cb.vitri} <span style="font-size:13px;font-weight:400;color:var(--text-dim)">(S${cb.salon})</span></div>
+    <div class="b-gdkv" style="color:${col}">${gg} · Nhóm ${cb.nhom==='Lon'?'Lớn':cb.nhom}</div></div>
+  </div>
+  <div class="load-bar-wrap">
+    <div class="load-label"><span>Hiện tại: ${cb.kpn_now} KH/NV (ngưỡng ${cb.nguong})</span><span>${cb.nv_lam} NV</span></div>
+    <div class="load-bar"><div class="load-fill over" style="width:${Math.min(100,cb.kpn_now/mx*100)}%"></div></div>
+    <div class="load-label" style="margin-top:6px"><span>Sau khi gọi: ${cb.kpn_after} KH/NV</span><span>${cb.nv_lam+1} NV</span></div>
+    <div class="load-bar"><div class="load-fill after" style="width:${Math.min(100,cb.kpn_after/mx*100)}%"></div></div>
+  </div>
+  <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px">${cb.nv_nghi} NV nghỉ có thể được gọi</div>
+  <div class="b-metrics">
+    <div class="b-metric"><div class="b-metric-val neu">${fmtNum(cb.inc_dt)}</div><div class="b-metric-lbl">Incremental DT</div></div>
+    <div class="b-metric"><div class="b-metric-val pos">${cb.nv_lam+1} NV</div><div class="b-metric-lbl">Sau khi gọi thêm</div></div>
+  </div>
+</div>`;}
+
+function renderTab(key){
+  const d=DATES[key],ts=d.transfers;
+  _gdkv[key]='ALL';
+  const totalDDT=ts.reduce((a,t)=>a+t.ddt,0);
+  const alMap={};
+  ts.forEach(t=>{
+    const k=t.sn+'_'+t.vitri;
+    if(!alMap[k]) alMap[k]={salon:t.sn,vitri:t.vitri,gdkv:t.gn,nhom:t.nn,nv:t.nv_n,kpn:t.kpn_n,cnt:0,hasCall:false};
+    alMap[k].cnt++;
+  });
+  d.callbacks.forEach(cb=>{
+    const k=cb.salon+'_'+cb.vitri;
+    if(!alMap[k]) alMap[k]={salon:cb.salon,vitri:cb.vitri,gdkv:cb.gdkv,nhom:cb.nhom,nv:cb.nv_lam,kpn:cb.kpn_now,cnt:0,hasCall:true};
+    else alMap[k].hasCall=true;
+  });
+  const als=Object.values(alMap).sort((a,b)=>b.kpn-a.kpn);
+  const gdkvSet=[...new Set([...ts.map(t=>cg(t.gg)),...ts.map(t=>cg(t.gn)),...d.callbacks.map(c=>cg(c.gdkv))])].filter(Boolean).sort();
+  const byG={};ts.forEach(t=>{const g=cg(t.gg);if(!byG[g])byG[g]={count:0,ddt:0};byG[g].count++;byG[g].ddt+=t.ddt;});
+  const gs=Object.entries(byG).sort((a,b)=>b[1].ddt-a[1].ddt);
+  const alHtml=als.map(a=>{
+    const gg=cg(a.gdkv),col=gdkvColor(a.gdkv),total=a.cnt+(a.hasCall?1:0);
+    return `<div class="alarm-card" data-gdkv="${gg}" style="border-left-color:${col}" onclick="filterBySalon('${key}',${a.salon},'${a.vitri}',this)" title="Click để lọc gợi ý bên dưới">
+  <div class="alarm-top">
+    <span class="alarm-name">${sName(a.salon)}</span>
+    <span class="vitri-badge ${a.vitri}">${a.vitri}</span>
+    <span class="nhom-tag nhom-${a.nhom}">${a.nhom==='Lon'?'Lớn':a.nhom}</span>
+    <span class="selected-badge">✓ Đang lọc</span>
+  </div>
+  <div class="alarm-gdkv" style="color:${col}">${gg}</div>
+  <div class="alarm-foot">
+    <span>${a.nv} NV · <b>${a.kpn} KH/NV</b></span>
+    <span class="alarm-tag">${total} gợi ý</span>
+  </div>
+</div>`;
+  }).join('');
+  document.getElementById(key).innerHTML=`
+<div class="summary-bar">
+  <div class="stat-card highlight">
+    <div class="stat-label">Tổng ΔDT Điều chuyển</div>
+    <div class="stat-value">${fmtNum(Math.round(totalDDT/1000))}K</div>
+    <div class="stat-sub">${ts.length} đề xuất · ${gdkvSet.length} GĐKV</div>
+  </div>
+  ${gs.slice(0,5).map(([g,v])=>`<div class="stat-card" style="border-left:3px solid ${gdkvColor(g)}"><div class="stat-label" style="color:${gdkvColor(g)}">${g}</div><div class="stat-value" style="font-size:20px">${fmtNum(Math.round(v.ddt/1000))}K</div><div class="stat-sub">${v.count} cặp</div></div>`).join('')}
+</div>
+<div class="filter-row" id="filter-${key}">
+  <span class="filter-label">GĐKV:</span>
+  <button class="chip chip-all active" onclick="filterAll('${key}','ALL')">Tất cả</button>
+  ${gdkvSet.map(g=>`<button class="chip active" style="background:${gdkvColor(g)}22;color:${gdkvColor(g)};border-color:${gdkvColor(g)}88" onclick="filterAll('${key}','${g}')">${g}</button>`).join('')}
+</div>
+<div class="section-header">
+  <div class="section-icon warn">⚠️</div>
+  <span class="section-title">Salon Báo Động — Ít Nhân Sự</span>
+  <span class="section-count">${als.length} salon·vitri</span>
+  <span class="section-hint">· Click vào salon để lọc gợi ý bên dưới</span>
+</div>
+<div class="alarm-grid" id="alarms-${key}">${alHtml||'<p class="empty-note">Không có salon báo động</p>'}</div>
+<div class="section-sep"><hr class="divider">
+<div class="section-header"><div class="section-icon a">🔄</div><span class="section-title">Hướng 1 — Điều chuyển Nhân sự</span><span class="section-count" id="cnt-tr-${key}">${ts.length} đề xuất</span></div>
+<div class="cards-grid" id="cards-${key}">${ts.map(renderCard).join('')}</div></div>
+${d.callbacks.length>0?`<div class="section-sep"><hr class="divider"><div class="section-header"><div class="section-icon b">🔴</div><span class="section-title">Hướng 2 — Gọi NV Nghỉ Đi Làm Thêm</span><span class="section-count" id="cnt-cb-${key}">${d.callbacks.length} đề xuất</span></div><div class="b-cards" id="cbs-${key}">${d.callbacks.map(renderCB).join('')}</div></div>`:''}
+`;}
+
+function filterAll(key,gdkv){
+  _gdkv[key]=gdkv;
+  document.querySelectorAll('#alarms-'+key+' .alarm-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('#filter-'+key+' .chip').forEach(c=>c.classList.remove('active'));
+  if(gdkv==='ALL') document.querySelector('#filter-'+key+' .chip-all').classList.add('active');
+  else document.querySelectorAll('#filter-'+key+' .chip').forEach(c=>{if(c.textContent.trim()===gdkv)c.classList.add('active');});
+  const all=gdkv==='ALL';
+  document.querySelectorAll('#alarms-'+key+' .alarm-card').forEach(c=>{
+    (all||c.dataset.gdkv===gdkv)?c.removeAttribute('data-hidden'):c.setAttribute('data-hidden','true');
+  });
+  document.querySelectorAll('#cards-'+key+' .card').forEach(c=>{
+    (all||c.dataset.gg===gdkv||c.dataset.gn===gdkv)?c.removeAttribute('data-hidden'):c.setAttribute('data-hidden','true');
+  });
+  const cbEl=document.getElementById('cbs-'+key);
+  if(cbEl) cbEl.querySelectorAll('.b-card').forEach(c=>{
+    (all||c.dataset.gdkv===gdkv)?c.removeAttribute('data-hidden'):c.setAttribute('data-hidden','true');
+  });
+}
+
+function filterBySalon(key,salonId,vitri,el){
+  const isSelected=el.classList.contains('selected');
+  document.querySelectorAll('#alarms-'+key+' .alarm-card').forEach(c=>c.classList.remove('selected'));
+  if(isSelected){filterAll(key,_gdkv[key]||'ALL');return;}
+  el.classList.add('selected');
+  const sid=String(salonId);
+  document.querySelectorAll('#cards-'+key+' .card').forEach(c=>{
+    const show=(c.dataset.sg===sid||c.dataset.sn===sid)&&c.dataset.vitri===vitri;
+    show?c.removeAttribute('data-hidden'):c.setAttribute('data-hidden','true');
+  });
+  const cbEl=document.getElementById('cbs-'+key);
+  if(cbEl) cbEl.querySelectorAll('.b-card').forEach(c=>{
+    const show=c.dataset.salon===sid&&c.dataset.vitri===vitri;
+    show?c.removeAttribute('data-hidden'):c.setAttribute('data-hidden','true');
+  });
+}
+
+function switchTab(key){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab-btn[data-tabkey="'+key+'"]').classList.add('active');
+  document.getElementById(key).classList.add('active');
+}
+window.addEventListener('DOMContentLoaded',()=>{Object.keys(DATES).forEach(renderTab);});
+</script>
+</body>
+</html>
