@@ -1,0 +1,367 @@
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#1a2129; --muted:#5d6b7a; --faint:#8a97a4;
+    --line:#e6e9ee; --line-strong:#d3d9e0;
+    --accent:#0d7d72; --accent-soft:#e2f2f0;
+    --good:#137a43; --good-bg:#e4f4ea; --warn:#a56a00; --warn-bg:#fbefda; --bad:#c0392b; --bad-bg:#fbe6e3;
+    --bar-track:#eceff3;
+    --shadow:0 1px 2px rgba(20,30,45,.05),0 2px 8px rgba(20,30,45,.04);
+    --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f151b; --panel:#161d25; --ink:#e7ecf1; --muted:#9aa7b4; --faint:#6b7885;
+      --line:#232c36; --line-strong:#303a46;
+      --accent:#3ecabb; --accent-soft:#123430;
+      --good:#59d18b; --good-bg:#12301f; --warn:#e9b558; --warn-bg:#33260d; --bad:#f0837a; --bad-bg:#361713;
+      --bar-track:#232c36;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#1a2129; --muted:#5d6b7a; --faint:#8a97a4;
+    --line:#e6e9ee; --line-strong:#d3d9e0; --accent:#0d7d72; --accent-soft:#e2f2f0;
+    --good:#137a43; --good-bg:#e4f4ea; --warn:#a56a00; --warn-bg:#fbefda; --bad:#c0392b; --bad-bg:#fbe6e3;
+    --bar-track:#eceff3; --shadow:0 1px 2px rgba(20,30,45,.05),0 2px 8px rgba(20,30,45,.04);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f151b; --panel:#161d25; --ink:#e7ecf1; --muted:#9aa7b4; --faint:#6b7885;
+    --line:#232c36; --line-strong:#303a46; --accent:#3ecabb; --accent-soft:#123430;
+    --good:#59d18b; --good-bg:#12301f; --warn:#e9b558; --warn-bg:#33260d; --bad:#f0837a; --bad-bg:#361713;
+    --bar-track:#232c36; --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 60px}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+  header.top h1{font-size:22px;font-weight:700;margin:0;letter-spacing:-.01em}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:3px}
+  .pill-updated{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+    padding:6px 12px;border-radius:999px;box-shadow:var(--shadow)}
+
+  .filters{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:16px 18px;margin-bottom:20px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px 18px;align-items:end}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .field .pair{display:flex;gap:8px}
+  input[type=date],select{width:100%;font:inherit;color:var(--ink);background:var(--bg);
+    border:1px solid var(--line-strong);border-radius:8px;padding:8px 10px;appearance:none}
+  input[type=date]{color-scheme:light dark}
+  select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .reset{grid-column:auto;display:flex;align-items:end}
+  button.reset-btn{font:inherit;font-weight:600;cursor:pointer;color:var(--accent);background:var(--accent-soft);
+    border:1px solid transparent;border-radius:8px;padding:8px 14px;width:100%}
+  button.reset-btn:hover{filter:brightness(.97)}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:15px 16px;position:relative;overflow:hidden}
+  .kpi .k-label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .kpi .k-val{font-size:27px;font-weight:750;letter-spacing:-.02em;margin-top:6px;line-height:1}
+  .kpi .k-note{font-size:12px;color:var(--muted);margin-top:6px}
+  .kpi .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
+
+  .gsection{margin-bottom:22px}
+  .gsection .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 10px 2px}
+  .gboxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+  .gbox{text-align:left;font:inherit;cursor:pointer;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 14px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:2px;transition:border-color .12s,transform .08s}
+  .gbox:hover{transform:translateY(-1px)}
+  .gbox .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .gbox.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow)}
+  .gbox .g-name{font-size:12.5px;font-weight:650;color:var(--ink);line-height:1.3;padding-right:8px}
+  .gbox .g-pct{font-size:23px;font-weight:750;letter-spacing:-.02em;line-height:1.1;margin-top:3px}
+  .gbox .g-meta{font-size:11.5px;color:var(--muted)}
+  .gbox .g-bar{height:5px;border-radius:99px;background:var(--bar-track);overflow:hidden;margin-top:7px}
+  .gbox .g-bar > i{display:block;height:100%;border-radius:99px}
+
+  .tbl-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden}
+  .tbl-head{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:14px 18px;border-bottom:1px solid var(--line)}
+  .tbl-head h2{font-size:15px;font-weight:700;margin:0}
+  .tbl-head .hint{font-size:12px;color:var(--faint)}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:820px}
+  thead th{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+    text-align:center;padding:11px 8px;border-bottom:1px solid var(--line-strong);white-space:nowrap;
+    position:sticky;top:0;background:var(--panel);cursor:pointer;user-select:none}
+  thead th.lbl{text-align:left}
+  thead th .arw{color:var(--accent);font-size:10px}
+  tbody td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--accent-soft)}
+  td.salon{text-align:left;font-weight:650;min-width:120px}
+  td.gdkv{text-align:left;color:var(--muted);font-size:13px}
+  .loai-cell{font-size:13px}
+  .loai-full{color:var(--good)}
+  .loai-miss{color:var(--bad);font-weight:650}
+  .loai-cell small{color:var(--faint);font-weight:400}
+
+  .pctwrap{display:flex;align-items:center;gap:9px;justify-content:flex-end;min-width:150px}
+  .bar{flex:1;height:7px;border-radius:99px;background:var(--bar-track);overflow:hidden;max-width:90px}
+  .bar > i{display:block;height:100%;border-radius:99px}
+  .pctnum{font-weight:700;min-width:46px;text-align:right}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;min-width:24px}
+  .g-good{color:var(--good)} .b-good{background:var(--good)} .c-good{background:var(--good-bg);color:var(--good)}
+  .g-warn{color:var(--warn)} .b-warn{background:var(--warn)} .c-warn{background:var(--warn-bg);color:var(--warn)}
+  .g-bad{color:var(--bad)}   .b-bad{background:var(--bad)}   .c-bad{background:var(--bad-bg);color:var(--bad)}
+
+  tfoot td{padding:12px 8px;font-weight:750;background:var(--bg);border-top:2px solid var(--line-strong)}
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+  footer.note{margin-top:22px;font-size:12px;color:var(--faint);line-height:1.7}
+  footer.note b{color:var(--muted)}
+  .legend{display:inline-flex;gap:14px;flex-wrap:wrap;margin-top:4px}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Báo cáo Checklist Daily — Tổng hợp theo Salon</h1>
+      <div class="sub">Tỷ lệ hoàn thành checklist vận hành 3 mốc/ngày · 58 salon Công ty · tiêu chuẩn SLA ≥ 80%</div>
+    </div>
+    <div class="pill-updated" id="updated"></div>
+  </header>
+
+  <section class="filters" aria-label="Bộ lọc">
+    <div class="field">
+      <label for="from">Từ ngày</label>
+      <input type="date" id="from">
+    </div>
+    <div class="field">
+      <label for="to">Đến ngày</label>
+      <input type="date" id="to">
+    </div>
+    <div class="field">
+      <label for="gdkv">GĐKV</label>
+      <select id="gdkv"></select>
+    </div>
+    <div class="field">
+      <label for="salon">Salon</label>
+      <select id="salon"></select>
+    </div>
+    <div class="reset field">
+      <button class="reset-btn" id="resetBtn" type="button">Đặt lại bộ lọc</button>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="gsection">
+    <p class="cap">Tổng quan theo GĐKV — bấm để lọc</p>
+    <div class="gboxes" id="gboxes"></div>
+  </section>
+
+  <div class="tbl-card">
+    <div class="tbl-head">
+      <h2 id="tblTitle">Chi tiết theo salon</h2>
+      <span class="hint">Bấm tiêu đề cột để sắp xếp · mỗi ô = số mốc đã làm / tổng mốc</span>
+    </div>
+    <div class="scroll">
+      <table id="tbl">
+        <thead></thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+    <div class="empty" id="empty" style="display:none">Không có salon nào khớp bộ lọc.</div>
+  </div>
+
+  <footer class="note">
+    <div><b>Cách tính:</b> mỗi salon Công ty làm đủ <b>5 loại checklist/ngày</b> (Mở cửa · SM đầu ngày · SM giữa ngày · SM cuối ngày · Đóng cửa). Tổng mốc = 5 × số ngày trong kỳ. Nguồn chỉ ghi các lượt <b>chưa làm</b>; các lượt còn lại mặc định đã làm. Tỷ lệ = số mốc đã làm ÷ tổng mốc.</div>
+    <div class="legend">
+      <span><i class="b-good"></i> Đạt ≥ 90%</span>
+      <span><i class="b-warn"></i> Cảnh báo 80–89%</span>
+      <span><i class="b-bad"></i> Chưa đạt &lt; 80%</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const DATA = {"updatedTo": "2026-07-12", "dateMin": "2026-07-01", "dateMax": "2026-07-12", "loaiList": ["Mở cửa", "SM đầu ngày", "SM giữa ngày", "SM cuối ngày", "Đóng cửa"], "gdkv": [{"key": "NguyenNhuQuynh", "name": "Nguyễn Như Quỳnh"}, {"key": "NguyenThanhSang", "name": "Nguyễn Thanh Sang"}, {"key": "NguyenThiHue", "name": "Nguyễn Thị Huệ"}, {"key": "NguyenVietCuong", "name": "Nguyễn Việt Cường"}, {"key": "PhanThiHongGam", "name": "Phan Thị Hồng Gấm"}, {"key": "TrinhVanQuang", "name": "Trịnh Văn Quang"}, {"key": "TongXuanQuyen", "name": "Tống Xuân Quyền"}, {"key": "DoanTrungDuc", "name": "Đoàn Trung Đức"}], "salons": [{"salon": "10 TP", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Khu vực Hà Đông"}, {"salon": "168 NVC", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "4 LQD BN", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Tỉnh phía Bắc"}, {"salon": "186 QT", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Khu vực Hà Đông"}, {"salon": "11 PKT", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Khu vực Hà Đông"}, {"salon": "362 NGT BN", "gdkvKey": "NguyenNhuQuynh", "gdkvName": "Nguyễn Như Quỳnh", "thi_truong": "Tỉnh phía Bắc"}, {"salon": "8 CVL", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Q10-11-5-6-Bình Chánh-Bình Tân"}, {"salon": "575 AC", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "927 HG", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Q10-11-5-6-Bình Chánh-Bình Tân"}, {"salon": "708 LTT", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "730 TL10", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Q10-11-5-6-Bình Chánh-Bình Tân"}, {"salon": "312 LVS", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "99 TSN", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "190 HB", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "145 THT", "gdkvKey": "NguyenThanhSang", "gdkvName": "Nguyễn Thanh Sang", "thi_truong": "Quận 3-10-Tân Bình-Tân Phú"}, {"salon": "58 NVC NA", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "290 QT TH", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "304 NT TH", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "80 TP TH", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "595 BT TH", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "68 LN NA", "gdkvKey": "NguyenThiHue", "gdkvName": "Nguyễn Thị Huệ", "thi_truong": "Tỉnh miền Trung"}, {"salon": "103 TN", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Thủ Đức, Quận 2"}, {"salon": "451 PVT", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Biên Hòa, Đồng Nai"}, {"salon": "80 PL BD", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Thủ Dầu, Bình Dương"}, {"salon": "29 HB", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "Quận Thủ Đức - Quận 9"}, {"salon": "255 NAN", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Thủ Dầu, Bình Dương"}, {"salon": "36 N1 BD", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Thủ Dầu, Bình Dương"}, {"salon": "401/1 NDT", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Thủ Đức, Quận 2"}, {"salon": "1371 PVT", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "TP Biên Hòa, Đồng Nai"}, {"salon": "1146 KVC", "gdkvKey": "NguyenVietCuong", "gdkvName": "Nguyễn Việt Cường", "thi_truong": "Quận Thủ Đức - Quận 9"}, {"salon": "346 KT", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "363 LNQ TN", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Tỉnh phía Bắc"}, {"salon": "50BT4 NPC LD", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "264 LLQ", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "202 DC", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "39 HBT", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "148 TD", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "173 TN", "gdkvKey": "PhanThiHongGam", "gdkvName": "Phan Thị Hồng Gấm", "thi_truong": "Phía Nam Hà Nội"}, {"salon": "12 LDT", "gdkvKey": "TrinhVanQuang", "gdkvName": "Trịnh Văn Quang", "thi_truong": "Quận Gò Vấp - Q12"}, {"salon": "483 TN", "gdkvKey": "TrinhVanQuang", "gdkvName": "Trịnh Văn Quang", "thi_truong": "Quận Gò Vấp - Q12"}, {"salon": "1180 QT", "gdkvKey": "TrinhVanQuang", "gdkvName": "Trịnh Văn Quang", "thi_truong": "Quận Gò Vấp - Q12"}, {"salon": "76 PVH", "gdkvKey": "TrinhVanQuang", "gdkvName": "Trịnh Văn Quang", "thi_truong": "Quận Gò Vấp - Q12"}, {"salon": "32 NAT", "gdkvKey": "TrinhVanQuang", "gdkvName": "Trịnh Văn Quang", "thi_truong": "Quận Gò Vấp - Q12"}, {"salon": "25 TD", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Quận 4, 7, 8"}, {"salon": "420 HTP", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Quận 4, 7, 8"}, {"salon": "113 THD AG", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Long An, Tiền Giang, Long Xuyên"}, {"salon": "236 DBT", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Quận 4, 7, 8"}, {"salon": "237 NTT", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Quận 4, 7, 8"}, {"salon": "186 DTH", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Q1, Bình Thạnh, Phú Nhuận"}, {"salon": "7 DTP LA", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Long An, Tiền Giang, Long Xuyên"}, {"salon": "341 XVNT", "gdkvKey": "TongXuanQuyen", "gdkvName": "Tống Xuân Quyền", "thi_truong": "Q1, Bình Thạnh, Phú Nhuận"}, {"salon": "109 TQH", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "116 TK", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "382 NT", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "55A NVL", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "62 LH", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "65 CD", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}, {"salon": "90 NH", "gdkvKey": "DoanTrungDuc", "gdkvName": "Đoàn Trung Đức", "thi_truong": "Phía Đông Hà Nội"}], "misses": [{"date": "2026-07-01", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "190 HB", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-01", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "363 LNQ TN", "loai": "SM đầu ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-01", "salon": "341 XVNT", "loai": "SM đầu ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-01", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "595 BT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "236 DBT", "loai": "SM giữa ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-01", "salon": "10 TP", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-01", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-01", "salon": "346 KT", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-01", "salon": "186 DTH", "loai": "SM cuối ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-01", "salon": "58 NVC NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-01", "salon": "50BT4 NPC LD", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-01", "salon": "346 KT", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-02", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "8 CVL", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-02", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "186 QT", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-02", "salon": "575 AC", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-02", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "363 LNQ TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-02", "salon": "62 LH", "loai": "SM giữa ngày", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-02", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "304 NT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-02", "salon": "173 TN", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-02", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-02", "salon": "304 NT TH", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "202 DC", "loai": "SM đầu ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-03", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "173 TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-03", "salon": "202 DC", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-03", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "290 QT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "148 TD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-03", "salon": "236 DBT", "loai": "SM cuối ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-03", "salon": "99 TSN", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-03", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-03", "salon": "346 KT", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-03", "salon": "1180 QT", "loai": "Đóng cửa", "gdkvName": "Trịnh Văn Quang"}, {"date": "2026-07-03", "salon": "236 DBT", "loai": "Đóng cửa", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-04", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "8 CVL", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-04", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "237 NTT", "loai": "SM giữa ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-04", "salon": "62 LH", "loai": "SM giữa ngày", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-04", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "304 NT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-04", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "304 NT TH", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-04", "salon": "346 KT", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-05", "salon": "145 THT", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-05", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-05", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-05", "salon": "304 NT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-05", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "113 THD AG", "loai": "Mở cửa", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-06", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "39 HBT", "loai": "SM đầu ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-06", "salon": "113 THD AG", "loai": "SM đầu ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-06", "salon": "362 NGT BN", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-06", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-06", "salon": "341 XVNT", "loai": "Đóng cửa", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-07", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "304 NT TH", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "80 TP TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "304 NT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-07", "salon": "420 HTP", "loai": "SM cuối ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-07", "salon": "80 TP TH", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-07", "salon": "304 NT TH", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "50BT4 NPC LD", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-08", "salon": "173 TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-08", "salon": "62 LH", "loai": "SM giữa ngày", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-08", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "80 TP TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-08", "salon": "173 TN", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-08", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "80 TP TH", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-08", "salon": "173 TN", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-08", "salon": "346 KT", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-09", "salon": "11 PKT", "loai": "Mở cửa", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-09", "salon": "312 LVS", "loai": "Mở cửa", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-09", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "11 PKT", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-09", "salon": "99 TSN", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-09", "salon": "312 LVS", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-09", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "595 BT TH", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "103 TN", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Việt Cường"}, {"date": "2026-07-09", "salon": "8 CVL", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-09", "salon": "312 LVS", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-09", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "36 N1 BD", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Việt Cường"}, {"date": "2026-07-09", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-09", "salon": "363 LNQ TN", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-09", "salon": "236 DBT", "loai": "SM cuối ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-09", "salon": "58 NVC NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-09", "salon": "451 PVT", "loai": "Đóng cửa", "gdkvName": "Nguyễn Việt Cường"}, {"date": "2026-07-09", "salon": "50BT4 NPC LD", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-10", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "80 TP TH", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "80 TP TH", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "362 NGT BN", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-10", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "68 LN NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "255 NAN", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Việt Cường"}, {"date": "2026-07-10", "salon": "173 TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-10", "salon": "113 THD AG", "loai": "SM giữa ngày", "gdkvName": "Tống Xuân Quyền"}, {"date": "2026-07-10", "salon": "62 LH", "loai": "SM giữa ngày", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-10", "salon": "186 QT", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-10", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-10", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-10", "salon": "58 NVC NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-11", "salon": "401/1 NDT", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Việt Cường"}, {"date": "2026-07-11", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-11", "salon": "304 NT TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-11", "salon": "173 TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "363 LNQ TN", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "363 LNQ TN", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "116 TK", "loai": "SM cuối ngày", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-11", "salon": "68 LN NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-11", "salon": "50BT4 NPC LD", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "363 LNQ TN", "loai": "Đóng cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-11", "salon": "116 TK", "loai": "Đóng cửa", "gdkvName": "Đoàn Trung Đức"}, {"date": "2026-07-12", "salon": "312 LVS", "loai": "Mở cửa", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-12", "salon": "68 LN NA", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "290 QT TH", "loai": "Mở cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "50BT4 NPC LD", "loai": "Mở cửa", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-12", "salon": "312 LVS", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-12", "salon": "68 LN NA", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "290 QT TH", "loai": "SM đầu ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "50BT4 NPC LD", "loai": "SM đầu ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-12", "salon": "4 LQD BN", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-12", "salon": "362 NGT BN", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Như Quỳnh"}, {"date": "2026-07-12", "salon": "58 NVC NA", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "80 TP TH", "loai": "SM giữa ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "50BT4 NPC LD", "loai": "SM giữa ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-12", "salon": "145 THT", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-12", "salon": "58 NVC NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "68 LN NA", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "304 NT TH", "loai": "SM cuối ngày", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "50BT4 NPC LD", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-12", "salon": "363 LNQ TN", "loai": "SM cuối ngày", "gdkvName": "Phan Thị Hồng Gấm"}, {"date": "2026-07-12", "salon": "145 THT", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thanh Sang"}, {"date": "2026-07-12", "salon": "58 NVC NA", "loai": "Đóng cửa", "gdkvName": "Nguyễn Thị Huệ"}, {"date": "2026-07-12", "salon": "451 PVT", "loai": "Đóng cửa", "gdkvName": "Nguyễn Việt Cường"}]};
+const LOAI = DATA.loaiList;
+
+function fmtVN(iso){const [y,m,d]=iso.split('-');return d+'/'+m+'/'+y;}
+function daysInRange(from,to){
+  const out=[]; let a=new Date(from+'T00:00:00'), b=new Date(to+'T00:00:00');
+  if(a>b) return out;
+  for(let t=new Date(a); t<=b; t.setDate(t.getDate()+1)){
+    out.push(t.toISOString().slice(0,10));
+  }
+  return out;
+}
+function rag(p){ return p>=90?'good':(p>=80?'warn':'bad'); }
+function pctColor(p){ const r=rag(p); return {good:'var(--good)',warn:'var(--warn)',bad:'var(--bad)'}[r]; }
+
+// ---- filter controls ----
+const el=id=>document.getElementById(id);
+el('updated').textContent='Dữ liệu cập nhật đến '+fmtVN(DATA.updatedTo);
+el('from').min=DATA.dateMin; el('from').max=DATA.dateMax; el('from').value=DATA.dateMin;
+el('to').min=DATA.dateMin;   el('to').max=DATA.dateMax;   el('to').value=DATA.dateMax;
+
+const gsel=el('gdkv');
+gsel.innerHTML='<option value="">Tất cả GĐKV</option>'+DATA.gdkv.map(g=>`<option value="${g.name}">${g.name}</option>`).join('');
+const ssel=el('salon');
+
+function refreshSalonOptions(){
+  const g=gsel.value;
+  const list=DATA.salons.filter(s=>!g||s.gdkvName===g).map(s=>s.salon).sort((a,b)=>a.localeCompare(b,'vi'));
+  const cur=ssel.value;
+  ssel.innerHTML='<option value="">Tất cả salon</option>'+list.map(s=>`<option value="${s}">${s}</option>`).join('');
+  if(list.includes(cur)) ssel.value=cur; else ssel.value='';
+}
+refreshSalonOptions();
+
+let sortKey='pct', sortDir=1; // 1 asc (kém trước), -1 desc
+
+function compute(){
+  const from=el('from').value, to=el('to').value;
+  const g=gsel.value, sal=ssel.value;
+  const days=daysInRange(from,to);
+  const nDays=days.length;
+  const dset=new Set(days);
+
+  let salons=DATA.salons.filter(s=>(!g||s.gdkvName===g)&&(!sal||s.salon===sal));
+
+  // miss counts: per salon overall + per salon per loai
+  const missBy={}, missByLoai={};
+  for(const m of DATA.misses){
+    if(!dset.has(m.date)) continue;
+    missBy[m.salon]=(missBy[m.salon]||0)+1;
+    (missByLoai[m.salon] ||= {})[m.loai]=((missByLoai[m.salon]||{})[m.loai]||0)+1;
+  }
+
+  const rows=salons.map(s=>{
+    const total=5*nDays;
+    const miss=missBy[s.salon]||0;
+    const done=total-miss;
+    const pct= total? done/total*100 : 0;
+    const perLoai=LOAI.map(l=>{
+      const lm=(missByLoai[s.salon]||{})[l]||0;
+      return {loai:l, miss:lm, done:nDays-lm, total:nDays};
+    });
+    return {salon:s.salon, gdkv:s.gdkvName, total, miss, done, pct, perLoai};
+  });
+  return {rows,nDays,from,to};
+}
+
+function renderGdkvBoxes(){
+  const from=el('from').value, to=el('to').value, sel=gsel.value;
+  const days=daysInRange(from,to); const nDays=days.length; const dset=new Set(days);
+  const missByG={};
+  for(const m of DATA.misses){ if(dset.has(m.date)) missByG[m.gdkvName]=(missByG[m.gdkvName]||0)+1; }
+  const boxes=DATA.gdkv.map(g=>{
+    const nSal=DATA.salons.filter(s=>s.gdkvName===g.name).length;
+    const total=5*nDays*nSal;
+    const miss=missByG[g.name]||0;
+    const done=total-miss;
+    const pct= total? done/total*100 : 0;
+    const r=rag(pct); const active=sel===g.name;
+    return `<button type="button" class="gbox ${active?'active':''}" data-g="${g.name}">
+      <div class="stripe b-${r}"></div>
+      <div class="g-name">${g.name}</div>
+      <div class="g-pct g-${r} tnum">${pct.toFixed(1)}%</div>
+      <div class="g-meta">${nSal} salon · ${miss} lượt chưa làm</div>
+      <div class="g-bar"><i class="b-${r}" style="width:${pct.toFixed(1)}%"></i></div>
+    </button>`;
+  }).join('');
+  el('gboxes').innerHTML=boxes;
+  el('gboxes').querySelectorAll('.gbox').forEach(b=>{
+    b.onclick=()=>{ gsel.value = (gsel.value===b.dataset.g)?'':b.dataset.g;
+      refreshSalonOptions(); render(); };
+  });
+}
+
+function render(){
+  const {rows,nDays,from,to}=compute();
+  renderGdkvBoxes();
+  // KPIs
+  const totSlots=rows.reduce((a,r)=>a+r.total,0);
+  const totDone=rows.reduce((a,r)=>a+r.done,0);
+  const totMiss=rows.reduce((a,r)=>a+r.miss,0);
+  const overall= totSlots? totDone/totSlots*100 : 0;
+  const nPass=rows.filter(r=>r.pct>=80).length;
+  const worst=rows.slice().sort((a,b)=>a.pct-b.pct)[0];
+
+  const kpi=(label,val,note,r)=>`<div class="kpi"><div class="stripe b-${r}"></div>
+    <div class="k-label">${label}</div><div class="k-val g-${r} tnum">${val}</div>
+    <div class="k-note">${note}</div></div>`;
+  el('kpis').innerHTML =
+    kpi('Tỷ lệ hoàn thành', overall.toFixed(1)+'%', `${totDone.toLocaleString('vi')} / ${totSlots.toLocaleString('vi')} mốc · ${nDays} ngày`, rag(overall))
+    + kpi('Salon đạt ≥80%', nPass+' / '+rows.length, rows.length? Math.round(nPass/rows.length*100)+'% số salon':'—', rows.length&&nPass/rows.length>=0.8?'good':(nPass/Math.max(rows.length,1)>=0.6?'warn':'bad'))
+    + kpi('Lượt chưa làm', totMiss.toLocaleString('vi'), 'trên toàn bộ salon đã lọc', totMiss===0?'good':(totMiss<=10?'warn':'bad'))
+    + kpi('Salon thấp nhất', worst?worst.pct.toFixed(0)+'%':'—', worst?worst.salon+' · '+worst.gdkv:'không có dữ liệu', worst?rag(worst.pct):'good');
+
+  // table
+  const cols=[{k:'salon',t:'Salon',lbl:1},{k:'gdkv',t:'GĐKV',lbl:1}]
+    .concat(LOAI.map((l,i)=>({k:'l'+i,t:l})))
+    .concat([{k:'pct',t:'Tỷ lệ hoàn thành'}]);
+  el('tbl').tHead.innerHTML='<tr>'+cols.map(c=>{
+    const act=(c.k===sortKey)?` <span class="arw">${sortDir>0?'▲':'▼'}</span>`:'';
+    return `<th data-k="${c.k}" class="${c.lbl?'lbl':''}">${c.t}${act}</th>`;
+  }).join('')+'</tr>';
+
+  const val=r=>{ if(sortKey==='salon')return r.salon; if(sortKey==='gdkv')return r.gdkv;
+    if(sortKey==='pct')return r.pct;
+    if(sortKey[0]==='l'){const i=+sortKey.slice(1);return r.perLoai[i].done;} return 0; };
+  rows.sort((a,b)=>{const va=val(a),vb=val(b);
+    if(typeof va==='string')return sortDir*va.localeCompare(vb,'vi');
+    return sortDir*(va-vb);});
+
+  const tb=el('tbl').tBodies[0];
+  if(!rows.length){ tb.innerHTML=''; el('tbl').tFoot.innerHTML=''; el('empty').style.display='block'; }
+  else{
+    el('empty').style.display='none';
+    tb.innerHTML=rows.map(r=>{
+      const r0=rag(r.pct);
+      const loaiCells=r.perLoai.map(p=>{
+        if(p.miss===0) return `<td class="loai-cell loai-full">${p.done}/${p.total}</td>`;
+        return `<td class="loai-cell loai-miss">${p.done}/${p.total}<br><small>−${p.miss}</small></td>`;
+      }).join('');
+      return `<tr>
+        <td class="salon">${r.salon}</td>
+        <td class="gdkv">${r.gdkv}</td>
+        ${loaiCells}
+        <td><div class="pctwrap">
+          <span class="chip c-${r0}">${r.total-r.done>0?'−'+(r.total-r.done):'✓'}</span>
+          <span class="bar"><i class="b-${r0}" style="width:${r.pct.toFixed(1)}%"></i></span>
+          <span class="pctnum tnum g-${r0}">${r.pct.toFixed(1)}%</span>
+        </div></td>
+      </tr>`;
+    }).join('');
+    // footer totals
+    const totLoai=LOAI.map((l,i)=>{
+      const done=rows.reduce((a,r)=>a+r.perLoai[i].done,0), tot=rows.reduce((a,r)=>a+r.perLoai[i].total,0);
+      const p=tot?done/tot*100:0; return `<td class="tnum g-${rag(p)}">${p.toFixed(0)}%</td>`;
+    }).join('');
+    const ts=rows.reduce((a,r)=>a+r.total,0), td=rows.reduce((a,r)=>a+r.done,0), op=ts?td/ts*100:0;
+    el('tbl').tFoot.innerHTML=`<tr><td class="salon">TỔNG (${rows.length} salon)</td><td></td>${totLoai}
+      <td><div class="pctwrap"><span class="bar"><i class="b-${rag(op)}" style="width:${op.toFixed(1)}%"></i></span>
+      <span class="pctnum tnum g-${rag(op)}">${op.toFixed(1)}%</span></div></td></tr>`;
+  }
+
+  el('tblTitle').textContent=`Chi tiết theo salon — ${fmtVN(from)} → ${fmtVN(to)}`;
+
+  el('tbl').tHead.querySelectorAll('th').forEach(th=>{
+    th.onclick=()=>{const k=th.dataset.k;
+      if(k===sortKey)sortDir*=-1; else{sortKey=k; sortDir=(k==='salon'||k==='gdkv')?1:1;}
+      render();};
+  });
+}
+
+gsel.onchange=()=>{refreshSalonOptions();render();};
+ssel.onchange=render;
+el('from').onchange=render; el('to').onchange=render;
+el('resetBtn').onclick=()=>{el('from').value=DATA.dateMin;el('to').value=DATA.dateMax;
+  gsel.value='';refreshSalonOptions();ssel.value='';sortKey='pct';sortDir=1;render();};
+
+render();
+</script>
