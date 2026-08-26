@@ -232,7 +232,7 @@ footer.notes b{color:var(--text-muted);}
 
   <section class="card leaderboard">
     <h2>🏆 Bảng vinh danh Top 10 Skinner</h2>
-    <div class="bar-note" style="margin-top:-6px; margin-bottom:12px;">Mỗi Skinner trong Top 10 nhận thưởng cố định <b class="nums" style="color:var(--gold)">200.000đ/người</b> — <b>với điều kiện đạt ngưỡng tối thiểu ≥ 6 lượt booking hợp lệ trong ngày</b> (xem cột "Đạt ngưỡng lượt book"); Skinner trong Top 10 nhưng chưa đạt ngưỡng vẫn giữ nguyên vị trí xếp hạng (không đôn hạng dưới lên thay) nhưng thưởng = 0đ và không có cúp/huy chương. Xếp hạng theo <b>tổng lượt book hợp lệ trong ngày</b> (giảm dần); nếu bằng lượt thì xét tiếp <b>số lượt thấp điểm</b>, rồi đến <b>tên A–Z</b>. Đây là tiêu chí mặc định do agent chọn khi dựng bảng này — <u>cần user xác nhận lại tiêu chí xếp hạng, ngưỡng ≥6 lượt và mức thưởng 200.000đ/người trước khi dùng để chi trả</u>.</div>
+    <div class="bar-note" style="margin-top:-6px; margin-bottom:12px;">Mỗi Skinner trong Top 10 nhận thưởng cố định <b class="nums" style="color:var(--gold)">200.000đ/người</b> — <b>với điều kiện đạt ngưỡng tối thiểu ≥ 6 lượt booking hợp lệ trong ngày</b> (cột "Tổng lượt booking hợp lệ" = lượt thấp điểm; xem trạng thái ở cột "Đạt ngưỡng lượt book"); Skinner trong Top 10 nhưng chưa đạt ngưỡng vẫn giữ nguyên vị trí xếp hạng (không đôn hạng dưới lên thay) nhưng thưởng = 0đ và không có cúp/huy chương. Xếp hạng theo <b>Tổng lượt hợp lệ</b> (= số lượt rơi vào khung <b>thấp điểm</b>, giảm dần); nếu bằng nhau thì xét tiếp <b>tổng lượt cao+thấp điểm</b>, rồi đến <b>tên A–Z</b>. Đây là tiêu chí đã được user xác nhận lại — mức thưởng 200.000đ/người vẫn cần xác nhận thêm trước khi dùng để chi trả.</div>
     <div class="table-scroll"><table class="dt" id="ska-table"></table></div>
   </section>
 
@@ -296,11 +296,11 @@ Nguyễn Phương Thảo|9473|168 NVC|6|3|2|1|25000|1
 Phạm Thị Trí |13106|173 TN|7|3|2|1|25000|1
 Trần Thị Tuyết Ngân|17362|109 TQH|3|3|2|1|25000|1
 Nguyễn Thị Thuỳ Trang|19352|55A NVL|3|3|1|2|20000|1
-Tạ Thuỳ Linh|12032|382 NT|3|3|1|2|20000|1
+Tạ Thuỳ Linh|12032|382 NT|3|3|1|2|20000|0
 Đỗ Thị Trâm|19535|10 TP|6|3|1|2|20000|1
-Nguyễn Thị Ngần|5015|202 DC|7|2|2|0|20000|0
-Nguyễn Thị Phú Quý|15706|237 NTT|4|2|2|0|20000|0
-Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|3|0|3|15000|1
+Nguyễn Thị Ngần|5015|202 DC|7|2|2|0|20000|1
+Nguyễn Thị Phú Quý|15706|237 NTT|4|2|2|0|20000|1
+Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|3|0|3|15000|0
 Lê Thị Ninh Khánh|15250|10 TP|6|2|1|1|15000|0
 Nguyễn Thị Chinh|14231|168 NVC|6|2|1|1|15000|0
 Nguyễn Thị Thêu|1909|168 NVC|6|2|1|1|15000|0
@@ -390,11 +390,12 @@ const SKINNERS = SKB_RAW.trim().split('\n').map((line,i)=>{
   const [name,maNV,salon,g,lb,thap,cao,thuongB,top10] = line.split('|');
   return {name,maNV,salon,gdkv:+g,luotBook:+lb,luotThap:+thap,luotCao:+cao,thuongB:+thuongB,top10: top10==='1'};
 });
-/* Bang A = Top 10 — sap xep DUNG tieu chi da chot: tong luot desc -> luot thap diem desc -> ten A-Z.
+/* Bang A = Top 10 — tieu chi da chot (sua lai theo yeu cau user): "Tong luot hop le" (= luot THAP DIEM, dung nhu cot
+   "Lượt booking hợp lệ" hien thi) desc -> tong luot (cao+thap) desc (tie-break phu) -> ten A-Z.
    (BUG cu: SKINNERS duoc sap theo thuongB desc cho Bang B, filter() giu nguyen thu tu do nen Top10 bi sai thu tu — da fix bang sort() rieng o day) */
 const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
-  b.luotBook - a.luotBook ||
   b.luotThap - a.luotThap ||
+  b.luotBook - a.luotBook ||
   a.name.localeCompare(b.name, 'vi')
 );
 
@@ -699,15 +700,15 @@ kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div
 })();
 
 /* ================= RENDER: BANG VINH DANH TOP 10 (khong can loc, chi 10 dong) ================= */
-/* Nguong dieu kien nhan thuong Top10: tong luot book hop le trong ngay (cao+thap cong lai) >= 6.
-   Skinner khong dat nguong: van giu vi tri trong bang (khong don hang 11 len), nhung thuong=0d, khong hien icon cup/huy chuong. */
+/* Nguong dieu kien nhan thuong Top10: SO LUOT HOP LE (= luot THAP DIEM, cot "Tổng lượt booking hợp lệ") >= 6.
+   KHONG dung tong luot cao+thap. Skinner khong dat nguong: van giu vi tri trong bang (khong don hang 11 len), nhung thuong=0d, khong hien icon cup/huy chuong. */
 const TOP10_LUOT_THRESHOLD = 6;
 (function(){
   const head = `<thead><tr><th>Hạng</th><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt booking hợp lệ</th><th>Đạt ngưỡng lượt book</th><th class="num">Thưởng</th></tr></thead>`;
   const medalIcon = r => r===1?'🥇':r===2?'🥈':r===3?'🥉':'';
   const body = SK_TOP10.map((s,i)=>{
     const rank=i+1;
-    const dat = s.luotBook >= TOP10_LUOT_THRESHOLD;
+    const dat = s.luotThap >= TOP10_LUOT_THRESHOLD;
     const rowCls = (rank<=3 && dat) ? `podium-${rank}` : '';
     const badgeCls = rank===1?'g1':rank===2?'g2':rank===3?'g3':'';
     const rankCell = (rank<=3 && dat)
@@ -746,7 +747,7 @@ function renderSkbTable(){
     return true;
   });
   document.getElementById('skb-count').textContent = fmtInt(rows.length) + ' Skinner';
-  const head = `<thead><tr><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt</th><th class="num">Tổng lượt booking hợp lệ</th><th class="num">Lượt cao điểm</th><th class="num">Thưởng (công thức riêng)</th><th>Top 10</th></tr></thead>`;
+  const head = `<thead><tr><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt</th><th class="num">Lượt thấp điểm</th><th class="num">Lượt cao điểm</th><th class="num">Thưởng</th><th>Top 10</th></tr></thead>`;
   const body = rows.map(s=>`<tr${s.top10?' class="podium-1" style="background:var(--gold-bg)"':''}>
     <td>${s.name}</td><td class="nums">${s.maNV}</td><td>${s.salon}</td><td>${GDKV[s.gdkv-1]}</td>
     <td class="num">${fmtInt(s.luotBook)}</td><td class="num">${fmtInt(s.luotThap)}</td><td class="num">${fmtInt(s.luotCao)}</td>
