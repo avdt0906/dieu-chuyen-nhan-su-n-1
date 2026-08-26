@@ -1,0 +1,934 @@
+<title>Thưởng Đích Danh Skinner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f2; --surface:#ffffff; --surface-2:#f1eee8; --border:#e3ded6;
+  --text:#1c1a17; --text-muted:#736b62; --text-faint:#a49a8f;
+  --orange:#c8481f; --orange-soft:#c8481f1a; --orange-bg:#fbe9e1;
+  --blue:#2f68b0; --blue-soft:#2f68b01a; --blue-bg:#e7eefa;
+  --green:#1f8a4c; --green-soft:#1f8a4c17;
+  --red:#c23b34; --red-soft:#c23b3417;
+  --amber:#a8791e; --amber-bg:#faf1de; --amber-border:#c99a3f;
+  --gold:#8a6a12; --gold-soft:#8a6a1220; --gold-bg:#fbf1da; --gold-border:#d9ad3f;
+  --silver:#5b6472; --silver-soft:#5b647220; --silver-bg:#eef0f2; --silver-border:#b8c0c9;
+  --bronze:#8a5a34; --bronze-soft:#8a5a3420; --bronze-bg:#f5e9dc; --bronze-border:#c99461;
+  --shadow: 0 1px 2px rgba(20,16,10,.04), 0 6px 16px -8px rgba(20,16,10,.10);
+  --focus: #2f68b0;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background-color:var(--bg); color:var(--text);
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%20viewBox%3D%270%200%20200%20200%27%3E%0A%3Cg%20stroke%3D%27%238a6a12%27%20stroke-width%3D%272.2%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20opacity%3D%270.07%27%3E%0A%3Crect%20x%3D%2712%27%20y%3D%2718%27%20width%3D%2742%27%20height%3D%279%27%20rx%3D%272%27/%3E%0A%3Cline%20x1%3D%2717%27%20y1%3D%2727%27%20x2%3D%2717%27%20y2%3D%2747%27/%3E%0A%3Cline%20x1%3D%2723%27%20y1%3D%2727%27%20x2%3D%2723%27%20y2%3D%2747%27/%3E%0A%3Cline%20x1%3D%2729%27%20y1%3D%2727%27%20x2%3D%2729%27%20y2%3D%2747%27/%3E%0A%3Cline%20x1%3D%2735%27%20y1%3D%2727%27%20x2%3D%2735%27%20y2%3D%2747%27/%3E%0A%3Cline%20x1%3D%2741%27%20y1%3D%2727%27%20x2%3D%2741%27%20y2%3D%2747%27/%3E%0A%3Cline%20x1%3D%2747%27%20y1%3D%2727%27%20x2%3D%2747%27%20y2%3D%2747%27/%3E%0A%3Ccircle%20cx%3D%27118%27%20cy%3D%27128%27%20r%3D%278%27/%3E%0A%3Ccircle%20cx%3D%27104%27%20cy%3D%27150%27%20r%3D%278%27/%3E%0A%3Cline%20x1%3D%27125%27%20y1%3D%27121%27%20x2%3D%27168%27%20y2%3D%2778%27/%3E%0A%3Cline%20x1%3D%27111%27%20y1%3D%27143%27%20x2%3D%27168%27%20y2%3D%2778%27/%3E%0A%3Cline%20x1%3D%27121%27%20y1%3D%27131%27%20x2%3D%2796%27%20y2%3D%27156%27/%3E%0A%3Crect%20x%3D%27138%27%20y%3D%2728%27%20width%3D%2740%27%20height%3D%2711%27%20rx%3D%273%27%20transform%3D%27rotate%2825%20158%2033%29%27/%3E%0A%3Cline%20x1%3D%27176%27%20y1%3D%2736%27%20x2%3D%27192%27%20y2%3D%2744%27%20transform%3D%27rotate%2825%20158%2033%29%27/%3E%0A%3Ccircle%20cx%3D%2745%27%20cy%3D%27160%27%20r%3D%2714%27/%3E%0A%3Cline%20x1%3D%2745%27%20y1%3D%27150%27%20x2%3D%2745%27%20y2%3D%27170%27/%3E%0A%3Cline%20x1%3D%2735%27%20y1%3D%27160%27%20x2%3D%2755%27%20y2%3D%27160%27/%3E%0A%3C/g%3E%0A%3C/svg%3E");
+  background-repeat:repeat;
+  background-size:200px 200px;
+  background-attachment:fixed;
+  font-family:'IBM Plex Sans', system-ui, sans-serif;
+  font-size:14.5px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.page{max-width:1280px; margin:0 auto; padding:28px 20px 60px; display:flex; flex-direction:column; gap:20px;}
+h1,h2,h3{font-family:'Sora', system-ui, sans-serif; margin:0; text-wrap:balance;}
+.nums{font-family:'IBM Plex Mono', monospace; font-variant-numeric:tabular-nums;}
+a{color:var(--blue);}
+
+header.hd{
+  display:flex; flex-direction:column; gap:8px;
+  background:linear-gradient(120deg, var(--gold-bg) 0%, #fffaf0 42%, var(--blue-bg) 100%);
+  border:1px solid var(--gold-border); border-radius:16px;
+  padding:22px 26px; box-shadow:var(--shadow);
+  position:relative; overflow:hidden;
+}
+header.hd::before{
+  content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%;
+  background:radial-gradient(circle, var(--gold-soft) 0%, transparent 70%); pointer-events:none;
+}
+header.hd h1{font-size:27px; font-weight:800; letter-spacing:-.01em;}
+header.hd .meta{color:var(--text-muted); font-size:13.5px; position:relative;}
+header.hd .meta b{color:var(--text); font-weight:600;}
+
+.card.leaderboard{
+  border-top:5px solid transparent; border-image:linear-gradient(90deg, var(--gold) 0%, var(--silver) 50%, var(--bronze) 100%) 1;
+  background:linear-gradient(180deg, var(--gold-bg) 0%, var(--surface) 90px);
+  position:relative;
+}
+.card.leaderboard h2{
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(90deg, var(--gold) 0%, #6b5010 100%);
+  color:#fff; padding:7px 16px; border-radius:999px; font-size:15px;
+  box-shadow:0 3px 10px -3px rgba(138,106,18,.45);
+}
+.medal-badge{display:inline-flex; align-items:center; justify-content:center; font-size:22px; line-height:1; margin-right:4px; vertical-align:-4px; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
+.rank-big{display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; font-size:14px; font-weight:800; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 5px -2px rgba(0,0,0,.25);}
+.rank-big.g1{background:linear-gradient(145deg, #f3d998, var(--gold-bg)); color:var(--gold); border:1.5px solid var(--gold-border);}
+.rank-big.g2{background:linear-gradient(145deg, #e3e7ea, var(--silver-bg)); color:var(--silver); border:1.5px solid var(--silver-border);}
+.rank-big.g3{background:linear-gradient(145deg, #e9c9a8, var(--bronze-bg)); color:var(--bronze); border:1.5px solid var(--bronze-border);}
+tr.podium-1{background:linear-gradient(90deg, var(--gold-bg) 0%, #fffdf5 85%); border-left:4px solid var(--gold);}
+tr.podium-2{background:linear-gradient(90deg, var(--silver-bg) 0%, #fbfcfd 85%); border-left:4px solid var(--silver);}
+tr.podium-3{background:linear-gradient(90deg, var(--bronze-bg) 0%, #fffaf5 85%); border-left:4px solid var(--bronze);}
+tr.podium-1 td:first-child, tr.podium-2 td:first-child, tr.podium-3 td:first-child{padding-left:9px;}
+tr.podium-1:hover, tr.podium-2:hover, tr.podium-3:hover{filter:brightness(0.98);}
+.prize-tag{font-weight:700; font-family:'IBM Plex Mono',monospace;}
+.prize-tag.g1{color:var(--gold);} .prize-tag.g2{color:var(--silver);} .prize-tag.g3{color:var(--bronze);}
+.pill-gold{display:inline-flex; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:linear-gradient(90deg, var(--gold) 0%, #6b5010 100%); color:#fff;}
+.pill-dat{display:inline-flex; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:var(--green-soft); color:#186b3d; border:1px solid #1f8a4c40;}
+.pill-khongdat{display:inline-flex; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:600; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border);}
+
+.callout{
+  background:var(--amber-bg); border:1px solid var(--amber-border);
+  border-left:4px solid var(--amber); border-radius:10px; padding:14px 16px;
+  color:var(--text); font-size:13.8px; line-height:1.55;
+}
+.callout b{color:var(--amber); font-weight:600;}
+.callout .hi{background:var(--orange-soft); color:var(--orange); padding:0 4px; border-radius:4px; font-weight:600;}
+.callout .hib{background:var(--blue-soft); color:var(--blue); padding:0 4px; border-radius:4px; font-weight:600;}
+
+.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 22px; box-shadow:var(--shadow);}
+.card h2{font-size:16.5px; font-weight:600; margin-bottom:14px;}
+
+.lookup input[type=text]{
+  width:100%; max-width:420px; padding:10px 12px; border-radius:8px;
+  border:1px solid var(--border); background:var(--surface-2); color:var(--text);
+  font-family:inherit; font-size:14px;
+}
+.lookup input[type=text]:focus{outline:2px solid var(--focus); outline-offset:1px;}
+.lookup .hint{color:var(--text-faint); font-size:13px; margin-top:8px;}
+.lookup-result{margin-top:14px; display:none;}
+.lookup-result.show{display:block;}
+.lr-card{border:1px solid var(--border); border-radius:10px; padding:14px 16px; background:var(--surface-2); display:flex; flex-wrap:wrap; gap:18px; align-items:center;}
+.lr-name{font-weight:600; font-size:15px;}
+.lr-sub{color:var(--text-muted); font-size:12.5px;}
+.lr-stat{display:flex; flex-direction:column; gap:2px;}
+.lr-stat .v{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px;}
+.lr-stat .l{color:var(--text-faint); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
+.lr-empty{color:var(--text-faint); font-size:13.5px;}
+
+.kpi-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px;}
+.kpi{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:4px;}
+.kpi .l{color:var(--text-faint); font-size:10.8px; letter-spacing:.05em; text-transform:uppercase; font-weight:600;}
+.kpi .v{font-family:'IBM Plex Mono',monospace; font-size:25px; font-weight:600; letter-spacing:-.01em;}
+.kpi .s{color:var(--text-muted); font-size:12px;}
+.kpi.wide{grid-column:1/-1;}
+.kpi.wide .bar{height:8px; border-radius:5px; background:var(--surface-2); overflow:hidden; margin-top:6px;}
+.kpi.wide .bar > i{display:block; height:100%; background:var(--blue); border-radius:5px;}
+.kpi.big{grid-column:span 2; padding:22px 26px; border-width:1.5px; border-color:var(--gold-border); background:linear-gradient(135deg, var(--gold-bg) 0%, var(--surface) 60%);}
+.kpi.big .l{font-size:12.5px;}
+.kpi.big .v{font-size:40px;}
+.kpi.big .s{font-size:13.5px;}
+@media (max-width:640px){ .kpi.big{grid-column:1/-1;} }
+
+.chart-legend{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:12px; font-size:12.8px; color:var(--text-muted);}
+.chart-legend .sw{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px;}
+.chart-wrap{position:relative; overflow-x:auto;}
+.bar-note{color:var(--text-faint); font-size:12px; margin-top:10px;}
+#daily-tip{
+  position:absolute; pointer-events:none; opacity:0; transition:opacity .1s;
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  padding:8px 10px; font-size:12.5px; box-shadow:var(--shadow); z-index:5; white-space:nowrap;
+}
+#daily-tip .t1{font-weight:600; margin-bottom:3px;}
+#daily-tip .row{display:flex; justify-content:space-between; gap:10px;}
+
+.heat-scroll{overflow-x:auto;}
+table.heat{border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:12.5px;}
+table.heat th{color:var(--text-faint); font-weight:500; padding:4px 3px; text-align:center; font-size:11px;}
+table.heat td{padding:2px;}
+table.heat .wd{color:var(--text-muted); font-family:'IBM Plex Sans',sans-serif; font-weight:600; padding-right:8px; text-align:right; font-size:12px; white-space:nowrap;}
+.hc{width:44px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:5px; color:#fff; font-weight:600;}
+.hc.blank{background:transparent;}
+.hc-border-cao{box-shadow:inset 0 0 0 2px var(--orange);}
+.hc-border-thap{box-shadow:inset 0 0 0 2px var(--blue);}
+
+.table-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:10px;}
+table.dt{width:100%; border-collapse:collapse; font-size:13px; min-width:640px;}
+table.dt thead th{
+  position:sticky; top:0; background:var(--surface-2); color:var(--text-faint);
+  font-size:11px; text-transform:uppercase; letter-spacing:.04em; font-weight:600;
+  text-align:left; padding:9px 12px; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap;
+}
+table.dt thead th.num, table.dt td.num{text-align:right;}
+table.dt thead th:hover{color:var(--text);}
+table.dt tbody td{padding:8px 12px; border-bottom:1px solid var(--border); white-space:nowrap;}
+table.dt tbody tr:last-child td{border-bottom:none;}
+table.dt tbody tr:hover{background:var(--surface-2);}
+table.dt td.num{font-family:'IBM Plex Mono',monospace;}
+#detail-table tbody tr:nth-child(odd){background:#fdf8e8;}
+#detail-table tbody tr:nth-child(even){background:#ffffff;}
+#detail-table tbody tr:nth-child(odd):hover, #detail-table tbody tr:nth-child(even):hover{background:var(--surface-2);}
+.rank{display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; font-size:12px; font-weight:700; font-family:'IBM Plex Mono',monospace;}
+.rank.top{background:var(--blue); color:#fff;}
+.pill{display:inline-flex; padding:3px 8px; border-radius:6px; font-size:11.5px; font-weight:600; font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
+.pill.cao{background:var(--orange-soft); color:var(--orange);}
+.pill.thap{background:var(--blue-soft); color:var(--blue);}
+.tag{font-size:11.5px; font-family:'IBM Plex Mono',monospace;}
+.tag.plus{color:var(--green); font-weight:600;}
+.tag.miss{color:var(--red);}
+.tag.base{color:var(--text-faint);}
+.gain{color:var(--green); font-weight:600;}
+.muted{color:var(--text-faint);}
+
+.table-controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;}
+.table-controls input[type=text], .table-controls select{
+  padding:8px 10px; border-radius:8px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-family:inherit; font-size:13px;
+}
+.table-controls .count{align-self:center; color:var(--text-faint); font-size:12.5px; margin-left:auto;}
+.table-note{color:var(--text-faint); font-size:12px; margin-top:10px;}
+
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+
+<div class="page">
+
+  <header class="hd">
+    <h1>Thưởng book đích danh Skinner — giờ thấp điểm</h1>
+    <div class="meta">Chiến dịch <b>25/08/2026 – 03/09/2026</b> (10 ngày) · <b>lũy kế cộng dồn</b> đến thời điểm cập nhật · dữ liệu query trực tiếp từ DB · cập nhật <b>26/08/2026</b> (25/08 đã chốt đủ ngày, 26/08 đang diễn ra — lấy đến thời điểm query, 27/08–03/09 chưa diễn ra)</div>
+  </header>
+
+  <div class="callout">
+    <b>Cách đọc:</b> mọi lượt book đích danh Skinner hợp lệ đều hưởng mức nền <span class="hib">5.000đ</span>.
+    Lượt rơi vào khung giờ thấp điểm + đặt trước ≥ 30 phút + đúng điều kiện khác được cộng thêm 5.000đ (tổng 10.000đ).
+    <b>Lưu ý quan trọng:</b> toàn bộ 179 lượt hợp lệ lũy kế (25–26/08) tại salon Công ty đều mới dừng ở <b>mức nền</b> — <u>chưa có lượt nào được ghi nhận mức cộng thêm</u> trên bảng lương (<code>bi.ccm20250625_tip_khach_book_onl</code>), kể cả nhiều lượt rơi đúng khung giờ thấp điểm. Đây là dữ liệu thật, không phải lỗi tính toán của báo cáo.
+    <br><b>Quy tắc khung giờ thấp điểm (đã cập nhật 26/08/2026):</b> T2–T6 cao điểm 15h00–19h59, còn lại là thấp điểm (không đổi). <b>T7–CN: thấp điểm = {7h,8h,9h,19h,20h,21h}, còn lại (~10h–18h59) là cao điểm</b> (quy tắc T7-CN MỚI, thay cho quy tắc cũ "cao điểm 10h-18h59 áp dụng y hệt thấp điểm ngoài khung" — nay khung thấp điểm cuối tuần chỉ còn 2 dải giờ sáng sớm/tối muộn).
+  </div>
+
+  <div class="card leaderboard lookup">
+    <h2>Tra cứu thưởng của tôi</h2>
+    <input id="lookup-input" type="text" placeholder="Nhập tên hoặc mã nhân viên của bạn" autocomplete="off">
+    <div class="hint" id="lookup-hint">Nhập ít nhất 2 ký tự tên hoặc mã nhân viên để xem thưởng của mình.</div>
+    <div class="lookup-result" id="lookup-result"></div>
+  </div>
+
+  <section>
+    <div class="kpi-grid" id="kpi-grid"></div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>Lượt book theo ngày</h2>
+    <div class="chart-legend">
+      <span><i class="sw" style="background:var(--blue)"></i>Tổng lượt booking hợp lệ (lượt thấp điểm)</span>
+    </div>
+    <div class="chart-wrap">
+      <svg id="daily-chart" width="100%" height="260" style="overflow:visible"></svg>
+      <div id="daily-tip"></div>
+    </div>
+    <div class="bar-note">10 cột = 10 ngày chiến dịch (25/08–03/09). Ngày chưa diễn ra hiển thị cột giá trị 0 (không suy diễn). Số liệu là <b>số thật</b>, đếm trực tiếp từ giờ hẹn đặt lịch (<code>main.book_hour</code>) của từng lượt.</div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>Mật độ lượt book theo giờ và thứ</h2>
+    <div class="chart-legend">
+      <span><i class="sw" style="background:var(--blue)"></i>Khung giờ thấp điểm — T2–T6 ngoài 15h–19h59 · T7–CN: {7h,8h,9h,19h,20h,21h}</span>
+      <span><i class="sw" style="background:var(--orange)"></i>Khung giờ cao điểm — T2–T6: 15h–19h59 · T7–CN: 10h–18h59</span>
+      <span class="muted">Màu càng đậm = càng nhiều lượt book · mỗi hàng là 1 ngày cụ thể (Thứ + Ngày) trong chiến dịch, kể cả ngày = 0 lượt (chưa diễn ra) vẫn hiển thị đủ · viền ô = vùng cao/thấp điểm áp dụng đúng quy tắc theo Thứ của từng hàng</span>
+    </div>
+    <div class="heat-scroll"><table class="heat" id="heat-table"></table></div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>🏆 Bảng vinh danh Top 10 Skinner</h2>
+    <div class="bar-note" style="margin-top:-6px; margin-bottom:12px;">Mỗi Skinner trong Top 10 nhận thưởng cố định <b class="nums" style="color:var(--gold)">200.000đ/người</b> — <b>với điều kiện đạt ngưỡng tối thiểu ≥ 6 lượt booking hợp lệ LŨY KẾ cả chiến dịch</b> (cột "Tổng lượt booking hợp lệ" = lượt thấp điểm; xem trạng thái ở cột "Đạt ngưỡng lượt book"); Skinner trong Top 10 nhưng chưa đạt ngưỡng vẫn giữ nguyên vị trí xếp hạng (không đôn hạng dưới lên thay) nhưng thưởng = 0đ và không có cúp/huy chương. Xếp hạng theo <b>Tổng lượt hợp lệ</b> (= số lượt rơi vào khung <b>thấp điểm</b>, giảm dần, lũy kế cả chiến dịch); nếu bằng nhau thì xét tiếp <b>tổng lượt cao+thấp điểm</b>, rồi đến <b>tên A–Z</b>. Ngưỡng ≥6 lượt và mức thưởng 200.000đ/người vẫn cần user xác nhận lại trước khi dùng để chi trả.</div>
+    <div class="table-scroll"><table class="dt" id="ska-table"></table></div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>🥇 Xếp hạng Salon</h2>
+    <div class="bar-note" style="margin-top:-6px; margin-bottom:12px;">Top 3 salon đạt <b>ngưỡng tỷ lệ booking tối thiểu 10%</b> (lũy kế cả chiến dịch) được gắn huy chương và <b style="color:var(--gold)">Giải thưởng salon</b> (500.000đ / 300.000đ / 200.000đ) — khác hoàn toàn với thưởng cá nhân Skinner ở các bảng trên. Salon lọt top 3 nhưng chưa đạt ngưỡng sẽ không nhận huy chương/giải thưởng (không đôn salon hạng dưới lên thay).</div>
+    <div class="table-scroll" style="max-height:480px; overflow-y:auto;"><table class="dt" id="salon-table"></table></div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>Tổng hợp theo GĐKV</h2>
+    <div class="table-scroll"><table class="dt" id="gdkv-table"></table></div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>Booking Skinner Toàn Hệ Thống</h2>
+    <div class="table-controls">
+      <input type="text" id="skb-search" placeholder="Tìm tên hoặc mã nhân viên">
+      <select id="skb-salon"><option value="">Tất cả salon</option></select>
+      <select id="skb-gdkv"><option value="">Tất cả GĐKV</option></select>
+      <span class="count" id="skb-count"></span>
+    </div>
+    <div class="table-scroll" style="max-height:520px; overflow-y:auto;">
+      <table class="dt" id="skb-table"></table>
+    </div>
+    <div class="table-note">Số lượt booking lũy kế cả chiến dịch (25/08–03/09), tách thấp điểm/cao điểm theo giờ hẹn — bảng này không hiển thị số tiền thưởng.</div>
+  </section>
+
+  <section class="card leaderboard">
+    <h2>Chi tiết từng lượt book</h2>
+    <div class="table-controls">
+      <input type="text" id="dt-search" placeholder="Tìm salon, nhân viên, mã bill">
+      <select id="dt-status">
+        <option value="">Tất cả trạng thái</option>
+        <option value="miss">Lead time &lt; 30 phút</option>
+        <option value="cao">Giờ cao điểm</option>
+        <option value="thap">Giờ thấp điểm</option>
+      </select>
+      <span class="count" id="dt-count"></span>
+    </div>
+    <div class="table-scroll" style="max-height:480px; overflow-y:auto;"><table class="dt" id="detail-table"></table></div>
+    <div class="table-note" id="dt-note"></div>
+  </section>
+
+</div>
+
+<script>
+const GDKV = ["Nguyễn Việt Cường GDKV","Nguyễn Thanh Sang GDKV","Đoàn Trung Đức GDKV","Tống Xuân Quyền GDKV","Trịnh Văn Quang GDKV","Nguyễn Như Quỳnh GDKV","Phan Thị Hồng Gấm GDKV","Nguyễn Thị Huệ GDKV"];
+
+const fmtInt = n => n.toLocaleString('vi-VN');
+const fmtD = n => n.toLocaleString('vi-VN') + 'đ';
+const fmtTr = n => (n/1000000).toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' tr';
+const fmtPct = n => n.toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
+
+/* ---------- SKINNER RAW (name|maNV|salonMa|gdkvIdx|luotBook|luotThap|luotCao|thuongB|top10Flag) — LUY KE 25-26/08, 122 Skinner ---------- */
+const SKB_RAW = `Đỗ Thị Trâm|19535|10 TP|6|5|3|2|40000|1
+Nguyễn Thị Thêu|1909|168 NVC|6|4|3|1|35000|1
+Trần Thị Tuyết Ngân|17362|109 TQH|3|4|3|1|35000|1
+Nguyễn Thị Nga|17787|80 PL BD|1|4|2|2|30000|1
+Nguyễn Thị Khánh Linh|13728|10 TP|6|3|3|0|30000|1
+Vũ Thị Hiền|20339|255 NAN|1|3|3|0|30000|1
+Đỗ Thuỳ Linh|20826|36 N1 BD|1|3|3|0|30000|1
+Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|4|1|3|25000|0
+Lê Dương Lam Vy|17276|8 CVL|2|3|2|1|25000|1
+Nguyễn Phương Thảo|9473|168 NVC|6|3|2|1|25000|1
+Phạm Thị Trí |13106|173 TN|7|3|2|1|25000|1
+Vũ Thị Minh|1804|382 NT|3|3|2|1|25000|0
+Nguyễn Thị Thu Quỳnh|17766|382 NT|3|3|1|2|20000|0
+Nguyễn Thị Thuỳ Trang|19352|55A NVL|3|3|1|2|20000|0
+Tạ Thuỳ Linh|12032|382 NT|3|3|1|2|20000|0
+Lưu Thị Thuý Duy|12821|145 THT|2|2|2|0|20000|0
+Nguyễn Thị Ngần|5015|202 DC|7|2|2|0|20000|0
+Nguyễn Thị Như Ý|20801|145 THT|2|2|2|0|20000|0
+Nguyễn Thị Phú Quý|15706|237 NTT|4|2|2|0|20000|0
+Bùi Thị Thảo Nhy|21003|483 TN|5|2|1|1|15000|0
+Lê Thị Ninh Khánh|15250|10 TP|6|2|1|1|15000|0
+Nguyễn Thị Chinh|14231|168 NVC|6|2|1|1|15000|0
+Nguyễn Thị Linh|21015|12 LDT|5|2|1|1|15000|0
+Nguyễn Thị Thu Ngân|20771|103 TN|1|2|1|1|15000|0
+Ngô Mỹ Huyền|10289|32 NAT|5|2|1|1|15000|0
+Ngô Thị Nhung|14289|173 TN|7|2|1|1|15000|0
+Quách Tuyết Trang|10119|730 TL10|2|2|1|1|15000|0
+Tiền Anh Thư|20377|12 LDT|5|2|1|1|15000|0
+Trần Huỳnh Hồng Nhung|12059|145 THT|2|2|1|1|15000|0
+Đinh Thị Bích Ánh|17035|116 TK|3|2|1|1|15000|0
+Hoàng Thị Huyền|5403|382 NT|3|2|0|2|10000|0
+Nguyễn Thị Kim Ngân|20813|401/1 NDT|1|2|0|2|10000|0
+Phạm Thị Hương Giang|14094|109 TQH|3|2|0|2|10000|0
+Trương Thị Thuỳ|18843|363 LNQ TN|7|2|0|2|10000|0
+Từ Thị Mỹ Ánh|7304|190 HB|2|2|0|2|10000|0
+Đỗ Thị Thu Trang|13672|90 NH|3|2|0|2|10000|0
+Bùi Phương Anh|18694|109 TQH|3|1|1|0|10000|0
+Cao Thị Mỹ Liên|19648|103 TN|1|1|1|0|10000|0
+Danh Thị Sa Ri|7597|99 TSN|2|1|1|0|10000|0
+Dương Thị Ngọc Trinh|16635|103 TN|1|1|1|0|10000|0
+Hoàng Thị Linh|17591|290 QT TH|8|1|1|0|10000|0
+Hoàng Thị Thuỳ Trâm|20885|202 DC|7|1|1|0|10000|0
+Liễu Thanh Mai|19612|103 TN|1|1|1|0|10000|0
+Lê Thị Mai Ly|19894|401/1 NDT|1|1|1|0|10000|0
+Lê Thị Thuỳ Trang|3484|80 PL BD|1|1|1|0|10000|0
+Lê thị yến|19220|103 TN|1|1|1|0|10000|0
+Lại Thị Xuân|13549|90 NH|3|1|1|0|10000|0
+Lại Thị Yến Nhi|19351|382 NT|3|1|1|0|10000|0
+Mai Thị Thanh Dư|7605|36 N1 BD|1|1|1|0|10000|0
+Mai Thị Trang|15763|50BT4 NPC LD|7|1|1|0|10000|0
+Nguyễn Diệu Hiền|9708|186 DTH|4|1|1|0|10000|0
+Nguyễn Lê Phương Nguyên|21272|190 HB|2|1|1|0|10000|0
+Nguyễn Ngọc Ánh|19034|420 HTP|4|1|1|0|10000|0
+Nguyễn Như Ngọc |16195|1371 PVT|1|1|1|0|10000|0
+Nguyễn Phan Thúy Hiền|14010|36 N1 BD|1|1|1|0|10000|0
+Nguyễn Thị Hạnh|13073|186 DTH|4|1|1|0|10000|0
+Nguyễn Thị Hồng Hà|18811|103 TN|1|1|1|0|10000|0
+Nguyễn Thị Hồng Ngân |20962|420 HTP|4|1|1|0|10000|0
+Nguyễn Thị Lan|18384|595 BT TH|8|1|1|0|10000|0
+Nguyễn Thị Mỹ Hường|858|145 THT|2|1|1|0|10000|0
+Nguyễn Thị Ngọc Huyền|17415|103 TN|1|1|1|0|10000|0
+Nguyễn Thị Thanh Hiền|20893|116 TK|3|1|1|0|10000|0
+Nguyễn Thị Thuỳ Trang|14293|90 NH|3|1|1|0|10000|0
+Nguyễn Thị Xim|19020|39 HBT|7|1|1|0|10000|0
+Nguyễn Trúc Anh |16549|1146 KVC|1|1|1|0|10000|0
+Phạm Thị Duyên|9504|50BT4 NPC LD|7|1|1|0|10000|0
+Phạm Thị Huyền My|20518|65 CD|3|1|1|0|10000|0
+Phạm Thị Kiều Thơm |13826|186 QT|6|1|1|0|10000|0
+Phạm Thị Lương|6607|290 QT TH|8|1|1|0|10000|0
+Phạm Thị Tuyết Nhung|11536|90 NH|3|1|1|0|10000|0
+Thạch Thi Sa RemCTV|7193|145 THT|2|1|1|0|10000|0
+Thừa Thị Nguyệt|13443|202 DC|7|1|1|0|10000|0
+Trang Thị Hồng An|9601|145 THT|2|1|1|0|10000|0
+Trần Hà Linh|7456|39 HBT|7|1|1|0|10000|0
+Trần Nguyễn Trâm Anh|19682|103 TN|1|1|1|0|10000|0
+Trần Thị Kim Loan|18312|1180 QT|5|1|1|0|10000|0
+Trần Thị Kim Ngân|18226|109 TQH|3|1|1|0|10000|0
+Trần Thị Thu Hằng|16108|346 KT|7|1|1|0|10000|0
+Vương Mỹ Uyên|21327|80 PL BD|1|1|1|0|10000|0
+sk.kn87|20521|90 NH|3|1|1|0|10000|0
+Đoàn Thị Kiều Loan|15768|55A NVL|3|1|1|0|10000|0
+Đặng Thị Mỹ Nhân|20487|312 LVS|2|1|1|0|10000|0
+Đỗ Thị Linh|5866|927 HG|2|1|1|0|10000|0
+Bùi Thị Bão Nhi |13903|99 TSN|2|1|0|1|5000|0
+Bùi Thị Hồng Lan|12173|346 KT|7|1|0|1|5000|0
+Cao Thị Kim Chi|19735|927 HG|2|1|0|1|5000|0
+Huỳnh Kiều Như |12277|25 TD|4|1|0|1|5000|0
+Huỳnh Thị Kim My|12779|145 THT|2|1|0|1|5000|0
+Lê Thị Kiều Oanh|19860|420 HTP|4|1|0|1|5000|0
+Lê Thị Thuỳ CTV|21266|382 NT|3|1|0|1|5000|0
+Nguyễn Hồng Ngân|13968|65 CD|3|1|0|1|5000|0
+Nguyễn Lê Diệp Linh|13502|145 THT|2|1|0|1|5000|0
+Nguyễn Phan Như Ngọc|10345|12 LDT|5|1|0|1|5000|0
+Nguyễn Thị Cẩm Hằng|20765|8 CVL|2|1|0|1|5000|0
+Nguyễn Thị Diểm My|21359|312 LVS|2|1|0|1|5000|0
+Nguyễn Thị Hiểu Ngân |19698|483 TN|5|1|0|1|5000|0
+Nguyễn Thị Huỳnh Như|19760|312 LVS|2|1|0|1|5000|0
+Nguyễn Thị Hồng Ngọc|13583|190 HB|2|1|0|1|5000|0
+Nguyễn Thị Lan Anh|20256|39 HBT|7|1|0|1|5000|0
+Nguyễn Thị Loan Anh|10416|76 PVH|5|1|0|1|5000|0
+Nguyễn Thị Minh Thư|19255|237 NTT|4|1|0|1|5000|0
+Nguyễn Thị Thùy Trang|20865|99 TSN|2|1|0|1|5000|0
+Nguyễn Thị Tường Vi|20849|236 DBT|4|1|0|1|5000|0
+Ngô Thị Chí Hương|18966|312 LVS|2|1|0|1|5000|0
+Phạm Thị Thu Hương|17883|363 LNQ TN|7|1|0|1|5000|0
+Trương Thị Kim Tuyền|18104|145 THT|2|1|0|1|5000|0
+Trương Thị Quỳnh Như|21194|58 NVC NA|8|1|0|1|5000|0
+Trần Thị Bích Nhi|20467|25 TD|4|1|0|1|5000|0
+Trần Thị Huỳnh Hoa|21269|575 AC|2|1|0|1|5000|0
+Trần Thị Kim Ngân|18228|401/1 NDT|1|1|0|1|5000|0
+Trần Thị Kim Phượng|19801|103 TN|1|1|0|1|5000|0
+Uông Bội Linh|8595|290 QT TH|8|1|0|1|5000|0
+Viên Yến Vy|19753|575 AC|2|1|0|1|5000|0
+Võ Ngọc Thy Nhã|17780|237 NTT|4|1|0|1|5000|0
+Võ Thị Hồng|17662|1180 QT|5|1|0|1|5000|0
+Võ Thị Thu Ngân|4627|237 NTT|4|1|0|1|5000|0
+Vũ Hải Linh|11287|168 NVC|6|1|0|1|5000|0
+Đinh Thị Thùy Chinh|17034|116 TK|3|1|0|1|5000|0
+Đồng Thị Thanh Tuyền|3965|186 DTH|4|1|0|1|5000|0
+Đỗ Ngọc Bích|20365|109 TQH|3|1|0|1|5000|0
+Đỗ Thị Kim Chi|12846|36 N1 BD|1|1|0|1|5000|0
+Đỗ Thị Lan Anh |18516|173 TN|7|1|0|1|5000|0`;
+
+const SKINNERS = SKB_RAW.trim().split('\n').map((line,i)=>{
+  const [name,maNV,salon,g,lb,thap,cao,thuongB,top10] = line.split('|');
+  return {name,maNV,salon,gdkv:+g,luotBook:+lb,luotThap:+thap,luotCao:+cao,thuongB:+thuongB,top10: top10==='1'};
+});
+/* Bang A = Top 10 — tieu chi da chot: "Tong luot hop le" (= luot THAP DIEM) desc -> tong luot (cao+thap) desc -> ten A-Z. */
+const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
+  b.luotThap - a.luotThap ||
+  b.luotBook - a.luotBook ||
+  a.name.localeCompare(b.name, 'vi')
+);
+
+/* ---------- GDKV SUMMARY (gIdx|soSalon|billCoSkinner|luotBook|luotThapDiem) — LUY KE, 8/8 GĐKV ---------- */
+const GDKV_RAW = `3|6|577|38|19
+1|7|394|35|24
+2|8|711|33|15
+6|3|225|21|14
+7|6|418|20|12
+4|5|461|14|6
+5|5|270|13|5
+8|3|85|5|3`;
+const GDKV_SUMMARY = GDKV_RAW.trim().split('\n').map(line=>{
+  const [g,soSalon,bill,lb,ltd] = line.split('|').map(Number);
+  return {gdkv:g,soSalon,bill,luotBook:lb,luotThapDiem:ltd};
+});
+
+/* ---------- SALON RANKING (salon|gIdx|billCoSkinner|luotBook) — LUY KE, 43 salon co phat sinh. Thu tu = ty le booking desc. ---------- */
+const SALON_RAW = `36 N1 BD|1|26|6
+1146 KVC|1|40|5
+10 TP|6|81|10
+80 PL BD|1|55|6
+401/1 NDT|1|38|4
+90 NH|3|59|6
+290 QT TH|8|30|3
+190 HB|2|41|4
+145 THT|2|138|12
+382 NT|3|160|13
+168 NVC|6|124|10
+109 TQH|3|114|9
+173 TN|7|76|6
+55A NVL|3|57|4
+12 LDT|5|73|5
+255 NAN|1|44|3
+363 LNQ TN|7|44|3
+103 TN|1|155|10
+483 TN|5|47|3
+202 DC|7|77|4
+186 QT|6|20|1
+8 CVL|2|87|4
+32 NAT|5|46|2
+237 NTT|4|118|5
+312 LVS|2|99|4
+65 CD|3|50|2
+58 NVC NA|8|25|1
+420 HTP|4|85|3
+186 DTH|4|87|3
+1180 QT|5|58|2
+39 HBT|7|88|3
+595 BT TH|8|30|1
+346 KT|7|65|2
+50BT4 NPC LD|7|68|2
+116 TK|3|137|4
+99 TSN|2|107|3
+1371 PVT|1|36|1
+575 AC|2|74|2
+730 TL10|2|74|2
+927 HG|2|91|2
+76 PVH|5|46|1
+25 TD|4|111|2
+236 DBT|4|60|1`;
+const MEDAL = {1:{icon:'🥇',prize:500000}, 2:{icon:'🥈',prize:300000}, 3:{icon:'🥉',prize:200000}};
+const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
+  const [name,g,bill,lb] = line.split('|');
+  const rank=i+1, luotBook=+lb, billN=+bill;
+  const tyLe = luotBook/billN*100;
+  const dat = tyLe >= 10;
+  const medal = (MEDAL[rank] && dat) ? MEDAL[rank] : null;
+  return {rank,name,gdkv:+g,bill:billN,luotBook,tyLe,dat,medal,giaiThuong: medal?medal.prize:0};
+});
+
+/* ---------- DAILY (ngay|thu|tong|thap|cao) — 10 ngay chien dich 25/08-03/09. Ngay chua dien ra = 0, khong suy dien. ---------- */
+const DAILY_RAW = `25/08|T3|133|54|79
+26/08|T4|46|44|2
+27/08|T5|0|0|0
+28/08|T6|0|0|0
+29/08|T7|0|0|0
+30/08|CN|0|0|0
+31/08|T2|0|0|0
+01/09|T3|0|0|0
+02/09|T4|0|0|0
+03/09|T5|0|0|0`;
+const DAILY = DAILY_RAW.trim().split('\n').map(line=>{
+  const [date,wd,total,thap,cao] = line.split('|');
+  return {date,wd,total:+total,thap:+thap,cao:+cao};
+});
+
+/* ---------- HEATMAP: hours 7..21, theo TUNG NGAY cu the (khong gop theo thu chung) — 10 hang = 10 ngay ---------- */
+const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+const HEAT_RAW = `25/08|T3|0,0,2,10,6,12,14,10,13,10,13,28,13,2,0
+26/08|T4|0,0,0,4,10,5,15,10,2,0,0,0,0,0,0
+27/08|T5|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+28/08|T6|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+29/08|T7|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+30/08|CN|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+31/08|T2|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+01/09|T3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+02/09|T4|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+03/09|T5|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0`;
+const HEAT_ROWS = HEAT_RAW.trim().split('\n').map(line=>{
+  const [date,wd,vals] = line.split('|');
+  return {date,wd,vals: vals.split(',').map(Number)};
+});
+/* Quy tac khung gio thap diem (CHOT LAI 26/08/2026):
+   - T2-T6: cao diem 15h00-19h59, con lai la thap diem.
+   - T7-CN: thap diem = {7h,8h,9h,19h,20h,21h}, con lai (10h-18h59) la cao diem. */
+function isPeakHour(wd,h){
+  if(wd==='T7'||wd==='CN') return h>=10 && h<=18;
+  return h>=15 && h<=19;
+}
+
+/* ---------- DETAIL FULL LOG (ngay|thu|gioHen|K|salon|gIdx|skinner|maNV|bill|datLuc|leadPhut) — LUY KE 179 dong (133 ngay 25/08 + 46 ngay 26/08), DAY DU khong phai mau ---------- */
+const DETAIL_RAW = `25/08|T3|09:00|T|55A NVL|3|Đoàn Thị Kiều Loan|15768|25.156.800|08:21|38
+25/08|T3|09:30|T|10 TP|6|Đỗ Thị Trâm|19535|25.156.690|08:15|74
+25/08|T3|10:00|T|168 NVC|6|Nguyễn Phương Thảo|9473|25.156.992|09:11|48
+25/08|T3|10:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.157.153|08:32|87
+25/08|T3|10:00|T|202 DC|7|Nguyễn Thị Ngần|5015|25.157.017|10:02|0
+25/08|T3|10:00|T|202 DC|7|Hoàng Thị Thuỳ Trâm|20885|25.157.280|09:15|44
+25/08|T3|10:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.156.924|07:24|155
+25/08|T3|10:00|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.062|09:27|32
+25/08|T3|10:00|T|382 NT|3|Lại Thị Yến Nhi|19351|25.156.789|08:19|100
+25/08|T3|10:00|T|595 BT TH|8|Nguyễn Thị Lan|18384|25.156.958|09:17|42
+25/08|T3|10:30|T|168 NVC|6|Nguyễn Thị Chinh|14231|25.157.096|09:32|57
+25/08|T3|10:30|T|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.156.878|09:52|37
+25/08|T3|11:00|T|103 TN|1|Lê thị yến|19220|25.157.102|10:22|37
+25/08|T3|11:00|T|109 TQH|3|Trần Thị Kim Ngân|18226|25.157.219|10:34|25
+25/08|T3|11:00|T|173 TN|7|Ngô Thị Nhung|14289|25.157.514|10:57|2
+25/08|T3|11:00|T|8 CVL|2|Lê Dương Lam Vy|17276|25.157.110|10:54|5
+25/08|T3|11:00|T|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.157.433|10:30|29
+25/08|T3|11:30|T|401/1 NDT|1|Lê Thị Mai Ly|19894|25.157.532|10:40|49
+25/08|T3|12:00|T|10 TP|6|Lê Thị Ninh Khánh|15250|25.157.338|10:45|74
+25/08|T3|12:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.157.477|10:37|82
+25/08|T3|12:00|T|145 THT|2|Lưu Thị Thuý Duy|12821|25.157.511|24/08 21:42|857
+25/08|T3|12:00|T|173 TN|7|Phạm Thị Trí |13106|25.157.556|11:57|2
+25/08|T3|12:00|T|290 QT TH|8|Phạm Thị Lương|6607|25.157.203|11:21|38
+25/08|T3|12:00|T|8 CVL|2|Lê Dương Lam Vy|17276|25.157.344|11:18|41
+25/08|T3|12:00|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.157.399|11:55|4
+25/08|T3|12:30|T|145 THT|2|Nguyễn Thị Như Ý |20801|25.157.479|09:13|196
+25/08|T3|12:30|T|202 DC|7|Thừa Thị Nguyệt|13443|25.157.835|12:12|17
+25/08|T3|12:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.591|12:25|4
+25/08|T3|12:30|T|382 NT|3|Tạ Thuỳ Linh|12032|25.157.855|11:26|63
+25/08|T3|12:30|T|90 NH|3|Lại Thị Xuân|13549|25.158.052|12:02|27
+25/08|T3|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.157.882|10:18|161
+25/08|T3|13:00|T|1146 KVC|1|Nguyễn Trúc Anh |16549|25.157.599|11:09|110
+25/08|T3|13:00|T|116 TK|3|Đinh Thị Bích Ánh|17035|25.157.665|11:42|77
+25/08|T3|13:00|T|1180 QT|5|Trần Thị Kim Loan|18312|25.157.929|12:46|13
+25/08|T3|13:00|T|1371 PVT|1|Nguyễn Như Ngọc |16195|25.157.856|11:17|102
+25/08|T3|13:00|T|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.158.119|11:32|87
+25/08|T3|13:00|T|168 NVC|6|Nguyễn Phương Thảo|9473|25.157.640|12:18|41
+25/08|T3|13:00|T|173 TN|7|Phạm Thị Trí |13106|25.157.848|12:03|56
+25/08|T3|13:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.157.615|12:30|29
+25/08|T3|13:00|T|50BT4 NPC LD|7|Mai Thị Trang|15763|25.157.985|12:28|31
+25/08|T3|13:30|T|103 TN|1|Trần Nguyễn Trâm Anh|19682|25.158.157|11:57|92
+25/08|T3|13:30|T|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.158.218|10:16|193
+25/08|T3|13:30|T|202 DC|7|Nguyễn Thị Ngần|5015|25.158.027|12:55|34
+25/08|T3|13:30|T|730 TL10|2|Quách Tuyết Trang|10119|25.158.143|13:09|20
+25/08|T3|14:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.158.065|13:06|53
+25/08|T3|14:00|T|109 TQH|3|Bùi Phương Anh|18694|25.158.467|13:42|17
+25/08|T3|14:00|T|116 TK|3|Nguyễn Thị Thanh Hiền|20893|25.158.216|13:35|24
+25/08|T3|14:00|T|186 QT|6|Phạm Thị Kiều Thơm |13826|25.158.252|13:59|0
+25/08|T3|14:00|T|420 HTP|4|Nguyễn Thị Hồng Ngân |20962|25.158.322|13:09|50
+25/08|T3|14:30|T|103 TN|1|Liễu Thanh Mai|19612|25.158.325|14:29|1
+25/08|T3|14:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.158.857|13:56|33
+25/08|T3|14:30|T|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.158.360|08:40|349
+25/08|T3|14:30|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.158.401|14:22|7
+25/08|T3|14:30|T|99 TSN|2|Danh Thị Sa Ri|7597|25.157.893|12:54|95
+25/08|T3|15:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.354|13:20|99
+25/08|T3|15:00|C|168 NVC|6|Nguyễn Thị Thêu|1909|25.158.308|09:56|303
+25/08|T3|15:00|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.158.651|14:18|41
+25/08|T3|15:00|C|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.158.677|14:52|7
+25/08|T3|15:00|C|363 LNQ TN|7|Phạm Thị Thu Hương|17883|25.158.475|14:34|25
+25/08|T3|15:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.158.506|10:27|272
+25/08|T3|15:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.158.828|14:31|28
+25/08|T3|15:00|C|483 TN|5|Nguyễn Thị Hiểu Ngân |19698|25.158.774|14:04|55
+25/08|T3|15:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.159.011|10:21|308
+25/08|T3|15:30|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.159.261|12:26|183
+25/08|T3|15:30|C|312 LVS|2|Nguyễn Thị Diểm My|21359|25.158.862|15:12|17
+25/08|T3|15:30|C|401/1 NDT|1|Trần Thị Kim Ngân|18228|25.158.988|14:47|42
+25/08|T3|15:30|C|730 TL10|2|Quách Tuyết Trang|10119|25.158.827|15:01|28
+25/08|T3|16:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.790|15:00|59
+25/08|T3|16:00|C|145 THT|2|Huỳnh Thị Kim My|12779|25.159.203|14:27|92
+25/08|T3|16:00|C|168 NVC|6|Nguyễn Thị Chinh|14231|25.159.510|14:53|66
+25/08|T3|16:00|C|173 TN|7|Ngô Thị Nhung|14289|25.158.993|15:29|30
+25/08|T3|16:00|C|382 NT|3|Vũ Thị Minh|1804|25.159.925|15:20|39
+25/08|T3|16:00|C|483 TN|5|Bùi Thị Thảo Nhy|21003|25.159.111|13:35|144
+25/08|T3|16:00|C|575 AC|2|Viên Yến Vy|19753|25.158.741|15:05|54
+25/08|T3|16:00|C|58 NVC NA|8|Trương Thị Quỳnh Như|21194|25.158.758|15:24|35
+25/08|T3|16:30|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.159.168|13:40|169
+25/08|T3|16:30|C|382 NT|3|Lê Thị Thuỳ CTV|21266|25.159.555|15:43|46
+25/08|T3|17:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.159.216|16:21|38
+25/08|T3|17:00|C|190 HB|2|Nguyễn Thị Hồng Ngọc|13583|25.159.438|16:33|26
+25/08|T3|17:00|C|312 LVS|2|Nguyễn Thị Huỳnh Như|19760|25.159.559|14:23|156
+25/08|T3|17:00|C|346 KT|7|Bùi Thị Hồng Lan|12173|25.159.526|13:58|181
+25/08|T3|17:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.159.614|13:40|199
+25/08|T3|17:00|C|575 AC|2|Trần Thị Huỳnh Hoa|21269|25.159.496|16:10|49
+25/08|T3|17:00|C|65 CD|3|Nguyễn Hồng Ngân|13968|25.159.109|14:12|167
+25/08|T3|17:00|C|99 TSN|2|Nguyễn Thị Thùy Trang|20865|25.159.283|16:15|44
+25/08|T3|17:30|C|12 LDT|5|Nguyễn Phan Như Ngọc|10345|25.159.993|16:32|57
+25/08|T3|17:30|C|173 TN|7|Phạm Thị Trí |13106|25.159.742|16:00|89
+25/08|T3|17:30|C|32 NAT|5|Ngô Mỹ Huyền |10289|25.160.148|16:18|71
+25/08|T3|17:30|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.159.590|16:57|32
+25/08|T3|17:30|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.160.247|17:07|22
+25/08|T3|18:00|C|10 TP|6|Lê Thị Ninh Khánh|15250|25.160.175|17:02|57
+25/08|T3|18:00|C|103 TN|1|Trần Thị Kim Phượng|19801|25.159.610|13:26|273
+25/08|T3|18:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.159.966|16:06|113
+25/08|T3|18:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.160.394|15:04|175
+25/08|T3|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.160.119|16:43|76
+25/08|T3|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.160.261|17:52|7
+25/08|T3|18:00|C|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.160.331|17:10|49
+25/08|T3|18:00|C|145 THT|2|Nguyễn Lê Diệp Linh|13502|25.160.460|17:51|8
+25/08|T3|18:00|C|168 NVC|6|Vũ Hải Linh|11287|25.160.040|15:27|152
+25/08|T3|18:00|C|173 TN|7|Đỗ Thị Lan Anh |18516|25.159.750|16:00|119
+25/08|T3|18:00|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.160.743|16:38|81
+25/08|T3|18:00|C|25 TD|4|Huỳnh Kiều Như |12277|25.159.576|07:01|658
+25/08|T3|18:00|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.160.031|17:06|53
+25/08|T3|18:00|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.159.716|12:30|329
+25/08|T3|18:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.160.000|17:10|49
+25/08|T3|18:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.160.229|16:23|96
+25/08|T3|18:00|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.159.586|10:17|462
+25/08|T3|18:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.160.194|17:52|7
+25/08|T3|18:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.159.656|15:55|124
+25/08|T3|18:00|C|99 TSN|2|Bùi Thị Bão Nhi |13903|25.160.278|14:08|231
+25/08|T3|18:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.160.377|17:48|41
+25/08|T3|18:30|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.159.954|17:06|83
+25/08|T3|18:30|C|236 DBT|4|Nguyễn Thị Tường Vi|20849|25.160.225|18:31|0
+25/08|T3|18:30|C|25 TD|4|Trần Thị Bích Nhi|20467|25.160.344|18:07|22
+25/08|T3|18:30|C|312 LVS|2|Ngô Thị Chí Hương|18966|25.160.503|17:47|42
+25/08|T3|18:30|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.160.306|18:17|12
+25/08|T3|18:30|C|90 NH|3|Đỗ Thị Thu Trang|13672|25.159.686|17:01|88
+25/08|T3|18:30|C|90 NH|3|Đỗ Thị Thu Trang|13672|25.160.355|17:54|35
+25/08|T3|19:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.160.372|10:34|505
+25/08|T3|19:00|C|116 TK|3|Đinh Thị Bích Ánh|17035|25.160.363|16:41|138
+25/08|T3|19:00|C|12 LDT|5|Tiền Anh Thư|20377|25.160.691|10:02|537
+25/08|T3|19:00|C|237 NTT|4|Võ Thị Thu Ngân|4627|25.160.346|16:21|158
+25/08|T3|19:00|C|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.160.490|17:21|98
+25/08|T3|19:00|C|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.160.558|09:01|598
+25/08|T3|19:00|C|39 HBT|7|Nguyễn Thị Lan Anh|20256|25.160.257|15:44|195
+25/08|T3|19:00|C|420 HTP|4|Lê Thị Kiều Oanh|19860|25.160.645|09:11|588
+25/08|T3|19:00|C|76 PVH|5|Nguyễn Thị Loan Anh|10416|25.160.418|19:11|0
+25/08|T3|19:00|C|8 CVL|2|Nguyễn Thị Cẩm Hằng|20765|25.160.059|18:16|43
+25/08|T3|19:00|C|8 CVL|2|Lê Dương Lam Vy|17276|25.160.398|15:34|205
+25/08|T3|19:00|C|927 HG|2|Cao Thị Kim Chi|19735|25.160.549|11:17|462
+25/08|T3|19:30|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.160.723|16:47|162
+25/08|T3|20:00|C|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.160.609|16:11|228
+25/08|T3|20:00|C|109 TQH|3|Đỗ Ngọc Bích|20365|25.160.814|18:51|68
+26/08|T4|10:00|T|290 QT TH|8|Hoàng Thị Linh|17591|25.161.270|08:46|73
+26/08|T4|10:00|T|36 N1 BD|1|Mai Thị Thanh Dư|7605|25.161.361|09:21|38
+26/08|T4|10:00|T|50BT4 NPC LD|7|Phạm Thị Duyên|9504|25.161.349|09:00|59
+26/08|T4|10:00|T|80 PL BD|1|Vương Mỹ Uyên|21327|25.161.199|00:20|579
+26/08|T4|11:00|T|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.161.524|10:43|16
+26/08|T4|11:00|T|12 LDT|5|Tiền Anh Thư|20377|25.161.585|09:42|77
+26/08|T4|11:00|T|186 DTH|4|Nguyễn Thị Hạnh|13073|25.161.755|10:30|29
+26/08|T4|11:00|T|346 KT|7|Trần Thị Thu Hằng|16108|25.161.351|08:58|121
+26/08|T4|11:00|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.161.402|09:21|99
+26/08|T4|11:00|T|927 HG|2|Đỗ Thị Linh|5866|25.161.567|08:27|152
+26/08|T4|11:30|T|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.161.831|11:18|11
+26/08|T4|11:30|T|145 THT|2|Trang Thị Hồng An|9601|25.161.822|10:53|36
+26/08|T4|11:30|T|145 THT|2|Thạch Thi Sa RemCTV|7193|25.162.114|11:29|0
+26/08|T4|11:30|T|39 HBT|7|Trần Hà Linh|7456|25.162.282|11:25|4
+26/08|T4|12:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.161.682|06:39|320
+26/08|T4|12:00|T|103 TN|1|Cao Thị Mỹ Liên|19648|25.162.155|09:01|178
+26/08|T4|12:00|T|145 THT|2|Lưu Thị Thuý Duy|12821|25.161.725|11:11|48
+26/08|T4|12:00|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.161.424|09:21|158
+26/08|T4|12:00|T|65 CD|3|Phạm Thị Huyền My|20518|25.162.314|11:59|0
+26/08|T4|13:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.161.878|11:27|92
+26/08|T4|13:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.252|12:25|34
+26/08|T4|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.162.460|12:36|23
+26/08|T4|13:00|T|12 LDT|5|Nguyễn Thị Linh|21015|25.162.978|12:44|15
+26/08|T4|13:00|T|312 LVS|2|Đặng Thị Mỹ Nhân|20487|25.162.107|09:33|206
+26/08|T4|13:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.909|09:55|184
+26/08|T4|13:00|T|483 TN|5|Bùi Thị Thảo Nhy|21003|25.162.036|11:38|81
+26/08|T4|13:30|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.672|13:28|1
+26/08|T4|13:30|T|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.162.389|11:12|137
+26/08|T4|13:30|T|103 TN|1|Dương Thị Ngọc Trinh|16635|25.162.528|11:11|138
+26/08|T4|13:30|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.551|08:26|303
+26/08|T4|13:30|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.162.390|11:43|106
+26/08|T4|13:30|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.162.516|13:01|28
+26/08|T4|13:30|T|39 HBT|7|Nguyễn Thị Xim|19020|25.162.521|11:57|92
+26/08|T4|13:30|T|90 NH|3|sk.kn87|20521|25.162.291|08:47|282
+26/08|T4|14:00|T|103 TN|1|Nguyễn Thị Ngọc Huyền|17415|25.162.952|13:40|19
+26/08|T4|14:00|T|145 THT|2|Nguyễn Thị Như Ý|20801|25.162.649|10:01|238
+26/08|T4|14:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.904|11:52|127
+26/08|T4|14:00|T|186 DTH|4|Nguyễn Diệu Hiền|9708|25.162.666|11:42|137
+26/08|T4|14:00|T|190 HB|2|Nguyễn Lê Phương Nguyên|21272|25.162.361|13:06|53
+26/08|T4|14:00|T|32 NAT|5|Ngô Mỹ Huyền|10289|25.162.451|13:05|54
+26/08|T4|14:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.407|09:30|269
+26/08|T4|14:00|T|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.162.733|11:58|121
+26/08|T4|14:00|T|420 HTP|4|Nguyễn Ngọc Ánh|19034|25.162.762|13:54|5
+26/08|T4|14:00|T|80 PL BD|1|Lê Thị Thuỳ Trang|3484|25.162.651|10:07|232
+26/08|T4|15:00|C|12 LDT|5|Nguyễn Thị Linh|21015|25.162.723|14:19|40
+26/08|T4|15:00|C|290 QT TH|8|Uông Bội Linh|8595|25.162.980|10:37|262`;
+const DETAIL = DETAIL_RAW.trim().split('\n').map(line=>{
+  const [ngay,thu,hour,k,salon,g,skinner,maNV,bill,datLuc,lead] = line.split('|');
+  return {ngay,thu,hour,khungGio:k,salon,gdkv:+g,skinner,maNV,bill,datLuc,lead:+lead};
+});
+
+/* ================= RENDER: KPI ================= */
+const kpiGrid = document.getElementById('kpi-grid');
+const kpis = [
+  {l:'Tổng lượt book hợp lệ (lũy kế)', v:fmtInt(98), s:'40,6% tổng lượt lũy kế (98/179)'},
+  {l:'Số Skinner hưởng thưởng (lũy kế)', v:fmtInt(122), s:'tại 43 salon'},
+];
+kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="s">${k.s}</div></div>`).join('')
+  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (43 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(179/3690*100)}</div><div class="s">179 / 3.690 bill có dịch vụ Skinner (lũy kế 25–26/08)</div><div class="bar"><i style="width:${(179/3690*100).toFixed(1)}%"></i></div></div>`;
+
+/* ================= RENDER: DAILY CHART (10 cot, 1 cot/ngay) ================= */
+(function(){
+  const svg = document.getElementById('daily-chart');
+  const tip = document.getElementById('daily-tip');
+  const W = Math.max(760, DAILY.length*70), H=260, padB=34, padT=26;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  const maxV = Math.max(1, ...DAILY.map(d=>d.thap));
+  const bw = (W/DAILY.length)*0.55;
+  const gap = (W/DAILY.length);
+  const blue = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() || '#4a8fe0';
+  let html='';
+  DAILY.forEach((d,i)=>{
+    const x = i*gap + (gap-bw)/2;
+    const scale = (H-padB-padT)/maxV;
+    const v = d.thap;
+    const h = v*scale;
+    const yBase = H-padB;
+    const yTop = yBase-h;
+    html += `<rect data-i="${i}" class="bar-hit" x="${x}" y="${yTop}" width="${bw}" height="${Math.max(h,1)}" fill="transparent" style="cursor:pointer"></rect>`;
+    html += `<rect x="${x}" y="${yTop}" width="${bw}" height="${Math.max(h,1)}" rx="3" fill="${blue}" pointer-events="none"></rect>`;
+    html += `<text x="${x+bw/2}" y="${yTop-8}" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="IBM Plex Mono, monospace" pointer-events="none">${v}</text>`;
+    html += `<text x="${x+bw/2}" y="${H-20}" text-anchor="middle" font-size="10.5" fill="var(--text-faint)" font-family="IBM Plex Mono, monospace" pointer-events="none">${d.wd}</text>`;
+    html += `<text x="${x+bw/2}" y="${H-8}" text-anchor="middle" font-size="10.5" fill="var(--text-faint)" font-family="IBM Plex Mono, monospace" pointer-events="none">${d.date}</text>`;
+  });
+  svg.innerHTML = html;
+  svg.querySelectorAll('.bar-hit').forEach(el=>{
+    el.addEventListener('mousemove', e=>{
+      const d = DAILY[+el.dataset.i];
+      tip.innerHTML = `<div class="t1">${d.wd} ${d.date}</div>
+        <div class="row"><span style="color:${blue}">Tổng lượt booking hợp lệ</span><span class="nums">${d.thap}</span></div>
+        <div class="row"><span>Tổng lượt (cao+thấp)</span><span class="nums">${d.total}</span></div>`;
+      const rect = svg.getBoundingClientRect();
+      tip.style.left = (e.clientX - rect.left + 12) + 'px';
+      tip.style.top = (e.clientY - rect.top - 50) + 'px';
+      tip.style.opacity = 1;
+    });
+    el.addEventListener('mouseleave', ()=> tip.style.opacity = 0);
+  });
+})();
+
+/* ================= RENDER: HEATMAP (10 hang = 10 ngay cu the) ================= */
+(function(){
+  const table = document.getElementById('heat-table');
+  const maxV = Math.max(1, ...HEAT_ROWS.flatMap(r=>r.vals));
+  let head = '<tr><th></th>' + HOURS.map(h=>`<th>${h}H</th>`).join('') + '</tr>';
+  let rows = HEAT_ROWS.map(row=>{
+    const cells = row.vals.map((v,ci)=>{
+      const h = HOURS[ci];
+      const peak = isPeakHour(row.wd,h);
+      const alpha = 0.30 + 0.70*(v/maxV);
+      const base = peak ? 'var(--orange)' : 'var(--blue)';
+      const borderCls = peak ? 'hc-border-cao' : 'hc-border-thap';
+      return `<td><div class="hc ${borderCls}" style="background:${base}; opacity:${alpha.toFixed(2)}" title="${row.wd} ${row.date} · ${h}H: ${v} lượt · ${peak?'cao điểm':'thấp điểm'}">${v}</div></td>`;
+    }).join('');
+    return `<tr><td class="wd">${row.wd} ${row.date}</td>${cells}</tr>`;
+  }).join('');
+  table.innerHTML = `<thead>${head}</thead><tbody>${rows}</tbody>`;
+})();
+
+/* ================= RENDER: BANG VINH DANH TOP 10 ================= */
+const TOP10_LUOT_THRESHOLD = 6;
+(function(){
+  const head = `<thead><tr><th>Hạng</th><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt booking hợp lệ</th><th>Đạt ngưỡng lượt book</th><th class="num">Thưởng</th></tr></thead>`;
+  const medalIcon = r => r===1?'🥇':r===2?'🥈':r===3?'🥉':'';
+  const body = SK_TOP10.map((s,i)=>{
+    const rank=i+1;
+    const dat = s.luotThap >= TOP10_LUOT_THRESHOLD;
+    const rowCls = (rank<=3 && dat) ? `podium-${rank}` : '';
+    const badgeCls = rank===1?'g1':rank===2?'g2':rank===3?'g3':'';
+    const rankCell = (rank<=3 && dat)
+      ? `<span class="medal-badge">${medalIcon(rank)}</span><span class="rank-big ${badgeCls}">${rank}</span>`
+      : `<span class="rank">${rank}</span>`;
+    const thuongCell = dat
+      ? `<span class="prize-tag" style="color:var(--gold)">${fmtD(200000)}</span>`
+      : `<span class="muted">${fmtD(0)}</span>`;
+    return `<tr class="${rowCls}">
+      <td>${rankCell}</td>
+      <td>${s.name}</td><td class="nums">${s.maNV}</td><td>${s.salon}</td><td>${GDKV[s.gdkv-1]}</td>
+      <td class="num">${fmtInt(s.luotThap)}</td>
+      <td>${dat?'<span class="pill-dat">Đạt</span>':'<span class="pill-khongdat">Không đạt</span>'}</td>
+      <td class="num">${thuongCell}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('ska-table').innerHTML = head + '<tbody>'+body+'</tbody>';
+})();
+
+/* ================= RENDER: GDKV TABLE ================= */
+(function(){
+  const head = `<thead><tr><th>GĐKV</th><th class="num">Số salon</th><th class="num">Bill có Skinner</th><th class="num">Lượt book</th><th class="num">Tỷ lệ booking</th><th class="num">Tổng lượt booking hợp lệ</th></tr></thead>`;
+  const rows = [...GDKV_SUMMARY].sort((a,b)=>b.luotBook-a.luotBook).map(g=>`<tr>
+    <td>${GDKV[g.gdkv-1]}</td><td class="num">${g.soSalon}</td><td class="num">${fmtInt(g.bill)}</td>
+    <td class="num">${fmtInt(g.luotBook)}</td><td class="num">${fmtPct(g.luotBook/g.bill*100)}</td>
+    <td class="num">${fmtInt(g.luotThapDiem)}</td></tr>`).join('');
+  document.getElementById('gdkv-table').innerHTML = head + '<tbody>'+rows+'</tbody>';
+})();
+
+/* ================= RENDER: SALON TABLE (co huy chuong + giai thuong) ================= */
+(function(){
+  const head = `<thead><tr><th>#</th><th>Salon</th><th>GĐKV</th><th class="num">Bill có Skinner</th><th class="num">Tổng lượt booking hợp lệ</th><th class="num">Tỷ lệ booking</th><th>Đạt điều kiện ngưỡng tối thiểu</th><th class="num">Giải thưởng</th></tr></thead>`;
+  const rows = SALONS.map(s=>{
+    const badgeCls = s.rank===1?'g1':s.rank===2?'g2':s.rank===3?'g3':'';
+    const rankCell = s.medal
+      ? `<span class="medal-badge">${s.medal.icon}</span><span class="rank-big ${badgeCls}">${s.rank}</span>`
+      : (s.rank<=3?`<span class="rank">${s.rank}</span>`:s.rank);
+    const rowCls = s.medal ? `podium-${s.rank}` : '';
+    return `<tr class="${rowCls}">
+    <td>${rankCell}</td>
+    <td>${s.name}</td><td>${GDKV[s.gdkv-1]}</td><td class="num">${fmtInt(s.bill)}</td>
+    <td class="num">${fmtInt(s.luotBook)}</td><td class="num">${fmtPct(s.tyLe)}</td>
+    <td>${s.dat?'<span class="pill-dat">Đạt</span>':'<span class="pill-khongdat">Không đạt</span>'}</td>
+    <td class="num">${s.giaiThuong?`<span class="prize-tag ${badgeCls}">${fmtD(s.giaiThuong)}</span>`:'<span class="muted">—</span>'}</td></tr>`;
+  }).join('');
+  document.getElementById('salon-table').innerHTML = head + '<tbody>'+rows+'</tbody>';
+})();
+
+/* ================= RENDER: BOOKING SKINNER TOAN HE THONG (khong con cot Thuong) ================= */
+const skbSalonSel = document.getElementById('skb-salon');
+const skbGdkvSel = document.getElementById('skb-gdkv');
+[...new Set(SKINNERS.map(s=>s.salon))].sort().forEach(s=>{
+  skbSalonSel.insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`);
+});
+GDKV.forEach((g,i)=> skbGdkvSel.insertAdjacentHTML('beforeend', `<option value="${i+1}">${g}</option>`));
+
+function renderSkbTable(){
+  const q = document.getElementById('skb-search').value.trim().toLowerCase();
+  const salonF = skbSalonSel.value;
+  const gdkvF = skbGdkvSel.value;
+  let rows = SKINNERS.filter(s=>{
+    if(salonF && s.salon!==salonF) return false;
+    if(gdkvF && s.gdkv!==+gdkvF) return false;
+    if(q && !s.name.toLowerCase().includes(q) && !s.salon.toLowerCase().includes(q) && !s.maNV.includes(q)) return false;
+    return true;
+  });
+  document.getElementById('skb-count').textContent = fmtInt(rows.length) + ' Skinner';
+  const head = `<thead><tr><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt</th><th class="num">Lượt thấp điểm</th><th class="num">Lượt cao điểm</th><th>Top 10</th></tr></thead>`;
+  const body = rows.map(s=>`<tr${s.top10?' class="podium-1" style="background:var(--gold-bg)"':''}>
+    <td>${s.name}</td><td class="nums">${s.maNV}</td><td>${s.salon}</td><td>${GDKV[s.gdkv-1]}</td>
+    <td class="num">${fmtInt(s.luotBook)}</td><td class="num">${fmtInt(s.luotThap)}</td><td class="num">${fmtInt(s.luotCao)}</td>
+    <td>${s.top10?'<span class="pill pill-gold">Top 10</span>':''}</td>
+  </tr>`).join('');
+  document.getElementById('skb-table').innerHTML = head + '<tbody>'+body+'</tbody>';
+}
+['skb-search'].forEach(id=>document.getElementById(id).addEventListener('input', renderSkbTable));
+[skbSalonSel, skbGdkvSel].forEach(el=>el.addEventListener('change', renderSkbTable));
+renderSkbTable();
+
+/* ================= RENDER: DETAIL TABLE ================= */
+function tagInfo(row){
+  if(row.khungGio==='C') return {cls:'base', txt:'Giờ cao điểm'};
+  if(row.lead<30) return {cls:'miss', txt:'Lead time < 30 phút'};
+  return {cls:'base', txt:'Thấp điểm — chưa ghi nhận cộng thêm'};
+}
+function renderDetailTable(){
+  const q = document.getElementById('dt-search').value.trim().toLowerCase();
+  const status = document.getElementById('dt-status').value;
+  let rows = DETAIL.filter(r=>{
+    if(q && !r.salon.toLowerCase().includes(q) && !r.skinner.toLowerCase().includes(q) && !r.bill.includes(q) && !r.maNV.includes(q)) return false;
+    if(status==='miss' && !(r.khungGio==='T' && r.lead<30)) return false;
+    if(status==='cao' && r.khungGio!=='C') return false;
+    if(status==='thap' && r.khungGio!=='T') return false;
+    return true;
+  });
+  document.getElementById('dt-count').textContent = fmtInt(rows.length) + ' / ' + fmtInt(DETAIL.length) + ' lượt (đầy đủ 100%, lũy kế)';
+  const head = `<thead><tr><th>Ngày</th><th>Thứ</th><th>Giờ hẹn</th><th>Khung giờ</th><th class="num">Thưởng (công thức riêng)</th><th>Ghi chú</th><th>Salon</th><th>GĐKV</th><th>Skinner</th><th>Mã NV</th><th>Kênh đặt</th><th>Bill</th><th>Đặt lúc</th><th class="num">Lead time</th></tr></thead>`;
+  const body = rows.map(r=>{
+    const t = tagInfo(r);
+    const thuongRieng = r.khungGio==='C' ? 5000 : 10000;
+    return `<tr>
+      <td class="nums">${r.ngay}</td><td>${r.thu}</td><td>${r.hour}</td>
+      <td><span class="pill ${r.khungGio==='C'?'cao':'thap'}">${r.khungGio==='C'?'CAO ĐIỂM':'THẤP ĐIỂM'}</span></td>
+      <td class="num gain">${fmtD(thuongRieng)}</td>
+      <td><span class="tag ${t.cls}">${t.txt}</span></td>
+      <td>${r.salon}</td><td>${GDKV[r.gdkv-1]}</td><td>${r.skinner}</td><td class="nums">${r.maNV}</td>
+      <td class="muted">Online/App</td><td class="nums">${r.bill}</td>
+      <td class="nums">${r.datLuc}</td><td class="num nums">${r.lead}′</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('detail-table').innerHTML = head + '<tbody>'+body+'</tbody>';
+}
+document.getElementById('dt-search').addEventListener('input', renderDetailTable);
+document.getElementById('dt-status').addEventListener('change', renderDetailTable);
+renderDetailTable();
+document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ LŨY KẾ</b> (25/08 đã chốt đủ ngày + 26/08 đến thời điểm query — 100%, không phải mẫu) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn.
+⚠️ Cột <b>"Thưởng (công thức riêng)"</b> dùng công thức: 5.000đ/lượt CAO điểm + 10.000đ/lượt THẤP điểm (theo giờ hẹn, áp dụng đúng quy tắc T2-T6/T7-CN riêng từng ngày) — công thức này cũng là căn cứ phân loại "Lượt thấp điểm"/"Lượt cao điểm" ở bảng "Booking Skinner Toàn Hệ Thống" (bảng đó không hiển thị số tiền). Cột thưởng ở đây KHÔNG phải số liệu chính thức trên bảng lương (bảng lương thật trả đều 5.000đ/lượt).`;
+
+/* ================= LOOKUP ================= */
+const lookupInput = document.getElementById('lookup-input');
+const lookupResult = document.getElementById('lookup-result');
+const lookupHint = document.getElementById('lookup-hint');
+lookupInput.addEventListener('input', ()=>{
+  const q = lookupInput.value.trim().toLowerCase();
+  if(q.length<2){ lookupResult.classList.remove('show'); lookupHint.style.display='block'; return; }
+  lookupHint.style.display='none';
+  const matches = SKINNERS.filter(s=>s.name.toLowerCase().includes(q) || s.maNV.includes(q));
+  lookupResult.classList.add('show');
+  if(!matches.length){
+    lookupResult.innerHTML = `<div class="lr-empty">Không tìm thấy nhân viên khớp "${lookupInput.value}". Thử nhập đúng họ tên hoặc mã nhân viên như trên hệ thống.</div>`;
+    return;
+  }
+  lookupResult.innerHTML = matches.slice(0,8).map(s=>`
+    <div class="lr-card">
+      <div style="min-width:180px"><div class="lr-name">${s.top10?'<span class="medal-badge">🏆</span>':''}${s.name}</div><div class="lr-sub">${s.salon} · ${GDKV[s.gdkv-1]} · mã ${s.maNV}${s.top10?' · <b style="color:var(--gold)">Top 10 vinh danh</b>':''}</div></div>
+      <div class="lr-stat"><div class="v nums">${s.luotBook}</div><div class="l">Tổng lượt (lũy kế)</div></div>
+      <div class="lr-stat"><div class="v nums">${s.luotThap}</div><div class="l">Tổng lượt booking hợp lệ</div></div>
+      <div class="lr-stat"><div class="v nums">${s.luotCao}</div><div class="l">Lượt cao điểm</div></div>
+      <div class="lr-stat"><div class="v nums gain">${fmtD(s.thuongB)}</div><div class="l">Thưởng (công thức riêng)</div></div>
+      ${s.top10?`<div class="lr-stat"><div class="v nums" style="color:var(--gold)">${fmtD(s.luotThap>=6?200000:0)}</div><div class="l">Thưởng Top 10</div></div>`:''}
+    </div>`).join('');
+});
+</script>
