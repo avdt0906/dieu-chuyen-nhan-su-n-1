@@ -390,8 +390,13 @@ const SKINNERS = SKB_RAW.trim().split('\n').map((line,i)=>{
   const [name,maNV,salon,g,lb,thap,cao,thuongB,top10] = line.split('|');
   return {name,maNV,salon,gdkv:+g,luotBook:+lb,luotThap:+thap,luotCao:+cao,thuongB:+thuongB,top10: top10==='1'};
 });
-/* Bang A = Top 10 (da xep hang san theo tieu chi: tong luot desc -> luot thap diem desc -> ten A-Z) */
-const SK_TOP10 = SKINNERS.filter(s=>s.top10);
+/* Bang A = Top 10 — sap xep DUNG tieu chi da chot: tong luot desc -> luot thap diem desc -> ten A-Z.
+   (BUG cu: SKINNERS duoc sap theo thuongB desc cho Bang B, filter() giu nguyen thu tu do nen Top10 bi sai thu tu — da fix bang sort() rieng o day) */
+const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
+  b.luotBook - a.luotBook ||
+  b.luotThap - a.luotThap ||
+  a.name.localeCompare(b.name, 'vi')
+);
 
 /* ---------- GDKV SUMMARY (gIdx|soSalon|billCoSkinner|luotBook|luotThapDiem) — 8/8 GĐKV, day du ---------- */
 const GDKV_RAW = `3|6|346|32|13
