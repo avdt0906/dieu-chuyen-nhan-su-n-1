@@ -137,6 +137,13 @@ table.heat th{color:var(--text-faint); font-weight:500; padding:4px 3px; text-al
 table.heat td{padding:2px;}
 table.heat .wd{color:var(--text-muted); font-family:'IBM Plex Sans',sans-serif; font-weight:600; padding-right:8px; text-align:right; font-size:12.5px;}
 .hc{width:46px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:5px; color:#fff; font-weight:600;}
+.hc-border-cao{box-shadow:inset 0 0 0 2px var(--orange);}
+.hc-border-thap{box-shadow:inset 0 0 0 2px var(--blue);}
+tr.heat-zone-row th{padding:3px 0; border-radius:0;}
+.zone-band{color:#fff; font-size:10px; font-weight:700; letter-spacing:.04em; padding:4px 0 !important;}
+.zone-band.zone-cao{background:var(--orange); border-radius:6px 6px 0 0;}
+.zone-band.zone-thap{background:var(--blue); border-radius:6px 6px 0 0;}
+.zone-band + .zone-band{margin-left:2px;}
 .hc.blank{background:transparent;}
 
 .table-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:10px;}
@@ -223,9 +230,9 @@ footer.notes b{color:var(--text-muted);}
   <section class="card leaderboard">
     <h2>Mật độ lượt book theo giờ và thứ</h2>
     <div class="chart-legend">
-      <span><i class="sw" style="background:var(--blue)"></i>Khung giờ thấp điểm</span>
-      <span><i class="sw" style="background:var(--orange)"></i>Khung giờ cao điểm</span>
-      <span class="muted">Màu càng đậm = càng nhiều lượt book · chỉ có dữ liệu Thứ Ba (kỳ 1 ngày)</span>
+      <span><i class="sw" style="background:var(--blue)"></i>Khung giờ thấp điểm — T2–T6 ngoài 15h–19h59 · T7–CN ngoài 10h–18h59</span>
+      <span><i class="sw" style="background:var(--orange)"></i>Khung giờ cao điểm — T2–T6: 15h–19h59 · T7–CN: 10h–18h59</span>
+      <span class="muted">Màu càng đậm = càng nhiều lượt book · ô "0" vẫn hiển thị đủ khung giờ mở cửa (8h–20h) · dải màu trên đầu bảng minh hoạ vùng cao/thấp điểm theo quy tắc Thứ Ba (kỳ này chỉ có dữ liệu Thứ Ba)</span>
     </div>
     <div class="heat-scroll"><table class="heat" id="heat-table"></table></div>
   </section>
@@ -248,7 +255,7 @@ footer.notes b{color:var(--text-muted);}
   </section>
 
   <section class="card leaderboard">
-    <h2>Thưởng Skinner Toàn Hệ Thống</h2>
+    <h2>Booking Skinner Toàn Hệ Thống</h2>
     <div class="table-controls">
       <input type="text" id="skb-search" placeholder="Tìm tên hoặc mã nhân viên">
       <select id="skb-salon"><option value="">Tất cả salon</option></select>
@@ -477,15 +484,17 @@ const DAILY = DAILY_RAW.trim().split('\n').map(line=>{
 });
 
 /* ---------- HEATMAP: hours 7..21, null = khong co du lieu. Chi co Thu Ba (ky 1 ngay) ---------- */
-const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+/* Gio mo cua toan bo (8h-20h, khop gio hoat dong thuc te cua salon 8h30-20h30) — hien thi DAY DU, khong an khung gio khong co lieu.
+   T3 (25/08/2026, THU DUY NHAT co du lieu that trong ky) da chot lai voi so lieu chot ca ngay (133 luot), gom ca cac khung gio = 0 luot. */
+const HOURS = [8,9,10,11,12,13,14,15,16,17,18,19,20];
 const HEAT = {
-  T2: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  T3: [null,null,2,10,6,12,14,10,10,3,null,null,null,null,null],
-  T4: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  T5: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  T6: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  T7: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  CN: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+  T2: [null,null,null,null,null,null,null,null,null,null,null,null,null],
+  T3: [0,2,10,6,12,14,10,13,10,13,28,13,2],
+  T4: [null,null,null,null,null,null,null,null,null,null,null,null,null],
+  T5: [null,null,null,null,null,null,null,null,null,null,null,null,null],
+  T6: [null,null,null,null,null,null,null,null,null,null,null,null,null],
+  T7: [null,null,null,null,null,null,null,null,null,null,null,null,null],
+  CN: [null,null,null,null,null,null,null,null,null,null,null,null,null],
 };
 const WEEKDAY_ORDER = ['T2','T3','T4','T5','T6','T7','CN'];
 function isPeakHour(wd,h){
@@ -684,7 +693,21 @@ kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div
 (function(){
   const table = document.getElementById('heat-table');
   const maxV = Math.max(...Object.values(HEAT).flat().filter(v=>v!=null));
-  let head = '<tr><th></th>' + HOURS.map(h=>`<th>${h}H</th>`).join('') + '</tr>';
+
+  /* Hang bang mau phan vung CAO/THAP dua theo quy tac T2-T6 (vi day duy nhat co du lieu that trong ky la Thu Ba) —
+     gop cac cot lien tiep cung vung bang colspan de tao 1 dai mau lien mach ngay tren hang gio. */
+  const zoneSegs = [];
+  HOURS.forEach(h=>{
+    const peak = isPeakHour('T3', h);
+    const last = zoneSegs[zoneSegs.length-1];
+    if(last && last.peak===peak) last.span++;
+    else zoneSegs.push({peak, span:1});
+  });
+  const zoneRow = '<tr class="heat-zone-row"><th></th>' + zoneSegs.map(seg=>
+    `<th colspan="${seg.span}" class="zone-band ${seg.peak?'zone-cao':'zone-thap'}">${seg.peak?'CAO ĐIỂM':'THẤP ĐIỂM'}</th>`
+  ).join('') + '</tr>';
+
+  let head = zoneRow + '<tr><th></th>' + HOURS.map(h=>`<th>${h}H</th>`).join('') + '</tr>';
   let rows = WEEKDAY_ORDER.map(wd=>{
     const cells = HEAT[wd].map((v,ci)=>{
       const h = HOURS[ci];
@@ -692,7 +715,8 @@ kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div
       const peak = isPeakHour(wd,h);
       const alpha = 0.35 + 0.65*(v/maxV);
       const base = peak ? 'var(--orange)' : 'var(--blue)';
-      return `<td><div class="hc" style="background:${base}; opacity:${alpha.toFixed(2)}" title="${wd} ${h}H: ${v} lượt · ${peak?'cao điểm':'thấp điểm'}">${v}</div></td>`;
+      const borderCls = peak ? 'hc-border-cao' : 'hc-border-thap';
+      return `<td><div class="hc ${borderCls}" style="background:${base}; opacity:${alpha.toFixed(2)}" title="${wd} ${h}H: ${v} lượt · ${peak?'cao điểm':'thấp điểm'}">${v}</div></td>`;
     }).join('');
     return `<tr><td class="wd">${wd}</td>${cells}</tr>`;
   }).join('');
@@ -747,11 +771,11 @@ function renderSkbTable(){
     return true;
   });
   document.getElementById('skb-count').textContent = fmtInt(rows.length) + ' Skinner';
-  const head = `<thead><tr><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt</th><th class="num">Lượt thấp điểm</th><th class="num">Lượt cao điểm</th><th class="num">Thưởng</th><th>Top 10</th></tr></thead>`;
+  const head = `<thead><tr><th>Nhân viên</th><th>Mã NV</th><th>Salon</th><th>GĐKV</th><th class="num">Tổng lượt</th><th class="num">Lượt thấp điểm</th><th class="num">Lượt cao điểm</th><th>Top 10</th></tr></thead>`;
   const body = rows.map(s=>`<tr${s.top10?' class="podium-1" style="background:var(--gold-bg)"':''}>
     <td>${s.name}</td><td class="nums">${s.maNV}</td><td>${s.salon}</td><td>${GDKV[s.gdkv-1]}</td>
     <td class="num">${fmtInt(s.luotBook)}</td><td class="num">${fmtInt(s.luotThap)}</td><td class="num">${fmtInt(s.luotCao)}</td>
-    <td class="num gain">${fmtD(s.thuongB)}</td><td>${s.top10?'<span class="pill pill-gold">Top 10</span>':''}</td>
+    <td>${s.top10?'<span class="pill pill-gold">Top 10</span>':''}</td>
   </tr>`).join('');
   document.getElementById('skb-table').innerHTML = head + '<tbody>'+body+'</tbody>';
 }
@@ -825,7 +849,7 @@ document.getElementById('dt-search').addEventListener('input', renderDetailTable
 document.getElementById('dt-status').addEventListener('change', renderDetailTable);
 renderDetailTable();
 document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ</b> (100% — không phải mẫu) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn — không phải thời gian chờ tại salon.
-⚠️ Cột <b>"Thưởng (công thức riêng)"</b> dùng CÙNG công thức với bảng "Thưởng Skinner Toàn Hệ Thống": 5.000đ/lượt CAO điểm + 10.000đ/lượt THẤP điểm (theo giờ hẹn) — KHÔNG còn là số liệu chính thức trên bảng lương (bảng lương thật trả đều 5.000đ/lượt cho cả 133 lượt). Tổng cột này = 935.000đ, khớp đúng tổng bảng "Thưởng Skinner Toàn Hệ Thống".`;
+⚠️ Cột <b>"Thưởng (công thức riêng)"</b> dùng công thức: 5.000đ/lượt CAO điểm + 10.000đ/lượt THẤP điểm (theo giờ hẹn) — công thức này cũng chính là căn cứ phân loại "Lượt thấp điểm"/"Lượt cao điểm" đang hiển thị ở bảng "Booking Skinner Toàn Hệ Thống" (bảng đó không hiển thị số tiền). Cột thưởng ở đây KHÔNG còn là số liệu chính thức trên bảng lương (bảng lương thật trả đều 5.000đ/lượt cho cả 133 lượt) — tổng cột này = 935.000đ.`;
 
 /* ================= LOOKUP ================= */
 const lookupInput = document.getElementById('lookup-input');
