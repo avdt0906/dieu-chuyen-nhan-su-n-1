@@ -5,21 +5,21 @@
 <title>Báo cáo Nhân sự Giờ cao điểm ngày 28/08/2026 (Thứ Sáu)</title>
 <style>
   :root {
-    --bg: #15161B; --panel: #202329; --panel2: #262A32; --border: #383D47; --text: #ECECEF; --muted: #9BA3AF;
-    --red: #F87171; --red-bg: rgba(248,113,113,.16); --red-solid: #DC2626; --green: #34D399; --green-bg: rgba(52,211,153,.16);
-    --blue: #60A5FA; --blue-bg: rgba(96,165,250,.16); --amber: #FBBF24; --amber-bg: rgba(251,191,36,.16);
-    --gold: #D4AF37; --card-border: rgba(212,175,55,.35);
+    --bg: #F8FAFC; --panel: #FFFFFF; --panel2: #F8FAFC; --border: #E2E8F0; --text: #0F172A; --muted: #64748B;
+    --red: #DC2626; --red-bg: #FEF2F2; --red-solid: #DC2626; --green: #059669; --green-bg: #ECFDF5;
+    --blue: #2563EB; --blue-bg: #EFF6FF; --amber: #D97706; --amber-bg: #FFFBEB;
+    --gold: #2563EB; --card-border: #D7DFEC;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 28px; color: var(--text);
-    background-color: #17181C;
+    background-color: #F8FAFC;
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg stroke='%23D4AF37' stroke-width='2.2' stroke-linecap='round' fill='none' opacity='0.09'%3E%3Cline x1='22' y1='24' x2='88' y2='24'/%3E%3Cline x1='30' y1='24' x2='30' y2='52'/%3E%3Cline x1='43' y1='24' x2='43' y2='52'/%3E%3Cline x1='56' y1='24' x2='56' y2='52'/%3E%3Cline x1='69' y1='24' x2='69' y2='52'/%3E%3Cline x1='80' y1='24' x2='80' y2='52'/%3E%3Cg transform='translate(140,140)'%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='14' cy='2' r='6'/%3E%3Cline x1='5' y1='4' x2='34' y2='30'/%3E%3Cline x1='9' y1='-2' x2='34' y2='-24'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-      linear-gradient(160deg, #1A1B20 0%, #1E1A16 50%, #17181C 100%);
-    background-repeat: repeat, no-repeat;
-    background-size: 220px 220px, cover;
-    background-attachment: fixed, fixed;
+      radial-gradient(620px circle at 6% 10%, rgba(96,165,250,.32), transparent 60%),
+      radial-gradient(680px circle at 96% 12%, rgba(244,114,182,.26), transparent 60%),
+      radial-gradient(720px circle at 45% 105%, rgba(52,211,153,.26), transparent 65%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px; line-height: 1.5;
   }
@@ -33,7 +33,7 @@
     padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel);
     color: var(--muted); font-size: 12.5px; font-weight: 600; text-decoration: none;
   }
-  .date-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .date-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .date-tab:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
 
   .gdkv-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
@@ -41,7 +41,7 @@
     padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--card-border); background: var(--panel);
     cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted);
   }
-  .gdkv-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .gdkv-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .gdkv-tab .cnt { font-weight: 400; opacity: .8; margin-left: 4px; }
   .gdkv-tab.flag-thieu, .gdkv-tab.flag-sat { background: var(--red-bg); border-color: var(--red); color: var(--red); }
   .gdkv-tab.active.flag-thieu, .gdkv-tab.active.flag-sat { background: var(--red-solid); border-color: var(--red-solid); color: #fff; }
@@ -54,7 +54,7 @@
     padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel2);
     cursor: pointer; font-size: 12px; color: var(--text);
   }
-  .salon-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .salon-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .salon-tab.flag-thieu, .salon-tab.flag-sat { background: var(--red-bg); border-color: var(--red); color: var(--red); font-weight: 700; }
   .salon-tab.active.flag-thieu, .salon-tab.active.flag-sat { background: var(--red-solid); border-color: var(--red-solid); color: #fff; }
 
@@ -63,7 +63,7 @@
 
   .card {
     background: var(--panel); border: 1.5px solid var(--card-border); border-top: 4px solid var(--gold); border-radius: 14px;
-    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.35);
+    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(15,23,42,.07);
   }
   .card h2 { font-size: 14px; margin: 0 0 10px; color: var(--text); }
   .card h3 { font-size: 12.5px; margin: 14px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
@@ -89,9 +89,9 @@
   tr.candidate td { background: var(--green-bg); color: var(--green); font-weight: 600; }
   tr.not-suitable td { background: var(--red-bg); color: var(--red); font-weight: 600; }
 
-  .tag-moi { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(96,165,250,.16); color: #93C5FD; }
-  .tag-sm { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(167,139,250,.18); color: #C4B5FD; }
-  .tag-book { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(212,175,55,.18); color: #E8C766; }
+  .tag-moi { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #EFF6FF; color: #2563EB; }
+  .tag-sm { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #F5F3FF; color: #7C3AED; }
+  .tag-book { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #FFFBEB; color: #B45309; }
 
   .suggest-box table { table-layout: fixed; width: 100%; }
   .tbl2 th:nth-child(1), .tbl2 td:nth-child(1) { width: 70%; }
@@ -502,7 +502,7 @@
 <tr><td class="left">10h30-12h30</td><td>23,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>24,5</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">34,0</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">42,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">43,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>24,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -512,7 +512,7 @@
 <tr><td class="left">10h30-12h30</td><td>17,6</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>16,3</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">27,2</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">31,0</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">32,0</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>12,8</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -623,7 +623,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">44,9</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">42,7</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">44,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">42,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">43,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>31,3</td><td>11</td><td>36,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -633,7 +633,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">36,6</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">36,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">39,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>34,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">35,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>17,8</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -707,7 +707,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">26,4</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td>17,7</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">32,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">25,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">26,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>15,7</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -769,7 +769,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">25,5</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">24,4</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">46,2</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">42,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">43,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>19,5</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -779,7 +779,7 @@
 <tr><td class="left">10h30-12h30</td><td>22,4</td><td>7</td><td>24,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>19,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">31,9</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">38,3</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">39,3</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>15,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1015,7 +1015,7 @@
 <tr><td class="left">12h30-14h30</td><td class="thieu">28,4</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">35,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">26,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>12,0</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>13,0</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -1025,7 +1025,7 @@
 <tr><td class="left">12h30-14h30</td><td>26,7</td><td>8</td><td>27,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">30,4</td><td>8</td><td>27,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td>20,4</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>9,5</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>10,5</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -1139,7 +1139,7 @@
 <tr><td class="left">10h30-12h30</td><td>6,2</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">11,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">12,6</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>9,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">10,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>1,9</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1149,7 +1149,7 @@
 <tr><td class="left">10h30-12h30</td><td>5,5</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>9,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>8,6</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>5,9</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>6,9</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>1,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1488,7 +1488,7 @@
 <tr><td class="left">10h30-12h30</td><td>43,8</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>39,5</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>52,3</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>48,9</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>50,9</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>26,5</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1498,7 +1498,7 @@
 <tr><td class="left">10h30-12h30</td><td>33,3</td><td>13</td><td>45,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>30,8</td><td>13</td><td>45,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>44,3</td><td>13</td><td>45,3</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>32,4</td><td>13</td><td>45,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>33,4</td><td>13</td><td>45,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>15,6</td><td>13</td><td>45,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1562,7 +1562,7 @@
 <tr><td class="left">10h30-12h30</td><td>15,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>14,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">28,5</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">23,1</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">25,1</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>12,7</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1572,7 +1572,7 @@
 <tr><td class="left">10h30-12h30</td><td>13,0</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>12,7</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>19,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>16,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>17,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>5,7</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1699,7 +1699,7 @@
 <tr><td class="left">12h30-14h30</td><td>14,3</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>16,3</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>18,7</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>14,6</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>16,6</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -1733,7 +1733,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 49 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 51 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 20 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -1809,7 +1809,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><span class="empty">Không có dữ liệu NV nghỉ tại salon lân cận.</span></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>80 PL BD</b>: đang có 7 NV, khung này cần 5 NV (dự báo 17 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>80 PL BD</b>: đang có 7 NV, khung này cần 5 NV (dự báo 18 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Lê Thị Thuỳ Trang</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Huế Trân</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Nga</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Phạm Thị Hằng</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Thái Thị Thanh Thảo</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Vũ Lê Phương Uyên</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Vương Mỹ Uyên</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
@@ -1863,7 +1863,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 49 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 51 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 20 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -1993,7 +1993,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 49 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 15 NV (dự báo 51 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 20 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -2007,7 +2007,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Phan Thị Bé Thùy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">29 HB</td><td class="left">Trương Thị Ngọc Anh</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">255 NAN</td><td class="left">Lê Thị Hiền</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">255 NAN</td><td class="left">Nguyễn Trúc Anh</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 13 NV, khung này cần 9 NV (dự báo 32 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 13 NV, khung này cần 10 NV (dự báo 33 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Cao Thị Mỹ Liên</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Dương Thị Ngọc Trinh</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Lê thị yến</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Liễu Thanh Mai</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Liễu Thị Thanh Trúc</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lê Phương Vy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Hồng Hà</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Ngọc Huyền</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Thu Ngân</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Phạm Thị Thu Hà</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Thị Bé Ngọc</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Trần Nguyễn Trâm Anh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Kim Phượng</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 6 NV, khung này cần 5 NV (dự báo 17 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -2047,7 +2047,7 @@
 <tr><td class="left">10h30-12h30</td><td>11,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>11,2</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">21,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">14,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">15,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,6</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2057,7 +2057,7 @@
 <tr><td class="left">10h30-12h30</td><td>10,6</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>9,7</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>17,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>10,2</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>11,2</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>4,6</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2215,7 +2215,7 @@
 <tr><td class="left">10h30-12h30</td><td>14,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>15,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">22,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">27,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">29,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,5</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2225,7 +2225,7 @@
 <tr><td class="left">10h30-12h30</td><td>12,8</td><td>4</td><td>14,0</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>12,8</td><td>4</td><td>14,0</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">19,8</td><td>4</td><td>14,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">18,7</td><td>4</td><td>14,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">19,7</td><td>4</td><td>14,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>3,1</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2271,7 +2271,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">20,4</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">21,0</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">34,6</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">27,0</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">28,0</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>9,8</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2281,7 +2281,7 @@
 <tr><td class="left">10h30-12h30</td><td>16,2</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>17,9</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>25,7</td><td>8</td><td>27,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>19,8</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>20,8</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,1</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2626,7 +2626,7 @@
 <tr><td class="left">12h30-14h30</td><td>13,9</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>17,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>18,4</td><td>6</td><td>19,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>10,1</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>11,1</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -2636,7 +2636,7 @@
 <tr><td class="left">12h30-14h30</td><td>11,6</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>14,3</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>14,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>6,7</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>7,7</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -2646,7 +2646,7 @@
         <div class="two-col">
           <div><h3>Stylist</h3><table>
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Nguyễn Sanh</td><td class="left">Level 3</td><td class="left">—</td></tr><tr><td class="left">Nguyễn Văn Hữu Nghị</td><td class="left">Level 1</td><td class="left">—</td></tr><tr><td class="left">Nguyễn Xuân Toàn</td><td class="left">Level 1</td><td class="left">—</td></tr><tr><td class="left">Phan Vĩnh Thành</td><td class="left">Level 2</td><td class="left">—</td></tr><tr><td class="left">Tăng Xuân Thiệu</td><td class="left">Level 2</td><td class="left">—</td></tr><tr><td class="left">Võ Đức</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
+      <tbody><tr><td class="left">Nguyễn Sanh</td><td class="left">Level 3</td><td class="left">—</td></tr><tr><td class="left">Nguyễn Văn Hữu Nghị</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Xuân Toàn</td><td class="left">Level 1</td><td class="left">—</td></tr><tr><td class="left">Phan Vĩnh Thành</td><td class="left">Level 2</td><td class="left">—</td></tr><tr><td class="left">Tăng Xuân Thiệu</td><td class="left">Level 2</td><td class="left">—</td></tr><tr><td class="left">Võ Đức</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table><div class='staff-caveat' style='margin-top:6px'>6 người đăng ký ngày này.</div></div>
           <div><h3>Skinner</h3><table>
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
@@ -2718,7 +2718,7 @@
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
         <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>1180 QT</b>: đang có 6 NV, khung này cần 6 NV (dự báo 18 khách) → dư 0 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Nguyễn Sanh</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Nguyễn Văn Hữu Nghị</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Xuân Toàn</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Phan Vĩnh Thành</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Tăng Xuân Thiệu</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Võ Đức</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
+      <tbody><tr><td class="left">Nguyễn Sanh</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Nguyễn Văn Hữu Nghị</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Xuân Toàn</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Phan Vĩnh Thành</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Tăng Xuân Thiệu</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Võ Đức</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div></div></div>
         </div>
       <div><h3>Skinner</h3>
@@ -2815,7 +2815,7 @@
 <tr><td class="left">12h30-14h30</td><td>25,4</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">36,3</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">33,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>18,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>19,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -2825,7 +2825,7 @@
 <tr><td class="left">12h30-14h30</td><td>19,9</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>23,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>27,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>11,3</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>12,3</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -2941,8 +2941,8 @@
 <tr><td class="left">10h30-12h30</td><td>8,8</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">11,7</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">10,1</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>6,1</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>3,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>7,1</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>4,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -2951,8 +2951,8 @@
 <tr><td class="left">10h30-12h30</td><td>6,5</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>11,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>7,3</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>4,6</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>2,8</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>5,6</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>3,8</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -3130,7 +3130,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">26,6</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">25,8</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">26,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">30,7</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">33,7</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>18,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3140,7 +3140,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">18,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">19,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">18,5</td><td>5</td><td>17,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">20,1</td><td>5</td><td>17,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">23,1</td><td>5</td><td>17,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>10,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3312,7 +3312,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">33,4</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">39,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">46,5</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">51,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">53,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>29,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3322,7 +3322,7 @@
 <tr><td class="left">10h30-12h30</td><td>24,9</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>32,7</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>33,3</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">40,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">42,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>18,0</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3369,7 +3369,7 @@
 <tr><td class="left">12h30-14h30</td><td class="thieu">35,6</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">38,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">53,9</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+9</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>17,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>22,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -3379,7 +3379,7 @@
 <tr><td class="left">12h30-14h30</td><td class="thieu">29,1</td><td>8</td><td>27,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">30,4</td><td>8</td><td>27,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">42,8</td><td>8</td><td>27,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>12,1</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>17,1</td><td>8</td><td>27,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -3536,7 +3536,7 @@
 <tr><td class="left">10h30-12h30</td><td>8,3</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>8,0</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">16,3</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">17,3</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">18,3</td><td>4</td><td>13,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>5,6</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3546,7 +3546,7 @@
 <tr><td class="left">10h30-12h30</td><td>7,5</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>7,3</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>14,5</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>15,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>16,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>3,8</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3592,7 +3592,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">16,3</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">12,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">15,6</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">16,6</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">17,6</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>8,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3602,7 +3602,7 @@
 <tr><td class="left">10h30-12h30</td><td>12,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>10,9</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>10,2</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>9,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>10,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>3,0</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
