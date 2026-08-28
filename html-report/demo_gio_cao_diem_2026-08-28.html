@@ -14,10 +14,10 @@
     margin: 0; padding: 28px; color: var(--text);
     background-color: #F1F5FB;
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Cg stroke='%232563EB' stroke-width='2.2' stroke-linecap='round' opacity='0.055'%3E%3Cline x1='22' y1='24' x2='88' y2='24'/%3E%3Cline x1='30' y1='24' x2='30' y2='52'/%3E%3Cline x1='43' y1='24' x2='43' y2='52'/%3E%3Cline x1='56' y1='24' x2='56' y2='52'/%3E%3Cline x1='69' y1='24' x2='69' y2='52'/%3E%3Cline x1='80' y1='24' x2='80' y2='52'/%3E%3C/g%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg stroke='%232563EB' stroke-width='2.2' stroke-linecap='round' fill='none' opacity='0.055'%3E%3Cline x1='22' y1='24' x2='88' y2='24'/%3E%3Cline x1='30' y1='24' x2='30' y2='52'/%3E%3Cline x1='43' y1='24' x2='43' y2='52'/%3E%3Cline x1='56' y1='24' x2='56' y2='52'/%3E%3Cline x1='69' y1='24' x2='69' y2='52'/%3E%3Cline x1='80' y1='24' x2='80' y2='52'/%3E%3Cg transform='translate(140,140)'%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='14' cy='2' r='6'/%3E%3Cline x1='5' y1='4' x2='34' y2='30'/%3E%3Cline x1='9' y1='-2' x2='34' y2='-24'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
       linear-gradient(160deg, #EAF2FF 0%, #FDF3F3 45%, #EEFBF4 100%);
     background-repeat: repeat, no-repeat;
-    background-size: 110px 110px, cover;
+    background-size: 220px 220px, cover;
     background-attachment: fixed, fixed;
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px; line-height: 1.5;
@@ -129,7 +129,7 @@
 <div class="gdkv-tab flag-thieu" data-gdkv="g2" onclick="showGdkv('g2')">Nguyễn Thị Huệ GDKV<span class="cnt">(6 salon, 4 cảnh báo)</span></div>
 <div class="gdkv-tab flag-thieu" data-gdkv="g3" onclick="showGdkv('g3')">Nguyễn Việt Cường GDKV<span class="cnt">(8 salon, 6 cảnh báo)</span></div>
 <div class="gdkv-tab flag-thieu" data-gdkv="g4" onclick="showGdkv('g4')">Phan Thị Hồng Gấm GDKV<span class="cnt">(8 salon, 8 cảnh báo)</span></div>
-<div class="gdkv-tab flag-thieu" data-gdkv="g5" onclick="showGdkv('g5')">Trịnh Văn Quang GDKV<span class="cnt">(5 salon, 3 cảnh báo)</span></div>
+<div class="gdkv-tab flag-thieu" data-gdkv="g5" onclick="showGdkv('g5')">Trịnh Văn Quang GDKV<span class="cnt">(5 salon, 4 cảnh báo)</span></div>
 <div class="gdkv-tab flag-thieu" data-gdkv="g6" onclick="showGdkv('g6')">Tống Xuân Quyền GDKV<span class="cnt">(8 salon, 8 cảnh báo)</span></div>
 <div class="gdkv-tab flag-thieu" data-gdkv="g7" onclick="showGdkv('g7')">Đoàn Trung Đức GDKV<span class="cnt">(7 salon, 7 cảnh báo)</span></div>
 </div>
@@ -196,12 +196,9 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">730 TL10</td><td class="left">Đỗ Thị Hồng Phúc</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">312 LVS</td><td class="left">Nguyễn Thị Huỳnh Như</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">145 THT</td><td class="left">Nguyễn Thị Như Ý</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><table class="tbl3"><thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">Lê Dương Lam Vy</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>575 AC</b>: đang có 7 NV, khung này cần 6 NV (dự báo 20 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>575 AC</b>: đang có 7 NV, khung này cần 6 NV (dự báo 21 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Hồ Thị Lùng</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Nguyễn Lê Huyền Trân</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr class='candidate'><td class="left">Nguyễn Thị Thái Vi</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr><td class="left">Phùng Hoàng Như Thảo</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Lê Yến My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Huỳnh Hoa</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Viên Yến Vy</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>145 THT</b>: đang có 10 NV, khung này cần 9 NV (dự báo 32 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Huỳnh Thị Kim My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Lưu Thị Thuý Duy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lê Diệp Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Mỹ Hường</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Yến Vy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Thạch Thi Sa RemCTV</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trang Thị Hồng An</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Trần Huỳnh Hồng Nhung</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trương Thị Kim Tuyền</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Võ Lê Hà Phương</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
         </div>
     </div>
@@ -218,7 +215,7 @@
 <tr><td class="left">10h30-12h30</td><td>11,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">20,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">32,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">24,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">25,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>16,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -228,7 +225,7 @@
 <tr><td class="left">10h30-12h30</td><td>12,2</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>15,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>24,4</td><td>7</td><td>24,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>20,0</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>21,0</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>10,1</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -274,7 +271,7 @@
 <tr><td class="left">10h30-12h30</td><td>18,4</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">27,5</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">27,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">42,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">44,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>24,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -284,7 +281,7 @@
 <tr><td class="left">10h30-12h30</td><td>15,2</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>16,8</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>23,3</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>30,9</td><td>9</td><td>31,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">31,9</td><td>9</td><td>31,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>13,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -314,10 +311,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">8 CVL</td><td class="left">Lê Dương Lam Vy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">730 TL10</td><td class="left">Đỗ Thị Hồng Phúc</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">145 THT</td><td class="left">Nguyễn Thị Như Ý</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>145 THT</b>: đang có 10 NV, khung này cần 9 NV (dự báo 32 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Huỳnh Thị Kim My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Lưu Thị Thuý Duy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lê Diệp Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Mỹ Hường</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Yến Vy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Thạch Thi Sa RemCTV</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trang Thị Hồng An</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Trần Huỳnh Hồng Nhung</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trương Thị Kim Tuyền</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Võ Lê Hà Phương</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
-    </table></div></div></div>
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><span class="empty">Không có salon lân cận dư sức chứa tại khung này.</span></div></div>
         </div>
     </div>
     <div class="suggest-note">Ghi chú: GĐKV chủ động điều phối để nhân sự đến làm trong giờ hợp lý, tránh chỉ đi đúng khung giờ cao điểm — quá trình di chuyển dễ tắc, nghẽn.</div>
@@ -507,7 +501,7 @@
 <tr><td class="left">10h30-12h30</td><td>23,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>24,5</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">34,0</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">39,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">41,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>24,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -517,7 +511,7 @@
 <tr><td class="left">10h30-12h30</td><td>17,6</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>16,3</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">27,2</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">30,0</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">31,0</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>12,8</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -547,7 +541,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">708 LTT</td><td class="left">Trần Thị Kiều Duyên</td><td class="left">Level 1</td><td class="left"><span class="tag-moi">NV mới</span></td></tr><tr><td class="left">708 LTT</td><td class="left">Trần Thị Mỹ Lan</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">312 LVS</td><td class="left">Nguyễn Thị Huỳnh Như</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><table class="tbl3"><thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">Đỗ Thị Hồng Phúc</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lê Diệp Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Trần Anh Thư</td><td class="left">SK Level 1B</td><td class="left"><span class="tag-moi">NV mới</span></td></tr></tbody></table></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>575 AC</b>: đang có 7 NV, khung này cần 6 NV (dự báo 20 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>575 AC</b>: đang có 7 NV, khung này cần 6 NV (dự báo 21 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Hồ Thị Lùng</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Nguyễn Lê Huyền Trân</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr class='candidate'><td class="left">Nguyễn Thị Thái Vi</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr><td class="left">Phùng Hoàng Như Thảo</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Lê Yến My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Huỳnh Hoa</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Viên Yến Vy</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
@@ -567,7 +561,7 @@
 <tr><td class="left">12h30-14h30</td><td>13,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">19,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">21,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>11,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>12,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -577,7 +571,7 @@
 <tr><td class="left">12h30-14h30</td><td>12,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>15,7</td><td>5</td><td>17,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>16,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>8,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>9,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -628,7 +622,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">44,9</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">42,7</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">44,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">40,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">42,8</td><td>11</td><td>36,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>31,3</td><td>11</td><td>36,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -638,7 +632,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">36,6</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">36,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">39,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>32,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>34,1</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>17,8</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -712,7 +706,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">26,4</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td>17,7</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">32,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">23,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">24,3</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>14,7</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -722,7 +716,7 @@
 <tr><td class="left">10h30-12h30</td><td>20,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>14,5</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>27,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>17,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>18,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>10,3</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -774,7 +768,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">25,5</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">24,4</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">46,2</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">40,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">41,1</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>19,5</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -784,7 +778,7 @@
 <tr><td class="left">10h30-12h30</td><td>22,4</td><td>7</td><td>24,4</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>19,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">31,9</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">36,3</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">37,3</td><td>7</td><td>24,4</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>15,5</td><td>7</td><td>24,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -932,7 +926,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><span class="empty">Không có dữ liệu NV nghỉ tại salon lân cận.</span></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>10 TP</b>: đang có 9 NV, khung này cần 5 NV (dự báo 18 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>10 TP</b>: đang có 9 NV, khung này cần 5 NV (dự báo 19 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Đỗ Thị Trâm</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Lê Thị Ninh Khánh</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr><td class="left">Mã Tiểu Nghi</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lan Anh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Cúc</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Khánh Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Lành</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Ngọc Hoàn</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Nguyễn Thị Thu Xen</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>11 PKT</b>: đang có 5 NV, khung này cần 4 NV (dự báo 14 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -1286,7 +1280,7 @@
 <tr><td class="left">10h30-12h30</td><td>9,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>13,6</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">18,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>11,0</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>12,0</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>2,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1296,7 +1290,7 @@
 <tr><td class="left">10h30-12h30</td><td>6,6</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">11,7</td><td>3</td><td>10,5</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">15,7</td><td>3</td><td>10,5</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>6,5</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>7,5</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>2,6</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1357,7 +1351,7 @@
 <tr><td class="left">10h30-12h30</td><td>5,1</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>7,2</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>9,9</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>6,7</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>7,7</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>3,9</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1367,7 +1361,7 @@
 <tr><td class="left">10h30-12h30</td><td>4,9</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>6,1</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>9,0</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>5,1</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>6,1</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>1,3</td><td>4</td><td>14,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1493,7 +1487,7 @@
 <tr><td class="left">10h30-12h30</td><td>43,8</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>39,5</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>52,3</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>46,9</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>47,9</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>26,5</td><td>18</td><td>59,8</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1602,7 +1596,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><span class="empty">Không có dữ liệu NV nghỉ tại salon lân cận.</span></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>36 N1 BD</b>: đang có 5 NV, khung này cần 3 NV (dự báo 10 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>36 N1 BD</b>: đang có 5 NV, khung này cần 3 NV (dự báo 9 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Đoái Duy Thư</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Phương Quyên</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Văn Thủ</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hạ Duy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Quốc Hoài Nam</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
@@ -1610,7 +1604,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><span class="empty">Không có dữ liệu NV nghỉ tại salon lân cận.</span></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>36 N1 BD</b>: đang có 6 NV, khung này cần 2 NV (dự báo 8 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>36 N1 BD</b>: đang có 6 NV, khung này cần 2 NV (dự báo 7 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Đỗ Thị Kim Chi</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Đỗ Thuỳ Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Mai Thị Thanh Dư</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Phan Thúy Hiền</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Xuân Nhi CTV</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Trần Thị Ái Duy</td><td class="left">Level 2</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
@@ -1629,7 +1623,7 @@
 <tr><td class="left">10h30-12h30</td><td>19,8</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>11,6</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">24,7</td><td>7</td><td>23,3</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>18,4</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>19,4</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>12,2</td><td>7</td><td>23,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1639,7 +1633,7 @@
 <tr><td class="left">10h30-12h30</td><td>16,1</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>9,8</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>19,5</td><td>6</td><td>20,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>14,9</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>15,9</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>8,3</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1738,10 +1732,10 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 47 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 48 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 18 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
+    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 19 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Bùi Gia Hạo</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Nguyễn Minh Duy</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lương Văn Đại</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Anh Tú</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Tấn Kiệt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Ngọc Duy Khanh</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Võ Văn Nhật</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div></div></div>
@@ -1773,9 +1767,9 @@
       <tbody><tr><td class="left">8h30-10h30</td><td>10,9</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">10h30-12h30</td><td>9,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>10,6</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">14h30-16h30</td><td>10,1</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">14h30-16h30</td><td>9,1</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td class="thieu">18,0</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>6,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>8,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -1783,9 +1777,9 @@
       <tbody><tr><td class="left">8h30-10h30</td><td>10,0</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">10h30-12h30</td><td>6,3</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>7,3</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">14h30-16h30</td><td>8,4</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">14h30-16h30</td><td>7,4</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">16h30-18h30</td><td>15,1</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">18h30-20h30</td><td>3,9</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">18h30-20h30</td><td>5,9</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -1868,10 +1862,10 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 47 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 48 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 18 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
+    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 19 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Bùi Gia Hạo</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Nguyễn Minh Duy</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lương Văn Đại</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Anh Tú</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Tấn Kiệt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Ngọc Duy Khanh</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Võ Văn Nhật</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>255 NAN</b>: đang có 7 NV, khung này cần 6 NV (dự báo 19 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -1907,7 +1901,7 @@
 <tr><td class="left">10h30-12h30</td><td>4,3</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">11,4</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">12,9</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td>9,9</td><td>3</td><td>10,0</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">10,9</td><td>3</td><td>10,0</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,8</td><td>3</td><td>10,0</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1917,7 +1911,7 @@
 <tr><td class="left">10h30-12h30</td><td>4,5</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>8,1</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>12,0</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>8,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>9,4</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>5,1</td><td>5</td><td>17,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -1998,10 +1992,10 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">29 HB</td><td class="left">Trần Văn Đạt</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 47 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 18 NV, khung này cần 14 NV (dự báo 48 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Dương Đình Sáng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Đoàn Tấn Tài</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Kim Giang</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lâm Thanh Thế</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Hoàng Lân</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Thanh Thuận</td><td class="left">Level 3</td><td class="left"></td></tr><tr><td class="left">Mai Văn Hoàng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Huy Bảo</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Sơn</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Tiếng</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thế Nghĩa</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Đạt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Nguyễn Văn Hải</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Nguyễn Văn Hây</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Tăng Đức Phi</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Linh</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Nguyễn Hoàng Tòng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Thị Giàu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 18 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
+    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 7 NV, khung này cần 6 NV (dự báo 19 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Bùi Gia Hạo</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lê Nguyễn Minh Duy</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Lương Văn Đại</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Anh Tú</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Tấn Kiệt</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Ngọc Duy Khanh</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Võ Văn Nhật</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>255 NAN</b>: đang có 7 NV, khung này cần 6 NV (dự báo 19 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -2015,7 +2009,7 @@
         <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>103 TN</b>: đang có 13 NV, khung này cần 9 NV (dự báo 30 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Cao Thị Mỹ Liên</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Dương Thị Ngọc Trinh</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Lê thị yến</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Liễu Thanh Mai</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Liễu Thị Thanh Trúc</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Lê Phương Vy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Hồng Hà</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Ngọc Huyền</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Thu Ngân</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Phạm Thị Thu Hà</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Thị Bé Ngọc</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Trần Nguyễn Trâm Anh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Kim Phượng</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 6 NV, khung này cần 4 NV (dự báo 15 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
+    </table></div><div style="margin-bottom:8px"><b>29 HB</b>: đang có 6 NV, khung này cần 5 NV (dự báo 16 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Huỳnh Thị Ngọc Ý</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Sơn Tường Vân</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Phan Thị Thu Ngân</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Vân Anh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">VÕ THANH HẰNG</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Vy Thị Vân</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>255 NAN</b>: đang có 6 NV, khung này cần 3 NV (dự báo 12 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
@@ -2164,7 +2158,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">16,9</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">22,0</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">34,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">25,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">26,3</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>11,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2185,7 +2179,7 @@
         <div class="two-col">
           <div><h3>Stylist</h3><table>
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Lý Thành Đô</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Ngô Doãn Hưng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Hiển</td><td class="left">Level 1</td><td class="left">—</td></tr><tr><td class="left">Phạm Văn Quý</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Vũ Văn Nguyện</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
+      <tbody><tr><td class="left">Lý Thành Đô</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Ngô Doãn Hưng</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Minh Hiển</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Phạm Văn Quý</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Vũ Văn Nguyện</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
     </table><div class='staff-caveat' style='margin-top:6px'>5 người đăng ký ngày này.</div></div>
           <div><h3>Skinner</h3><table>
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
@@ -2220,7 +2214,7 @@
 <tr><td class="left">10h30-12h30</td><td>14,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>15,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">22,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">26,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">27,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+4</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,5</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2496,7 +2490,7 @@
 <div class="salon-tab flag-thieu" data-salon="46" onclick="showSalon('g5','46')">483 TN</div>
 <div class="salon-tab " data-salon="61" onclick="showSalon('g5','61')">1180 QT</div>
 <div class="salon-tab flag-thieu" data-salon="106" onclick="showSalon('g5','106')">76 PVH</div>
-<div class="salon-tab " data-salon="274" onclick="showSalon('g5','274')">32 NAT</div>
+<div class="salon-tab flag-thieu" data-salon="274" onclick="showSalon('g5','274')">32 NAT</div>
 </div>
           
     <div class="salon-panel active" id="salon-12">
@@ -2571,7 +2565,7 @@
 <tr><td class="left">10h30-12h30</td><td>13,1</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>15,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">22,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">21,2</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">23,2</td><td>6</td><td>19,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>11,6</td><td>6</td><td>19,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2581,7 +2575,7 @@
 <tr><td class="left">10h30-12h30</td><td>10,6</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>14,6</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>16,9</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>19,4</td><td>6</td><td>20,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">21,4</td><td>6</td><td>20,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,8</td><td>6</td><td>20,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2606,10 +2600,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">12 LDT</td><td class="left">Mai Văn Công CTV</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><table class="tbl3"><thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">Nguyễn Thanh Huy</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>32 NAT</b>: đang có 4 NV, khung này cần 3 NV (dự báo 11 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Đỗ Ngọc Trinh</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Ngô Minh Hoàng</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Văn Trung</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Trần Hoàng Minh</td><td class="left">Level 1</td><td class="left"><span class="tag-moi">NV mới</span></td></tr></tbody>
-    </table></div></div></div>
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><span class="empty">Không có salon lân cận dư sức chứa tại khung này.</span></div></div>
         </div>
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">12 LDT</td><td class="left">Nguyễn Phan Như Ngọc</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
@@ -2689,7 +2680,7 @@
 <tr><td class="left">10h30-12h30</td><td>12,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>10,4</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>12,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">20,2</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">21,2</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,8</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2751,7 +2742,7 @@
 <tr><td class="left">10h30-12h30</td><td>7,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>6,2</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>10,5</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>11,4</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>12,4</td><td>4</td><td>13,3</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>9,4</td><td>4</td><td>13,3</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2761,7 +2752,7 @@
 <tr><td class="left">10h30-12h30</td><td>7,4</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>5,2</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>9,5</td><td>3</td><td>10,5</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>9,6</td><td>3</td><td>10,5</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">10,6</td><td>3</td><td>10,5</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,7</td><td>3</td><td>10,5</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2786,13 +2777,7 @@
       <div><h3>Stylist</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">12 LDT</td><td class="left">Mai Văn Công CTV</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">483 TN</td><td class="left">Nguyễn Thanh Huy</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>12 LDT</b>: đang có 6 NV, khung này cần 3 NV (dự báo 10 khách) → dư 3 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Đặng Minh Hiếu</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">La Hoàng Tấn Lộc</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Nguyễn Thanh Huy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">NGUYỄN VĂN LÂM</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Thái Thành Công</td><td class="left">Level 3</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Vũ Văn Quang</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>483 TN</b>: đang có 6 NV, khung này cần 2 NV (dự báo 7 khách) → dư 4 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Lê Lý Chí Tâm</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Ngô Đình Phúc</td><td class="left">Level 2</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Ngô Văn Anh Thoại</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr><td class="left">Phạm Tiến Phát</td><td class="left">Level 1</td><td class="left"><span class="tag-book">Có khách đặt</span></td></tr><tr class='not-suitable'><td class="left">Phạm Văn Nhiều</td><td class="left">Level 3</td><td class="left"><span class="tag-sm">SM</span></td></tr><tr><td class="left">Trương Thái Lâm</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
-    </table></div></div></div>
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><span class="empty">Không có salon lân cận dư sức chứa tại khung này.</span></div></div>
         </div>
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">12 LDT</td><td class="left">Nguyễn Phan Như Ngọc</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
@@ -2800,9 +2785,6 @@
         <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>12 LDT</b>: đang có 7 NV, khung này cần 5 NV (dự báo 17 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Nguyễn Thị Hằng Nga</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Linh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Tiền Anh Thư</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Trần Thị Kim Anh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Mỹ Tiên</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Thuý Kiều</td><td class="left">SK Level 1A</td><td class="left"></td></tr><tr><td class="left">Võ Thị Trinh</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
-    </table></div><div style="margin-bottom:8px"><b>483 TN</b>: đang có 6 NV, khung này cần 6 NV (dự báo 19 khách) → dư 0 NV<table class="tbl3" style="margin-top:4px">
-      <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
-      <tbody><tr><td class="left">Bùi Thị Thảo Nhy</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Huỳnh Thị Phương Thảo</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thanh Trúc</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Hiểu Ngân</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Nguyễn Thị Ngọc Bích</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Hầu Xìm</td><td class="left">Level 2</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
         </div>
     </div>
@@ -2831,7 +2813,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">33,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td>25,4</td><td>8</td><td>26,6</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">36,3</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">29,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">32,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>18,8</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2841,7 +2823,7 @@
 <tr><td class="left">10h30-12h30</td><td>22,8</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>19,9</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>23,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td>24,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td>27,6</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">18h30-20h30</td><td>11,3</td><td>9</td><td>31,4</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -2939,7 +2921,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">25 TD</td><td class="left">Lâm Thị Ngọc Huyền</td><td class="left">Level 1</td><td class="left"><span class="tag-moi">NV mới</span></td></tr><tr><td class="left">236 DBT</td><td class="left">Nguyễn Thị Tuyết Nhung</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">237 NTT</td><td class="left">Kiêm Thị Huỳnh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">237 NTT</td><td class="left">Nguyễn Phan Thảo My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">237 NTT</td><td class="left">Nguyễn Thị Phú Quý</td><td class="left">Level 2</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><span class="empty">Không có NV nào của salon xin nghỉ ngày này.</span></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>25 TD</b>: đang có 9 NV, khung này cần 7 NV (dự báo 25 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>25 TD</b>: đang có 9 NV, khung này cần 8 NV (dự báo 28 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Bùi Thị Hằng</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Huỳnh Kiều Như</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Huỳnh Thị Khánh Vân</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Kiêm Thị Huỳnh</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr class='candidate'><td class="left">Nguyễn Hà Phương</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr><td class="left">Nguyễn Nhật Kim Ngân</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Phạm Thị Yến Nhi</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Thạch Thị Thanh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Bích Nhi</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div></div></div>
@@ -3054,7 +3036,7 @@
       <div><h3>Skinner</h3>
         <div class="suggest-box"><h4>A. Gọi NV đã xin nghỉ của salon lân cận</h4><div class="content"><table class="tbl4"><thead><tr><th class="left">Salon</th><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">25 TD</td><td class="left">Lâm Thị Ngọc Huyền</td><td class="left">Level 1</td><td class="left"><span class="tag-moi">NV mới</span></td></tr><tr><td class="left">237 NTT</td><td class="left">Kiêm Thị Huỳnh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">237 NTT</td><td class="left">Nguyễn Phan Thảo My</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">237 NTT</td><td class="left">Nguyễn Thị Phú Quý</td><td class="left">Level 2</td><td class="left"></td></tr></tbody></table></div></div>
         <div class="suggest-box"><h4>B. Gọi NV đã xin nghỉ của chính salon</h4><div class="content"><table class="tbl3"><thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead><tbody><tr><td class="left">Nguyễn Thị Tuyết Nhung</td><td class="left">Level 1</td><td class="left"></td></tr></tbody></table></div></div>
-        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>25 TD</b>: đang có 9 NV, khung này cần 7 NV (dự báo 25 khách) → dư 2 NV<table class="tbl3" style="margin-top:4px">
+        <div class="suggest-box"><h4>C. Điều động NV đang thừa từ salon lân cận</h4><div class="content"><div style="margin-bottom:8px"><b>25 TD</b>: đang có 9 NV, khung này cần 8 NV (dự báo 28 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
       <thead><tr><th class="left">Tên</th><th class="left">Level</th><th class="left">Ghi chú</th></tr></thead>
       <tbody><tr><td class="left">Bùi Thị Hằng</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Huỳnh Kiều Như</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Huỳnh Thị Khánh Vân</td><td class="left">Level 1</td><td class="left"></td></tr><tr class='candidate'><td class="left">Kiêm Thị Huỳnh</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr class='candidate'><td class="left">Nguyễn Hà Phương</td><td class="left">Level 1</td><td class="left">Phù hợp</td></tr><tr><td class="left">Nguyễn Nhật Kim Ngân</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Phạm Thị Yến Nhi</td><td class="left">Level 2</td><td class="left"></td></tr><tr><td class="left">Thạch Thị Thanh</td><td class="left">Level 1</td><td class="left"></td></tr><tr><td class="left">Trần Thị Bích Nhi</td><td class="left">Level 1</td><td class="left"></td></tr></tbody>
     </table></div><div style="margin-bottom:8px"><b>420 HTP</b>: đang có 7 NV, khung này cần 6 NV (dự báo 22 khách) → dư 1 NV<table class="tbl3" style="margin-top:4px">
@@ -3329,8 +3311,8 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">33,4</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">39,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+3</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">46,5</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+5</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">48,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>27,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">50,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
+<tr><td class="left">18h30-20h30</td><td>28,0</td><td>9</td><td>29,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 </tbody>
     </table></div>
           <div><h3>Skinner</h3><table>
@@ -3339,8 +3321,8 @@
 <tr><td class="left">10h30-12h30</td><td>24,9</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 <tr><td class="left">12h30-14h30</td><td>32,7</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
 <tr><td class="left">14h30-16h30</td><td>33,3</td><td>10</td><td>34,9</td><td class="left"><span class="badge neutral">SÁT NGƯỠNG</span></td><td>—</td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">37,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">18h30-20h30</td><td>16,0</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">39,5</td><td>10</td><td>34,9</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">18h30-20h30</td><td>17,0</td><td>10</td><td>34,9</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
         </div>
@@ -3441,7 +3423,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">44,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">43,9</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+6</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">56,1</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+9</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">46,6</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">47,6</td><td>8</td><td>26,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+7</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>16,7</td><td>8</td><td>26,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
@@ -3497,7 +3479,7 @@
 <tr><td class="left">10h30-12h30</td><td class="thieu">17,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">12h30-14h30</td><td class="thieu">17,5</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
 <tr><td class="left">14h30-16h30</td><td class="thieu">16,7</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+1</b></td></tr>
-<tr><td class="left">16h30-18h30</td><td class="thieu">20,9</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
+<tr><td class="left">16h30-18h30</td><td class="thieu">21,9</td><td>5</td><td>16,6</td><td class="left"><span class="badge thieu">THIẾU</span></td><td><b style="color:var(--red)">+2</b></td></tr>
 <tr><td class="left">18h30-20h30</td><td>6,1</td><td>5</td><td>16,6</td><td class="left"><span class="badge ok">OK</span></td><td>—</td></tr>
 </tbody>
     </table></div>
