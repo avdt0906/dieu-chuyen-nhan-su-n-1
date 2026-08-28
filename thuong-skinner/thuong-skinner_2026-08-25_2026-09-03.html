@@ -474,72 +474,72 @@ const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
 );
 
 /* ---------- GDKV SUMMARY (gIdx|soSalon|billCoSkinner|luotBook|luotThapDiem) — LUY KE, 8/8 GĐKV ---------- */
-const GDKV_RAW = `1|8|370|66|35
-2|9|742|81|30
-3|6|463|68|29
-4|7|466|37|16
-5|5|230|27|8
-6|5|268|37|22
-7|7|439|32|14
-8|5|53|8|5`;
+const GDKV_RAW = `1|8|901|66|35
+2|9|1554|81|30
+3|6|1078|68|29
+4|7|1038|37|16
+5|5|506|27|8
+6|5|619|37|22
+7|7|903|32|14
+8|5|247|8|5`;
 const GDKV_SUMMARY = GDKV_RAW.trim().split('\n').map(line=>{
   const [g,soSalon,bill,lb,ltd] = line.split('|').map(Number);
   return {gdkv:g,soSalon,bill,luotBook:lb,luotThapDiem:ltd};
 });
 
-/* ---------- SALON RANKING (salon|gIdx|billCoSkinner|luotBook) — LUY KE, 52 salon co phat sinh (them "341 XVNT", "68 LN NA", "362 NGT BN" so voi dot 15). Thu tu = ty le booking desc (tie-break: luotBook desc, ten A-Z). billCoSkinner = SO BILL CO DICH VU SKINNER **DUOC DAT LICH TRUOC** tai salon (main.view_bill_service_his JOIN main.view_booking, dieu kien staff_hair_massage_id IS NOT NULL AND <>0 [NV Skinner thuc hien dich vu tren bill] VA vb.is_book_at_salon = false [loai khach vang lai tai quay]), cong don created_date 25-27/08 (ca 3 ngay da chot du). Cong thuc CHINH THUC tu dot 14, khong doi o dot 16 — chi cap nhat lai so lieu theo du lieu moi nhat (25-27/08 chot du ca 3 ngay). ---------- */
-const SALON_RAW = `36 N1 BD|1|32|10
-595 BT TH|8|10|2
-80 TP TH|8|6|1
-10 TP|6|84|13
-90 NH|3|44|6
-290 QT TH|8|15|2
-1146 KVC|1|31|4
-80 PL BD|1|32|4
-186 QT|6|8|1
-255 NAN|1|37|4
-4 LQD BN|6|12|1
-109 TQH|3|86|7
-55A NVL|3|51|4
-145 THT|2|161|12
-103 TN|1|149|11
-12 LDT|5|71|4
-202 DC|7|94|5
-168 NVC|6|132|7
-186 DTH|4|95|5
-237 NTT|4|125|6
-382 NT|3|151|7
-173 TN|7|66|3
-420 HTP|4|66|3
-575 AC|2|68|3
-927 HG|2|115|5
-1371 PVT|1|23|1
-65 CD|3|23|1
-1180 QT|5|48|2
-730 TL10|2|77|3
-116 TK|3|108|4
-346 KT|7|57|2
-401/1 NDT|1|30|1
-312 LVS|2|92|3
-50BT4 NPC LD|7|64|2
-8 CVL|2|72|2
-32 NAT|5|36|1
-39 HBT|7|75|2
-483 TN|5|45|1
-25 TD|4|92|2
-190 HB|2|46|1
-99 TSN|2|87|1
-113 THD AG|4|5|0
-236 DBT|4|53|0
-264 LLQ|7|65|0
-29 HB|1|36|0
-341 XVNT|4|30|0
-362 NGT BN|6|32|0
-363 LNQ TN|7|18|0
-58 NVC NA|8|14|0
-68 LN NA|8|8|0
-708 LTT|2|24|0
-76 PVH|5|30|0`;
+/* ---------- SALON RANKING (salon|gIdx|billCoSkinner|luotBook) — LUY KE, 52 salon co phat sinh (khong doi so salon so voi dot 16). Thu tu = ty le booking desc (tie-break: luotBook desc, ten A-Z). billCoSkinner = SO BILL CO DICH VU SKINNER tai salon, BAT KE KENH DAT LICH (main.view_bill_service_his, dieu kien staff_hair_massage_id IS NOT NULL AND <>0 [NV Skinner thuc hien dich vu tren bill] — KHONG con dieu kien is_book_at_salon), cong don created_date 25-27/08 (ca 3 ngay da chot du). Cong thuc CHINH THUC CUOI CUNG tu dot 17 (27-28/08/2026) — user xac nhan lai "Bill co Skinner la bill co Skinner, khong can dat truoc, chi can co Skinner thoi": QUAY VE dung cong thuc dot 13 (bo dieu kien is_book_at_salon da them o dot 14, nay bi bac bo lai). Khong tu doi them tru khi co ly do moi rat ro rang. ---------- */
+const SALON_RAW = `36 N1 BD|1|65|10
+10 TP|6|150|13
+90 NH|3|108|6
+1146 KVC|1|73|4
+255 NAN|1|90|4
+145 THT|2|271|12
+55A NVL|3|99|4
+595 BT TH|8|50|2
+80 PL BD|1|101|4
+109 TQH|3|194|7
+103 TN|1|313|11
+202 DC|7|162|5
+290 QT TH|8|65|2
+168 NVC|6|229|7
+186 DTH|4|173|5
+186 QT|6|37|1
+12 LDT|5|150|4
+237 NTT|4|233|6
+927 HG|2|197|5
+382 NT|3|296|7
+173 TN|7|141|3
+80 TP TH|8|48|1
+4 LQD BN|6|50|1
+1180 QT|5|102|2
+575 AC|2|155|3
+346 KT|7|112|2
+730 TL10|2|169|3
+420 HTP|4|174|3
+312 LVS|2|205|3
+50BT4 NPC LD|7|142|2
+401/1 NDT|1|71|1
+1371 PVT|1|72|1
+116 TK|3|295|4
+39 HBT|7|156|2
+32 NAT|5|79|1
+8 CVL|2|169|2
+65 CD|3|86|1
+190 HB|2|97|1
+483 TN|5|98|1
+25 TD|4|225|2
+99 TSN|2|208|1
+113 THD AG|4|48|0
+236 DBT|4|125|0
+264 LLQ|7|107|0
+29 HB|1|116|0
+341 XVNT|4|60|0
+362 NGT BN|6|153|0
+363 LNQ TN|7|83|0
+58 NVC NA|8|46|0
+68 LN NA|8|38|0
+708 LTT|2|83|0
+76 PVH|5|77|0`;
 const MEDAL = {1:{icon:'🥇',prize:500000}, 2:{icon:'🥈',prize:300000}, 3:{icon:'🥉',prize:200000}};
 const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
   const [name,g,bill,lb] = line.split('|');
@@ -959,7 +959,7 @@ const kpis = [
   {l:'Số Skinner hưởng thưởng (lũy kế)', v:fmtInt(176), s:'tại 52 salon'},
 ];
 kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="s">${k.s}</div></div>`).join('')
-  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (52 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(356/3031*100)}</div><div class="s">356 / 3.031 bill có dịch vụ Skinner được đặt lịch trước (lũy kế 25–27/08, cả 3 ngày đã chốt đủ, mẫu số = bill có staff_hair_massage_id VÀ is_book_at_salon=false — loại khách vãng lai tại quầy)</div><div class="bar"><i style="width:${(356/3031*100).toFixed(1)}%"></i></div></div>`;
+  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (52 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(356/6846*100)}</div><div class="s">356 / 6.846 bill có dịch vụ Skinner, bất kể kênh đặt lịch (lũy kế 25–27/08, cả 3 ngày đã chốt đủ, mẫu số = bill có staff_hair_massage_id, không lọc is_book_at_salon)</div><div class="bar"><i style="width:${(356/6846*100).toFixed(1)}%"></i></div></div>`;
 
 /* ================= RENDER: DAILY CHART (10 cot, 1 cot/ngay) ================= */
 (function(){
