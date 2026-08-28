@@ -7,21 +7,33 @@
   :root {
     --bg: #F1F5F9; --panel: #FFFFFF; --panel2: #F8FAFC; --border: #E2E8F0; --text: #0F172A; --muted: #64748B;
     --red: #DC2626; --red-bg: #FEF2F2; --green: #059669; --blue: #2563EB; --blue-bg: #EFF6FF; --amber: #D97706; --amber-bg: #FFFBEB;
+    --card-border: #D7DFEC;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0; padding: 28px; background: var(--bg); color: var(--text);
+    margin: 0; padding: 28px; color: var(--text);
+    background-color: #F1F5FB;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(220,38,38,.045) 0px, rgba(220,38,38,.045) 18px, transparent 18px, transparent 36px, rgba(37,99,235,.045) 36px, rgba(37,99,235,.045) 54px, transparent 54px, transparent 72px),
+      linear-gradient(160deg, #EAF2FF 0%, #FDF3F3 45%, #EEFBF4 100%);
+    background-attachment: fixed;
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px; line-height: 1.5;
+    position: relative;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; height: 7px; z-index: 20;
+    background: repeating-linear-gradient(45deg, var(--red) 0 14px, #fff 14px 28px, var(--blue) 28px 42px, #fff 42px 56px);
   }
   .wrap { max-width: 1180px; margin: 0 auto; }
-  h1 { font-size: 21px; margin: 0 0 4px; color: var(--blue); }
+  h1 { font-size: 21px; margin: 0 0 4px; color: var(--blue); display: flex; align-items: center; gap: 8px; }
+  h1::before { content: '✂️'; font-size: 19px; }
   .sub { color: var(--muted); margin: 0 0 18px; font-size: 12.5px; }
   .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 
   .date-switcher { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
   .date-tab {
-    padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel);
+    padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel);
     color: var(--muted); font-size: 12.5px; font-weight: 600; text-decoration: none;
   }
   .date-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
@@ -29,7 +41,7 @@
 
   .gdkv-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
   .gdkv-tab {
-    padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel);
+    padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--card-border); background: var(--panel);
     cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted);
   }
   .gdkv-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
@@ -42,7 +54,7 @@
 
   .salon-tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
   .salon-tab {
-    padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel2);
+    padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel2);
     cursor: pointer; font-size: 12px; color: var(--text);
   }
   .salon-tab.active { background: #1e293b; border-color: #1e293b; color: #fff; }
@@ -53,8 +65,8 @@
   .salon-panel.active { display: block; }
 
   .card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+    background: var(--panel); border: 1.5px solid var(--card-border); border-top: 4px solid var(--blue); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(15,23,42,.07);
   }
   .card h2 { font-size: 14px; margin: 0 0 10px; color: var(--text); }
   .card h3 { font-size: 12.5px; margin: 14px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
@@ -102,7 +114,7 @@
     border-radius: 6px; padding: 8px 10px; margin-bottom: 10px;
   }
 
-  .suggest-box { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; background: var(--panel2); }
+  .suggest-box { border: 1.5px solid var(--card-border); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; background: var(--panel2); }
   .suggest-box h4 { margin: 0 0 6px; font-size: 12.5px; }
   .suggest-box .content { font-size: 12.5px; color: var(--text); }
   .suggest-box .empty { color: var(--muted); font-style: italic; }
