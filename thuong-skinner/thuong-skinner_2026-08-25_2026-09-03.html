@@ -184,13 +184,13 @@ table.dt td.num{font-family:'IBM Plex Mono',monospace;}
 
   <header class="hd">
     <h1>Thưởng book đích danh Skinner — giờ thấp điểm</h1>
-    <div class="meta">Chiến dịch <b>25/08/2026 – 03/09/2026</b> (10 ngày) · <b>lũy kế cộng dồn</b> đến thời điểm cập nhật · dữ liệu query trực tiếp từ DB · cập nhật <b>27/08/2026 (chiều)</b> (25/08 + 26/08 đã chốt đủ ngày, 27/08 đang diễn ra — 66 lượt hợp lệ đã phát sinh tại salon Công ty tính đến thời điểm cập nhật, 28/08–03/09 chưa diễn ra)</div>
+    <div class="meta">Chiến dịch <b>25/08/2026 – 03/09/2026</b> (10 ngày) · <b>lũy kế cộng dồn</b> đến thời điểm cập nhật · dữ liệu query trực tiếp từ DB · cập nhật <b>27/08/2026 (tối)</b> (25/08 + 26/08 + 27/08 đã chốt đủ ngày — 3 ngày, 356 lượt hợp lệ đã phát sinh tại salon Công ty, 28/08–03/09 chưa diễn ra)</div>
   </header>
 
   <div class="callout">
     <b>Cách đọc:</b> mọi lượt book đích danh Skinner hợp lệ đều hưởng mức nền <span class="hib">5.000đ</span>.
     Lượt rơi vào khung giờ thấp điểm + đặt trước ≥ 30 phút + đúng điều kiện khác được cộng thêm 5.000đ (tổng 10.000đ).
-    <b>Lưu ý quan trọng:</b> toàn bộ 301 lượt hợp lệ lũy kế (25/08 + 26/08 đã chốt đủ ngày, 27/08 đang diễn ra) tại salon Công ty đều mới dừng ở <b>mức nền</b> — <u>chưa có lượt nào được ghi nhận mức cộng thêm</u> trên bảng lương (<code>bi.ccm20250625_tip_khach_book_onl</code>), kể cả nhiều lượt rơi đúng khung giờ thấp điểm. Đây là dữ liệu thật, không phải lỗi tính toán của báo cáo.
+    <b>Lưu ý quan trọng:</b> toàn bộ 356 lượt hợp lệ lũy kế (25/08 + 26/08 + 27/08, cả 3 ngày đã chốt đủ ngày) tại salon Công ty đều mới dừng ở <b>mức nền</b> — <u>chưa có lượt nào được ghi nhận mức cộng thêm</u> trên bảng lương (<code>bi.ccm20250625_tip_khach_book_onl</code>), kể cả nhiều lượt rơi đúng khung giờ thấp điểm. Đây là dữ liệu thật, không phải lỗi tính toán của báo cáo.
     <br><b>Quy tắc khung giờ thấp điểm (đã cập nhật 26/08/2026):</b> T2–T6 cao điểm 15h00–19h59, còn lại là thấp điểm (không đổi). <b>T7–CN: thấp điểm = {7h,8h,9h,19h,20h,21h}, còn lại (~10h–18h59) là cao điểm</b> (quy tắc T7-CN MỚI, thay cho quy tắc cũ "cao điểm 10h-18h59 áp dụng y hệt thấp điểm ngoài khung" — nay khung thấp điểm cuối tuần chỉ còn 2 dải giờ sáng sớm/tối muộn).
   </div>
 
@@ -284,167 +284,183 @@ const fmtD = n => n.toLocaleString('vi-VN') + 'đ';
 const fmtTr = n => (n/1000000).toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' tr';
 const fmtPct = n => n.toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
 
-/* ---------- SKINNER RAW (name|maNV|salonMa|gdkvIdx|luotBook|luotThap|luotCao|thuongB|top10Flag) — LUY KE 25-27/08 (27/08 dang dien ra, da co 66 luot), 160 Skinner. Cap nhat dot 15 - 27/08/2026. ---------- */
-const SKB_RAW = `Nguyễn Phan Thúy Hiền|14010|36 N1 BD|1|9|3|6|60000|1
+/* ---------- SKINNER RAW (name|maNV|salonMa|gdkvIdx|luotBook|luotThap|luotCao|thuongB|top10Flag) — LUY KE 25-27/08 (ca 3 ngay da chot du), 176 Skinner. Cap nhat dot 16 - 27/08/2026 (toi). ---------- */
+const SKB_RAW = `Nguyễn Phan Thúy Hiền|14010|36 N1 BD|1|10|3|7|65000|1
+Nguyễn Thị Khánh Linh|13728|10 TP|6|7|5|2|60000|1
 Trần Thị Tuyết Ngân|17362|109 TQH|3|7|4|3|55000|1
-Nguyễn Thị Khánh Linh|13728|10 TP|6|5|4|1|45000|1
-Quách Tuyết Trang|10119|730 TL10|2|6|3|3|45000|1
+Vũ Thị Minh|1804|382 NT|3|7|3|4|50000|1
+Quách Tuyết Trang|10119|730 TL10|2|7|3|4|50000|1
+Đỗ Thuỳ Linh|20826|36 N1 BD|1|4|4|0|40000|1
+Nguyễn Thị Thêu|1909|168 NVC|6|5|3|2|40000|1
 Nguyễn Thị Ngần|5015|202 DC|7|5|3|2|40000|1
-Vũ Thị Minh|1804|382 NT|3|5|3|2|40000|1
 Đỗ Thị Trâm|19535|10 TP|6|5|3|2|40000|1
-Nguyễn Thị Thêu|1909|168 NVC|6|4|3|1|35000|1
+Nguyễn Thị Nga|17787|80 PL BD|1|6|2|4|40000|0
 Vũ Thị Hiền|20339|255 NAN|1|4|3|1|35000|1
+Đồng Thị Thanh Tuyền|3965|186 DTH|4|5|2|3|35000|0
 Nguyễn Phương Thảo|9473|168 NVC|6|5|2|3|35000|0
-Nguyễn Thị Nga|17787|80 PL BD|1|5|2|3|35000|0
-Nguyễn Trúc Anh|16549|1146 KVC|1|3|3|0|30000|1
+Cao Thị Kim Chi|19735|927 HG|2|5|2|3|35000|0
 Trang Thị Hồng An|9601|145 THT|2|3|3|0|30000|0
-Đỗ Thuỳ Linh|20826|36 N1 BD|1|3|3|0|30000|0
+Nguyễn Trúc Anh|16549|1146 KVC|1|3|3|0|30000|0
+Nguyễn Thị Minh Thư|19255|237 NTT|4|4|2|2|30000|0
 Tiền Anh Thư|20377|12 LDT|5|4|2|2|30000|0
 Hoàng Thị Huyền|5403|382 NT|3|5|1|4|30000|0
-Cao Thị Kim Chi|19735|927 HG|2|3|2|1|25000|0
-Lê Dương Lam Vy|17276|8 CVL|2|3|2|1|25000|0
-Lê Thị Ninh Khánh|15250|10 TP|6|3|2|1|25000|0
+Võ Thị Hồng|17662|1180 QT|5|6|0|6|30000|0
+Nguyễn Thị Mỹ Hường|858|145 THT|2|3|2|1|25000|0
 Nguyễn Diệu Hiền|9708|186 DTH|4|3|2|1|25000|0
-Nguyễn Thị Minh Thư|19255|237 NTT|4|3|2|1|25000|0
-Nguyễn Thị Thuỳ Trang|14293|90 NH|3|3|2|1|25000|0
-Phạm Thị Trí|13106|173 TN|7|3|2|1|25000|0
 Phạm Thị Tuyết Nhung|11536|90 NH|3|3|2|1|25000|0
-Đồng Thị Thanh Tuyền|3965|186 DTH|4|3|2|1|25000|0
-Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|4|1|3|25000|0
+Đỗ Thị Kim Chi|12846|36 N1 BD|1|3|2|1|25000|0
+Phạm Thị Trí|13106|173 TN|7|3|2|1|25000|0
+Nguyễn Thị Thuỳ Trang|14293|90 NH|3|3|2|1|25000|0
+Nguyễn Thị Thái Vi|14732|575 AC|2|3|2|1|25000|0
+Lê Thị Ninh Khánh|15250|10 TP|6|3|2|1|25000|0
+Lê Dương Lam Vy|17276|8 CVL|2|3|2|1|25000|0
+Tạ Thuỳ Linh|12032|382 NT|3|4|1|3|25000|0
 Nguyễn Thị Thuỳ Trang|19352|55A NVL|3|4|1|3|25000|0
-Cao Thị Mỹ Liên|19648|103 TN|1|2|2|0|20000|0
-Lưu Thị Thuý Duy|12821|145 THT|2|2|2|0|20000|0
+Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|4|1|3|25000|0
 Nguyễn Thị Diễm CTV|5018|312 LVS|2|2|2|0|20000|0
-Nguyễn Thị Hồng Ngân|20962|420 HTP|4|2|2|0|20000|0
-Nguyễn Thị Lan|18384|595 BT TH|8|2|2|0|20000|0
-Nguyễn Thị Mỹ Hường|858|145 THT|2|2|2|0|20000|0
-Nguyễn Thị Ngọc Hoàn|8646|10 TP|6|2|2|0|20000|0
-Nguyễn Thị Như Ý|20801|145 THT|2|2|2|0|20000|0
-Nguyễn Thị Phú Quý|15706|237 NTT|4|2|2|0|20000|0
-Nguyễn Thị Thu Ngân|20771|103 TN|1|2|2|0|20000|0
-Nguyễn Thị Thái Vi|14732|575 AC|2|2|2|0|20000|0
-Ngô Thuỳ Phương|20878|927 HG|2|2|2|0|20000|0
 Thạch Thi Sa RemCTV|7193|145 THT|2|2|2|0|20000|0
-Nguyễn Thị Thu Quỳnh|17766|382 NT|3|3|1|2|20000|0
+Nguyễn Thị Ngọc Hoàn|8646|10 TP|6|2|2|0|20000|0
+Lưu Thị Thuý Duy|12821|145 THT|2|2|2|0|20000|0
+Nguyễn Thị Phú Quý|15706|237 NTT|4|2|2|0|20000|0
+Nguyễn Thị Lan|18384|595 BT TH|8|2|2|0|20000|0
+Cao Thị Mỹ Liên|19648|103 TN|1|2|2|0|20000|0
+Nguyễn Thị Thu Ngân|20771|103 TN|1|2|2|0|20000|0
+Nguyễn Thị Như Ý|20801|145 THT|2|2|2|0|20000|0
+Ngô Thuỳ Phương|20878|927 HG|2|2|2|0|20000|0
+Nguyễn Thị Hồng Ngân|20962|420 HTP|4|2|2|0|20000|0
+Ngô Mỹ Huyền|10289|32 NAT|5|3|1|2|20000|0
 Ngô Thị Nhung|14289|173 TN|7|3|1|2|20000|0
-Tạ Thuỳ Linh|12032|382 NT|3|3|1|2|20000|0
 Đinh Thị Thùy Chinh|17034|116 TK|3|3|1|2|20000|0
+Nguyễn Thị Thu Quỳnh|17766|382 NT|3|3|1|2|20000|0
+Võ Ngọc Thy Nhã|17780|237 NTT|4|3|1|2|20000|0
 Từ Thị Mỹ Ánh|7304|190 HB|2|4|0|4|20000|0
-Võ Thị Hồng|17662|1180 QT|5|4|0|4|20000|0
-Bùi Thị Hồng Lan|12173|346 KT|7|2|1|1|15000|0
-Bùi Thị Thảo Nhy|21003|483 TN|5|2|1|1|15000|0
-Dương Thị Ngọc Trinh|16635|103 TN|1|2|1|1|15000|0
-Hoàng Thị Thuỳ Trâm|20885|202 DC|7|2|1|1|15000|0
 Lê Thị Thuỳ Trang|3484|80 PL BD|1|2|1|1|15000|0
-Nguyễn Phan Như Ngọc|10345|12 LDT|5|2|1|1|15000|0
-Nguyễn Thị Chinh|14231|168 NVC|6|2|1|1|15000|0
-Nguyễn Thị Hồng Hà|18811|103 TN|1|2|1|1|15000|0
-Nguyễn Thị Linh|21015|12 LDT|5|2|1|1|15000|0
-Ngô Mỹ Huyền|10289|32 NAT|5|2|1|1|15000|0
-Thừa Thị Nguyệt|13443|202 DC|7|2|1|1|15000|0
-Trần Huỳnh Hồng Nhung|12059|145 THT|2|2|1|1|15000|0
-Trần Thị Bích Nhi|20467|25 TD|4|2|1|1|15000|0
-Võ Ngọc Thy Nhã|17780|237 NTT|4|2|1|1|15000|0
-Đinh Thị Bích Ánh|17035|116 TK|3|2|1|1|15000|0
-Đặng Thị Mỹ Nhân|20487|312 LVS|2|2|1|1|15000|0
-Đỗ Thị Kim Chi|12846|36 N1 BD|1|2|1|1|15000|0
 Đỗ Thị Linh|5866|927 HG|2|2|1|1|15000|0
+Danh Thị Sa Ri|7597|99 TSN|2|2|1|1|15000|0
+Nguyễn Phan Như Ngọc|10345|12 LDT|5|2|1|1|15000|0
+Nguyễn Phan Thảo My|11843|237 NTT|4|2|1|1|15000|0
+Trần Huỳnh Hồng Nhung|12059|145 THT|2|2|1|1|15000|0
+Bùi Thị Hồng Lan|12173|346 KT|7|2|1|1|15000|0
+Thừa Thị Nguyệt|13443|202 DC|7|2|1|1|15000|0
+Nguyễn Thị Chinh|14231|168 NVC|6|2|1|1|15000|0
+Mai Thị Trang|15763|50BT4 NPC LD|7|2|1|1|15000|0
+Dương Thị Ngọc Trinh|16635|103 TN|1|2|1|1|15000|0
+Đinh Thị Bích Ánh|17035|116 TK|3|2|1|1|15000|0
+Bùi Phương Anh|18694|109 TQH|3|2|1|1|15000|0
+Nguyễn Thị Hồng Hà|18811|103 TN|1|2|1|1|15000|0
+Nguyễn Gia Linh|18952|55A NVL|3|2|1|1|15000|0
+Nguyễn Thị Lành|19283|10 TP|6|2|1|1|15000|0
+Lê Thị Mai Ly|19894|401/1 NDT|1|2|1|1|15000|0
+Trần Thị Bích Nhi|20467|25 TD|4|2|1|1|15000|0
+Đặng Thị Mỹ Nhân|20487|312 LVS|2|2|1|1|15000|0
+Hoàng Thị Thuỳ Trâm|20885|202 DC|7|2|1|1|15000|0
+Phùng Hoàng Như Thảo|20886|575 AC|2|2|1|1|15000|0
+Bùi Thị Thảo Nhy|21003|483 TN|5|2|1|1|15000|0
+Nguyễn Thị Linh|21015|12 LDT|5|2|1|1|15000|0
+Phạm Thị Thảo|21177|1180 QT|5|2|1|1|15000|0
 Trương Thị Kim Tuyền|18104|145 THT|2|3|0|3|15000|0
-Bùi Phương Anh|18694|109 TQH|3|1|1|0|10000|0
-Danh Thị Sa Ri|7597|99 TSN|2|1|1|0|10000|0
-Hoàng Thị Linh|17591|290 QT TH|8|1|1|0|10000|0
-Liễu Thanh Mai|19612|103 TN|1|1|1|0|10000|0
-Lê Thị Mai Ly|19894|401/1 NDT|1|1|1|0|10000|0
-Lê thị yến|19220|103 TN|1|1|1|0|10000|0
-Lại Thị Xuân|13549|90 NH|3|1|1|0|10000|0
-Lại Thị Yến Nhi|19351|382 NT|3|1|1|0|10000|0
-Mai Thị Thanh Dư|7605|36 N1 BD|1|1|1|0|10000|0
-Mai Thị Trang|15763|50BT4 NPC LD|7|1|1|0|10000|0
-Nguyễn Gia Linh|18952|55A NVL|3|1|1|0|10000|0
-Nguyễn Lê Phương Nguyên|21272|190 HB|2|1|1|0|10000|0
-Nguyễn Ngọc Ánh|19034|420 HTP|4|1|1|0|10000|0
-Nguyễn Như Ngọc|16195|1371 PVT|1|1|1|0|10000|0
-Nguyễn Nhật Kim Ngân|19605|25 TD|4|1|1|0|10000|0
-Nguyễn Phan Thảo My|11843|237 NTT|4|1|1|0|10000|0
-Nguyễn Thị Hạnh|13073|186 DTH|4|1|1|0|10000|0
-Nguyễn Thị Lành|19283|10 TP|6|1|1|0|10000|0
-Nguyễn Thị Ngọc Huyền|17415|103 TN|1|1|1|0|10000|0
-Nguyễn Thị Ngọc Nhi|20265|255 NAN|1|1|1|0|10000|0
-Nguyễn Thị Phương|19851|80 TP TH|8|1|1|0|10000|0
-Nguyễn Thị Thanh Hiền|20893|116 TK|3|1|1|0|10000|0
-Nguyễn Thị Xim|19020|39 HBT|7|1|1|0|10000|0
-Phạm Thị Duyên|9504|50BT4 NPC LD|7|1|1|0|10000|0
-Phạm Thị Huyền My|20518|65 CD|3|1|1|0|10000|0
-Phạm Thị Hải Anh|9840|116 TK|3|1|1|0|10000|0
-Phạm Thị Kiều Thơm|13826|186 QT|6|1|1|0|10000|0
-Phạm Thị Lương|6607|290 QT TH|8|1|1|0|10000|0
-Phạm Thị Thương|14330|4 LQD BN|6|1|1|0|10000|0
-Phạm Thị Thảo|21177|1180 QT|5|1|1|0|10000|0
-Thị Bé Ngọc|7575|103 TN|1|1|1|0|10000|0
-Trần Hà Linh|7456|39 HBT|7|1|1|0|10000|0
-Trần Nguyễn Trâm Anh|19682|103 TN|1|1|1|0|10000|0
-Trần Thị Kim Loan|18312|1180 QT|5|1|1|0|10000|0
-Trần Thị Kim Ngân|18226|109 TQH|3|1|1|0|10000|0
-Trần Thị Thu Hằng|16108|346 KT|7|1|1|0|10000|0
-Vương Mỹ Uyên|21327|80 PL BD|1|1|1|0|10000|0
-sk.kn87|20521|90 NH|3|1|1|0|10000|0
-Đoàn Thị Kiều Loan|15768|55A NVL|3|1|1|0|10000|0
-Đỗ Ngọc Bích|20365|109 TQH|3|1|1|0|10000|0
+Nguyễn Thị Phú Tài|20130|312 LVS|2|3|0|3|15000|0
 Đỗ Thị Ly|4581|55A NVL|3|1|1|0|10000|0
+Phạm Thị Lương|6607|290 QT TH|8|1|1|0|10000|0
+Trần Hà Linh|7456|39 HBT|7|1|1|0|10000|0
+Thị Bé Ngọc|7575|103 TN|1|1|1|0|10000|0
+Mai Thị Thanh Dư|7605|36 N1 BD|1|1|1|0|10000|0
+Phạm Thị Duyên|9504|50BT4 NPC LD|7|1|1|0|10000|0
+Phạm Thị Hải Anh|9840|116 TK|3|1|1|0|10000|0
+Nguyễn Thị Hạnh|13073|186 DTH|4|1|1|0|10000|0
+Lại Thị Xuân|13549|90 NH|3|1|1|0|10000|0
+Phạm Thị Kiều Thơm|13826|186 QT|6|1|1|0|10000|0
+Nguyễn Thị Hiếu|14251|168 NVC|6|1|1|0|10000|0
+Phạm Thị Thương|14330|4 LQD BN|6|1|1|0|10000|0
+Đoàn Thị Kiều Loan|15768|55A NVL|3|1|1|0|10000|0
+Trần Thị Thu Hằng|16108|346 KT|7|1|1|0|10000|0
+Nguyễn Như Ngọc|16195|1371 PVT|1|1|1|0|10000|0
+Nguyễn Thị Ngọc Huyền|17415|103 TN|1|1|1|0|10000|0
+Hoàng Thị Linh|17591|290 QT TH|8|1|1|0|10000|0
+Trần Thị Kim Ngân|18226|109 TQH|3|1|1|0|10000|0
+Trần Thị Kim Loan|18312|1180 QT|5|1|1|0|10000|0
+Nguyễn Thị Xim|19020|39 HBT|7|1|1|0|10000|0
+Nguyễn Ngọc Ánh|19034|420 HTP|4|1|1|0|10000|0
+Lê thị yến|19220|103 TN|1|1|1|0|10000|0
+Lại Thị Yến Nhi|19351|382 NT|3|1|1|0|10000|0
+Nguyễn Nhật Kim Ngân|19605|25 TD|4|1|1|0|10000|0
+Liễu Thanh Mai|19612|103 TN|1|1|1|0|10000|0
+Trần Nguyễn Trâm Anh|19682|103 TN|1|1|1|0|10000|0
+Nguyễn Thị Phương|19851|80 TP TH|8|1|1|0|10000|0
+Nguyễn Thị Ngọc Nhi|20265|255 NAN|1|1|1|0|10000|0
+Đỗ Ngọc Bích|20365|109 TQH|3|1|1|0|10000|0
+Phạm Thị Huyền My|20518|65 CD|3|1|1|0|10000|0
+sk.kn87|20521|90 NH|3|1|1|0|10000|0
+Nguyễn Thị Thanh Hiền|20893|116 TK|3|1|1|0|10000|0
+Nguyễn Lê Phương Nguyên|21272|190 HB|2|1|1|0|10000|0
+Vương Mỹ Uyên|21327|80 PL BD|1|1|1|0|10000|0
 Dương Thị Trà|8186|50BT4 NPC LD|7|2|0|2|10000|0
-Nguyễn Thị Kim Ngân|20813|401/1 NDT|1|2|0|2|10000|0
 Nguyễn Thị Loan Anh|10416|76 PVH|5|2|0|2|10000|0
-Phạm Thị Hương Giang|14094|109 TQH|3|2|0|2|10000|0
-Trương Thị Thuỳ|18843|363 LNQ TN|7|2|0|2|10000|0
-Trần Thị Huỳnh Hoa|21269|575 AC|2|2|0|2|10000|0
-Viên Yến Vy|19753|575 AC|2|2|0|2|10000|0
 Đỗ Thị Thu Trang|13672|90 NH|3|2|0|2|10000|0
-Bùi Thị Bão Nhi|13903|99 TSN|2|1|0|1|5000|0
-Bùi Thị Ánh Ngọc|17588|264 LLQ|7|1|0|1|5000|0
+Phạm Thị Hương Giang|14094|109 TQH|3|2|0|2|10000|0
+Trần Thị Quỳnh Như|15747|99 TSN|2|2|0|2|10000|0
+Trần Thị Kim Ngân|18228|401/1 NDT|1|2|0|2|10000|0
+Nguyễn Thị Lan|18586|382 NT|3|2|0|2|10000|0
+Trương Thị Thuỳ|18843|363 LNQ TN|7|2|0|2|10000|0
+Viên Yến Vy|19753|575 AC|2|2|0|2|10000|0
+Nguyễn Thị Cẩm Hằng|20765|8 CVL|2|2|0|2|10000|0
+Nguyễn Thị Kim Ngân|20813|401/1 NDT|1|2|0|2|10000|0
+Trần Ngọc Yến Nhi|20835|341 XVNT|4|2|0|2|10000|0
+Phạm Thị Châu|21137|382 NT|3|2|0|2|10000|0
+Trần Thị Huỳnh Hoa|21269|575 AC|2|2|0|2|10000|0
+Võ Thị Thu Ngân|4627|237 NTT|4|1|0|1|5000|0
+Hoàng Thị Minh Huế|5760|116 TK|3|1|0|1|5000|0
+Nguyễn Quốc Phương Vy|8353|1371 PVT|1|1|0|1|5000|0
+Uông Bội Linh|8595|290 QT TH|8|1|0|1|5000|0
 Cao Thị Linh|9070|39 HBT|7|1|0|1|5000|0
-Huỳnh Kiều Như|12277|25 TD|4|1|0|1|5000|0
-Huỳnh Thị Khánh Vân|11761|25 TD|4|1|0|1|5000|0
-Huỳnh Thị Kim My|12779|145 THT|2|1|0|1|5000|0
-Liễu Thị Thanh Trúc|17679|103 TN|1|1|0|1|5000|0
 Lê Thị Hiền|11079|1146 KVC|1|1|0|1|5000|0
-Lê Thị Kiều Oanh|19860|420 HTP|4|1|0|1|5000|0
-Lê Thị Thuỳ CTV|21266|382 NT|3|1|0|1|5000|0
-Lỳ Cẩm Linh|21424|65 CD|3|1|0|1|5000|0
-Nguyễn Hà Phương|16303|25 TD|4|1|0|1|5000|0
-Nguyễn Hồng Ngân|13968|65 CD|3|1|0|1|5000|0
+Ngô Thị Hàn Uyên|11103|186 DTH|4|1|0|1|5000|0
+Vũ Hải Linh|11287|168 NVC|6|1|0|1|5000|0
+Huỳnh Thị Khánh Vân|11761|25 TD|4|1|0|1|5000|0
+Huỳnh Kiều Như|12277|25 TD|4|1|0|1|5000|0
+Huỳnh Thị Kim My|12779|145 THT|2|1|0|1|5000|0
+Trương Thị Ngọc Nhi|12945|99 TSN|2|1|0|1|5000|0
 Nguyễn Lê Diệp Linh|13502|145 THT|2|1|0|1|5000|0
+Nguyễn Thị Hồng Ngọc|13583|190 HB|2|1|0|1|5000|0
+Nguyễn Lê Huyền Trân|13775|575 AC|2|1|0|1|5000|0
+Bùi Thị Bão Nhi|13903|99 TSN|2|1|0|1|5000|0
+Nguyễn Hồng Ngân|13968|65 CD|3|1|0|1|5000|0
 Nguyễn Ngọc Anh|15923|116 TK|3|1|0|1|5000|0
-Nguyễn Thị Cẩm Hằng|20765|8 CVL|2|1|0|1|5000|0
-Nguyễn Thị Diểm My|21359|312 LVS|2|1|0|1|5000|0
+Nguyễn Hà Phương|16303|25 TD|4|1|0|1|5000|0
+Nguyễn Thị Hằng Nga|16479|12 LDT|5|1|0|1|5000|0
+Bùi Thị Ánh Ngọc|17588|264 LLQ|7|1|0|1|5000|0
+Liễu Thị Thanh Trúc|17679|103 TN|1|1|0|1|5000|0
+Phạm Thị Thu Hương|17883|363 LNQ TN|7|1|0|1|5000|0
+Đỗ Thị Lan Anh|18516|173 TN|7|1|0|1|5000|0
+Nguyễn Thị Linh|18840|68 LN NA|8|1|0|1|5000|0
+Ngô Thị Chí Hương|18966|312 LVS|2|1|0|1|5000|0
+Nguyễn Thị Hương Giang|19643|168 NVC|6|1|0|1|5000|0
+Hồ Thị Trúc Hà|19677|730 TL10|2|1|0|1|5000|0
 Nguyễn Thị Hiểu Ngân|19698|483 TN|5|1|0|1|5000|0
 Nguyễn Thị Huỳnh Như|19760|312 LVS|2|1|0|1|5000|0
-Nguyễn Thị Hương Giang|19643|168 NVC|6|1|0|1|5000|0
-Nguyễn Thị Hồng Cẩm|20756|401/1 NDT|1|1|0|1|5000|0
-Nguyễn Thị Hồng Ngọc|13583|190 HB|2|1|0|1|5000|0
-Nguyễn Thị Lan|18586|382 NT|3|1|0|1|5000|0
-Nguyễn Thị Lan Anh|20256|39 HBT|7|1|0|1|5000|0
-Nguyễn Thị Mỹ Duyên|21004|113 THD AG|4|1|0|1|5000|0
-Nguyễn Thị Phú Tài|20130|312 LVS|2|1|0|1|5000|0
-Nguyễn Thị Thùy Trang|20865|99 TSN|2|1|0|1|5000|0
-Nguyễn Thị Tường Vi|20849|236 DBT|4|1|0|1|5000|0
-Nguyễn Thị Yến Vy|20040|145 THT|2|1|0|1|5000|0
-Ngô Thị Chí Hương|18966|312 LVS|2|1|0|1|5000|0
-Ngô Thị Hàn Uyên|11103|186 DTH|4|1|0|1|5000|0
-Phan Thị Thu Ngân|21291|29 HB|1|1|0|1|5000|0
-Phùng Hoàng Như Thảo|20886|575 AC|2|1|0|1|5000|0
-Phạm Thị Châu|21137|382 NT|3|1|0|1|5000|0
-Phạm Thị Thu Hương|17883|363 LNQ TN|7|1|0|1|5000|0
-Trương Thị Ngọc Nhi|12945|99 TSN|2|1|0|1|5000|0
-Trương Thị Quỳnh Như|21194|58 NVC NA|8|1|0|1|5000|0
-Trần Thị Kim Ngân|18228|401/1 NDT|1|1|0|1|5000|0
 Trần Thị Kim Phượng|19801|103 TN|1|1|0|1|5000|0
-Trần Thị Kim Uyên|20986|236 DBT|4|1|0|1|5000|0
-Trần Thị Quỳnh Như|15747|99 TSN|2|1|0|1|5000|0
-Uông Bội Linh|8595|290 QT TH|8|1|0|1|5000|0
-Võ Thị Thu Ngân|4627|237 NTT|4|1|0|1|5000|0
+Đinh Nguyễn Mai Uyên|19854|312 LVS|2|1|0|1|5000|0
+Lê Thị Kiều Oanh|19860|420 HTP|4|1|0|1|5000|0
+Ngô Thị Ngọc Ánh|19933|927 HG|2|1|0|1|5000|0
+Nguyễn Thị Yến Vy|20040|145 THT|2|1|0|1|5000|0
+Nguyễn Hoàng Triệu Vy|20143|927 HG|2|1|0|1|5000|0
+Nguyễn Thị Lan Anh|20256|39 HBT|7|1|0|1|5000|0
+Nguyễn Đặng Khánh Băng|20573|312 LVS|2|1|0|1|5000|0
+Nguyễn Thị Hồng Cẩm|20756|401/1 NDT|1|1|0|1|5000|0
 Võ Thị Tuyết Nhi|20846|708 LTT|2|1|0|1|5000|0
-Vũ Hải Linh|11287|168 NVC|6|1|0|1|5000|0
-Đỗ Thị Lan Anh|18516|173 TN|7|1|0|1|5000|0`;
+Nguyễn Thị Tường Vi|20849|236 DBT|4|1|0|1|5000|0
+Nguyễn Thị Thùy Trang|20865|99 TSN|2|1|0|1|5000|0
+Trần Thị Kim Ngân|20866|99 TSN|2|1|0|1|5000|0
+Trần Thị Kim Uyên|20986|236 DBT|4|1|0|1|5000|0
+Nguyễn Thị Mỹ Duyên|21004|113 THD AG|4|1|0|1|5000|0
+Lê Thị Hồng Dung|21185|76 PVH|5|1|0|1|5000|0
+Trương Thị Quỳnh Như|21194|58 NVC NA|8|1|0|1|5000|0
+Lê Thị Thuỳ CTV|21266|382 NT|3|1|0|1|5000|0
+Phan Thị Thu Ngân|21291|29 HB|1|1|0|1|5000|0
+Nguyễn Thị Diểm My|21359|312 LVS|2|1|0|1|5000|0
+HỒ THỊ DUNG|21405|362 NGT BN|6|1|0|1|5000|0
+Lỳ Cẩm Linh|21424|65 CD|3|1|0|1|5000|0
+Huỳnh Nguyễn Trúc Vy|21428|1146 KVC|1|1|0|1|5000|0`;
 
 const SKINNERS = SKB_RAW.trim().split('\n').map((line,i)=>{
   const [name,maNV,salon,g,lb,thap,cao,thuongB,top10] = line.split('|');
@@ -458,69 +474,72 @@ const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
 );
 
 /* ---------- GDKV SUMMARY (gIdx|soSalon|billCoSkinner|luotBook|luotThapDiem) — LUY KE, 8/8 GĐKV ---------- */
-const GDKV_RAW = `2|9|637|63|29
-3|6|425|60|29
-1|8|317|58|33
-6|4|219|31|20
-7|7|410|31|14
-4|6|363|30|16
-5|5|203|21|8
-8|4|43|7|5`;
+const GDKV_RAW = `1|8|370|66|35
+2|9|742|81|30
+3|6|463|68|29
+4|7|466|37|16
+5|5|230|27|8
+6|5|268|37|22
+7|7|439|32|14
+8|5|53|8|5`;
 const GDKV_SUMMARY = GDKV_RAW.trim().split('\n').map(line=>{
   const [g,soSalon,bill,lb,ltd] = line.split('|').map(Number);
   return {gdkv:g,soSalon,bill,luotBook:lb,luotThapDiem:ltd};
 });
 
-/* ---------- SALON RANKING (salon|gIdx|billCoSkinner|luotBook) — LUY KE, 49 salon co phat sinh (them "113 THD AG", "4 LQD BN", "80 TP TH" so voi dot 14). Thu tu = ty le booking desc (tie-break: luotBook desc, ten A-Z). billCoSkinner = SO BILL CO DICH VU SKINNER **DUOC DAT LICH TRUOC** tai salon (main.view_bill_service_his JOIN main.view_booking, dieu kien staff_hair_massage_id IS NOT NULL AND <>0 [NV Skinner thuc hien dich vu tren bill] VA vb.is_book_at_salon = false [loai khach vang lai tai quay]), cong don created_date 25-27/08. Cong thuc CHINH THUC tu dot 14, khong doi o dot 15 — chi cap nhat lai so lieu theo du lieu moi nhat 27/08/2026. ---------- */
-const SALON_RAW = `36 N1 BD|1|26|8
+/* ---------- SALON RANKING (salon|gIdx|billCoSkinner|luotBook) — LUY KE, 52 salon co phat sinh (them "341 XVNT", "68 LN NA", "362 NGT BN" so voi dot 15). Thu tu = ty le booking desc (tie-break: luotBook desc, ten A-Z). billCoSkinner = SO BILL CO DICH VU SKINNER **DUOC DAT LICH TRUOC** tai salon (main.view_bill_service_his JOIN main.view_booking, dieu kien staff_hair_massage_id IS NOT NULL AND <>0 [NV Skinner thuc hien dich vu tren bill] VA vb.is_book_at_salon = false [loai khach vang lai tai quay]), cong don created_date 25-27/08 (ca 3 ngay da chot du). Cong thuc CHINH THUC tu dot 14, khong doi o dot 16 — chi cap nhat lai so lieu theo du lieu moi nhat (25-27/08 chot du ca 3 ngay). ---------- */
+const SALON_RAW = `36 N1 BD|1|32|10
 595 BT TH|8|10|2
-80 TP TH|8|5|1
-10 TP|6|77|12
-80 PL BD|1|26|4
-1146 KVC|1|27|4
-90 NH|3|41|6
-255 NAN|1|29|4
+80 TP TH|8|6|1
+10 TP|6|84|13
+90 NH|3|44|6
 290 QT TH|8|15|2
+1146 KVC|1|31|4
+80 PL BD|1|32|4
 186 QT|6|8|1
-4 LQD BN|6|10|1
-55A NVL|3|46|4
-109 TQH|3|82|7
-103 TN|1|129|11
-145 THT|2|141|12
-12 LDT|5|64|4
-186 DTH|4|82|5
-237 NTT|4|100|6
-202 DC|7|87|5
-420 HTP|4|54|3
-927 HG|2|95|5
-382 NT|3|134|7
-1180 QT|5|39|2
-168 NVC|6|124|6
-173 TN|7|62|3
-1371 PVT|1|21|1
-730 TL10|2|65|3
+255 NAN|1|37|4
+4 LQD BN|6|12|1
+109 TQH|3|86|7
+55A NVL|3|51|4
+145 THT|2|161|12
+103 TN|1|149|11
+12 LDT|5|71|4
+202 DC|7|94|5
+168 NVC|6|132|7
+186 DTH|4|95|5
+237 NTT|4|125|6
+382 NT|3|151|7
+173 TN|7|66|3
+420 HTP|4|66|3
+575 AC|2|68|3
+927 HG|2|115|5
+1371 PVT|1|23|1
 65 CD|3|23|1
-312 LVS|2|73|3
-116 TK|3|99|4
-346 KT|7|50|2
-401/1 NDT|1|28|1
-50BT4 NPC LD|7|58|2
-575 AC|2|60|2
-32 NAT|5|30|1
-8 CVL|2|64|2
-39 HBT|7|74|2
-25 TD|4|79|2
-190 HB|2|40|1
-483 TN|5|43|1
-99 TSN|2|78|1
+1180 QT|5|48|2
+730 TL10|2|77|3
+116 TK|3|108|4
+346 KT|7|57|2
+401/1 NDT|1|30|1
+312 LVS|2|92|3
+50BT4 NPC LD|7|64|2
+8 CVL|2|72|2
+32 NAT|5|36|1
+39 HBT|7|75|2
+483 TN|5|45|1
+25 TD|4|92|2
+190 HB|2|46|1
+99 TSN|2|87|1
+113 THD AG|4|5|0
+236 DBT|4|53|0
+264 LLQ|7|65|0
+29 HB|1|36|0
+341 XVNT|4|30|0
+362 NGT BN|6|32|0
 363 LNQ TN|7|18|0
-236 DBT|4|46|0
-76 PVH|5|27|0
-113 THD AG|4|2|0
-264 LLQ|7|61|0
-29 HB|1|31|0
-58 NVC NA|8|13|0
-708 LTT|2|21|0`;
+58 NVC NA|8|14|0
+68 LN NA|8|8|0
+708 LTT|2|24|0
+76 PVH|5|30|0`;
 const MEDAL = {1:{icon:'🥇',prize:500000}, 2:{icon:'🥈',prize:300000}, 3:{icon:'🥉',prize:200000}};
 const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
   const [name,g,bill,lb] = line.split('|');
@@ -534,7 +553,7 @@ const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
 /* ---------- DAILY (ngay|thu|tong|thap|cao) — 10 ngay chien dich 25/08-03/09. Ngay chua dien ra = 0, khong suy dien. ---------- */
 const DAILY_RAW = `25/08|T3|133|56|77
 26/08|T4|102|46|56
-27/08|T5|66|52|14
+27/08|T5|121|57|64
 28/08|T6|0|0|0
 29/08|T7|0|0|0
 30/08|CN|0|0|0
@@ -551,7 +570,7 @@ const DAILY = DAILY_RAW.trim().split('\n').map(line=>{
 const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
 const HEAT_RAW = `25/08|T3|0,0,2,10,6,12,14,10,13,10,13,28,13,2,0
 26/08|T4|0,0,0,4,10,5,15,11,16,9,11,16,4,1,0
-27/08|T5|0,1,7,9,4,9,11,10,11,3,0,0,0,1,0
+27/08|T5|0,1,7,9,4,9,11,12,11,11,15,15,12,4,0
 28/08|T6|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 29/08|T7|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 30/08|CN|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -571,308 +590,363 @@ function isPeakHour(wd,h){
   return h>=15 && h<=19;
 }
 
-/* ---------- DETAIL FULL LOG (ngay|thu|gioHen|K|salon|gIdx|skinner|maNV|bill|datLuc|leadPhut) — LUY KE 301 dong (133 ngay 25/08 + 102 ngay 26/08, ca 2 ngay da chot du; 66 ngay 27/08, dang dien ra), DAY DU khong phai mau. Cap nhat dot 15 - 27/08/2026 (chieu). ---------- */
+/* ---------- DETAIL FULL LOG (ngay|thu|gioHen|K|salon|gIdx|skinner|maNV|bill|datLuc|leadPhut) — LUY KE 356 dong (133 ngay 25/08 + 102 ngay 26/08 + 121 ngay 27/08, CA 3 NGAY DA CHOT DU), DAY DU khong phai mau. Cap nhat dot 16 - 27/08/2026 (toi). ---------- */
 const DETAIL_RAW = `25/08|T3|09:00|T|55A NVL|3|Đoàn Thị Kiều Loan|15768|25.156.800|08:21|39
-25/08|T3|09:30|T|10 TP|6|Đỗ Thị Trâm|19535|25.156.690|08:15|74
-25/08|T3|10:00|T|382 NT|3|Lại Thị Yến Nhi|19351|25.156.789|08:19|100
-25/08|T3|10:00|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.062|09:27|33
+25/08|T3|09:30|T|10 TP|6|Đỗ Thị Trâm|19535|25.156.690|08:15|75
+25/08|T3|10:00|T|382 NT|3|Lại Thị Yến Nhi|19351|25.156.789|08:19|101
+25/08|T3|10:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.156.924|07:24|156
+25/08|T3|10:00|T|595 BT TH|8|Nguyễn Thị Lan|18384|25.156.958|09:17|43
 25/08|T3|10:00|T|168 NVC|6|Nguyễn Phương Thảo|9473|25.156.992|09:11|49
-25/08|T3|10:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.157.153|08:32|87
-25/08|T3|10:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.156.924|07:24|155
-25/08|T3|10:00|T|202 DC|7|Nguyễn Thị Ngần|5015|25.157.017|10:02|-3
+25/08|T3|10:00|T|202 DC|7|Nguyễn Thị Ngần|5015|25.157.017|10:02|-2
+25/08|T3|10:00|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.062|09:27|33
+25/08|T3|10:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.157.153|08:32|88
 25/08|T3|10:00|T|202 DC|7|Hoàng Thị Thuỳ Trâm|20885|25.157.280|09:15|45
-25/08|T3|10:00|T|595 BT TH|8|Nguyễn Thị Lan|18384|25.156.958|09:17|42
+25/08|T3|10:30|T|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.156.878|09:52|38
 25/08|T3|10:30|T|168 NVC|6|Nguyễn Thị Chinh|14231|25.157.096|09:32|58
-25/08|T3|10:30|T|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.156.878|09:52|37
+25/08|T3|11:00|T|103 TN|1|Lê thị yến|19220|25.157.102|10:22|38
 25/08|T3|11:00|T|8 CVL|2|Lê Dương Lam Vy|17276|25.157.110|10:54|6
-25/08|T3|11:00|T|103 TN|1|Lê thị yến|19220|25.157.102|10:22|37
 25/08|T3|11:00|T|109 TQH|3|Trần Thị Kim Ngân|18226|25.157.219|10:34|26
-25/08|T3|11:00|T|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.157.433|10:30|29
+25/08|T3|11:00|T|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.157.433|10:30|30
 25/08|T3|11:00|T|173 TN|7|Ngô Thị Nhung|14289|25.157.514|10:57|3
 25/08|T3|11:30|T|401/1 NDT|1|Lê Thị Mai Ly|19894|25.157.532|10:40|50
-25/08|T3|12:00|T|8 CVL|2|Lê Dương Lam Vy|17276|25.157.344|11:18|41
-25/08|T3|12:00|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.157.399|11:55|5
+25/08|T3|12:00|T|290 QT TH|8|Phạm Thị Lương|6607|25.157.203|11:21|39
 25/08|T3|12:00|T|10 TP|6|Lê Thị Ninh Khánh|15250|25.157.338|10:45|75
+25/08|T3|12:00|T|8 CVL|2|Lê Dương Lam Vy|17276|25.157.344|11:18|42
+25/08|T3|12:00|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.157.399|11:55|5
 25/08|T3|12:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.157.477|10:37|83
 25/08|T3|12:00|T|145 THT|2|Lưu Thị Thuý Duy|12821|25.157.511|21:42|858
-25/08|T3|12:00|T|290 QT TH|8|Phạm Thị Lương|6607|25.157.203|11:21|39
 25/08|T3|12:00|T|173 TN|7|Phạm Thị Trí|13106|25.157.556|11:57|3
-25/08|T3|12:30|T|382 NT|3|Tạ Thuỳ Linh|12032|25.157.855|11:26|64
-25/08|T3|12:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.591|12:25|5
 25/08|T3|12:30|T|145 THT|2|Nguyễn Thị Như Ý|20801|25.157.479|09:13|197
-25/08|T3|12:30|T|90 NH|3|Lại Thị Xuân|13549|25.158.052|12:02|28
+25/08|T3|12:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.157.591|12:25|5
 25/08|T3|12:30|T|202 DC|7|Thừa Thị Nguyệt|13443|25.157.835|12:12|18
-25/08|T3|13:00|T|1180 QT|5|Trần Thị Kim Loan|18312|25.157.929|12:46|13
+25/08|T3|12:30|T|382 NT|3|Tạ Thuỳ Linh|12032|25.157.855|11:26|64
+25/08|T3|12:30|T|90 NH|3|Lại Thị Xuân|13549|25.158.052|12:02|28
+25/08|T3|13:00|T|1146 KVC|1|Nguyễn Trúc Anh|16549|25.157.599|11:09|111
+25/08|T3|13:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.157.615|12:30|30
 25/08|T3|13:00|T|168 NVC|6|Nguyễn Phương Thảo|9473|25.157.640|12:18|42
-25/08|T3|13:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.157.615|12:30|29
-25/08|T3|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.157.882|10:18|161
-25/08|T3|13:00|T|50BT4 NPC LD|7|Mai Thị Trang|15763|25.157.985|12:28|31
 25/08|T3|13:00|T|116 TK|3|Đinh Thị Bích Ánh|17035|25.157.665|11:42|78
-25/08|T3|13:00|T|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.158.119|11:32|87
-25/08|T3|13:00|T|1371 PVT|1|Nguyễn Như Ngọc|16195|25.157.856|11:17|103
-25/08|T3|13:00|T|1146 KVC|1|Nguyễn Trúc Anh|16549|25.157.599|11:09|110
 25/08|T3|13:00|T|173 TN|7|Phạm Thị Trí|13106|25.157.848|12:03|57
-25/08|T3|13:30|T|103 TN|1|Trần Nguyễn Trâm Anh|19682|25.158.157|11:57|93
-25/08|T3|13:30|T|730 TL10|2|Quách Tuyết Trang|10119|25.158.143|13:09|21
-25/08|T3|13:30|T|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.158.218|10:16|194
+25/08|T3|13:00|T|1371 PVT|1|Nguyễn Như Ngọc|16195|25.157.856|11:17|103
+25/08|T3|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.157.882|10:18|162
+25/08|T3|13:00|T|1180 QT|5|Trần Thị Kim Loan|18312|25.157.929|12:46|14
+25/08|T3|13:00|T|50BT4 NPC LD|7|Mai Thị Trang|15763|25.157.985|12:28|32
+25/08|T3|13:00|T|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.158.119|11:32|88
 25/08|T3|13:30|T|202 DC|7|Nguyễn Thị Ngần|5015|25.158.027|12:55|35
-25/08|T3|14:00|T|420 HTP|4|Nguyễn Thị Hồng Ngân|20962|25.158.322|13:09|51
-25/08|T3|14:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.158.065|13:06|53
-25/08|T3|14:00|T|109 TQH|3|Bùi Phương Anh|18694|25.158.467|13:42|18
-25/08|T3|14:00|T|116 TK|3|Nguyễn Thị Thanh Hiền|20893|25.158.216|13:35|24
+25/08|T3|13:30|T|730 TL10|2|Quách Tuyết Trang|10119|25.158.143|13:09|21
+25/08|T3|13:30|T|103 TN|1|Trần Nguyễn Trâm Anh|19682|25.158.157|11:57|93
+25/08|T3|13:30|T|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.158.218|10:16|194
+25/08|T3|14:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.158.065|13:06|54
+25/08|T3|14:00|T|116 TK|3|Nguyễn Thị Thanh Hiền|20893|25.158.216|13:35|25
 25/08|T3|14:00|T|186 QT|6|Phạm Thị Kiều Thơm|13826|25.158.252|13:59|1
-25/08|T3|14:30|T|103 TN|1|Liễu Thanh Mai|19612|25.158.325|14:29|1
-25/08|T3|14:30|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.158.401|14:22|8
-25/08|T3|14:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.158.857|13:56|33
+25/08|T3|14:00|T|420 HTP|4|Nguyễn Thị Hồng Ngân|20962|25.158.322|13:09|51
+25/08|T3|14:00|T|109 TQH|3|Bùi Phương Anh|18694|25.158.467|13:42|18
 25/08|T3|14:30|T|99 TSN|2|Danh Thị Sa Ri|7597|25.157.893|12:54|96
-25/08|T3|14:30|T|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.158.360|08:40|349
-25/08|T3|15:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.158.828|14:31|29
-25/08|T3|15:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.158.506|10:27|272
-25/08|T3|15:00|C|483 TN|5|Nguyễn Thị Hiểu Ngân|19698|25.158.774|14:04|56
-25/08|T3|15:00|C|363 LNQ TN|7|Phạm Thị Thu Hương|17883|25.158.475|14:34|25
-25/08|T3|15:00|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.158.651|14:18|41
-25/08|T3|15:00|C|168 NVC|6|Nguyễn Thị Thêu|1909|25.158.308|09:56|303
+25/08|T3|14:30|T|103 TN|1|Liễu Thanh Mai|19612|25.158.325|14:29|1
+25/08|T3|14:30|T|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.158.360|08:40|350
+25/08|T3|14:30|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.158.401|14:22|8
+25/08|T3|14:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.158.857|13:56|34
+25/08|T3|15:00|C|168 NVC|6|Nguyễn Thị Thêu|1909|25.158.308|09:56|304
+25/08|T3|15:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.354|13:20|100
+25/08|T3|15:00|C|363 LNQ TN|7|Phạm Thị Thu Hương|17883|25.158.475|14:34|26
+25/08|T3|15:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.158.506|10:27|273
+25/08|T3|15:00|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.158.651|14:18|42
 25/08|T3|15:00|C|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.158.677|14:52|8
-25/08|T3|15:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.354|13:20|99
-25/08|T3|15:30|C|730 TL10|2|Quách Tuyết Trang|10119|25.158.827|15:01|28
+25/08|T3|15:00|C|483 TN|5|Nguyễn Thị Hiểu Ngân|19698|25.158.774|14:04|56
+25/08|T3|15:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.158.828|14:31|29
+25/08|T3|15:30|C|730 TL10|2|Quách Tuyết Trang|10119|25.158.827|15:01|29
 25/08|T3|15:30|C|312 LVS|2|Nguyễn Thị Diểm My|21359|25.158.862|15:12|18
-25/08|T3|15:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.159.011|10:21|308
-25/08|T3|15:30|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.159.261|12:26|183
-25/08|T3|15:30|C|401/1 NDT|1|Trần Thị Kim Ngân|18228|25.158.988|14:47|42
-25/08|T3|16:00|C|382 NT|3|Vũ Thị Minh|1804|25.159.925|15:20|40
-25/08|T3|16:00|C|575 AC|2|Viên Yến Vy|19753|25.158.741|15:05|54
-25/08|T3|16:00|C|483 TN|5|Bùi Thị Thảo Nhy|21003|25.159.111|13:35|144
-25/08|T3|16:00|C|168 NVC|6|Nguyễn Thị Chinh|14231|25.159.510|14:53|66
-25/08|T3|16:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.790|15:00|59
-25/08|T3|16:00|C|145 THT|2|Huỳnh Thị Kim My|12779|25.159.203|14:27|92
+25/08|T3|15:30|C|401/1 NDT|1|Trần Thị Kim Ngân|18228|25.158.988|14:47|43
+25/08|T3|15:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.159.011|10:21|309
+25/08|T3|15:30|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.159.261|12:26|184
+25/08|T3|16:00|C|575 AC|2|Viên Yến Vy|19753|25.158.741|15:05|55
 25/08|T3|16:00|C|58 NVC NA|8|Trương Thị Quỳnh Như|21194|25.158.758|15:24|36
-25/08|T3|16:00|C|173 TN|7|Ngô Thị Nhung|14289|25.158.993|15:29|30
-25/08|T3|16:30|C|382 NT|3|Lê Thị Thuỳ CTV|21266|25.159.555|15:43|47
+25/08|T3|16:00|C|109 TQH|3|Phạm Thị Hương Giang|14094|25.158.790|15:00|60
+25/08|T3|16:00|C|173 TN|7|Ngô Thị Nhung|14289|25.158.993|15:29|31
+25/08|T3|16:00|C|483 TN|5|Bùi Thị Thảo Nhy|21003|25.159.111|13:35|145
+25/08|T3|16:00|C|145 THT|2|Huỳnh Thị Kim My|12779|25.159.203|14:27|93
+25/08|T3|16:00|C|168 NVC|6|Nguyễn Thị Chinh|14231|25.159.510|14:53|67
+25/08|T3|16:00|C|382 NT|3|Vũ Thị Minh|1804|25.159.925|15:20|40
 25/08|T3|16:30|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.159.168|13:40|170
-25/08|T3|17:00|C|346 KT|7|Bùi Thị Hồng Lan|12173|25.159.526|13:58|182
-25/08|T3|17:00|C|575 AC|2|Trần Thị Huỳnh Hoa|21269|25.159.496|16:10|49
-25/08|T3|17:00|C|312 LVS|2|Nguyễn Thị Huỳnh Như|19760|25.159.559|14:23|156
-25/08|T3|17:00|C|99 TSN|2|Nguyễn Thị Thùy Trang|20865|25.159.283|16:15|44
-25/08|T3|17:00|C|190 HB|2|Nguyễn Thị Hồng Ngọc|13583|25.159.438|16:33|27
+25/08|T3|16:30|C|382 NT|3|Lê Thị Thuỳ CTV|21266|25.159.555|15:43|47
 25/08|T3|17:00|C|65 CD|3|Nguyễn Hồng Ngân|13968|25.159.109|14:12|168
-25/08|T3|17:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.159.614|13:40|199
 25/08|T3|17:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.159.216|16:21|39
-25/08|T3|17:30|C|12 LDT|5|Nguyễn Phan Như Ngọc|10345|25.159.993|16:32|58
-25/08|T3|17:30|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.160.247|17:07|22
-25/08|T3|17:30|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.159.590|16:57|32
+25/08|T3|17:00|C|99 TSN|2|Nguyễn Thị Thùy Trang|20865|25.159.283|16:15|45
+25/08|T3|17:00|C|190 HB|2|Nguyễn Thị Hồng Ngọc|13583|25.159.438|16:33|27
+25/08|T3|17:00|C|575 AC|2|Trần Thị Huỳnh Hoa|21269|25.159.496|16:10|50
+25/08|T3|17:00|C|346 KT|7|Bùi Thị Hồng Lan|12173|25.159.526|13:58|182
+25/08|T3|17:00|C|312 LVS|2|Nguyễn Thị Huỳnh Như|19760|25.159.559|14:23|157
+25/08|T3|17:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.159.614|13:40|200
+25/08|T3|17:30|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.159.590|16:57|33
 25/08|T3|17:30|C|173 TN|7|Phạm Thị Trí|13106|25.159.742|16:00|90
+25/08|T3|17:30|C|12 LDT|5|Nguyễn Phan Như Ngọc|10345|25.159.993|16:32|58
 25/08|T3|17:30|C|32 NAT|5|Ngô Mỹ Huyền|10289|25.160.148|16:18|72
-25/08|T3|18:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.160.000|17:10|49
-25/08|T3|18:00|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.159.716|12:30|330
-25/08|T3|18:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.160.229|16:23|96
+25/08|T3|17:30|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.160.247|17:07|23
+25/08|T3|18:00|C|25 TD|4|Huỳnh Kiều Như|12277|25.159.576|07:01|659
+25/08|T3|18:00|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.159.586|10:17|463
 25/08|T3|18:00|C|103 TN|1|Trần Thị Kim Phượng|19801|25.159.610|13:26|274
-25/08|T3|18:00|C|25 TD|4|Huỳnh Kiều Như|12277|25.159.576|07:01|658
-25/08|T3|18:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.159.656|15:55|124
-25/08|T3|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.160.119|16:43|77
-25/08|T3|18:00|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.160.031|17:06|54
-25/08|T3|18:00|C|10 TP|6|Lê Thị Ninh Khánh|15250|25.160.175|17:02|57
-25/08|T3|18:00|C|168 NVC|6|Vũ Hải Linh|11287|25.160.040|15:27|152
-25/08|T3|18:00|C|99 TSN|2|Bùi Thị Bão Nhi|13903|25.160.278|14:08|232
-25/08|T3|18:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.160.394|15:04|176
-25/08|T3|18:00|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.160.743|16:38|82
-25/08|T3|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.160.261|17:52|8
-25/08|T3|18:00|C|145 THT|2|Nguyễn Lê Diệp Linh|13502|25.160.460|17:51|9
-25/08|T3|18:00|C|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.160.331|17:10|49
-25/08|T3|18:00|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.159.586|10:17|462
-25/08|T3|18:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.160.194|17:52|8
+25/08|T3|18:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.159.656|15:55|125
+25/08|T3|18:00|C|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.159.716|12:30|330
+25/08|T3|18:00|C|173 TN|7|Đỗ Thị Lan Anh|18516|25.159.750|16:00|120
 25/08|T3|18:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.159.966|16:06|114
-25/08|T3|18:00|C|173 TN|7|Đỗ Thị Lan Anh|18516|25.159.750|16:00|119
-25/08|T3|18:30|C|25 TD|4|Trần Thị Bích Nhi|20467|25.160.344|18:07|22
-25/08|T3|18:30|C|312 LVS|2|Ngô Thị Chí Hương|18966|25.160.503|17:47|43
-25/08|T3|18:30|C|236 DBT|4|Nguyễn Thị Tường Vi|20849|25.160.225|18:31|-1
-25/08|T3|18:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.160.377|17:48|42
+25/08|T3|18:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.160.000|17:10|50
+25/08|T3|18:00|C|363 LNQ TN|7|Trương Thị Thuỳ|18843|25.160.031|17:06|54
+25/08|T3|18:00|C|168 NVC|6|Vũ Hải Linh|11287|25.160.040|15:27|153
+25/08|T3|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.160.119|16:43|77
+25/08|T3|18:00|C|10 TP|6|Lê Thị Ninh Khánh|15250|25.160.175|17:02|58
+25/08|T3|18:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.160.194|17:52|8
+25/08|T3|18:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.160.229|16:23|97
+25/08|T3|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.160.261|17:52|8
+25/08|T3|18:00|C|99 TSN|2|Bùi Thị Bão Nhi|13903|25.160.278|14:08|232
+25/08|T3|18:00|C|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.160.331|17:10|50
+25/08|T3|18:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.160.394|15:04|176
+25/08|T3|18:00|C|145 THT|2|Nguyễn Lê Diệp Linh|13502|25.160.460|17:51|9
+25/08|T3|18:00|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.160.743|16:38|82
+25/08|T3|18:30|C|90 NH|3|Đỗ Thị Thu Trang|13672|25.159.686|17:01|89
 25/08|T3|18:30|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.159.954|17:06|84
-25/08|T3|18:30|C|90 NH|3|Đỗ Thị Thu Trang|13672|25.159.686|17:01|88
+25/08|T3|18:30|C|236 DBT|4|Nguyễn Thị Tường Vi|20849|25.160.225|18:31|-1
+25/08|T3|18:30|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.160.306|18:17|13
+25/08|T3|18:30|C|25 TD|4|Trần Thị Bích Nhi|20467|25.160.344|18:07|23
 25/08|T3|18:30|C|90 NH|3|Đỗ Thị Thu Trang|13672|25.160.355|17:54|36
-25/08|T3|18:30|C|401/1 NDT|1|Nguyễn Thị Kim Ngân|20813|25.160.306|18:17|12
-25/08|T3|19:00|C|8 CVL|2|Nguyễn Thị Cẩm Hằng|20765|25.160.059|18:16|43
-25/08|T3|19:00|C|8 CVL|2|Lê Dương Lam Vy|17276|25.160.398|15:34|205
-25/08|T3|19:00|C|12 LDT|5|Tiền Anh Thư|20377|25.160.691|10:02|538
-25/08|T3|19:00|C|927 HG|2|Cao Thị Kim Chi|19735|25.160.549|11:17|462
-25/08|T3|19:00|C|420 HTP|4|Lê Thị Kiều Oanh|19860|25.160.645|09:11|588
+25/08|T3|18:30|C|10 TP|6|Đỗ Thị Trâm|19535|25.160.377|17:48|42
+25/08|T3|18:30|C|312 LVS|2|Ngô Thị Chí Hương|18966|25.160.503|17:47|43
+25/08|T3|19:00|C|8 CVL|2|Nguyễn Thị Cẩm Hằng|20765|25.160.059|18:16|44
+25/08|T3|19:00|C|39 HBT|7|Nguyễn Thị Lan Anh|20256|25.160.257|15:44|196
+25/08|T3|19:00|C|237 NTT|4|Võ Thị Thu Ngân|4627|25.160.346|16:21|159
+25/08|T3|19:00|C|116 TK|3|Đinh Thị Bích Ánh|17035|25.160.363|16:41|139
+25/08|T3|19:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.160.372|10:34|506
+25/08|T3|19:00|C|8 CVL|2|Lê Dương Lam Vy|17276|25.160.398|15:34|206
 25/08|T3|19:00|C|76 PVH|5|Nguyễn Thị Loan Anh|10416|25.160.418|19:11|-11
 25/08|T3|19:00|C|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.160.490|17:21|99
-25/08|T3|19:00|C|237 NTT|4|Võ Thị Thu Ngân|4627|25.160.346|16:21|158
+25/08|T3|19:00|C|927 HG|2|Cao Thị Kim Chi|19735|25.160.549|11:17|463
 25/08|T3|19:00|C|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.160.558|09:01|599
-25/08|T3|19:00|C|116 TK|3|Đinh Thị Bích Ánh|17035|25.160.363|16:41|139
-25/08|T3|19:00|C|39 HBT|7|Nguyễn Thị Lan Anh|20256|25.160.257|15:44|195
-25/08|T3|19:00|C|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.160.372|10:34|505
+25/08|T3|19:00|C|420 HTP|4|Lê Thị Kiều Oanh|19860|25.160.645|09:11|589
+25/08|T3|19:00|C|12 LDT|5|Tiền Anh Thư|20377|25.160.691|10:02|538
 25/08|T3|19:30|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.160.723|16:47|163
-25/08|T3|20:00|T|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.160.609|16:11|228
+25/08|T3|20:00|T|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.160.609|16:11|229
 25/08|T3|20:00|T|109 TQH|3|Đỗ Ngọc Bích|20365|25.160.814|18:51|69
-26/08|T4|10:00|T|80 PL BD|1|Vương Mỹ Uyên|21327|25.161.199|00:20|579
-26/08|T4|10:00|T|50BT4 NPC LD|7|Phạm Thị Duyên|9504|25.161.349|09:00|59
+26/08|T4|10:00|T|80 PL BD|1|Vương Mỹ Uyên|21327|25.161.199|00:20|580
+26/08|T4|10:00|T|290 QT TH|8|Hoàng Thị Linh|17591|25.161.270|08:46|74
+26/08|T4|10:00|T|50BT4 NPC LD|7|Phạm Thị Duyên|9504|25.161.349|09:00|60
 26/08|T4|10:00|T|36 N1 BD|1|Mai Thị Thanh Dư|7605|25.161.361|09:21|39
-26/08|T4|10:00|T|290 QT TH|8|Hoàng Thị Linh|17591|25.161.270|08:46|73
 26/08|T4|11:00|T|346 KT|7|Trần Thị Thu Hằng|16108|25.161.351|08:58|122
-26/08|T4|11:00|T|12 LDT|5|Tiền Anh Thư|20377|25.161.585|09:42|77
-26/08|T4|11:00|T|927 HG|2|Đỗ Thị Linh|5866|25.161.567|08:27|153
-26/08|T4|11:00|T|186 DTH|4|Nguyễn Thị Hạnh|13073|25.161.755|10:30|29
 26/08|T4|11:00|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.161.402|09:21|99
+26/08|T4|11:00|T|927 HG|2|Đỗ Thị Linh|5866|25.161.567|08:27|153
+26/08|T4|11:00|T|12 LDT|5|Tiền Anh Thư|20377|25.161.585|09:42|78
+26/08|T4|11:00|T|186 DTH|4|Nguyễn Thị Hạnh|13073|25.161.755|10:30|30
+26/08|T4|11:30|T|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.161.524|10:43|47
+26/08|T4|11:30|T|145 THT|2|Trang Thị Hồng An|9601|25.161.822|10:53|37
 26/08|T4|11:30|T|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.161.831|11:18|12
-26/08|T4|11:30|T|145 THT|2|Trang Thị Hồng An|9601|25.161.822|10:53|36
 26/08|T4|11:30|T|145 THT|2|Thạch Thi Sa RemCTV|7193|25.162.114|11:29|1
-26/08|T4|11:30|T|39 HBT|7|Trần Hà Linh|7456|25.162.282|11:25|4
-26/08|T4|11:30|T|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.161.524|10:43|46
-26/08|T4|12:00|T|103 TN|1|Cao Thị Mỹ Liên|19648|25.162.155|09:01|178
+26/08|T4|11:30|T|39 HBT|7|Trần Hà Linh|7456|25.162.282|11:25|5
+26/08|T4|12:00|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.161.424|09:21|159
 26/08|T4|12:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.161.682|06:39|321
-26/08|T4|12:00|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.161.424|09:21|158
 26/08|T4|12:00|T|145 THT|2|Lưu Thị Thuý Duy|12821|25.161.725|11:11|49
+26/08|T4|12:00|T|103 TN|1|Cao Thị Mỹ Liên|19648|25.162.155|09:01|179
 26/08|T4|12:00|T|65 CD|3|Phạm Thị Huyền My|20518|25.162.314|11:59|1
-26/08|T4|13:00|T|12 LDT|5|Nguyễn Thị Linh|21015|25.162.978|12:44|15
-26/08|T4|13:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.909|09:55|184
-26/08|T4|13:00|T|483 TN|5|Bùi Thị Thảo Nhy|21003|25.162.036|11:38|81
+26/08|T4|13:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.161.878|11:27|93
+26/08|T4|13:00|T|483 TN|5|Bùi Thị Thảo Nhy|21003|25.162.036|11:38|82
 26/08|T4|13:00|T|312 LVS|2|Đặng Thị Mỹ Nhân|20487|25.162.107|09:33|207
-26/08|T4|13:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.252|12:25|34
-26/08|T4|13:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.161.878|11:27|92
-26/08|T4|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.162.460|12:36|23
-26/08|T4|13:30|T|103 TN|1|Dương Thị Ngọc Trinh|16635|25.162.528|11:11|138
-26/08|T4|13:30|T|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.162.389|11:12|137
-26/08|T4|13:30|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.672|13:28|2
-26/08|T4|13:30|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.551|08:26|303
+26/08|T4|13:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.252|12:25|35
+26/08|T4|13:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.162.460|12:36|24
+26/08|T4|13:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.909|09:55|185
+26/08|T4|13:00|T|12 LDT|5|Nguyễn Thị Linh|21015|25.162.978|12:44|16
+26/08|T4|13:30|T|90 NH|3|sk.kn87|20521|25.162.291|08:47|283
+26/08|T4|13:30|T|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.162.389|11:12|138
 26/08|T4|13:30|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.162.390|11:43|107
 26/08|T4|13:30|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.162.516|13:01|29
-26/08|T4|13:30|T|90 NH|3|sk.kn87|20521|25.162.291|08:47|283
 26/08|T4|13:30|T|39 HBT|7|Nguyễn Thị Xim|19020|25.162.521|11:57|93
-26/08|T4|14:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.407|09:30|269
-26/08|T4|14:00|T|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.162.733|11:58|122
-26/08|T4|14:00|T|103 TN|1|Nguyễn Thị Ngọc Huyền|17415|25.162.952|13:40|20
-26/08|T4|14:00|T|420 HTP|4|Nguyễn Ngọc Ánh|19034|25.162.762|13:54|6
-26/08|T4|14:00|T|80 PL BD|1|Lê Thị Thuỳ Trang|3484|25.162.651|10:07|233
-26/08|T4|14:00|T|312 LVS|2|Nguyễn Thị Diễm CTV|5018|25.163.100|14:06|-7
-26/08|T4|14:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.904|11:52|127
-26/08|T4|14:00|T|186 DTH|4|Nguyễn Diệu Hiền|9708|25.162.666|11:42|137
+26/08|T4|13:30|T|103 TN|1|Dương Thị Ngọc Trinh|16635|25.162.528|11:11|139
+26/08|T4|13:30|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.551|08:26|304
+26/08|T4|13:30|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.162.672|13:28|2
 26/08|T4|14:00|T|190 HB|2|Nguyễn Lê Phương Nguyên|21272|25.162.361|13:06|54
-26/08|T4|14:00|T|145 THT|2|Nguyễn Thị Như Ý|20801|25.162.649|10:01|238
+26/08|T4|14:00|T|382 NT|3|Vũ Thị Minh|1804|25.162.407|09:30|270
 26/08|T4|14:00|T|32 NAT|5|Ngô Mỹ Huyền|10289|25.162.451|13:05|55
+26/08|T4|14:00|T|145 THT|2|Nguyễn Thị Như Ý|20801|25.162.649|10:01|239
+26/08|T4|14:00|T|80 PL BD|1|Lê Thị Thuỳ Trang|3484|25.162.651|10:07|233
+26/08|T4|14:00|T|186 DTH|4|Nguyễn Diệu Hiền|9708|25.162.666|11:42|138
+26/08|T4|14:00|T|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.162.733|11:58|122
+26/08|T4|14:00|T|420 HTP|4|Nguyễn Ngọc Ánh|19034|25.162.762|13:54|6
+26/08|T4|14:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.162.904|11:52|128
+26/08|T4|14:00|T|103 TN|1|Nguyễn Thị Ngọc Huyền|17415|25.162.952|13:40|20
+26/08|T4|14:00|T|312 LVS|2|Nguyễn Thị Diễm CTV|5018|25.163.100|14:06|-6
 26/08|T4|15:00|C|12 LDT|5|Nguyễn Thị Linh|21015|25.162.723|14:19|41
-26/08|T4|15:00|C|927 HG|2|Đỗ Thị Linh|5866|25.163.325|12:09|171
-26/08|T4|15:00|C|25 TD|4|Nguyễn Hà Phương|16303|25.163.201|14:37|23
+26/08|T4|15:00|C|290 QT TH|8|Uông Bội Linh|8595|25.162.980|10:37|263
 26/08|T4|15:00|C|29 HB|1|Phan Thị Thu Ngân|21291|25.163.033|14:44|16
 26/08|T4|15:00|C|99 TSN|2|Trương Thị Ngọc Nhi|12945|25.163.104|09:06|354
 26/08|T4|15:00|C|116 TK|3|Nguyễn Ngọc Anh|15923|25.163.194|14:39|21
+26/08|T4|15:00|C|25 TD|4|Nguyễn Hà Phương|16303|25.163.201|14:37|23
+26/08|T4|15:00|C|927 HG|2|Đỗ Thị Linh|5866|25.163.325|12:09|171
 26/08|T4|15:00|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.163.425|14:40|20
-26/08|T4|15:00|C|290 QT TH|8|Uông Bội Linh|8595|25.162.980|10:37|262
-26/08|T4|15:30|C|382 NT|3|Vũ Thị Minh|1804|25.163.637|13:17|133
-26/08|T4|15:30|C|575 AC|2|Phùng Hoàng Như Thảo|20886|25.163.481|11:33|237
-26/08|T4|15:30|C|255 NAN|1|Vũ Thị Hiền|20339|25.163.870|12:14|195
-26/08|T4|15:30|C|168 NVC|6|Nguyễn Thị Hương Giang|19643|25.163.462|15:00|30
-26/08|T4|15:30|C|50BT4 NPC LD|7|Dương Thị Trà|8186|25.163.448|14:52|37
-26/08|T4|15:30|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.164.981|15:11|19
-26/08|T4|15:30|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.163.730|15:25|4
 26/08|T4|15:30|C|202 DC|7|Hoàng Thị Thuỳ Trâm|20885|25.163.090|14:34|56
-26/08|T4|16:00|C|575 AC|2|Viên Yến Vy|19753|25.163.867|15:47|13
-26/08|T4|16:00|C|25 TD|4|Huỳnh Thị Khánh Vân|11761|25.163.431|11:07|292
-26/08|T4|16:00|C|708 LTT|2|Võ Thị Tuyết Nhi|20846|25.163.655|15:29|30
-26/08|T4|16:00|C|312 LVS|2|Nguyễn Thị Phú Tài|20130|25.163.675|13:50|129
+26/08|T4|15:30|C|50BT4 NPC LD|7|Dương Thị Trà|8186|25.163.448|14:52|38
+26/08|T4|15:30|C|168 NVC|6|Nguyễn Thị Hương Giang|19643|25.163.462|15:00|30
+26/08|T4|15:30|C|575 AC|2|Phùng Hoàng Như Thảo|20886|25.163.481|11:33|237
+26/08|T4|15:30|C|382 NT|3|Vũ Thị Minh|1804|25.163.637|13:17|133
+26/08|T4|15:30|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.163.730|15:25|5
+26/08|T4|15:30|C|255 NAN|1|Vũ Thị Hiền|20339|25.163.870|12:14|196
+26/08|T4|15:30|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.164.981|15:11|19
 26/08|T4|16:00|C|312 LVS|2|Đặng Thị Mỹ Nhân|20487|25.163.377|15:44|16
 26/08|T4|16:00|C|76 PVH|5|Nguyễn Thị Loan Anh|10416|25.163.382|15:59|1
-26/08|T4|16:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.163.844|08:37|442
-26/08|T4|16:00|C|202 DC|7|Thừa Thị Nguyệt|13443|25.163.940|15:29|30
-26/08|T4|16:30|C|202 DC|7|Nguyễn Thị Ngần|5015|25.163.543|16:09|20
-26/08|T4|17:00|C|382 NT|3|Nguyễn Thị Lan|18586|25.163.794|07:15|584
-26/08|T4|17:00|C|382 NT|3|Phạm Thị Châu|21137|25.164.639|13:25|215
-26/08|T4|17:00|C|80 PL BD|1|Lê Thị Thuỳ Trang|3484|25.163.778|16:33|26
-26/08|T4|17:00|C|186 DTH|4|Ngô Thị Hàn Uyên|11103|25.163.609|16:17|42
-26/08|T4|17:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.164.410|08:29|510
+26/08|T4|16:00|C|25 TD|4|Huỳnh Thị Khánh Vân|11761|25.163.431|11:07|293
+26/08|T4|16:00|C|708 LTT|2|Võ Thị Tuyết Nhi|20846|25.163.655|15:29|31
+26/08|T4|16:00|C|312 LVS|2|Nguyễn Thị Phú Tài|20130|25.163.675|13:50|130
+26/08|T4|16:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.163.844|08:37|443
+26/08|T4|16:00|C|575 AC|2|Viên Yến Vy|19753|25.163.867|15:47|13
+26/08|T4|16:00|C|202 DC|7|Thừa Thị Nguyệt|13443|25.163.940|15:29|31
+26/08|T4|16:30|C|202 DC|7|Nguyễn Thị Ngần|5015|25.163.543|16:09|21
+26/08|T4|17:00|C|186 DTH|4|Ngô Thị Hàn Uyên|11103|25.163.609|16:17|43
+26/08|T4|17:00|C|80 PL BD|1|Lê Thị Thuỳ Trang|3484|25.163.778|16:33|27
+26/08|T4|17:00|C|382 NT|3|Nguyễn Thị Lan|18586|25.163.794|07:15|585
 26/08|T4|17:00|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.163.936|15:30|90
-26/08|T4|17:00|C|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.164.377|16:34|25
-26/08|T4|17:00|C|202 DC|7|Nguyễn Thị Ngần|5015|25.164.339|16:32|27
 26/08|T4|17:00|C|39 HBT|7|Cao Thị Linh|9070|25.164.143|16:28|32
+26/08|T4|17:00|C|202 DC|7|Nguyễn Thị Ngần|5015|25.164.339|16:32|28
+26/08|T4|17:00|C|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.164.377|16:34|26
+26/08|T4|17:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.164.410|08:29|511
+26/08|T4|17:00|C|382 NT|3|Phạm Thị Châu|21137|25.164.639|13:25|215
 26/08|T4|17:30|C|575 AC|2|Trần Thị Huỳnh Hoa|21269|25.164.100|17:12|18
-26/08|T4|17:30|C|65 CD|3|Lỳ Cẩm Linh|21424|25.164.557|16:47|42
-26/08|T4|18:00|C|12 LDT|5|Tiền Anh Thư|20377|25.164.543|16:20|100
-26/08|T4|18:00|C|103 TN|1|Dương Thị Ngọc Trinh|16635|25.164.592|17:48|11
-26/08|T4|18:00|C|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.164.497|16:03|116
-26/08|T4|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.164.699|03:06|894
-26/08|T4|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.164.879|16:41|79
-26/08|T4|18:00|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.164.731|16:40|79
+26/08|T4|17:30|C|65 CD|3|Lỳ Cẩm Linh|21424|25.164.557|16:47|43
+26/08|T4|18:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.164.014|08:36|564
 26/08|T4|18:00|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.164.225|17:34|26
-26/08|T4|18:00|C|50BT4 NPC LD|7|Dương Thị Trà|8186|25.164.653|14:39|201
-26/08|T4|18:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.164.014|08:36|563
-26/08|T4|18:00|C|264 LLQ|7|Bùi Thị Ánh Ngọc|17588|25.164.620|17:36|24
-26/08|T4|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.164.542|16:44|76
+26/08|T4|18:00|C|173 TN|7|Ngô Thị Nhung|14289|25.164.403|16:10|110
+26/08|T4|18:00|C|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.164.497|16:03|117
 26/08|T4|18:00|C|1146 KVC|1|Lê Thị Hiền|11079|25.164.516|13:47|253
-26/08|T4|18:00|C|173 TN|7|Ngô Thị Nhung|14289|25.164.403|16:10|109
+26/08|T4|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.164.542|16:44|76
+26/08|T4|18:00|C|12 LDT|5|Tiền Anh Thư|20377|25.164.543|16:20|100
+26/08|T4|18:00|C|103 TN|1|Dương Thị Ngọc Trinh|16635|25.164.592|17:48|12
+26/08|T4|18:00|C|264 LLQ|7|Bùi Thị Ánh Ngọc|17588|25.164.620|17:36|24
+26/08|T4|18:00|C|50BT4 NPC LD|7|Dương Thị Trà|8186|25.164.653|14:39|201
+26/08|T4|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.164.699|03:06|894
+26/08|T4|18:00|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.164.731|16:40|80
+26/08|T4|18:00|C|1180 QT|5|Võ Thị Hồng|17662|25.164.879|16:41|79
 26/08|T4|18:30|C|382 NT|3|Hoàng Thị Huyền|5403|25.164.785|17:24|66
 26/08|T4|18:30|C|730 TL10|2|Quách Tuyết Trang|10119|25.164.859|18:11|19
-26/08|T4|18:30|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.164.886|18:02|27
-26/08|T4|19:00|C|730 TL10|2|Quách Tuyết Trang|10119|25.165.086|18:27|33
-26/08|T4|19:00|C|236 DBT|4|Trần Thị Kim Uyên|20986|25.165.123|14:13|286
-26/08|T4|19:00|C|99 TSN|2|Trần Thị Quỳnh Như|15747|25.164.864|15:46|193
+26/08|T4|18:30|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.164.886|18:02|28
 26/08|T4|19:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.164.010|10:20|520
+26/08|T4|19:00|C|99 TSN|2|Trần Thị Quỳnh Như|15747|25.164.864|15:46|194
+26/08|T4|19:00|C|730 TL10|2|Quách Tuyết Trang|10119|25.165.086|18:27|33
+26/08|T4|19:00|C|236 DBT|4|Trần Thị Kim Uyên|20986|25.165.123|14:13|287
 26/08|T4|20:00|T|927 HG|2|Cao Thị Kim Chi|19735|25.165.203|19:17|43
 27/08|T5|08:30|T|55A NVL|3|Đỗ Thị Ly|4581|25.166.102|19:38|772
 27/08|T5|09:00|T|730 TL10|2|Quách Tuyết Trang|10119|25.165.478|08:39|21
-27/08|T5|09:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.165.672|08:36|23
-27/08|T5|09:00|T|10 TP|6|Nguyễn Thị Lành|19283|25.165.521|08:17|42
-27/08|T5|09:00|T|116 TK|3|Phạm Thị Hải Anh|9840|25.165.577|06:34|146
-27/08|T5|09:00|T|595 BT TH|8|Nguyễn Thị Lan|18384|25.165.701|08:14|45
-27/08|T5|09:00|T|55A NVL|3|Nguyễn Gia Linh|18952|25.165.555|09:05|-6
 27/08|T5|09:00|T|1146 KVC|1|Nguyễn Trúc Anh|16549|25.165.483|08:54|6
-27/08|T5|10:00|T|575 AC|2|Nguyễn Thị Thái Vi|14732|25.165.850|09:29|31
-27/08|T5|10:00|T|25 TD|4|Trần Thị Bích Nhi|20467|25.165.858|09:28|31
-27/08|T5|10:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.165.664|09:48|11
-27/08|T5|10:00|T|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.165.779|08:05|114
+27/08|T5|09:00|T|10 TP|6|Nguyễn Thị Lành|19283|25.165.521|08:17|43
+27/08|T5|09:00|T|55A NVL|3|Nguyễn Gia Linh|18952|25.165.555|09:05|-5
+27/08|T5|09:00|T|116 TK|3|Phạm Thị Hải Anh|9840|25.165.577|06:34|146
+27/08|T5|09:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.165.672|08:36|24
+27/08|T5|09:00|T|595 BT TH|8|Nguyễn Thị Lan|18384|25.165.701|08:14|46
 27/08|T5|10:00|T|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.165.558|09:33|27
-27/08|T5|10:30|T|10 TP|6|Lê Thị Ninh Khánh|15250|25.165.896|09:48|41
-27/08|T5|10:30|T|237 NTT|4|Nguyễn Phan Thảo My|11843|25.165.724|10:20|9
-27/08|T5|10:30|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.165.629|09:27|62
+27/08|T5|10:00|T|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.165.664|09:48|12
+27/08|T5|10:00|T|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.165.779|08:05|115
+27/08|T5|10:00|T|575 AC|2|Nguyễn Thị Thái Vi|14732|25.165.850|09:29|31
+27/08|T5|10:00|T|25 TD|4|Trần Thị Bích Nhi|20467|25.165.858|09:28|32
+27/08|T5|10:30|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.165.629|09:27|63
+27/08|T5|10:30|T|237 NTT|4|Nguyễn Phan Thảo My|11843|25.165.724|10:20|10
+27/08|T5|10:30|T|10 TP|6|Lê Thị Ninh Khánh|15250|25.165.896|09:48|42
 27/08|T5|10:30|T|145 THT|2|Thạch Thi Sa RemCTV|7193|25.166.081|09:30|60
-27/08|T5|11:00|T|25 TD|4|Nguyễn Nhật Kim Ngân|19605|25.166.183|09:38|82
-27/08|T5|11:00|T|1180 QT|5|Phạm Thị Thảo|21177|25.166.153|02:37|502
 27/08|T5|11:00|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.165.689|09:08|112
+27/08|T5|11:00|T|1180 QT|5|Phạm Thị Thảo|21177|25.166.153|02:37|503
+27/08|T5|11:00|T|25 TD|4|Nguyễn Nhật Kim Ngân|19605|25.166.183|09:38|82
 27/08|T5|11:30|T|420 HTP|4|Nguyễn Thị Hồng Ngân|20962|25.166.053|10:01|89
-27/08|T5|12:00|T|927 HG|2|Cao Thị Kim Chi|19735|25.166.249|11:08|52
 27/08|T5|12:00|T|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.166.154|09:00|180
-27/08|T5|12:00|T|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.166.329|09:30|149
-27/08|T5|12:00|T|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.166.494|12:00|-1
-27/08|T5|12:00|T|145 THT|2|Trang Thị Hồng An|9601|25.166.388|09:51|128
-27/08|T5|12:00|T|4 LQD BN|6|Phạm Thị Thương|14330|25.166.204|08:49|190
-27/08|T5|12:00|T|80 TP TH|8|Nguyễn Thị Phương|19851|25.166.291|10:03|116
-27/08|T5|12:30|T|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.166.364|12:00|29
-27/08|T5|12:30|T|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.166.300|11:54|35
-27/08|T5|13:00|T|12 LDT|5|Tiền Anh Thư|20377|25.166.683|12:33|27
-27/08|T5|13:00|T|575 AC|2|Nguyễn Thị Thái Vi|14732|25.166.584|11:52|67
+27/08|T5|12:00|T|4 LQD BN|6|Phạm Thị Thương|14330|25.166.204|08:49|191
+27/08|T5|12:00|T|927 HG|2|Cao Thị Kim Chi|19735|25.166.249|11:08|52
+27/08|T5|12:00|T|80 TP TH|8|Nguyễn Thị Phương|19851|25.166.291|10:03|117
+27/08|T5|12:00|T|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.166.329|09:30|150
+27/08|T5|12:00|T|145 THT|2|Trang Thị Hồng An|9601|25.166.388|09:51|129
+27/08|T5|12:00|T|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.166.494|12:00|0
+27/08|T5|12:30|T|90 NH|3|Phạm Thị Tuyết Nhung|11536|25.166.300|11:54|36
+27/08|T5|12:30|T|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.166.364|12:00|30
 27/08|T5|13:00|T|927 HG|2|Ngô Thuỳ Phương|20878|25.166.271|11:41|79
-27/08|T5|13:00|T|103 TN|1|Cao Thị Mỹ Liên|19648|25.166.765|10:17|162
 27/08|T5|13:00|T|730 TL10|2|Quách Tuyết Trang|10119|25.166.557|11:55|65
-27/08|T5|13:00|T|312 LVS|2|Nguyễn Thị Diễm CTV|5018|25.166.760|11:31|88
-27/08|T5|13:00|T|186 DTH|4|Nguyễn Diệu Hiền|9708|25.166.732|11:49|71
 27/08|T5|13:00|T|116 TK|3|Đinh Thị Thùy Chinh|17034|25.166.582|11:41|79
-27/08|T5|13:30|T|12 LDT|5|Nguyễn Phan Như Ngọc|10345|25.166.294|12:15|74
-27/08|T5|13:30|T|10 TP|6|Nguyễn Thị Ngọc Hoàn|8646|25.166.701|12:34|55
+27/08|T5|13:00|T|575 AC|2|Nguyễn Thị Thái Vi|14732|25.166.584|11:52|68
+27/08|T5|13:00|T|12 LDT|5|Tiền Anh Thư|20377|25.166.683|12:33|27
+27/08|T5|13:00|T|186 DTH|4|Nguyễn Diệu Hiền|9708|25.166.732|11:49|71
+27/08|T5|13:00|T|312 LVS|2|Nguyễn Thị Diễm CTV|5018|25.166.760|11:31|89
+27/08|T5|13:00|T|103 TN|1|Cao Thị Mỹ Liên|19648|25.166.765|10:17|163
+27/08|T5|13:30|T|12 LDT|5|Nguyễn Phan Như Ngọc|10345|25.166.294|12:15|75
+27/08|T5|13:30|T|10 TP|6|Nguyễn Thị Ngọc Hoàn|8646|25.166.701|12:34|56
 27/08|T5|13:30|T|1146 KVC|1|Nguyễn Trúc Anh|16549|25.166.837|13:09|21
-27/08|T5|14:00|T|346 KT|7|Bùi Thị Hồng Lan|12173|25.166.847|13:23|36
-27/08|T5|14:00|T|382 NT|3|Vũ Thị Minh|1804|25.166.872|13:31|28
-27/08|T5|14:00|T|927 HG|2|Ngô Thuỳ Phương|20878|25.167.258|07:19|401
+27/08|T5|14:00|T|346 KT|7|Bùi Thị Hồng Lan|12173|25.166.847|13:23|37
+27/08|T5|14:00|T|382 NT|3|Vũ Thị Minh|1804|25.166.872|13:31|29
 27/08|T5|14:00|T|145 THT|2|Trang Thị Hồng An|9601|25.166.882|11:45|135
-27/08|T5|14:30|T|382 NT|3|Hoàng Thị Huyền|5403|25.166.798|12:50|99
+27/08|T5|14:00|T|927 HG|2|Ngô Thuỳ Phương|20878|25.167.258|07:19|401
+27/08|T5|14:30|T|382 NT|3|Hoàng Thị Huyền|5403|25.166.798|12:50|100
+27/08|T5|14:30|T|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.166.805|13:58|32
 27/08|T5|14:30|T|103 TN|1|Thị Bé Ngọc|7575|25.166.821|13:45|45
-27/08|T5|14:30|T|255 NAN|1|Nguyễn Thị Ngọc Nhi|20265|25.167.019|12:36|113
-27/08|T5|14:30|T|10 TP|6|Nguyễn Thị Ngọc Hoàn|8646|25.167.214|14:10|19
-27/08|T5|14:30|T|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.166.805|13:58|31
-27/08|T5|14:30|T|202 DC|7|Nguyễn Thị Ngần|5015|25.167.031|09:35|294
-27/08|T5|15:00|C|103 TN|1|Liễu Thị Thanh Trúc|17679|25.167.179|14:15|44
-27/08|T5|15:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.167.190|14:53|7
-27/08|T5|15:00|C|1180 QT|5|Võ Thị Hồng|17662|25.167.398|15:02|-3
-27/08|T5|15:00|C|186 DTH|4|Nguyễn Diệu Hiền|9708|25.167.164|11:15|225
-27/08|T5|15:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.167.098|14:36|23
-27/08|T5|15:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.166.743|13:40|79
-27/08|T5|15:00|C|145 THT|2|Nguyễn Thị Yến Vy|20040|25.167.301|13:53|66
-27/08|T5|15:00|C|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.167.216|14:00|59
+27/08|T5|14:30|T|255 NAN|1|Nguyễn Thị Ngọc Nhi|20265|25.167.019|12:36|114
+27/08|T5|14:30|T|202 DC|7|Nguyễn Thị Ngần|5015|25.167.031|09:35|295
+27/08|T5|14:30|T|10 TP|6|Nguyễn Thị Ngọc Hoàn|8646|25.167.214|14:10|20
+27/08|T5|14:30|T|575 AC|2|Phùng Hoàng Như Thảo|20886|25.167.752|08:41|349
+27/08|T5|14:30|T|168 NVC|6|Nguyễn Thị Hiếu|14251|25.168.026|13:19|71
+27/08|T5|15:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.166.743|13:40|80
 27/08|T5|15:00|C|55A NVL|3|Nguyễn Thị Thuỳ Trang|19352|25.167.063|10:25|275
-27/08|T5|15:30|C|113 THD AG|4|Nguyễn Thị Mỹ Duyên|21004|25.167.593|10:14|316
+27/08|T5|15:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.167.098|14:36|24
+27/08|T5|15:00|C|186 DTH|4|Nguyễn Diệu Hiền|9708|25.167.164|11:15|225
+27/08|T5|15:00|C|103 TN|1|Liễu Thị Thanh Trúc|17679|25.167.179|14:15|45
+27/08|T5|15:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.167.190|14:53|7
+27/08|T5|15:00|C|90 NH|3|Nguyễn Thị Thuỳ Trang|14293|25.167.216|14:00|60
+27/08|T5|15:00|C|145 THT|2|Nguyễn Thị Yến Vy|20040|25.167.301|13:53|67
+27/08|T5|15:00|C|1180 QT|5|Võ Thị Hồng|17662|25.167.398|15:02|-2
 27/08|T5|15:30|C|168 NVC|6|Nguyễn Phương Thảo|9473|25.167.334|14:48|42
+27/08|T5|15:30|C|113 THD AG|4|Nguyễn Thị Mỹ Duyên|21004|25.167.593|10:14|316
+27/08|T5|16:00|C|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.167.293|14:01|119
 27/08|T5|16:00|C|382 NT|3|Hoàng Thị Huyền|5403|25.167.642|09:57|363
-27/08|T5|16:00|C|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.167.293|14:01|118
-27/08|T5|16:00|C|401/1 NDT|1|Nguyễn Thị Hồng Cẩm|20756|25.167.646|13:38|141
-27/08|T5|20:30|T|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.166.337|09:09|681`;
+27/08|T5|16:00|C|401/1 NDT|1|Nguyễn Thị Hồng Cẩm|20756|25.167.646|13:38|142
+27/08|T5|16:00|C|575 AC|2|Nguyễn Thị Thái Vi|14732|25.167.783|15:41|19
+27/08|T5|16:00|C|312 LVS|2|Nguyễn Đặng Khánh Băng|20573|25.167.806|15:08|52
+27/08|T5|16:00|C|730 TL10|2|Quách Tuyết Trang|10119|25.167.818|09:39|381
+27/08|T5|16:00|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.167.844|15:25|35
+27/08|T5|16:30|C|312 LVS|2|Nguyễn Thị Phú Tài|20130|25.167.704|15:53|37
+27/08|T5|16:30|C|68 LN NA|8|Nguyễn Thị Linh|18840|25.167.720|16:21|9
+27/08|T5|16:30|C|927 HG|2|Cao Thị Kim Chi|19735|25.167.838|14:33|117
+27/08|T5|16:30|C|168 NVC|6|Nguyễn Thị Thêu|1909|25.169.060|16:27|3
+27/08|T5|17:00|C|575 AC|2|Nguyễn Lê Huyền Trân|13775|25.167.803|16:02|58
+27/08|T5|17:00|C|76 PVH|5|Lê Thị Hồng Dung|21185|25.167.990|13:16|224
+27/08|T5|17:00|C|927 HG|2|Ngô Thị Ngọc Ánh|19933|25.168.043|15:19|101
+27/08|T5|17:00|C|99 TSN|2|Danh Thị Sa Ri|7597|25.168.053|16:52|8
+27/08|T5|17:00|C|1180 QT|5|Võ Thị Hồng|17662|25.168.067|16:56|4
+27/08|T5|17:00|C|1371 PVT|1|Nguyễn Quốc Phương Vy|8353|25.168.150|16:32|28
+27/08|T5|17:00|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.168.244|16:54|6
+27/08|T5|17:00|C|10 TP|6|Nguyễn Thị Lành|19283|25.168.419|16:37|23
+27/08|T5|17:00|C|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.168.439|09:36|444
+27/08|T5|17:00|C|927 HG|2|Cao Thị Kim Chi|19735|25.168.867|16:22|38
+27/08|T5|17:30|C|99 TSN|2|Trần Thị Quỳnh Như|15747|25.168.042|11:39|351
+27/08|T5|17:30|C|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.168.119|16:46|44
+27/08|T5|17:30|C|730 TL10|2|Hồ Thị Trúc Hà|19677|25.168.342|15:56|94
+27/08|T5|17:30|C|382 NT|3|Vũ Thị Minh|1804|25.168.469|15:48|102
+27/08|T5|17:30|C|382 NT|3|Phạm Thị Châu|21137|25.168.757|10:48|402
+27/08|T5|18:00|C|341 XVNT|4|Trần Ngọc Yến Nhi|20835|25.168.270|16:36|84
+27/08|T5|18:00|C|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.168.542|16:42|78
+27/08|T5|18:00|C|12 LDT|5|Nguyễn Thị Hằng Nga|16479|25.168.612|16:37|83
+27/08|T5|18:00|C|362 NGT BN|6|HỒ THỊ DUNG|21405|25.168.915|17:44|16
+27/08|T5|18:00|C|50BT4 NPC LD|7|Mai Thị Trang|15763|25.168.922|15:42|138
+27/08|T5|18:00|C|312 LVS|2|Đinh Nguyễn Mai Uyên|19854|25.169.082|14:26|214
+27/08|T5|18:00|C|341 XVNT|4|Trần Ngọc Yến Nhi|20835|25.169.338|08:09|591
+27/08|T5|18:30|C|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.168.477|16:07|143
+27/08|T5|18:30|C|32 NAT|5|Ngô Mỹ Huyền|10289|25.168.520|14:00|270
+27/08|T5|18:30|C|8 CVL|2|Nguyễn Thị Cẩm Hằng|20765|25.168.614|18:15|15
+27/08|T5|18:30|C|1180 QT|5|Võ Thị Hồng|17662|25.168.732|17:28|62
+27/08|T5|18:30|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.168.778|17:46|44
+27/08|T5|18:30|C|382 NT|3|Tạ Thuỳ Linh|12032|25.168.975|17:00|90
+27/08|T5|18:30|C|927 HG|2|Nguyễn Hoàng Triệu Vy|20143|25.168.993|17:18|72
+27/08|T5|18:30|C|99 TSN|2|Trần Thị Kim Ngân|20866|25.169.239|15:15|195
+27/08|T5|19:00|C|382 NT|3|Nguyễn Thị Lan|18586|25.168.563|15:28|212
+27/08|T5|19:00|C|237 NTT|4|Nguyễn Phan Thảo My|11843|25.168.664|16:47|133
+27/08|T5|19:00|C|116 TK|3|Hoàng Thị Minh Huế|5760|25.169.021|18:31|29
+27/08|T5|19:00|C|401/1 NDT|1|Lê Thị Mai Ly|19894|25.169.031|18:03|57
+27/08|T5|19:00|C|401/1 NDT|1|Trần Thị Kim Ngân|18228|25.169.043|19:04|-4
+27/08|T5|19:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.169.079|16:27|153
+27/08|T5|19:00|C|55A NVL|3|Nguyễn Gia Linh|18952|25.169.088|09:29|571
+27/08|T5|19:00|C|312 LVS|2|Nguyễn Thị Phú Tài|20130|25.169.116|18:22|38
+27/08|T5|19:00|C|1146 KVC|1|Huỳnh Nguyễn Trúc Vy|21428|25.169.234|14:08|292
+27/08|T5|19:30|C|1180 QT|5|Phạm Thị Thảo|21177|25.169.333|18:43|47
+27/08|T5|19:30|C|109 TQH|3|Bùi Phương Anh|18694|25.169.344|14:16|314
+27/08|T5|19:30|C|382 NT|3|Vũ Thị Minh|1804|25.169.356|15:23|247
+27/08|T5|20:00|T|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.168.547|14:17|343
+27/08|T5|20:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.169.350|19:10|50
+27/08|T5|20:30|T|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.166.337|09:09|681
+27/08|T5|20:30|T|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.168.326|10:50|580`;
 const DETAIL = DETAIL_RAW.trim().split('\n').map(line=>{
   const [ngay,thu,hour,k,salon,g,skinner,maNV,bill,datLuc,lead] = line.split('|');
   return {ngay,thu,hour,khungGio:k,salon,gdkv:+g,skinner,maNV,bill,datLuc,lead:+lead};
@@ -881,11 +955,11 @@ const DETAIL = DETAIL_RAW.trim().split('\n').map(line=>{
 /* ================= RENDER: KPI ================= */
 const kpiGrid = document.getElementById('kpi-grid');
 const kpis = [
-  {l:'Tổng lượt book hợp lệ (lũy kế)', v:fmtInt(154), s:'51,16% tổng lượt lũy kế (154/301)'},
-  {l:'Số Skinner hưởng thưởng (lũy kế)', v:fmtInt(160), s:'tại 49 salon'},
+  {l:'Tổng lượt book hợp lệ (lũy kế)', v:fmtInt(159), s:'44,66% tổng lượt lũy kế (159/356)'},
+  {l:'Số Skinner hưởng thưởng (lũy kế)', v:fmtInt(176), s:'tại 52 salon'},
 ];
 kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="s">${k.s}</div></div>`).join('')
-  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (49 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(301/2617*100)}</div><div class="s">301 / 2.617 bill có dịch vụ Skinner được đặt lịch trước (lũy kế 25–27/08, mẫu số = bill có staff_hair_massage_id VÀ is_book_at_salon=false — loại khách vãng lai tại quầy)</div><div class="bar"><i style="width:${(301/2617*100).toFixed(1)}%"></i></div></div>`;
+  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (52 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(356/3031*100)}</div><div class="s">356 / 3.031 bill có dịch vụ Skinner được đặt lịch trước (lũy kế 25–27/08, cả 3 ngày đã chốt đủ, mẫu số = bill có staff_hair_massage_id VÀ is_book_at_salon=false — loại khách vãng lai tại quầy)</div><div class="bar"><i style="width:${(356/3031*100).toFixed(1)}%"></i></div></div>`;
 
 /* ================= RENDER: DAILY CHART (10 cot, 1 cot/ngay) ================= */
 (function(){
@@ -1070,7 +1144,7 @@ function renderDetailTable(){
 document.getElementById('dt-search').addEventListener('input', renderDetailTable);
 document.getElementById('dt-status').addEventListener('change', renderDetailTable);
 renderDetailTable();
-document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ LŨY KẾ</b> (25/08 + 26/08 đã chốt đủ ngày, 27/08 chưa phát sinh lượt hợp lệ tại salon Công ty tính đến thời điểm cập nhật — 100%, không phải mẫu) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn.
+document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ LŨY KẾ</b> (25/08 + 26/08 + 27/08, cả 3 ngày đã chốt đủ ngày — 100%, không phải mẫu) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn.
 ⚠️ Cột <b>"Thưởng (công thức riêng)"</b> dùng công thức: 5.000đ/lượt CAO điểm + 10.000đ/lượt THẤP điểm (theo giờ hẹn, áp dụng đúng quy tắc T2-T6/T7-CN riêng từng ngày) — công thức này cũng là căn cứ phân loại "Lượt thấp điểm"/"Lượt cao điểm" ở bảng "Booking Skinner Toàn Hệ Thống" (bảng đó không hiển thị số tiền). Cột thưởng ở đây KHÔNG phải số liệu chính thức trên bảng lương (bảng lương thật trả đều 5.000đ/lượt).`;
 
 /* ================= LOOKUP ================= */
