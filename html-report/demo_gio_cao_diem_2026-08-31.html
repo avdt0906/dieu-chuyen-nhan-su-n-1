@@ -5,21 +5,21 @@
 <title>Báo cáo Nhân sự Giờ cao điểm ngày 31/08/2026 (Thứ Hai)</title>
 <style>
   :root {
-    --bg: #15161B; --panel: #202329; --panel2: #262A32; --border: #383D47; --text: #ECECEF; --muted: #9BA3AF;
-    --red: #F87171; --red-bg: rgba(248,113,113,.16); --red-solid: #DC2626; --green: #34D399; --green-bg: rgba(52,211,153,.16);
-    --blue: #60A5FA; --blue-bg: rgba(96,165,250,.16); --amber: #FBBF24; --amber-bg: rgba(251,191,36,.16);
-    --gold: #D4AF37; --card-border: rgba(212,175,55,.35);
+    --bg: #F8FAFC; --panel: #FFFFFF; --panel2: #F8FAFC; --border: #E2E8F0; --text: #0F172A; --muted: #64748B;
+    --red: #DC2626; --red-bg: #FEF2F2; --red-solid: #DC2626; --green: #059669; --green-bg: #ECFDF5;
+    --blue: #2563EB; --blue-bg: #EFF6FF; --amber: #D97706; --amber-bg: #FFFBEB;
+    --gold: #2563EB; --card-border: #D7DFEC;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 28px; color: var(--text);
-    background-color: #17181C;
+    background-color: #F8FAFC;
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg stroke='%23D4AF37' stroke-width='2.2' stroke-linecap='round' fill='none' opacity='0.09'%3E%3Cline x1='22' y1='24' x2='88' y2='24'/%3E%3Cline x1='30' y1='24' x2='30' y2='52'/%3E%3Cline x1='43' y1='24' x2='43' y2='52'/%3E%3Cline x1='56' y1='24' x2='56' y2='52'/%3E%3Cline x1='69' y1='24' x2='69' y2='52'/%3E%3Cline x1='80' y1='24' x2='80' y2='52'/%3E%3Cg transform='translate(140,140)'%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='14' cy='2' r='6'/%3E%3Cline x1='5' y1='4' x2='34' y2='30'/%3E%3Cline x1='9' y1='-2' x2='34' y2='-24'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-      linear-gradient(160deg, #1A1B20 0%, #1E1A16 50%, #17181C 100%);
-    background-repeat: repeat, no-repeat;
-    background-size: 220px 220px, cover;
-    background-attachment: fixed, fixed;
+      radial-gradient(620px circle at 6% 10%, rgba(96,165,250,.32), transparent 60%),
+      radial-gradient(680px circle at 96% 12%, rgba(244,114,182,.26), transparent 60%),
+      radial-gradient(720px circle at 45% 105%, rgba(52,211,153,.26), transparent 65%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px; line-height: 1.5;
   }
@@ -33,7 +33,7 @@
     padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel);
     color: var(--muted); font-size: 12.5px; font-weight: 600; text-decoration: none;
   }
-  .date-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .date-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .date-tab:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
 
   .gdkv-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
@@ -41,7 +41,7 @@
     padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--card-border); background: var(--panel);
     cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted);
   }
-  .gdkv-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .gdkv-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .gdkv-tab .cnt { font-weight: 400; opacity: .8; margin-left: 4px; }
   .gdkv-tab.flag-thieu, .gdkv-tab.flag-sat { background: var(--red-bg); border-color: var(--red); color: var(--red); }
   .gdkv-tab.active.flag-thieu, .gdkv-tab.active.flag-sat { background: var(--red-solid); border-color: var(--red-solid); color: #fff; }
@@ -54,7 +54,7 @@
     padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--card-border); background: var(--panel2);
     cursor: pointer; font-size: 12px; color: var(--text);
   }
-  .salon-tab.active { background: var(--gold); border-color: var(--gold); color: #17181C; }
+  .salon-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
   .salon-tab.flag-thieu, .salon-tab.flag-sat { background: var(--red-bg); border-color: var(--red); color: var(--red); font-weight: 700; }
   .salon-tab.active.flag-thieu, .salon-tab.active.flag-sat { background: var(--red-solid); border-color: var(--red-solid); color: #fff; }
 
@@ -63,7 +63,7 @@
 
   .card {
     background: var(--panel); border: 1.5px solid var(--card-border); border-top: 4px solid var(--gold); border-radius: 14px;
-    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.35);
+    padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(15,23,42,.07);
   }
   .card h2 { font-size: 14px; margin: 0 0 10px; color: var(--text); }
   .card h3 { font-size: 12.5px; margin: 14px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
@@ -89,9 +89,9 @@
   tr.candidate td { background: var(--green-bg); color: var(--green); font-weight: 600; }
   tr.not-suitable td { background: var(--red-bg); color: var(--red); font-weight: 600; }
 
-  .tag-moi { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(96,165,250,.16); color: #93C5FD; }
-  .tag-sm { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(167,139,250,.18); color: #C4B5FD; }
-  .tag-book { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: rgba(212,175,55,.18); color: #E8C766; }
+  .tag-moi { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #EFF6FF; color: #2563EB; }
+  .tag-sm { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #F5F3FF; color: #7C3AED; }
+  .tag-book { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; background: #FFFBEB; color: #B45309; }
 
   .suggest-box table { table-layout: fixed; width: 100%; }
   .tbl2 th:nth-child(1), .tbl2 td:nth-child(1) { width: 70%; }
