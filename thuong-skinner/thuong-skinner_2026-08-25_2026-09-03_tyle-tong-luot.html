@@ -184,13 +184,13 @@ table.dt td.num{font-family:'IBM Plex Mono',monospace;}
 
   <header class="hd">
     <h1>Thưởng book đích danh Skinner — giờ thấp điểm</h1>
-    <div class="meta">Chiến dịch <b>25/08/2026 – 03/09/2026</b> (10 ngày) · <b>lũy kế cộng dồn</b> đến thời điểm cập nhật · dữ liệu query trực tiếp từ DB · cập nhật <b>03/09/2026</b> (25/08–02/09 đã chốt đủ ngày — 9 ngày, 1.111 lượt hợp lệ đã phát sinh tại salon Công ty; 03/09 vừa bắt đầu, chưa phát sinh lượt nào tại thời điểm query — kỳ chiến dịch gần như đã hoàn tất)</div>
+    <div class="meta">Chiến dịch <b>25/08/2026 – 03/09/2026</b> (10 ngày) · <b>ĐÃ KẾT THÚC — số liệu CHÍNH THỨC CUỐI CÙNG</b> · dữ liệu query trực tiếp từ DB · cập nhật <b>04/09/2026</b> (10/10 ngày đã chốt đủ, 1.244 lượt hợp lệ phát sinh tại salon Công ty trong toàn bộ chiến dịch)</div>
   </header>
 
   <div class="callout">
     <b>Cách đọc:</b> mọi lượt book đích danh Skinner hợp lệ đều hưởng mức nền <span class="hib">5.000đ</span>.
     Lượt rơi vào khung giờ thấp điểm + đặt trước ≥ 30 phút + đúng điều kiện khác được cộng thêm 5.000đ (tổng 10.000đ).
-    <b>Lưu ý quan trọng:</b> toàn bộ 1.111 lượt hợp lệ lũy kế (25/08–02/09, 9 ngày đã chốt đủ ngày) tại salon Công ty đều mới dừng ở <b>mức nền</b> — <u>chưa có lượt nào được ghi nhận mức cộng thêm</u> trên bảng lương (<code>bi.ccm20250625_tip_khach_book_onl</code>), kể cả nhiều lượt rơi đúng khung giờ thấp điểm, kể cả sau khi chiến dịch gần như đã kết thúc. Đây là dữ liệu thật, không phải lỗi tính toán của báo cáo.
+    <b>Lưu ý quan trọng:</b> toàn bộ 1.244 lượt hợp lệ CUỐI CÙNG của cả chiến dịch (25/08–03/09, đủ 10/10 ngày) tại salon Công ty đều mới dừng ở <b>mức nền</b> — <u>chưa có lượt nào được ghi nhận mức cộng thêm</u> trên bảng lương (<code>bi.ccm20250625_tip_khach_book_onl</code>), kể cả nhiều lượt rơi đúng khung giờ thấp điểm, kể cả sau khi chiến dịch đã kết thúc hoàn toàn. Đây là dữ liệu thật, không phải lỗi tính toán của báo cáo — chưa có xác nhận chính thức từ BI/Vận hành về nguyên nhân, không tự kết luận.
     <br><b>Quy tắc khung giờ thấp điểm (đã cập nhật 26/08/2026):</b> T2–T6 cao điểm 15h00–19h59, còn lại là thấp điểm (không đổi). <b>T7–CN: thấp điểm = {7h,8h,9h,19h,20h,21h}, còn lại (~10h–18h59) là cao điểm</b> (quy tắc T7-CN MỚI, thay cho quy tắc cũ "cao điểm 10h-18h59 áp dụng y hệt thấp điểm ngoài khung" — nay khung thấp điểm cuối tuần chỉ còn 2 dải giờ sáng sớm/tối muộn).
   </div>
 
@@ -285,209 +285,204 @@ const fmtD = n => n.toLocaleString('vi-VN') + 'đ';
 const fmtTr = n => (n/1000000).toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' tr';
 const fmtPct = n => n.toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
 
-/* ---------- SKINNER RAW (name|maNV|salonMa|gdkvIdx|luotBook|luotThap|luotCao|thuongB|top10Flag) — LUY KE 25/08-02/09 (9 ngay da chot du, 03/09 moi bat dau = 0 luot tai thoi diem query), 252 Skinner. Cap nhat dot 19 - 03/09/2026. ---------- */
-const SKB_RAW = `Nguyễn Phan Thúy Hiền|14010|36 N1 BD|1|29|11|18|200000|1
-Quách Tuyết Trang|10119|730 TL10|2|26|10|16|180000|1
-Nguyễn Thị Nga|17787|80 PL BD|1|22|7|15|145000|1
-Nguyễn Thị Khánh Linh|13728|10 TP|6|18|11|7|145000|1
-Đỗ Thị Trâm|19535|10 TP|6|17|9|8|130000|1
-Trang Thị Hồng An|9601|145 THT|2|16|10|6|130000|1
-Cao Thị Kim Chi|19735|927 HG|2|18|6|12|120000|1
-Võ Thị Hồng|17662|1180 QT|5|18|5|13|115000|0
-Đồng Thị Thanh Tuyền|3965|186 DTH|4|17|4|13|105000|0
+/* ---------- SKINNER RAW (name|maNV|salonMa|gdkvIdx|luotBook|luotThap|luotCao|thuongB|top10Flag) — LUY KE FINAL 25/08-03/09 (10/10 ngay da chot du, chien dich DA KET THUC), 260 Skinner. Cap nhat dot 20 - 04/09/2026 (CHOT CUOI CUNG). ---------- */
+const SKB_RAW = `Nguyễn Phan Thúy Hiền|14010|36 N1 BD|1|37|14|23|255000|1
+Quách Tuyết Trang|10119|730 TL10|2|28|12|16|200000|1
+Nguyễn Thị Nga|17787|80 PL BD|1|26|9|17|175000|1
+Nguyễn Thị Khánh Linh|13728|10 TP|6|19|12|7|155000|1
+Trang Thị Hồng An|9601|145 THT|2|18|12|6|150000|1
+Đỗ Thị Trâm|19535|10 TP|6|19|10|9|145000|1
+Cao Thị Kim Chi|19735|927 HG|2|20|7|13|135000|1
+Lê Thị Mai Ly|19894|401/1 NDT|1|15|9|6|120000|1
+Võ Thị Hồng|17662|1180 QT|5|19|5|14|120000|0
+Từ Thị Mỹ Ánh|7304|190 HB|2|17|5|12|110000|0
+Đồng Thị Thanh Tuyền|3965|186 DTH|4|18|4|14|110000|0
 Vũ Thị Minh|1804|382 NT|3|15|6|9|105000|1
-Từ Thị Mỹ Ánh|7304|190 HB|2|14|4|10|90000|0
-Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|13|5|8|90000|0
-Nguyễn Trúc Anh|16549|1146 KVC|1|13|5|8|90000|0
-Đỗ Thuỳ Linh|20826|36 N1 BD|1|13|5|8|90000|0
-Bùi Thị Thảo Nhy|21003|483 TN|5|12|6|6|90000|1
-Lê Thị Mai Ly|19894|401/1 NDT|1|12|6|6|90000|1
-Nguyễn Thị Ngần|5015|202 DC|7|12|6|6|90000|0
-Vũ Thị Hiền|20339|255 NAN|1|12|6|6|90000|0
-Võ Ngọc Thy Nhã|17780|237 NTT|4|11|5|6|80000|0
-Trần Thị Tuyết Ngân|17362|109 TQH|3|10|6|4|80000|0
+Vũ Thị Hiền|20339|255 NAN|1|13|7|6|100000|1
+Bùi Thị Thảo Nhy|21003|483 TN|5|14|6|8|100000|0
+Nguyễn Thị Mỹ Diễm|21188|1146 KVC|1|14|6|8|100000|0
+Nguyễn Thị Ngần|5015|202 DC|7|13|6|7|95000|0
+Nguyễn Trúc Anh|16549|1146 KVC|1|14|5|9|95000|0
+Đỗ Thuỳ Linh|20826|36 N1 BD|1|14|5|9|95000|0
+Danh Thị Sa Ri|7597|99 TSN|2|13|5|8|90000|0
+Trần Thị Tuyết Ngân|17362|109 TQH|3|11|6|5|85000|0
+Võ Ngọc Thy Nhã|17780|237 NTT|4|12|5|7|85000|0
+Nguyễn Thị Hiếu|14251|168 NVC|6|11|5|6|80000|0
+Nguyễn Thị Thêu|1909|168 NVC|6|9|6|3|75000|0
 Tiền Anh Thư|20377|12 LDT|5|11|4|7|75000|0
-Nguyễn Thị Hiếu|14251|168 NVC|6|10|5|5|75000|0
-Danh Thị Sa Ri|7597|99 TSN|2|11|3|8|70000|0
-Hoàng Thị Huyền|5403|382 NT|3|11|3|8|70000|0
+Lê Thị Kiều Oanh|19860|420 HTP|4|9|5|4|70000|0
+Nguyễn Thị Lan|18384|595 BT TH|8|9|5|4|70000|0
 Đỗ Thị Linh|5866|927 HG|2|9|5|4|70000|0
-Nguyễn Thị Lan|18384|595 BT TH|8|8|5|3|65000|0
-Tạ Thuỳ Linh|12032|382 NT|3|10|2|8|60000|0
-Nguyễn Thị Thu Quỳnh|17766|382 NT|3|9|3|6|60000|0
-Lê Thị Kiều Oanh|19860|420 HTP|4|8|4|4|60000|0
-Thạch Thi Sa RemCTV|7193|145 THT|2|8|4|4|60000|0
-Đỗ Thị Kim Chi|12846|36 N1 BD|1|8|4|4|60000|0
-Nguyễn Thị Thêu|1909|168 NVC|6|7|5|2|60000|0
-Nguyễn Thị Minh Thư|19255|237 NTT|4|9|2|7|55000|0
-Trần Thị Quỳnh Như|15747|99 TSN|2|9|2|7|55000|0
+Nguyễn Thị Thu Quỳnh|17766|382 NT|3|10|4|6|70000|0
+Đỗ Thị Kim Chi|12846|36 N1 BD|1|10|4|6|70000|0
+Hoàng Thị Huyền|5403|382 NT|3|11|3|8|70000|0
+Nguyễn Thị Phú Quý|15706|237 NTT|4|8|5|3|65000|0
+Thạch Thi Sa RemCTV|7193|145 THT|2|9|4|5|65000|0
+Trương Thị Kim Tuyền|18104|145 THT|2|10|3|7|65000|0
+Tạ Thuỳ Linh|12032|382 NT|3|11|2|9|65000|0
+Nguyễn Thị Mỹ Hường|858|145 THT|2|7|5|2|60000|0
+Võ Thị Thu Ngân|4627|237 NTT|4|8|4|4|60000|0
+Nguyễn Thị Minh Thư|19255|237 NTT|4|10|2|8|60000|0
+Lê Thị Hiền|11079|1146 KVC|1|11|1|10|60000|0
+Nguyễn Thị Như Ý|20801|145 THT|2|6|5|1|55000|0
+Nguyễn Thị Thu Ngân|20771|103 TN|1|6|5|1|55000|0
+Lê Thị Thuỳ Trang|3484|80 PL BD|1|7|4|3|55000|0
 Nguyễn Phương Thảo|9473|168 NVC|6|8|3|5|55000|0
 Đỗ Ngọc Bích|20365|109 TQH|3|8|3|5|55000|0
-Lê Thị Thuỳ Trang|3484|80 PL BD|1|7|4|3|55000|0
-Nguyễn Thị Phú Quý|15706|237 NTT|4|7|4|3|55000|0
-Nguyễn Thị Mỹ Hường|858|145 THT|2|6|5|1|55000|0
-Lê Thị Hiền|11079|1146 KVC|1|9|1|8|50000|0
+Trần Thị Quỳnh Như|15747|99 TSN|2|9|2|7|55000|0
+Phạm Thị Trí|13106|173 TN|7|6|4|2|50000|0
+Nguyễn Thị Lan|18586|382 NT|3|7|3|4|50000|0
+Đinh Thị Thùy Chinh|17034|116 TK|3|7|3|4|50000|0
 Nguyễn Thị Thuỳ Trang|19352|55A NVL|3|8|2|6|50000|0
 Ngô Thuỳ Phương|20878|927 HG|2|8|2|6|50000|0
-Trương Thị Kim Tuyền|18104|145 THT|2|8|2|6|50000|0
-Phạm Thị Trí|13106|173 TN|7|6|4|2|50000|0
-Nguyễn Thị Thu Ngân|20771|103 TN|1|5|5|0|50000|0
-Nguyễn Vân Anh|8297|32 NAT|5|8|1|7|45000|0
-Nguyễn Thị Hằng Nga|16479|12 LDT|5|7|2|5|45000|0
-Nguyễn Thị Thái Vi|14732|575 AC|2|7|2|5|45000|0
-Trần Thị Kim Ngân|18228|401/1 NDT|1|7|2|5|45000|0
+Trần Thị Kim Ngân|18228|401/1 NDT|1|8|2|6|50000|0
+Hoàng Thị Minh Huế|5760|116 TK|3|6|3|3|45000|0
 Lê Thị Ninh Khánh|15250|10 TP|6|6|3|3|45000|0
 Trần Thị Kim Anh|19438|12 LDT|5|6|3|3|45000|0
-Võ Thị Thu Ngân|4627|237 NTT|4|6|3|3|45000|0
-Lê Thị Anh|17158|173 TN|7|8|0|8|40000|0
+Nguyễn Thị Hằng Nga|16479|12 LDT|5|7|2|5|45000|0
+Nguyễn Thị Thái Vi|14732|575 AC|2|7|2|5|45000|0
+Trần Huỳnh Hồng Nhung|12059|145 THT|2|7|2|5|45000|0
+Vũ Hải Linh|11287|168 NVC|6|7|2|5|45000|0
+Nguyễn Vân Anh|8297|32 NAT|5|8|1|7|45000|0
+Nguyễn Thị Hồng Hà|18811|103 TN|1|5|3|2|40000|0
 Nguyễn Thị Thuỳ Trang|14293|90 NH|3|5|3|2|40000|0
 Nguyễn Xuân Nhi CTV|13532|36 N1 BD|1|5|3|2|40000|0
 Trần Thị Kim Ngân|18226|109 TQH|3|5|3|2|40000|0
 Đinh Thị Bích Ánh|17035|116 TK|3|5|3|2|40000|0
-Nguyễn Thị Như Ý|20801|145 THT|2|4|4|0|40000|0
-Trần Thị Vân Anh|20123|29 HB|1|7|0|7|35000|0
-Nguyễn Hoàng Triệu Vy|20143|927 HG|2|6|1|5|35000|0
-Ngô Thị Ngọc Ánh|19933|927 HG|2|6|1|5|35000|0
-Ngô Thị Nhung|14289|173 TN|7|6|1|5|35000|0
-Võ Lê Hà Phương|20757|145 THT|2|6|1|5|35000|0
-Vũ Hải Linh|11287|168 NVC|6|6|1|5|35000|0
-Lê Dương Lam Vy|17276|8 CVL|2|5|2|3|35000|0
-Lê thị yến|19220|103 TN|1|5|2|3|35000|0
-Nguyễn Sơn Tường Vân|18481|29 HB|1|5|2|3|35000|0
-Nguyễn Thị Ngọc Hoàn|8646|10 TP|6|5|2|3|35000|0
-PHÙ THỊ HOÀNG UYÊN|942|927 HG|2|5|2|3|35000|0
-Thừa Thị Nguyệt|13443|202 DC|7|5|2|3|35000|0
-Trương Thị Thuỳ|18843|363 LNQ TN|7|5|2|3|35000|0
-Trần Thị Kim Ngân|20866|99 TSN|2|5|2|3|35000|0
-Đặng Thị Mỹ Nhân|20487|312 LVS|2|5|2|3|35000|0
+Đoàn Thị Kiều Loan|15768|55A NVL|3|5|3|2|40000|0
+Nguyễn Thị Minh|10519|382 NT|3|6|2|4|40000|0
+Ngô Mỹ Huyền|10289|32 NAT|5|6|2|4|40000|0
+PHÙ THỊ HOÀNG UYÊN|942|927 HG|2|6|2|4|40000|0
+Ngô Thị Nhung|14289|173 TN|7|7|1|6|40000|0
+Võ Lê Hà Phương|20757|145 THT|2|7|1|6|40000|0
+Lê Thị Anh|17158|173 TN|7|8|0|8|40000|0
 Bùi Thị Hồng Lan|12173|346 KT|7|4|3|1|35000|0
+Liễu Thanh Mai|19612|103 TN|1|4|3|1|35000|0
+Mai Thị Thanh Dư|7605|36 N1 BD|1|4|3|1|35000|0
 Nguyễn Thị Hồng Ngân|20962|420 HTP|4|4|3|1|35000|0
 Nguyễn Thị Phượng|19525|595 BT TH|8|4|3|1|35000|0
 Phạm Thị Tuyết Nhung|11536|90 NH|3|4|3|1|35000|0
-Nguyễn Thị Loan Anh|10416|76 PVH|5|6|0|6|30000|0
-Hoàng Thị Thuỳ Trâm|20885|202 DC|7|5|1|4|30000|0
-Nguyễn Thị Huỳnh Như|19760|312 LVS|2|5|1|4|30000|0
-Nguyễn Thị Minh|10519|382 NT|3|5|1|4|30000|0
-Nguyễn Thị Ngọc Huyền|17415|103 TN|1|5|1|4|30000|0
-Nguyễn Thị Ngọc Nhi|20265|255 NAN|1|5|1|4|30000|0
-Ngô Mỹ Huyền|10289|32 NAT|5|5|1|4|30000|0
-Phạm Thị Thu Hương|17883|363 LNQ TN|7|5|1|4|30000|0
-Viên Yến Vy|19753|575 AC|2|5|1|4|30000|0
-Hoàng Thị Minh Huế|5760|116 TK|3|4|2|2|30000|0
+Huỳnh Nguyễn Trúc Vy|21428|1146 KVC|1|5|2|3|35000|0
+Lê Dương Lam Vy|17276|8 CVL|2|5|2|3|35000|0
+Lê thị yến|19220|103 TN|1|5|2|3|35000|0
+Nguyễn Phan Thảo My|11843|237 NTT|4|5|2|3|35000|0
+Nguyễn Sơn Tường Vân|18481|29 HB|1|5|2|3|35000|0
+Nguyễn Thị Ngọc Hoàn|8646|10 TP|6|5|2|3|35000|0
+Phạm Thị Thảo|21177|1180 QT|5|5|2|3|35000|0
+Thừa Thị Nguyệt|13443|202 DC|7|5|2|3|35000|0
+Trương Thị Thuỳ|18843|363 LNQ TN|7|5|2|3|35000|0
+Trần Thị Kim Ngân|20866|99 TSN|2|5|2|3|35000|0
+Trần Thị Thuý Kiều|21377|12 LDT|5|5|2|3|35000|0
+Đặng Thị Mỹ Nhân|20487|312 LVS|2|5|2|3|35000|0
+Hoàng Thị Thuỳ Trâm|20885|202 DC|7|6|1|5|35000|0
+Nguyễn Hoàng Triệu Vy|20143|927 HG|2|6|1|5|35000|0
+Nguyễn Thị Ngọc Huyền|17415|103 TN|1|6|1|5|35000|0
+Ngô Thị Ngọc Ánh|19933|927 HG|2|6|1|5|35000|0
+Trần Thị Vân Anh|20123|29 HB|1|7|0|7|35000|0
+Cao Thị Mỹ Liên|19648|103 TN|1|3|3|0|30000|0
+Dương Thị Ngọc Trinh|16635|103 TN|1|4|2|2|30000|0
 Hồ Thị Trúc Hà|19677|730 TL10|2|4|2|2|30000|0
 Mai Thị Trang|15763|50BT4 NPC LD|7|4|2|2|30000|0
+Nguyễn Diệu Hiền|9708|186 DTH|4|4|2|2|30000|0
 Nguyễn Gia Linh|18952|55A NVL|3|4|2|2|30000|0
 Nguyễn Ngọc Huyền Trang|15737|363 LNQ TN|7|4|2|2|30000|0
-Nguyễn Phan Thảo My|11843|237 NTT|4|4|2|2|30000|0
 Nguyễn Thị Chinh|14231|168 NVC|6|4|2|2|30000|0
-Nguyễn Thị Hồng Hà|18811|103 TN|1|4|2|2|30000|0
-Nguyễn Thị Lan|18586|382 NT|3|4|2|2|30000|0
+Nguyễn Thị Diễm CTV|5018|312 LVS|2|4|2|2|30000|0
 Nguyễn Thị Linh|21015|12 LDT|5|4|2|2|30000|0
+Nguyễn Thị Thuỳ|13697|382 NT|3|4|2|2|30000|0
 Nguyễn Thị Yến Vy|20040|145 THT|2|4|2|2|30000|0
 Phạm Thị Kiều Thơm|13826|186 QT|6|4|2|2|30000|0
 Phạm Thị Thương|14330|4 LQD BN|6|4|2|2|30000|0
-Đinh Thị Thùy Chinh|17034|116 TK|3|4|2|2|30000|0
-Đoàn Thị Kiều Loan|15768|55A NVL|3|4|2|2|30000|0
-Cao Thị Mỹ Liên|19648|103 TN|1|3|3|0|30000|0
-Mai Thị Thanh Dư|7605|36 N1 BD|1|3|3|0|30000|0
-Dương Thị Trà|8186|50BT4 NPC LD|7|5|0|5|25000|0
-Bùi Phương Anh|18694|109 TQH|3|4|1|3|25000|0
-Bùi Thị Ánh Ngọc|17588|264 LLQ|7|4|1|3|25000|0
-Huỳnh Kiều Như|12277|25 TD|4|4|1|3|25000|0
-Huỳnh Nguyễn Trúc Vy|21428|1146 KVC|1|4|1|3|25000|0
-Lê Thị Thuỳ CTV|21266|382 NT|3|4|1|3|25000|0
-Nguyễn Thị Kim Ngân|20813|401/1 NDT|1|4|1|3|25000|0
-Phạm Thị Châu|21137|382 NT|3|4|1|3|25000|0
-Trần Huỳnh Hồng Nhung|12059|145 THT|2|4|1|3|25000|0
-Liễu Thanh Mai|19612|103 TN|1|3|2|1|25000|0
+Mã Tiểu Nghi|20048|10 TP|6|5|1|4|30000|0
+Nguyễn Thị Huỳnh Như|19760|312 LVS|2|5|1|4|30000|0
+Nguyễn Thị Ngọc Nhi|20265|255 NAN|1|5|1|4|30000|0
+Phạm Thị Thu Hương|17883|363 LNQ TN|7|5|1|4|30000|0
+Viên Yến Vy|19753|575 AC|2|5|1|4|30000|0
+Đỗ Thị Lan Anh|18516|173 TN|7|5|1|4|30000|0
+Dương Thị Trà|8186|50BT4 NPC LD|7|6|0|6|30000|0
+Nguyễn Thị Loan Anh|10416|76 PVH|5|6|0|6|30000|0
 Lê Thị Hồng Ngân|9244|730 TL10|2|3|2|1|25000|0
 Lưu Thị Thuý Duy|12821|145 THT|2|3|2|1|25000|0
-Ngô Mỹ Xuyến|10304|1371 PVT|1|3|2|1|25000|0
-Nguyễn Diệu Hiền|9708|186 DTH|4|3|2|1|25000|0
 Nguyễn Ngọc Thảo Vy|20750|7 DTP LA|4|3|2|1|25000|0
-Nguyễn Thị Diễm CTV|5018|312 LVS|2|3|2|1|25000|0
-Nguyễn Thị Thuỳ|13697|382 NT|3|3|2|1|25000|0
+Nguyễn Thị Cẩm Ly|17625|65 CD|3|3|2|1|25000|0
+Nguyễn Thị Quỳnh Như|19516|255 NAN|1|3|2|1|25000|0
+Ngô Mỹ Xuyến|10304|1371 PVT|1|3|2|1|25000|0
 Thạch Thị Chanh Đa|11055|730 TL10|2|3|2|1|25000|0
 Trần Thị Kim Loan|18312|1180 QT|5|3|2|1|25000|0
 Võ Hoàng Anh Thư NQ|19798|62 LH|3|3|2|1|25000|0
 Võ Thị Trinh|21178|12 LDT|5|3|2|1|25000|0
 Vũ Trần Anh Thư|20833|237 NTT|4|3|2|1|25000|0
-Huỳnh Thị Khánh Vân|11761|25 TD|4|4|0|4|20000|0
-Ngô Thị Hàn Uyên|11103|186 DTH|4|4|0|4|20000|0
-Phạm Thị Hương Giang|14094|109 TQH|3|4|0|4|20000|0
-Thạch Thị Thanh|19569|25 TD|4|4|0|4|20000|0
-Trần Thị Kim Uyên|20986|236 DBT|4|4|0|4|20000|0
-Đỗ Thị Lan Anh|18516|173 TN|7|4|0|4|20000|0
-Dương Thị Ngọc Trinh|16635|103 TN|1|3|1|2|20000|0
+Bùi Phương Anh|18694|109 TQH|3|4|1|3|25000|0
+Bùi Thị Ánh Ngọc|17588|264 LLQ|7|4|1|3|25000|0
+Huỳnh Kiều Như|12277|25 TD|4|4|1|3|25000|0
+Lê Thị Thuỳ CTV|21266|382 NT|3|4|1|3|25000|0
+Nguyễn Thị Kim Ngân|20813|401/1 NDT|1|4|1|3|25000|0
+Nguyễn Thị Phú Tài|20130|312 LVS|2|4|1|3|25000|0
+Phạm Thị Châu|21137|382 NT|3|4|1|3|25000|0
+Thạch Thị Thanh|19569|25 TD|4|5|0|5|25000|0
+Nguyễn Lê Phương Nguyên|21272|190 HB|2|2|2|0|20000|0
+Nguyễn Thị Khánh Linh|16769|11 PKT|6|2|2|0|20000|0
+Ngô Thị Ngà|7836|363 LNQ TN|7|2|2|0|20000|0
+Trần Nguyễn Trâm Anh|19682|103 TN|1|2|2|0|20000|0
+sk.kn87|20521|90 NH|3|2|2|0|20000|0
 Hoàng Thị Linh|17591|290 QT TH|8|3|1|2|20000|0
-Mã Tiểu Nghi|20048|10 TP|6|3|1|2|20000|0
 Nguyễn Lê Diệp Linh|13502|145 THT|2|3|1|2|20000|0
+Nguyễn Ngọc Ánh|19034|420 HTP|4|3|1|2|20000|0
 Nguyễn Phan Như Ngọc|10345|12 LDT|5|3|1|2|20000|0
+Nguyễn Thuý Hằng|20122|99 TSN|2|3|1|2|20000|0
 Nguyễn Thị Huế Trân|21020|80 PL BD|1|3|1|2|20000|0
+Nguyễn Thị Hương Giang|19643|168 NVC|6|3|1|2|20000|0
 Nguyễn Thị Hồng Cẩm|20756|401/1 NDT|1|3|1|2|20000|0
+Nguyễn Thị Lành|19283|10 TP|6|3|1|2|20000|0
 Nguyễn Thị Thúy Hằng|9341|927 HG|2|3|1|2|20000|0
 Phùng Hoàng Như Thảo|20886|575 AC|2|3|1|2|20000|0
 Phạm Thị Hải Anh|9840|116 TK|3|3|1|2|20000|0
-Phạm Thị Thảo|21177|1180 QT|5|3|1|2|20000|0
-Trần Thị Thuý Kiều|21377|12 LDT|5|3|1|2|20000|0
 Đỗ Thị Hồng Phúc|21278|730 TL10|2|3|1|2|20000|0
-Nguyễn Thị Quỳnh Như|19516|255 NAN|1|2|2|0|20000|0
-Trần Nguyễn Trâm Anh|19682|103 TN|1|2|2|0|20000|0
-sk.kn87|20521|90 NH|3|2|2|0|20000|0
-Huỳnh Thị Kim My|12779|145 THT|2|3|0|3|15000|0
-Nguyễn Quốc Phương Vy|8353|1371 PVT|1|3|0|3|15000|0
-Nguyễn Thị Hà Thanh|19198|8 CVL|2|3|0|3|15000|0
-Nguyễn Thị Hồng Ngọc|13583|190 HB|2|3|0|3|15000|0
-Nguyễn Thị Phú Tài|20130|312 LVS|2|3|0|3|15000|0
-Trần Thị Huỳnh Hoa|21269|575 AC|2|3|0|3|15000|0
-Đỗ Thị Thu Trang|13672|90 NH|3|3|0|3|15000|0
+Huỳnh Thị Khánh Vân|11761|25 TD|4|4|0|4|20000|0
+Nguyễn Thị Hồng Ngọc|13583|190 HB|2|4|0|4|20000|0
+Ngô Thị Hàn Uyên|11103|186 DTH|4|4|0|4|20000|0
+Phạm Thị Hương Giang|14094|109 TQH|3|4|0|4|20000|0
+Trần Thị Kim Uyên|20986|236 DBT|4|4|0|4|20000|0
 Lê Nguyễn Phương Trinh|12164|186 DTH|4|2|1|1|15000|0
 Lê Thị Hồng Dung|21185|76 PVH|5|2|1|1|15000|0
 Lê Triệu Vy|21125|190 HB|2|2|1|1|15000|0
 Lý Hồng Nhung|19937|346 KT|7|2|1|1|15000|0
 Lại Thị Xuân|13549|90 NH|3|2|1|1|15000|0
-Nguyễn Ngọc Ánh|19034|420 HTP|4|2|1|1|15000|0
 Nguyễn Thanh Trúc|21339|483 TN|5|2|1|1|15000|0
-Nguyễn Thuý Hằng|20122|99 TSN|2|2|1|1|15000|0
-Nguyễn Thị Lành|19283|10 TP|6|2|1|1|15000|0
+Nguyễn Thị Thu Huyền|21307|382 NT|3|2|1|1|15000|0
+Nguyễn Thị Thu Xen|20989|10 TP|6|2|1|1|15000|0
 Nguyễn Thị Yến|7312|109 TQH|3|2|1|1|15000|0
+Phạm Kim Loan|21324|7 DTP LA|4|2|1|1|15000|0
 Phạm Thị Duyên|9504|50BT4 NPC LD|7|2|1|1|15000|0
+Phạm Thị Thu Hà|20845|103 TN|1|2|1|1|15000|0
 Trần Lê Yến My|20558|575 AC|2|2|1|1|15000|0
 Trần Thị Bích Nhi|20467|25 TD|4|2|1|1|15000|0
 lan.sk99|20628|173 TN|7|2|1|1|15000|0
 Đỗ Thị Ly|4581|55A NVL|3|2|1|1|15000|0
-Liễu Thị Thanh Trúc|17679|103 TN|1|2|0|2|10000|0
-Nguyễn Hồng Ngân|13968|65 CD|3|2|0|2|10000|0
-Nguyễn Lê Huyền Trân|13775|575 AC|2|2|0|2|10000|0
-Nguyễn Thanh Trúc|18519|264 LLQ|7|2|0|2|10000|0
-Nguyễn Thị Cẩm Hằng|20765|8 CVL|2|2|0|2|10000|0
-Nguyễn Thị Hiểu Ngân|19698|483 TN|5|2|0|2|10000|0
-Nguyễn Thị Linh|18840|68 LN NA|8|2|0|2|10000|0
-Nguyễn Thị Mỹ Tiên|20800|8 CVL|2|2|0|2|10000|0
-Nguyễn Thị Phương|6248|116 TK|3|2|0|2|10000|0
-Nguyễn Thị Thùy Linh|13511|202 DC|7|2|0|2|10000|0
-Nguyễn Thị Thùy Trang|20865|99 TSN|2|2|0|2|10000|0
-Nguyễn Thị Tường Vi|20849|236 DBT|4|2|0|2|10000|0
-Phạm Ngọc Trinh|11722|186 DTH|4|2|0|2|10000|0
-Phạm Thị Yến Nhi|11975|25 TD|4|2|0|2|10000|0
-Trương Thị Ngọc Nhi|12945|99 TSN|2|2|0|2|10000|0
-Trần Thị Hà Trang|11224|8 CVL|2|2|0|2|10000|0
-Uông Bội Linh|8595|290 QT TH|8|2|0|2|10000|0
+Huỳnh Thị Kim My|12779|145 THT|2|3|0|3|15000|0
+Nguyễn Lê Huyền Trân|13775|575 AC|2|3|0|3|15000|0
+Nguyễn Quốc Phương Vy|8353|1371 PVT|1|3|0|3|15000|0
+Nguyễn Thị Cẩm Hằng|20765|8 CVL|2|3|0|3|15000|0
+Nguyễn Thị Hà Thanh|19198|8 CVL|2|3|0|3|15000|0
+Nguyễn Thị Mỹ Tiên|20800|8 CVL|2|3|0|3|15000|0
+Nguyễn Thị Thùy Trang|20865|99 TSN|2|3|0|3|15000|0
+Trần Thị Huỳnh Hoa|21269|575 AC|2|3|0|3|15000|0
+Đỗ Thị Thu Trang|13672|90 NH|3|3|0|3|15000|0
 Bùi Ngọc Hương Thơm|21370|255 NAN|1|1|1|0|10000|0
+Lê Thị Hồng Nhung|19331|237 NTT|4|1|1|0|10000|0
+Lưu Ngọc Châm|19424|148 TD|7|1|1|0|10000|0
 Lại Thị Yến Nhi|19351|382 NT|3|1|1|0|10000|0
+Lừ Thị Nga|10544|168 NVC|6|1|1|0|10000|0
 NV 21560 (chua co ten)|21560|708 LTT|2|1|1|0|10000|0
-Nguyễn Lê Phương Nguyên|21272|190 HB|2|1|1|0|10000|0
 Nguyễn Như Ngọc|16195|1371 PVT|1|1|1|0|10000|0
 Nguyễn Nhật Kim Ngân|19605|25 TD|4|1|1|0|10000|0
 Nguyễn Thu Thuỷ|3565|168 NVC|6|1|1|0|10000|0
-Nguyễn Thị Cẩm Ly|17625|65 CD|3|1|1|0|10000|0
 Nguyễn Thị Hạnh|13073|186 DTH|4|1|1|0|10000|0
-Nguyễn Thị Khánh Linh|16769|11 PKT|6|1|1|0|10000|0
+Nguyễn Thị Ngọc Ánh|14682|362 NGT BN|6|1|1|0|10000|0
 Nguyễn Thị Phương|19851|80 TP TH|8|1|1|0|10000|0
 Nguyễn Thị Thanh Hiền|20893|116 TK|3|1|1|0|10000|0
-Nguyễn Thị Thu Huyền|21307|382 NT|3|1|1|0|10000|0
 Nguyễn Thị Xim|19020|39 HBT|7|1|1|0|10000|0
 Nguyễn Xuân Ngoan|21226|420 HTP|4|1|1|0|10000|0
-Ngô Thị Ngà|7836|363 LNQ TN|7|1|1|0|10000|0
 Phạm Thị Huyền My|20518|65 CD|3|1|1|0|10000|0
 Phạm Thị Hằng|21373|80 PL BD|1|1|1|0|10000|0
 Phạm Thị Lương|6607|290 QT TH|8|1|1|0|10000|0
@@ -498,13 +493,29 @@ Võ Thị Mỹ Ân|18942|730 TL10|2|1|1|0|10000|0
 Võ Thị Thanh Hà CTV|2281|8 CVL|2|1|1|0|10000|0
 Vương Mỹ Uyên|21327|80 PL BD|1|1|1|0|10000|0
 hoai.anhsk|21236|363 LNQ TN|7|1|1|0|10000|0
+La Thị Duyên|17789|62 LH|3|2|0|2|10000|0
+Liễu Thị Thanh Trúc|17679|103 TN|1|2|0|2|10000|0
+Mai Thị Trà My|17243|116 TK|3|2|0|2|10000|0
+Nguyễn Hồng Ngân|13968|65 CD|3|2|0|2|10000|0
+Nguyễn Thanh Trúc|18519|264 LLQ|7|2|0|2|10000|0
+Nguyễn Thị Hiểu Ngân|19698|483 TN|5|2|0|2|10000|0
+Nguyễn Thị Linh|18840|68 LN NA|8|2|0|2|10000|0
+Nguyễn Thị Mỹ Duyên|21004|113 THD AG|4|2|0|2|10000|0
+Nguyễn Thị Phương|6248|116 TK|3|2|0|2|10000|0
+Nguyễn Thị Thùy Linh|13511|202 DC|7|2|0|2|10000|0
+Nguyễn Thị Tường Vi|20849|236 DBT|4|2|0|2|10000|0
+Phạm Ngọc Trinh|11722|186 DTH|4|2|0|2|10000|0
+Phạm Thị Yến Nhi|11975|25 TD|4|2|0|2|10000|0
+Trương Thị Ngọc Nhi|12945|99 TSN|2|2|0|2|10000|0
+Trần Thị Hà Trang|11224|8 CVL|2|2|0|2|10000|0
+Uông Bội Linh|8595|290 QT TH|8|2|0|2|10000|0
 Bùi Thanh Thư|19840|346 KT|7|1|0|1|5000|0
 Bùi Thị Bão Nhi|13903|99 TSN|2|1|0|1|5000|0
 Cao Thị Linh|9070|39 HBT|7|1|0|1|5000|0
 Dương Thị Mai Huyền|21183|65 CD|3|1|0|1|5000|0
 Huỳnh Thị Phương Thảo|19997|483 TN|5|1|0|1|5000|0
 HỒ THỊ DUNG|21405|362 NGT BN|6|1|0|1|5000|0
-La Thị Duyên|17789|62 LH|3|1|0|1|5000|0
+Lâm Thị Hồng Ngọc|20362|76 PVH|5|1|0|1|5000|0
 Lê Phạm Trà Giang|21321|202 DC|7|1|0|1|5000|0
 Lương Thị Thảo Nhi|20856|312 LVS|2|1|0|1|5000|0
 Lỳ Cẩm Linh|21424|65 CD|3|1|0|1|5000|0
@@ -517,25 +528,22 @@ Nguyễn Ngọc Anh|15923|116 TK|3|1|0|1|5000|0
 Nguyễn Ngọc Mai Thanh|19670|237 NTT|4|1|0|1|5000|0
 Nguyễn Thị Diểm My|21359|312 LVS|2|1|0|1|5000|0
 Nguyễn Thị Hoài Thư|21374|255 NAN|1|1|0|1|5000|0
-Nguyễn Thị Hương Giang|19643|168 NVC|6|1|0|1|5000|0
 Nguyễn Thị Kim Oanh|21209|202 DC|7|1|0|1|5000|0
 Nguyễn Thị Lan Anh|20256|39 HBT|7|1|0|1|5000|0
-Nguyễn Thị Mỹ Duyên|21004|113 THD AG|4|1|0|1|5000|0
 Nguyễn Thị Ngọc Bích|20343|483 TN|5|1|0|1|5000|0
-Nguyễn Thị Thu Xen|20989|10 TP|6|1|0|1|5000|0
 Nguyễn Đặng Khánh Băng|20573|312 LVS|2|1|0|1|5000|0
 Ngô Thị Chí Hương|18966|312 LVS|2|1|0|1|5000|0
+Ni Khả Tú|20271|1180 QT|5|1|0|1|5000|0
 Phan Thị Mai Anh CTV Cuối Tuần|18978|148 TD|7|1|0|1|5000|0
 Phan Thị Thu Ngân|21291|29 HB|1|1|0|1|5000|0
-Phạm Kim Loan|21324|7 DTP LA|4|1|0|1|5000|0
 Phạm Ngọc Xuyên|14745|25 TD|4|1|0|1|5000|0
 Phạm Thị Hồng Duyên|19511|8 CVL|2|1|0|1|5000|0
-Phạm Thị Thu Hà|20845|103 TN|1|1|0|1|5000|0
 Thái Thị Thanh Thảo|11263|80 PL BD|1|1|0|1|5000|0
 Trương Thị Quỳnh Như|21194|58 NVC NA|8|1|0|1|5000|0
 Trần Thị Kim Phượng|19801|103 TN|1|1|0|1|5000|0
 Vy Thị Trà Giang|18076|362 NGT BN|6|1|0|1|5000|0
 Vy Thị Vân|14261|29 HB|1|1|0|1|5000|0
+Võ Thị Mỹ Ly|21245|236 DBT|4|1|0|1|5000|0
 Võ Thị Tuyết Nhi|20846|708 LTT|2|1|0|1|5000|0
 Đinh Nguyễn Mai Uyên|19854|312 LVS|2|1|0|1|5000|0`;
 
@@ -551,75 +559,75 @@ const SK_TOP10 = SKINNERS.filter(s=>s.top10).sort((a,b)=>
 );
 
 /* ---------- GDKV SUMMARY (gIdx|soSalon|billCoSkinner|luotBook|luotThapDiem) — LUY KE, 8/8 GĐKV ---------- */
-const GDKV_RAW = `1|8|3108|235|96
-2|9|5106|275|96
-3|7|3489|164|66
-4|7|3326|115|40
-5|5|1688|100|33
-6|6|2493|101|49
-7|8|3249|99|33
-8|5|1038|22|11`;
+const GDKV_RAW = `1|8|3451|268|111
+2|9|5620|306|109
+3|7|3869|184|73
+4|7|3681|130|45
+5|5|1851|110|36
+6|6|2773|117|58
+7|8|3587|106|36
+8|5|1122|23|11`;
 const GDKV_SUMMARY = GDKV_RAW.trim().split('\n').map(line=>{
   const [g,soSalon,bill,lb,ltd] = line.split('|').map(Number);
   return {gdkv:g,soSalon,bill,luotBook:lb,luotThapDiem:ltd};
 });
 
-/* ---------- SALON RANKING — BAN DOI CHIEU "tyle-tong-luot" (salon|gIdx|billCoSkinner|luotTong) — LUY KE, 55 salon co phat sinh (25/08-02/09, 9 ngay da chot du), so lieu goc GIONG HET file chinh (thuong-skinner_2026-08-25_2026-09-03.html). CHI KHAC: cot thu 4 la TONG luot (thap+cao diem) thay vi rieng luot thap diem — tu so cua "Ty le booking" o BANG SALON nay = luotTong/billCoSkinner (khac bang GDKV/Top10 van giu luot thap diem lam tu so, KHONG doi). luotTong lay tu tong SKB_RAW.luotBook (da la thap+cao) nhom theo salon, da doi chieu khop tong 1.111 va tong bill 23.497 voi file goc. Thu tu = ty le booking MOI desc (tie-break: luotTong desc, ten A-Z) — xep hang lai hoan toan so voi file goc. billCoSkinner = cong thuc dot 17, khong doi. ---------- */
-const SALON_RAW = `36 N1 BD|1|264|58
-1146 KVC|1|255|39
-401/1 NDT|1|246|26
-10 TP|6|511|53
-12 LDT|5|423|37
-80 PL BD|1|423|35
-927 HG|2|692|55
-145 THT|2|860|65
-382 NT|3|905|67
-730 TL10|2|610|41
-1180 QT|5|374|24
-186 DTH|4|456|29
-255 NAN|1|353|21
-173 TN|7|463|26
-55A NVL|3|321|18
-190 HB|2|365|20
-595 BT TH|8|221|12
-109 TQH|3|628|33
-202 DC|7|498|26
-32 NAT|5|250|13
-90 NH|3|311|16
-237 NTT|4|821|41
-363 LNQ TN|7|345|17
-99 TSN|2|656|32
-483 TN|5|369|18
-168 NVC|6|777|37
-575 AC|2|512|22
-103 TN|1|901|35
-312 LVS|2|629|21
-29 HB|1|435|14
-8 CVL|2|513|16
-1371 PVT|1|231|7
-25 TD|4|636|19
-76 PVH|5|272|8
-186 QT|6|143|4
-290 QT TH|8|217|6
-116 TK|3|779|20
-420 HTP|4|590|15
-50BT4 NPC LD|7|490|11
-346 KT|7|357|8
-7 DTP LA|4|183|4
-65 CD|3|282|6
-4 LQD BN|6|189|4
-264 LLQ|7|381|6
-62 LH|3|263|4
-236 DBT|4|429|6
-68 LN NA|8|169|2
-708 LTT|2|269|3
-39 HBT|7|445|4
-58 NVC NA|8|206|1
-113 THD AG|4|211|1
-80 TP TH|8|225|1
-11 PKT|6|254|1
-148 TD|7|270|1
-362 NGT BN|6|619|2`;
+/* ---------- SALON RANKING — BAN DOI CHIEU "tyle-tong-luot" (salon|gIdx|billCoSkinner|luotTong) — LUY KE FINAL, 55 salon co phat sinh (25/08-03/09, CA 10 NGAY DA CHOT DU, chien dich DA KET THUC), so lieu goc GIONG HET file chinh. CHI KHAC: cot thu 4 la TONG luot (thap+cao diem) thay vi rieng luot thap diem. luotTong lay tu tong SKB_RAW.luotBook nhom theo salon, da doi chieu khop tong 1.244 va tong bill 25.954 voi file goc. Thu tu = ty le booking MOI desc (tie-break: luotTong desc, ten A-Z). billCoSkinner = cong thuc dot 17, khong doi. ---------- */
+const SALON_RAW = `36 N1 BD|1|292|70
+1146 KVC|1|292|44
+401/1 NDT|1|271|30
+10 TP|6|568|60
+80 PL BD|1|463|39
+12 LDT|5|465|39
+145 THT|2|958|77
+927 HG|2|762|58
+382 NT|3|1011|75
+1180 QT|5|407|28
+730 TL10|2|663|43
+190 HB|2|391|25
+186 DTH|4|510|31
+255 NAN|1|388|23
+173 TN|7|507|28
+595 BT TH|8|238|13
+55A NVL|3|356|19
+237 NTT|4|910|48
+202 DC|7|544|28
+168 NVC|6|871|44
+32 NAT|5|281|14
+99 TSN|2|727|36
+109 TQH|3|691|34
+483 TN|5|408|20
+90 NH|3|335|16
+363 LNQ TN|7|383|18
+103 TN|1|1003|41
+575 AC|2|564|23
+312 LVS|2|691|23
+8 CVL|2|566|18
+76 PVH|5|290|9
+116 TK|3|871|27
+29 HB|1|479|14
+25 TD|4|701|20
+1371 PVT|1|263|7
+420 HTP|4|649|17
+186 QT|6|153|4
+65 CD|3|308|8
+290 QT TH|8|233|6
+7 DTP LA|4|204|5
+50BT4 NPC LD|7|545|12
+346 KT|7|396|8
+4 LQD BN|6|208|4
+62 LH|3|297|5
+236 DBT|4|471|7
+264 LLQ|7|417|6
+68 LN NA|8|181|2
+708 LTT|2|298|3
+113 THD AG|4|236|2
+39 HBT|7|493|4
+11 PKT|6|282|2
+148 TD|7|302|2
+58 NVC NA|8|224|1
+362 NGT BN|6|691|3
+80 TP TH|8|246|1`;
 const MEDAL = {1:{icon:'🥇',prize:500000}, 2:{icon:'🥈',prize:300000}, 3:{icon:'🥉',prize:200000}};
 const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
   const [name,g,bill,lb] = line.split('|');
@@ -630,7 +638,7 @@ const SALONS = SALON_RAW.trim().split('\n').map((line,i)=>{
   return {rank,name,gdkv:+g,bill:billN,luotBook,tyLe,dat,medal,giaiThuong: medal?medal.prize:0};
 });
 
-/* ---------- DAILY (ngay|thu|tong|thap|cao) — 10 ngay chien dich 25/08-03/09. Ngay chua dien ra = 0, khong suy dien. ---------- */
+/* ---------- DAILY (ngay|thu|tong|thap|cao) — 10/10 ngay chien dich 25/08-03/09 DA CHOT DU. Chien dich DA KET THUC. ---------- */
 const DAILY_RAW = `25/08|T3|133|56|77
 26/08|T4|102|46|56
 27/08|T5|119|57|62
@@ -640,7 +648,7 @@ const DAILY_RAW = `25/08|T3|133|56|77
 31/08|T2|114|55|59
 01/09|T3|77|40|37
 02/09|T4|101|54|47
-03/09|T5|0|0|0`;
+03/09|T5|133|55|78`;
 const DAILY = DAILY_RAW.trim().split('\n').map(line=>{
   const [date,wd,total,thap,cao] = line.split('|');
   return {date,wd,total:+total,thap:+thap,cao:+cao};
@@ -657,7 +665,7 @@ const HEAT_RAW = `25/08|T3|0,0,2,10,6,12,14,10,13,10,13,28,13,2,0
 31/08|T2|0,0,5,11,6,9,10,10,13,12,14,13,7,4,0
 01/09|T3|0,0,1,8,2,8,7,11,9,6,11,6,5,3,0
 02/09|T4|0,2,7,6,6,10,13,9,17,4,7,11,8,1,0
-03/09|T5|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0`;
+03/09|T5|0,1,6,9,7,10,8,12,16,6,20,27,9,2,0`;
 const HEAT_ROWS = HEAT_RAW.trim().split('\n').map(line=>{
   const [date,wd,vals] = line.split('|');
   return {date,wd,vals: vals.split(',').map(Number)};
@@ -670,7 +678,7 @@ function isPeakHour(wd,h){
   return h>=15 && h<=19;
 }
 
-/* ---------- DETAIL FULL LOG (ngay|thu|gioHen|K|salon|gIdx|skinner|maNV|bill|datLuc|leadPhut) — LUY KE 1.111 dong (25/08-02/09, 9 ngay da chot du + 03/09 = 0 luot tai thoi diem query), DAY DU khong phai mau. Cap nhat dot 19 - 03/09/2026. ---------- */
+/* ---------- DETAIL FULL LOG (ngay|thu|gioHen|K|salon|gIdx|skinner|maNV|bill|datLuc|leadPhut) — LUY KE FINAL 1.244 dong (25/08-03/09, CA 10 NGAY DA CHOT DU), DAY DU khong phai mau. Cap nhat dot 20 - 04/09/2026 (CHOT CUOI CUNG). ---------- */
 const DETAIL_RAW = `25/08|T3|09:00|T|55A NVL|3|Đoàn Thị Kiều Loan|15768|25.156.800|08:21|39
 25/08|T3|09:30|T|10 TP|6|Đỗ Thị Trâm|19535|25.156.690|08:15|74
 25/08|T3|10:00|T|382 NT|3|Lại Thị Yến Nhi|19351|25.156.789|08:19|100
@@ -1781,7 +1789,140 @@ const DETAIL_RAW = `25/08|T3|09:00|T|55A NVL|3|Đoàn Thị Kiều Loan|15768|25
 02/09|T4|19:30|C|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.200.231|18:04|85
 02/09|T4|19:30|C|730 TL10|2|Nguyễn Huỳnh Nhã Trúc|20964|25.200.474|18:53|37
 02/09|T4|19:30|C|255 NAN|1|Vũ Thị Hiền|20339|25.200.504|16:20|189
-02/09|T4|20:00|T|99 TSN|2|Trần Thị Kim Ngân|20866|25.200.520|15:58|242`;
+02/09|T4|20:00|T|99 TSN|2|Trần Thị Kim Ngân|20866|25.200.520|15:58|242
+03/09|T5|08:30|T|116 TK|3|Hoàng Thị Minh Huế|5760|25.200.793|07:04|85
+03/09|T5|09:00|T|730 TL10|2|Quách Tuyết Trang|10119|25.200.625|07:50|69
+03/09|T5|09:00|T|7 DTP LA|4|Phạm Kim Loan|21324|25.200.673|07:46|73
+03/09|T5|09:00|T|168 NVC|6|Lừ Thị Nga|10544|25.200.778|08:02|58
+03/09|T5|09:00|T|168 NVC|6|Nguyễn Thị Thêu|1909|25.200.902|08:43|16
+03/09|T5|09:00|T|401/1 NDT|1|Lê Thị Mai Ly|19894|25.201.094|08:49|10
+03/09|T5|09:30|T|32 NAT|5|Ngô Mỹ Huyền|10289|25.201.183|08:52|38
+03/09|T5|10:00|T|10 TP|6|Nguyễn Thị Thu Xen|20989|25.200.912|06:59|181
+03/09|T5|10:00|T|103 TN|1|Dương Thị Ngọc Trinh|16635|25.201.218|09:59|1
+03/09|T5|10:00|T|168 NVC|6|Nguyễn Thị Hương Giang|19643|25.201.305|08:59|60
+03/09|T5|10:00|T|55A NVL|3|Đoàn Thị Kiều Loan|15768|25.201.974|06:50|190
+03/09|T5|10:30|T|255 NAN|1|Vũ Thị Hiền|20339|25.201.045|09:32|57
+03/09|T5|10:30|T|1146 KVC|1|Nguyễn Thị Mỹ Diễm|21188|25.201.082|08:21|128
+03/09|T5|10:30|T|148 TD|7|Lưu Ngọc Châm|19424|25.201.260|07:18|192
+03/09|T5|10:30|T|382 NT|3|Nguyễn Thị Lan|18586|25.201.396|10:21|9
+03/09|T5|10:30|T|190 HB|2|Từ Thị Mỹ Ánh|7304|25.201.624|09:31|59
+03/09|T5|11:00|T|363 LNQ TN|7|Ngô Thị Ngà|7836|25.201.318|07:40|199
+03/09|T5|11:00|T|168 NVC|6|Vũ Hải Linh|11287|25.201.341|09:36|84
+03/09|T5|11:00|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.201.529|10:44|15
+03/09|T5|11:00|T|145 THT|2|Nguyễn Thị Như Ý|20801|25.201.542|11:09|-9
+03/09|T5|11:30|T|401/1 NDT|1|Lê Thị Mai Ly|19894|25.201.506|08:41|168
+03/09|T5|11:30|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.201.641|09:26|124
+03/09|T5|11:30|T|730 TL10|2|Quách Tuyết Trang|10119|25.201.777|11:13|16
+03/09|T5|12:00|T|190 HB|2|Nguyễn Lê Phương Nguyên|21272|25.201.387|08:56|184
+03/09|T5|12:00|T|99 TSN|2|Danh Thị Sa Ri|7597|25.201.686|11:07|53
+03/09|T5|12:00|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.201.768|10:28|92
+03/09|T5|12:00|T|103 TN|1|Liễu Thanh Mai|19612|25.201.811|11:23|36
+03/09|T5|12:00|T|927 HG|2|Cao Thị Kim Chi|19735|25.201.907|10:42|77
+03/09|T5|12:00|T|80 PL BD|1|Nguyễn Thị Nga|17787|25.201.908|11:09|50
+03/09|T5|12:00|T|382 NT|3|Nguyễn Thị Minh|10519|25.202.084|11:33|27
+03/09|T5|12:30|T|11 PKT|6|Nguyễn Thị Khánh Linh|16769|25.201.721|08:52|217
+03/09|T5|12:30|T|116 TK|3|Đinh Thị Thùy Chinh|17034|25.201.736|12:13|17
+03/09|T5|12:30|T|312 LVS|2|Nguyễn Thị Phú Tài|20130|25.201.870|11:59|30
+03/09|T5|13:00|T|1180 QT|5|Phạm Thị Thảo|21177|25.201.691|09:56|184
+03/09|T5|13:00|T|382 NT|3|Nguyễn Thị Thu Quỳnh|17766|25.201.734|09:42|197
+03/09|T5|13:00|T|420 HTP|4|Lê Thị Kiều Oanh|19860|25.201.993|10:58|122
+03/09|T5|13:00|T|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.202.082|12:29|31
+03/09|T5|13:00|T|145 THT|2|Trương Thị Kim Tuyền|18104|25.202.105|11:20|100
+03/09|T5|13:00|T|10 TP|6|Đỗ Thị Trâm|19535|25.202.185|12:21|39
+03/09|T5|13:30|T|103 TN|1|Nguyễn Thị Hồng Hà|18811|25.202.078|12:55|34
+03/09|T5|13:30|T|173 TN|7|Đỗ Thị Lan Anh|18516|25.202.132|12:41|48
+03/09|T5|14:00|T|99 TSN|2|Danh Thị Sa Ri|7597|25.202.152|13:40|20
+03/09|T5|14:00|T|145 THT|2|Trang Thị Hồng An|9601|25.202.177|12:54|66
+03/09|T5|14:00|T|401/1 NDT|1|Lê Thị Mai Ly|19894|25.202.261|13:34|25
+03/09|T5|14:00|T|12 LDT|5|Trần Thị Thuý Kiều|21377|25.202.341|13:14|45
+03/09|T5|14:00|T|237 NTT|4|Võ Thị Thu Ngân|4627|25.202.363|13:37|22
+03/09|T5|14:00|T|1146 KVC|1|Huỳnh Nguyễn Trúc Vy|21428|25.202.365|13:32|28
+03/09|T5|14:00|T|362 NGT BN|6|Nguyễn Thị Ngọc Ánh|14682|25.202.410|12:18|102
+03/09|T5|14:30|T|145 THT|2|Trang Thị Hồng An|9601|25.202.483|12:55|94
+03/09|T5|14:30|T|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.202.495|14:20|10
+03/09|T5|14:30|T|65 CD|3|Nguyễn Thị Cẩm Ly|17625|25.202.554|13:46|43
+03/09|T5|14:30|T|103 TN|1|Phạm Thị Thu Hà|20845|25.202.740|13:40|50
+03/09|T5|14:30|T|237 NTT|4|Lê Thị Hồng Nhung|19331|25.204.562|12:10|140
+03/09|T5|15:00|C|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.202.589|09:43|317
+03/09|T5|15:00|C|145 THT|2|Nguyễn Thị Mỹ Hường|858|25.202.607|13:03|116
+03/09|T5|15:00|C|10 TP|6|Đỗ Thị Trâm|19535|25.202.701|10:28|272
+03/09|T5|15:00|C|76 PVH|5|Lâm Thị Hồng Ngọc|20362|25.202.720|12:16|164
+03/09|T5|15:00|C|10 TP|6|Mã Tiểu Nghi|20048|25.202.735|14:15|44
+03/09|T5|15:00|C|168 NVC|6|Nguyễn Thị Hương Giang|19643|25.202.746|14:39|20
+03/09|T5|15:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.202.793|12:36|144
+03/09|T5|15:00|C|116 TK|3|Mai Thị Trà My|17243|25.202.877|13:53|66
+03/09|T5|15:00|C|595 BT TH|8|Nguyễn Thị Lan|18384|25.202.980|08:56|364
+03/09|T5|15:00|C|103 TN|1|Nguyễn Thị Ngọc Huyền|17415|25.203.036|13:07|113
+03/09|T5|15:00|C|237 NTT|4|Võ Thị Thu Ngân|4627|25.203.039|15:04|-4
+03/09|T5|15:00|C|168 NVC|6|Nguyễn Thị Thêu|1909|25.203.068|13:14|105
+03/09|T5|15:00|C|50BT4 NPC LD|7|Dương Thị Trà|8186|25.203.530|07:31|449
+03/09|T5|15:30|C|113 THD AG|4|Nguyễn Thị Mỹ Duyên|21004|25.202.855|11:52|218
+03/09|T5|15:30|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.202.894|11:13|257
+03/09|T5|15:30|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.202.913|15:23|6
+03/09|T5|16:00|C|312 LVS|2|Nguyễn Thị Diễm CTV|5018|25.202.878|15:17|43
+03/09|T5|16:00|C|116 TK|3|Đinh Thị Thùy Chinh|17034|25.203.191|14:55|65
+03/09|T5|16:00|C|186 DTH|4|Nguyễn Diệu Hiền|9708|25.203.478|14:29|90
+03/09|T5|16:00|C|1180 QT|5|Võ Thị Hồng|17662|25.203.705|10:37|323
+03/09|T5|16:30|C|927 HG|2|PHÙ THỊ HOÀNG UYÊN|942|25.203.268|16:03|27
+03/09|T5|16:30|C|190 HB|2|Từ Thị Mỹ Ánh|7304|25.204.895|14:31|119
+03/09|T5|17:00|C|483 TN|5|Bùi Thị Thảo Nhy|21003|25.202.728|10:15|405
+03/09|T5|17:00|C|202 DC|7|Hoàng Thị Thuỳ Trâm|20885|25.203.247|14:41|139
+03/09|T5|17:00|C|255 NAN|1|Nguyễn Thị Quỳnh Như|19516|25.203.461|15:09|111
+03/09|T5|17:00|C|382 NT|3|Nguyễn Thị Thu Huyền|21307|25.203.594|10:25|394
+03/09|T5|17:00|C|36 N1 BD|1|Đỗ Thuỳ Linh|20826|25.203.597|15:41|79
+03/09|T5|17:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.203.702|09:44|435
+03/09|T5|17:00|C|99 TSN|2|Nguyễn Thuý Hằng|20122|25.203.784|16:20|40
+03/09|T5|17:00|C|1180 QT|5|Phạm Thị Thảo|21177|25.203.885|16:48|12
+03/09|T5|17:00|C|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.203.897|16:03|56
+03/09|T5|17:00|C|65 CD|3|Nguyễn Thị Cẩm Ly|17625|25.204.050|16:53|6
+03/09|T5|17:00|C|382 NT|3|Nguyễn Thị Lan|18586|25.204.066|17:01|-1
+03/09|T5|17:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.204.094|14:27|153
+03/09|T5|17:30|C|36 N1 BD|1|Mai Thị Thanh Dư|7605|25.201.531|09:06|504
+03/09|T5|17:30|C|145 THT|2|Nguyễn Thị Như Ý|20801|25.203.654|15:34|115
+03/09|T5|17:30|C|116 TK|3|Hoàng Thị Minh Huế|5760|25.203.685|15:26|124
+03/09|T5|17:30|C|10 TP|6|Nguyễn Thị Lành|19283|25.203.846|14:56|154
+03/09|T5|17:30|C|1146 KVC|1|Nguyễn Trúc Anh|16549|25.203.871|17:00|30
+03/09|T5|17:30|C|80 PL BD|1|Nguyễn Thị Nga|17787|25.204.298|15:33|117
+03/09|T5|17:30|C|237 NTT|4|Nguyễn Phan Thảo My|11843|25.204.429|08:40|530
+03/09|T5|17:30|C|145 THT|2|Thạch Thi Sa RemCTV|7193|25.204.581|11:52|337
+03/09|T5|18:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.203.492|15:48|131
+03/09|T5|18:00|C|168 NVC|6|Nguyễn Thị Hiếu|14251|25.204.016|09:42|498
+03/09|T5|18:00|C|236 DBT|4|Võ Thị Mỹ Ly|21245|25.204.040|16:17|103
+03/09|T5|18:00|C|202 DC|7|Nguyễn Thị Ngần|5015|25.204.074|00:23|1056
+03/09|T5|18:00|C|109 TQH|3|Trần Thị Tuyết Ngân|17362|25.204.143|14:58|182
+03/09|T5|18:00|C|1146 KVC|1|Lê Thị Hiền|11079|25.204.230|16:50|70
+03/09|T5|18:00|C|8 CVL|2|Nguyễn Thị Mỹ Tiên|20800|25.204.231|17:16|44
+03/09|T5|18:00|C|190 HB|2|Nguyễn Thị Hồng Ngọc|13583|25.204.269|17:25|35
+03/09|T5|18:00|C|237 NTT|4|Nguyễn Thị Minh Thư|19255|25.204.314|14:18|221
+03/09|T5|18:00|C|483 TN|5|Bùi Thị Thảo Nhy|21003|25.204.375|13:42|258
+03/09|T5|18:00|C|145 THT|2|Võ Lê Hà Phương|20757|25.204.379|14:34|206
+03/09|T5|18:00|C|927 HG|2|Cao Thị Kim Chi|19735|25.204.526|16:54|66
+03/09|T5|18:00|C|145 THT|2|Trương Thị Kim Tuyền|18104|25.204.553|14:03|237
+03/09|T5|18:00|C|25 TD|4|Thạch Thị Thanh|19569|25.204.574|17:11|49
+03/09|T5|18:00|C|99 TSN|2|Nguyễn Thị Thùy Trang|20865|25.204.710|15:18|162
+03/09|T5|18:00|C|173 TN|7|Ngô Thị Nhung|14289|25.204.740|15:04|176
+03/09|T5|18:00|C|575 AC|2|Nguyễn Lê Huyền Trân|13775|25.204.993|17:46|14
+03/09|T5|18:30|C|8 CVL|2|Nguyễn Thị Cẩm Hằng|20765|25.204.241|18:11|19
+03/09|T5|18:30|C|186 DTH|4|Đồng Thị Thanh Tuyền|3965|25.204.431|18:13|16
+03/09|T5|18:30|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.204.458|15:48|162
+03/09|T5|18:30|C|382 NT|3|Nguyễn Thị Thuỳ|13697|25.204.489|18:32|-3
+03/09|T5|18:30|C|401/1 NDT|1|Trần Thị Kim Ngân|18228|25.204.506|17:38|52
+03/09|T5|18:30|C|237 NTT|4|Võ Ngọc Thy Nhã|17780|25.204.545|17:53|37
+03/09|T5|18:30|C|36 N1 BD|1|Đỗ Thị Kim Chi|12846|25.204.589|09:50|520
+03/09|T5|18:30|C|420 HTP|4|Nguyễn Ngọc Ánh|19034|25.204.678|14:15|255
+03/09|T5|18:30|C|62 LH|3|La Thị Duyên|17789|25.204.903|16:16|134
+03/09|T5|18:30|C|1180 QT|5|Ni Khả Tú|20271|25.204.987|18:19|11
+03/09|T5|19:00|C|12 LDT|5|Trần Thị Thuý Kiều|21377|25.204.484|13:59|300
+03/09|T5|19:00|C|36 N1 BD|1|Nguyễn Phan Thúy Hiền|14010|25.204.591|17:26|93
+03/09|T5|19:00|C|116 TK|3|Mai Thị Trà My|17243|25.204.861|16:54|126
+03/09|T5|19:00|C|382 NT|3|Tạ Thuỳ Linh|12032|25.204.871|04:11|888
+03/09|T5|19:00|C|382 NT|3|Nguyễn Thị Lan|18586|25.204.888|18:55|4
+03/09|T5|19:00|C|1146 KVC|1|Lê Thị Hiền|11079|25.205.002|18:48|11
+03/09|T5|19:00|C|145 THT|2|Trần Huỳnh Hồng Nhung|12059|25.205.036|10:00|539
+03/09|T5|19:30|C|10 TP|6|Mã Tiểu Nghi|20048|25.203.114|14:29|300
+03/09|T5|19:30|C|103 TN|1|Nguyễn Thị Thu Ngân|20771|25.204.837|18:28|61
+03/09|T5|20:00|T|10 TP|6|Nguyễn Thị Khánh Linh|13728|25.204.838|19:41|19
+03/09|T5|20:00|T|237 NTT|4|Nguyễn Thị Phú Quý|15706|25.205.004|19:36|23`;
 const DETAIL = DETAIL_RAW.trim().split('\n').map(line=>{
   const [ngay,thu,hour,k,salon,g,skinner,maNV,bill,datLuc,lead] = line.split('|');
   return {ngay,thu,hour,khungGio:k,salon,gdkv:+g,skinner,maNV,bill,datLuc,lead:+lead};
@@ -1790,11 +1931,11 @@ const DETAIL = DETAIL_RAW.trim().split('\n').map(line=>{
 /* ================= RENDER: KPI ================= */
 const kpiGrid = document.getElementById('kpi-grid');
 const kpis = [
-  {l:'Tổng lượt book hợp lệ (lũy kế)', v:fmtInt(424), s:'38,16% tổng lượt lũy kế (424/1.111)'},
-  {l:'Số Skinner hưởng thưởng (lũy kế)', v:fmtInt(252), s:'tại 55 salon'},
+  {l:'Tổng lượt book hợp lệ (CUỐI KỲ)', v:fmtInt(479), s:'38,51% tổng lượt cả chiến dịch (479/1.244)'},
+  {l:'Số Skinner hưởng thưởng (CUỐI KỲ)', v:fmtInt(260), s:'tại 55 salon'},
 ];
 kpiGrid.innerHTML = kpis.map(k=>`<div class="kpi big"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="s">${k.s}</div></div>`).join('')
-  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh lũy kế (55 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(1111/23497*100)}</div><div class="s">1.111 / 23.497 bill có dịch vụ Skinner, bất kể kênh đặt lịch (lũy kế 25/08–02/09, 9 ngày đã chốt đủ, mẫu số = bill có staff_hair_massage_id, không lọc is_book_at_salon)</div><div class="bar"><i style="width:${(1111/23497*100).toFixed(1)}%"></i></div></div>`;
+  + `<div class="kpi wide"><div class="l">Tỷ lệ booking đích danh CUỐI KỲ (55 salon có phát sinh / 58 salon Công ty)</div><div class="v">${fmtPct(1244/25954*100)}</div><div class="s">1.244 / 25.954 bill có dịch vụ Skinner, bất kể kênh đặt lịch (CẢ CHIẾN DỊCH 25/08–03/09, đủ 10/10 ngày, mẫu số = bill có staff_hair_massage_id, không lọc is_book_at_salon)</div><div class="bar"><i style="width:${(1244/25954*100).toFixed(1)}%"></i></div></div>`;
 
 /* ================= RENDER: DAILY CHART (10 cot, 1 cot/ngay) ================= */
 (function(){
@@ -1979,7 +2120,7 @@ function renderDetailTable(){
 document.getElementById('dt-search').addEventListener('input', renderDetailTable);
 document.getElementById('dt-status').addEventListener('change', renderDetailTable);
 renderDetailTable();
-document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ LŨY KẾ</b> (25/08–02/09, 9 ngày đã chốt đủ ngày + 03/09 chưa phát sinh lượt — 100%, không phải mẫu) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn.
+document.getElementById('dt-note').innerHTML = `Bảng hiển thị <b>đầy đủ ${DETAIL.length}/${DETAIL.length} lượt hợp lệ CUỐI KỲ</b> (25/08–03/09, đủ 10/10 ngày — 100%, không phải mẫu, đây là số liệu CHÍNH THỨC CUỐI CÙNG của cả chiến dịch) tại 58 salon Công ty, ghép từ <code>bi.ccm20250625_tip_khach_book_onl</code> và <code>main.book_hour</code> (giờ hẹn thật). "Lead time" tính từ lúc khách đặt lịch đến giờ hẹn.
 ⚠️ Cột <b>"Thưởng (công thức riêng)"</b> dùng công thức: 5.000đ/lượt CAO điểm + 10.000đ/lượt THẤP điểm (theo giờ hẹn, áp dụng đúng quy tắc T2-T6/T7-CN riêng từng ngày) — công thức này cũng là căn cứ phân loại "Lượt thấp điểm"/"Lượt cao điểm" ở bảng "Booking Skinner Toàn Hệ Thống" (bảng đó không hiển thị số tiền). Cột thưởng ở đây KHÔNG phải số liệu chính thức trên bảng lương (bảng lương thật trả đều 5.000đ/lượt).`;
 
 /* ================= LOOKUP ================= */
