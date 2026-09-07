@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Báo cáo Nhân sự Giờ cao điểm — Danh sách báo cáo</title>
+<style>
+  :root {
+    --bg: #F1F5F9; --panel: #FFFFFF; --border: #E2E8F0; --text: #0F172A; --muted: #64748B; --blue: #2563EB; --blue-bg: #EFF6FF;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 20px; color: var(--blue); margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
+  .list { display: flex; flex-direction: column; gap: 8px; }
+  a.item {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; text-decoration: none; color: var(--text);
+  }
+  a.item:hover { border-color: var(--blue); background: var(--blue-bg); }
+  a.item .date { font-weight: 600; }
+  a.item .dow { color: var(--muted); font-size: 12.5px; }
+  .empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Báo cáo Nhân sự Giờ cao điểm</h1>
+  <p class="sub">Chọn ngày để xem báo cáo chi tiết theo salon.</p>
+  <div class="list">
+<a class="item" href="gio_cao_diem_2026-09-08.html"><span class="date">08/09/2026</span><span class="dow">Thứ Ba</span></a>
+<a class="item" href="gio_cao_diem_2026-09-05.html"><span class="date">05/09/2026</span><span class="dow">Thứ Bảy</span></a>
+<a class="item" href="gio_cao_diem_2026-08-31.html"><span class="date">31/08/2026</span><span class="dow">Thứ Hai</span></a>
+<a class="item" href="gio_cao_diem_2026-08-30.html"><span class="date">30/08/2026</span><span class="dow">Chủ Nhật</span></a>
+<a class="item" href="gio_cao_diem_2026-08-29.html"><span class="date">29/08/2026</span><span class="dow">Thứ Bảy</span></a>
+<a class="item" href="gio_cao_diem_2026-08-28.html"><span class="date">28/08/2026</span><span class="dow">Thứ Sáu</span></a>
+  </div>
+</div>
+</body>
+</html>
