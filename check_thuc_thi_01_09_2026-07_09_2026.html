@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Thực thi Đề xuất Điều chuyển N+1 — 01/09–07/09/2026</title>
+<style>
+  :root {
+    --bg: #F8FAFC; --panel: #FFFFFF; --panel2: #F8FAFC; --border: #E2E8F0; --text: #0F172A; --muted: #64748B;
+    --red: #DC2626; --red-bg: #FEF2F2; --red-solid: #DC2626; --green: #059669; --green-bg: #ECFDF5;
+    --blue: #2563EB; --blue-bg: #EFF6FF; --amber: #D97706; --amber-bg: #FFFBEB;
+    --gold: #2563EB; --card-border: #D7DFEC;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 28px; color: var(--text);
+    background-color: #F8FAFC;
+    background-image:
+      radial-gradient(620px circle at 6% 10%, rgba(96,165,250,.32), transparent 60%),
+      radial-gradient(680px circle at 96% 12%, rgba(244,114,182,.26), transparent 60%),
+      radial-gradient(720px circle at 45% 105%, rgba(52,211,153,.26), transparent 65%);
+    background-repeat: no-repeat; background-attachment: fixed;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; }
+  h1 { font-size: 21px; margin: 0 0 4px; color: var(--gold); letter-spacing: .02em; }
+  h2 { font-size: 15px; margin: 0 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 18px; font-size: 12.5px; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+  .summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 22px; }
+  .stat-card { background: var(--panel); border: 1.5px solid var(--card-border); border-radius: 12px; padding: 14px 18px; box-shadow: 0 3px 10px rgba(15,23,42,.06); }
+  .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .stat-value { font-size: 24px; font-weight: 800; margin-top: 4px; }
+  .stat-sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .stat-card.ok .stat-value { color: var(--green); }
+  .stat-card.sat .stat-value { color: var(--amber); }
+  .stat-card.thieu .stat-value { color: var(--red); }
+  .stat-card.hi .stat-value { color: var(--gold); }
+
+  .card {
+    background: var(--panel); border: 1.5px solid var(--card-border); border-top: 4px solid var(--gold); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 18px; box-shadow: 0 3px 10px rgba(15,23,42,.07);
+  }
+  .card h2 { color: var(--text); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th { text-align: right; padding: 6px 8px; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; font-size: 10.5px; text-transform: uppercase; }
+  thead th.left { text-align: left; }
+  tbody td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: right; vertical-align: top; }
+  tbody td.left { text-align: left; }
+  tbody tr:hover td { background: var(--panel2); }
+
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.thieu { background: var(--red-bg); color: var(--red); }
+  .badge.sat { background: var(--amber-bg); color: var(--amber); }
+  .badge.ok { background: var(--green-bg); color: var(--green); }
+
+  .vitri-tag { display: inline-block; padding: 1px 8px; border-radius: 5px; font-size: 10.5px; font-weight: 700; }
+  .vitri-tag.Stylist { background: #EDE9FE; color: #6D28D9; }
+  .vitri-tag.Skinner { background: #DBEAFE; color: #1D4ED8; }
+
+  .reason-row { margin-bottom: 14px; }
+  .reason-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .reason-name { font-weight: 700; }
+  .reason-num { color: var(--muted); font-size: 12px; }
+  .reason-bar-wrap { height: 10px; background: var(--panel2); border-radius: 5px; overflow: hidden; margin-bottom: 4px; }
+  .reason-bar { height: 100%; border-radius: 5px; }
+  .reason-desc { font-size: 11.5px; color: var(--muted); }
+
+  .gdkv-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+  .gdkv-tab { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--card-border); background: var(--panel); cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .gdkv-tab.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .gdkv-tab .cnt { font-weight: 400; opacity: .8; margin-left: 4px; }
+  .gdkv-tab.flag-thieu { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+  .gdkv-tab.active.flag-thieu { background: var(--red-solid); border-color: var(--red-solid); color: #fff; }
+  .gdkv-panel { display: none; padding-top: 14px; }
+  .gdkv-panel.active { display: block; }
+
+  .caveat-list { font-size: 12.5px; line-height: 1.8; padding-left: 20px; }
+  .caveat-list li { margin-bottom: 6px; }
+  .no-issue { color: var(--green); font-size: 13px; padding: 8px 0; }
+  footer { color: var(--muted); font-size: 11.5px; margin-top: 20px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Check Thực thi Đề xuất Điều chuyển N+1</h1>
+  <p class="sub">Kỳ 01/09–07/09/2026 · 132 đề xuất · 7 ngày ·
+    Ngày phân tích: 8/9/2026 · Nguồn: <span class="mono">bi.doanhthu_staff_overview</span> (thực tế),
+    <span class="mono">bi.flow_time_keeping_multi_salon_register</span> (đăng ký gốc),
+    <span class="mono">bi.doanhthu_salon_overview</span> (KH thực tế) — Postgres <span class="mono">pgdb-bi</span></p>
+
+  <div class="summary-bar">
+    <div class="stat-card hi"><div class="stat-label">Tổng đề xuất</div><div class="stat-value">132</div><div class="stat-sub">7 ngày · 8 GĐKV</div></div>
+    <div class="stat-card ok"><div class="stat-label">✅ Thực thi đúng</div><div class="stat-value">0</div><div class="stat-sub">0.0%</div></div>
+    <div class="stat-card sat"><div class="stat-label">📋 Bổ sung khác</div><div class="stat-value">36</div><div class="stat-sub">27.3%</div></div>
+    <div class="stat-card thieu"><div class="stat-label">❌ Không TT</div><div class="stat-value">96</div><div class="stat-sub">72.7%</div></div>
+    <div class="stat-card hi"><div class="stat-label">Tỷ lệ giải quyết</div><div class="stat-value">27.3%</div><div class="stat-sub">Thực thi đúng + Bổ sung khác</div></div>
+  </div>
+
+  <div class="card">
+    <h2>1. Tổng hợp theo ngày</h2>
+    <table><thead><tr><th class="left">Ngày</th><th>Tổng</th><th>✅ Đúng NV</th><th>📋 Bổ sung khác</th><th>❌ Không TT</th><th>Tỷ lệ giải quyết</th></tr></thead>
+    <tbody><tr><td class="left">Thứ Ba, 01/09</td><td>24</td><td>0</td><td>0</td><td>24</td>
+      <td><b>0.0%</b></td></tr><tr><td class="left">Thứ Tư, 02/09</td><td>22</td><td>0</td><td>0</td><td>22</td>
+      <td><b>0.0%</b></td></tr><tr><td class="left">Thứ Năm, 03/09</td><td>20</td><td>0</td><td>4</td><td>16</td>
+      <td><b>20.0%</b></td></tr><tr><td class="left">Thứ Sáu, 04/09</td><td>19</td><td>0</td><td>8</td><td>11</td>
+      <td><b>42.1%</b></td></tr><tr><td class="left">Thứ Bảy, 05/09</td><td>16</td><td>0</td><td>9</td><td>7</td>
+      <td><b>56.3%</b></td></tr><tr><td class="left">Chủ Nhật, 06/09</td><td>13</td><td>0</td><td>5</td><td>8</td>
+      <td><b>38.5%</b></td></tr><tr><td class="left">Thứ Hai, 07/09</td><td>18</td><td>0</td><td>10</td><td>8</td>
+      <td><b>55.6%</b></td></tr></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>2. Tổng hợp theo GĐKV (theo GĐKV gửi)</h2>
+    <table><thead><tr><th class="left">GĐKV</th><th>Tổng</th><th>✅ Đúng NV</th><th>📋 Bổ sung khác</th><th>❌ Không TT</th><th>Tỷ lệ giải quyết</th></tr></thead>
+    <tbody><tr><td class="left">Đoàn Trung Đức</td><td>26</td><td>0</td><td>10</td><td>16</td>
+      <td><b>38.5%</b></td></tr><tr><td class="left">Tống Xuân Quyền</td><td>24</td><td>0</td><td>4</td><td>20</td>
+      <td><b>16.7%</b></td></tr><tr><td class="left">Nguyễn Thanh Sang</td><td>18</td><td>0</td><td>8</td><td>10</td>
+      <td><b>44.4%</b></td></tr><tr><td class="left">Trịnh Văn Quang</td><td>18</td><td>0</td><td>2</td><td>16</td>
+      <td><b>11.1%</b></td></tr><tr><td class="left">Phan Thị Hồng Gấm</td><td>16</td><td>0</td><td>8</td><td>8</td>
+      <td><b>50.0%</b></td></tr><tr><td class="left">Nguyễn Như Quỳnh</td><td>14</td><td>0</td><td>2</td><td>12</td>
+      <td><b>14.3%</b></td></tr><tr><td class="left">Nguyễn Việt Cường</td><td>10</td><td>0</td><td>2</td><td>8</td>
+      <td><b>20.0%</b></td></tr><tr><td class="left">Nguyễn Thị Huệ</td><td>6</td><td>0</td><td>0</td><td>6</td>
+      <td><b>0.0%</b></td></tr></tbody></table>
+    <p class="sub" style="margin-top:10px;margin-bottom:0">Nhóm theo <b>GĐKV gửi</b> (GDKV_gui trong CSV engine) — GĐKV chịu trách nhiệm quyết định có "nhả" NV đi điều chuyển hay không.</p>
+  </div>
+
+  <div class="card">
+    <h2>3. Chi tiết theo GĐKV (click để xem)</h2>
+    <div class="gdkv-tabs"><button class="gdkv-tab active " onclick="showGdkv('onTrungcGDKV',this)">Đoàn Trung Đức <span class="cnt">26</span></button><button class="gdkv-tab  flag-thieu" onclick="showGdkv('TngXunQuynGDKV',this)">Tống Xuân Quyền <span class="cnt">24</span></button><button class="gdkv-tab  " onclick="showGdkv('NguyenThanhSangGDKV',this)">Nguyễn Thanh Sang <span class="cnt">18</span></button><button class="gdkv-tab  flag-thieu" onclick="showGdkv('TrnhVnQuangGDKV',this)">Trịnh Văn Quang <span class="cnt">18</span></button><button class="gdkv-tab  " onclick="showGdkv('PhanThHngGmGDKV',this)">Phan Thị Hồng Gấm <span class="cnt">16</span></button><button class="gdkv-tab  flag-thieu" onclick="showGdkv('NguynNhQunhGDKV',this)">Nguyễn Như Quỳnh <span class="cnt">14</span></button><button class="gdkv-tab  flag-thieu" onclick="showGdkv('NguynVitCngGDKV',this)">Nguyễn Việt Cường <span class="cnt">10</span></button><button class="gdkv-tab  flag-thieu" onclick="showGdkv('NguynThHuGDKV',this)">Nguyễn Thị Huệ <span class="cnt">6</span></button></div>
+    <div class="gdkv-panel active" id="panel-onTrungcGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#6804 Lương Anh Khánh</td>
+      <td>456.383đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV đi làm ở salon khác</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#21144 Nguyễn Văn Giao</td>
+      <td>456.383đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#20518 Phạm Thị Huyền My</td>
+      <td>304.189đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#21183 Dương Thị Mai Huyền</td>
+      <td>304.189đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">62 LH (S228)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#9965 Phạm Trọng Long</td>
+      <td>497.427đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">62 LH (S228)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#6804 Lương Anh Khánh</td>
+      <td>497.427đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#18694 Bùi Phương Anh</td>
+      <td>306.851đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#7312 Nguyễn Thị Yến</td>
+      <td>306.851đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#18226 Trần Thị Kim Ngân</td>
+      <td>238.148đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">109 TQH (S146)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#7312 Nguyễn Thị Yến</td>
+      <td>238.148đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">62 LH (S228)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#6804 Lương Anh Khánh</td>
+      <td>236.195đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21257, #21250</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">62 LH (S228)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#9965 Phạm Trọng Long</td>
+      <td>236.195đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21257, #21250</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#21424 Lỳ Cẩm Linh</td>
+      <td>438.873đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#20518 Phạm Thị Huyền My</td>
+      <td>438.873đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#21183 Dương Thị Mai Huyền</td>
+      <td>442.724đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #6248, #21153, #20893</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#20518 Phạm Thị Huyền My</td>
+      <td>442.724đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #6248, #21153, #20893</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#2499 Hoàng Văn Linh</td>
+      <td>269.541đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#8552 Nguyễn Mạnh Đạt</td>
+      <td>269.541đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#8552 Nguyễn Mạnh Đạt</td>
+      <td>566.319đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#2499 Hoàng Văn Linh</td>
+      <td>566.319đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#21424 Lỳ Cẩm Linh</td>
+      <td>258.159đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #11536</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">65 CD (S197)</td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">#20518 Phạm Thị Huyền My</td>
+      <td>258.159đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #11536</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#2499 Hoàng Văn Linh</td>
+      <td>440.201đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #610</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">90 NH (S194)</td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">#8552 Nguyễn Mạnh Đạt</td>
+      <td>440.201đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #610</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#5760 Hoàng Thị Minh Huế</td>
+      <td>316.018đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21307</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">116 TK (S187)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#20893 Nguyễn Thị Thanh Hiền</td>
+      <td>316.018đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21307</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-TngXunQuynGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#16663 Lê Đình Khôi</td>
+      <td>251.555đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#13779 Đoàn Ngọc Nhất</td>
+      <td>214.278đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#20962 Nguyễn Thị Hồng Ngân </td>
+      <td>203.401đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#19034 Nguyễn Ngọc Ánh</td>
+      <td>203.401đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#21460 Nguyễn Thị Mỹ Nữ</td>
+      <td>479.527đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#13779 Đoàn Ngọc Nhất</td>
+      <td>451.038đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#20004 Nguyễn Thị Hồng Thắm</td>
+      <td>273.597đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#21304 Trần Tú Như</td>
+      <td>273.597đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#3825 Đặng Khắc Thanh</td>
+      <td>301.887đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#13779 Đoàn Ngọc Nhất</td>
+      <td>272.739đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">#12277 Huỳnh Kiều Như </td>
+      <td>496.143đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21549</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">#11761 Huỳnh Thị Khánh Vân</td>
+      <td>496.143đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21549</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#21271  Nguyễn Mạnh Tuấn</td>
+      <td>313.392đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#21129 Huỳnh Thị Kim Mơ</td>
+      <td>281.675đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#13779 Đoàn Ngọc Nhất</td>
+      <td>279.610đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#20537 Kiêm Thị Huỳnh</td>
+      <td>544.788đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #15715</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#11975 Phạm Thị Yến Nhi</td>
+      <td>544.788đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #15715</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">#21460 Nguyễn Thị Mỹ Nữ</td>
+      <td>347.386đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#16303 Nguyễn Hà Phương</td>
+      <td>568.662đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#20537 Kiêm Thị Huỳnh</td>
+      <td>568.662đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">#12277 Huỳnh Kiều Như </td>
+      <td>276.324đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">25 TD (S45)</td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">#11761 Huỳnh Thị Khánh Vân</td>
+      <td>276.324đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">236 DBT (S141)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#11389 Phan Thanh Thảo</td>
+      <td>267.153đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">420 HTP (S51)</td>
+      <td class="left">237 NTT (S145)</td>
+      <td class="left">#13779 Đoàn Ngọc Nhất</td>
+      <td>163.950đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-NguyenThanhSangGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20558 Trần Lê Yến My</td>
+      <td>1.433.336đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#21269 Trần Thị Huỳnh Hoa</td>
+      <td>1.433.336đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#2312 Nguyễn Thành Nam</td>
+      <td>295.446đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#1744 Nguyễn Thanh Phong</td>
+      <td>295.446đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#13775 Nguyễn Lê Huyền Trân</td>
+      <td>1.414.791đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20558 Trần Lê Yến My</td>
+      <td>1.414.791đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">190 HB (S188)</td>
+      <td class="left">730 TL10 (S58)</td>
+      <td class="left">#21146 Trần Minh Hùng</td>
+      <td>253.897đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">190 HB (S188)</td>
+      <td class="left">730 TL10 (S58)</td>
+      <td class="left">#19722 Trần Minh Thuận</td>
+      <td>253.897đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">145 THT (S193)</td>
+      <td class="left">312 LVS (S69)</td>
+      <td class="left">#20801 Nguyễn Thị Như Ý </td>
+      <td>178.099đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">145 THT (S193)</td>
+      <td class="left">312 LVS (S69)</td>
+      <td class="left">#12779 Huỳnh Thị Kim My</td>
+      <td>178.099đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#2530 Nguyễn Đông Huy</td>
+      <td>185.398đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21403</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#20515 Ngô Nguyễn Trung Hiếu</td>
+      <td>185.398đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21403</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20558 Trần Lê Yến My</td>
+      <td>2.090.162đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #10630, #19337</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20886 Phùng Hoàng Như Thảo </td>
+      <td>2.090.162đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #10630, #19337</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">145 THT (S193)</td>
+      <td class="left">312 LVS (S69)</td>
+      <td class="left">#20801 Nguyễn Thị Như Ý </td>
+      <td>331.711đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #20130, #18612, #20573, #21359</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">145 THT (S193)</td>
+      <td class="left">312 LVS (S69)</td>
+      <td class="left">#12059 Trần Huỳnh Hồng Nhung</td>
+      <td>331.711đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #20130, #18612, #20573, #21359</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#2530 Nguyễn Đông Huy</td>
+      <td>175.726đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #3503, #21403, #21280</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">8 CVL (S11)</td>
+      <td class="left">927 HG (S22)</td>
+      <td class="left">#1744 Nguyễn Thanh Phong</td>
+      <td>175.726đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #3503, #21403, #21280</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-TrnhVnQuangGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">1180 QT (S61)</td>
+      <td class="left">76 PVH (S106)</td>
+      <td class="left">#3960 Nguyễn Sanh</td>
+      <td>230.866đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">1180 QT (S61)</td>
+      <td class="left">76 PVH (S106)</td>
+      <td class="left">#17788 Nguyễn Xuân Toàn</td>
+      <td>230.866đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#11285 Trần Hầu Xìm</td>
+      <td>206.702đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#21003 Bùi Thị Thảo Nhy</td>
+      <td>206.702đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">#19756 Phạm Tiến Phát</td>
+      <td>387.335đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">#6608 Phạm Văn Nhiều</td>
+      <td>387.335đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#19997 Huỳnh Thị Phương Thảo</td>
+      <td>177.316đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#11285 Trần Hầu Xìm</td>
+      <td>177.316đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">#19756 Phạm Tiến Phát</td>
+      <td>340.657đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">#8643 Ngô Văn Anh Thoại</td>
+      <td>340.657đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#10345 Nguyễn Phan Như Ngọc</td>
+      <td>249.713đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21340</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#21178 Võ Thị Trinh</td>
+      <td>249.713đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21340</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#6608 Phạm Văn Nhiều</td>
+      <td>163.348đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">32 NAT (S274)</td>
+      <td class="left">#19756 Phạm Tiến Phát</td>
+      <td>159.385đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#10345 Nguyễn Phan Như Ngọc</td>
+      <td>405.357đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#21178 Võ Thị Trinh</td>
+      <td>405.357đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#14114 Vũ Văn Quang</td>
+      <td>449.867đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">12 LDT (S12)</td>
+      <td class="left">483 TN (S46)</td>
+      <td class="left">#16753 Nguyễn Thanh Huy</td>
+      <td>359.050đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-PhanThHngGmGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#18707 Quách Tùng Dương</td>
+      <td>586.862đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#15061 Nguyễn Tiến Hiếu</td>
+      <td>586.862đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#15061 Nguyễn Tiến Hiếu</td>
+      <td>476.493đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#18707 Quách Tùng Dương</td>
+      <td>476.493đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#18707 Quách Tùng Dương</td>
+      <td>325.570đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">#15061 Nguyễn Tiến Hiếu</td>
+      <td>325.570đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20796 Đinh Thị Sin</td>
+      <td>182.803đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #19228</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#17236 Nguyễn Hoàng Bảo Anh</td>
+      <td>182.803đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #19228</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20777 Lữ Công Minh</td>
+      <td>1.541.508đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #4388, #589</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20313 Nguyễn Ngọc Sơn</td>
+      <td>1.541.508đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #4388, #589</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">346 KT (S2)</td>
+      <td class="left">#19020 Nguyễn Thị Xim</td>
+      <td>454.238đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #12173</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20313 Nguyễn Ngọc Sơn</td>
+      <td>1.056.689đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #19346, #589</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20777 Lữ Công Minh</td>
+      <td>1.056.689đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #19346, #589</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">346 KT (S2)</td>
+      <td class="left">#19020 Nguyễn Thị Xim</td>
+      <td>372.000đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #12173</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">#21321 Lê Phạm Trà Giang</td>
+      <td>282.281đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">202 DC (S196)</td>
+      <td class="left">264 LLQ (S192)</td>
+      <td class="left">#13760 Phạm Ngọc Lan Anh</td>
+      <td>282.281đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-NguynNhQunhGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#8646 Nguyễn Thị Ngọc Hoàn</td>
+      <td>970.262đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#18311 Nguyễn Lan Anh</td>
+      <td>970.262đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#13728 Nguyễn Thị Khánh Linh</td>
+      <td>280.873đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20989 Nguyễn Thị Thu Xen</td>
+      <td>280.873đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20992 Nguyễn Thị Cúc</td>
+      <td>196.208đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#13728 Nguyễn Thị Khánh Linh</td>
+      <td>196.208đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#8646 Nguyễn Thị Ngọc Hoàn</td>
+      <td>514.862đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21307, #18355</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">382 NT (S20)</td>
+      <td class="left">#20992 Nguyễn Thị Cúc</td>
+      <td>514.862đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #21307, #18355</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20989 Nguyễn Thị Thu Xen</td>
+      <td>831.397đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#15250 Lê Thị Ninh Khánh</td>
+      <td>630.616đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20989 Nguyễn Thị Thu Xen</td>
+      <td>719.067đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#15250 Lê Thị Ninh Khánh</td>
+      <td>534.141đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20989 Nguyễn Thị Thu Xen</td>
+      <td>590.704đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">10 TP (S143)</td>
+      <td class="left">55A NVL (S245)</td>
+      <td class="left">#20992 Nguyễn Thị Cúc</td>
+      <td>401.366đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-NguynVitCngGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#11079 Lê Thị Hiền</td>
+      <td>250.403đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#16549 Nguyễn Trúc Anh </td>
+      <td>250.403đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#16549 Nguyễn Trúc Anh </td>
+      <td>318.555đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#11079 Lê Thị Hiền</td>
+      <td>318.555đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#11079 Lê Thị Hiền</td>
+      <td>248.362đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">03/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#16549 Nguyễn Trúc Anh </td>
+      <td>248.362đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#16549 Nguyễn Trúc Anh </td>
+      <td>190.472đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#11079 Lê Thị Hiền</td>
+      <td>190.472đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon gửi sẽ quá tải nếu bớt 1 NV</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#11079 Lê Thị Hiền</td>
+      <td>239.996đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #6348, #21453</td>
+    </tr><tr>
+      <td class="left">07/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">1146 KVC (S249)</td>
+      <td class="left">29 HB (S63)</td>
+      <td class="left">#16549 Nguyễn Trúc Anh </td>
+      <td>239.996đ</td>
+      <td class="left"><span class="badge sat">📋 Bổ sung khác</span></td>
+      <td class="left">NV: #6348, #21453</td>
+    </tr></tbody></table>
+    </div><div class="gdkv-panel " id="panel-NguynThHuGDKV">
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>ΔDT</th><th class="left">Kết quả</th><th class="left">Chi tiết</th>
+      </tr></thead><tbody><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">290 QT TH (S230)</td>
+      <td class="left">304 NT TH (S231)</td>
+      <td class="left">#18511 Nguyễn Như Quỳnh</td>
+      <td>185.961đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV được gợi ý vắng mặt hôm đó</td>
+    </tr><tr>
+      <td class="left">01/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">595 BT TH (S233)</td>
+      <td class="left">304 NT TH (S231)</td>
+      <td class="left">#2074 Lê Thị Kim Ánh</td>
+      <td>185.961đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">595 BT TH (S233)</td>
+      <td class="left">304 NT TH (S231)</td>
+      <td class="left">#18384 Nguyễn Thị Lan</td>
+      <td>246.334đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">02/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">595 BT TH (S233)</td>
+      <td class="left">304 NT TH (S231)</td>
+      <td class="left">#19525 Nguyễn Thị Phượng</td>
+      <td>246.334đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">GĐKV không thực thi dù đủ điều kiện</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">595 BT TH (S233)</td>
+      <td class="left">80 TP TH (S232)</td>
+      <td class="left">#18384 Nguyễn Thị Lan</td>
+      <td>192.523đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">Salon nhận thực tế không cần thêm NV</td>
+    </tr><tr>
+      <td class="left">04/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">290 QT TH (S230)</td>
+      <td class="left">80 TP TH (S232)</td>
+      <td class="left">#17591 Hoàng Thị Linh</td>
+      <td>169.409đ</td>
+      <td class="left"><span class="badge thieu">❌ Không TT</span></td>
+      <td class="left">NV đi làm ở salon khác</td>
+    </tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>4. Phân bổ nguyên nhân không thực thi (96 case)</h2>
+    <div class="reason-row">
+      <div class="reason-top"><span class="reason-name">GĐKV không thực thi dù đủ điều kiện</span><span class="reason-num">40 case · 41.7%</span></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:41.7%;background:#475569"></div></div>
+      <div class="reason-desc">Sau khi loại các case không khả thi ở trên, đây là case thực sự có thể điều chuyển được nhưng GĐKV không hành động.</div>
+    </div><div class="reason-row">
+      <div class="reason-top"><span class="reason-name">Salon gửi sẽ quá tải nếu bớt 1 NV</span><span class="reason-num">21 case · 21.9%</span></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:21.9%;background:#2563EB"></div></div>
+      <div class="reason-desc">Salon gửi có &gt;2 NV nhưng nếu bớt 1 người, KH/NV thực tế sẽ vượt hard-cap (Stylist 13/17, Skinner 12/16 — ngày thường/cuối tuần).</div>
+    </div><div class="reason-row">
+      <div class="reason-top"><span class="reason-name">NV được gợi ý vắng mặt hôm đó</span><span class="reason-num">20 case · 20.8%</span></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:20.8%;background:#DC2626"></div></div>
+      <div class="reason-desc">NV được engine gợi ý không có bill ở bất kỳ salon nào trong ngày đó (nghỉ đột xuất/không đi làm).</div>
+    </div><div class="reason-row">
+      <div class="reason-top"><span class="reason-name">Salon nhận thực tế không cần thêm NV</span><span class="reason-num">13 case · 13.5%</span></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:13.5%;background:#0D9488"></div></div>
+      <div class="reason-desc">KH/NV thực tế tại salon nhận trong ngày đó đã ở dưới ngưỡng quá tải — dự báo (WMA) của engine cao hơn thực tế.</div>
+    </div><div class="reason-row">
+      <div class="reason-top"><span class="reason-name">NV đi làm ở salon khác</span><span class="reason-num">2 case · 2.1%</span></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:2.1%;background:#D97706"></div></div>
+      <div class="reason-desc">NV được gợi ý có đi làm hôm đó nhưng ở một salon khác — không phải salon gửi, không phải salon nhận.</div>
+    </div>
+  </div>
+
+  <div class="card">
+      <h2 style="color:#DC2626">NV được gợi ý vắng mặt hôm đó — 20 case</h2>
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>Gửi thực tế</th><th>Nhận thực tế</th><th>ΔDT dự kiến</th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">10 TP (S143)</td>
+        <td class="left">382 NT (S20)</td>
+        <td class="left">#8646 Nguyễn Thị Ngọc Hoàn</td>
+        <td>5NV / 52KH (10.4 KH/NV)</td>
+        <td>6NV / 87KH (14.5 KH/NV)</td>
+        <td>970.262đ</td>
+      </tr><tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">10 TP (S143)</td>
+        <td class="left">382 NT (S20)</td>
+        <td class="left">#18311 Nguyễn Lan Anh</td>
+        <td>5NV / 52KH (10.4 KH/NV)</td>
+        <td>6NV / 87KH (14.5 KH/NV)</td>
+        <td>970.262đ</td>
+      </tr><tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">264 LLQ (S192)</td>
+        <td class="left">202 DC (S196)</td>
+        <td class="left">#15061 Nguyễn Tiến Hiếu</td>
+        <td>4NV / 50KH (12.5 KH/NV)</td>
+        <td>4NV / 56KH (14.0 KH/NV)</td>
+        <td>586.862đ</td>
+      </tr>
+      </tbody></table>
+    </div><div class="card">
+      <h2 style="color:#D97706">NV đi làm ở salon khác — 2 case</h2>
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>Gửi thực tế</th><th>Nhận thực tế</th><th>ΔDT dự kiến</th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">109 TQH (S146)</td>
+        <td class="left">116 TK (S187)</td>
+        <td class="left">#6804 Lương Anh Khánh</td>
+        <td>5NV / 55KH (11.0 KH/NV)</td>
+        <td>5NV / 56KH (11.2 KH/NV)</td>
+        <td>456.383đ</td>
+      </tr><tr>
+        <td class="left">04/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">290 QT TH (S230)</td>
+        <td class="left">80 TP TH (S232)</td>
+        <td class="left">#17591 Hoàng Thị Linh</td>
+        <td>4NV / 27KH (6.8 KH/NV)</td>
+        <td>3NV / 15KH (5.0 KH/NV)</td>
+        <td>169.409đ</td>
+      </tr>
+      </tbody></table>
+    </div><div class="card">
+      <h2 style="color:#2563EB">Salon gửi sẽ quá tải nếu bớt 1 NV — 21 case</h2>
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>Gửi thực tế</th><th>Nhận thực tế</th><th>ΔDT dự kiến</th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">264 LLQ (S192)</td>
+        <td class="left">202 DC (S196)</td>
+        <td class="left">#18707 Quách Tùng Dương</td>
+        <td>4NV / 50KH (12.5 KH/NV)</td>
+        <td>4NV / 56KH (14.0 KH/NV)</td>
+        <td>586.862đ</td>
+      </tr><tr>
+        <td class="left">02/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">62 LH (S228)</td>
+        <td class="left">116 TK (S187)</td>
+        <td class="left">#9965 Phạm Trọng Long</td>
+        <td>3NV / 28KH (9.3 KH/NV)</td>
+        <td>6NV / 96KH (16.0 KH/NV)</td>
+        <td>497.427đ</td>
+      </tr><tr>
+        <td class="left">02/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">62 LH (S228)</td>
+        <td class="left">116 TK (S187)</td>
+        <td class="left">#6804 Lương Anh Khánh</td>
+        <td>3NV / 28KH (9.3 KH/NV)</td>
+        <td>6NV / 96KH (16.0 KH/NV)</td>
+        <td>497.427đ</td>
+      </tr>
+      </tbody></table>
+    </div><div class="card">
+      <h2 style="color:#0D9488">Salon nhận thực tế không cần thêm NV — 13 case</h2>
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>Gửi thực tế</th><th>Nhận thực tế</th><th>ΔDT dự kiến</th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="left">06/09</td>
+        <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+        <td class="left">12 LDT (S12)</td>
+        <td class="left">483 TN (S46)</td>
+        <td class="left">#14114 Vũ Văn Quang</td>
+        <td>6NV / 81KH (13.5 KH/NV)</td>
+        <td>6NV / 70KH (11.7 KH/NV)</td>
+        <td>449.867đ</td>
+      </tr><tr>
+        <td class="left">05/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">12 LDT (S12)</td>
+        <td class="left">483 TN (S46)</td>
+        <td class="left">#10345 Nguyễn Phan Như Ngọc</td>
+        <td>8NV / 74KH (9.3 KH/NV)</td>
+        <td>5NV / 52KH (10.4 KH/NV)</td>
+        <td>405.357đ</td>
+      </tr><tr>
+        <td class="left">05/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">12 LDT (S12)</td>
+        <td class="left">483 TN (S46)</td>
+        <td class="left">#21178 Võ Thị Trinh</td>
+        <td>8NV / 74KH (9.3 KH/NV)</td>
+        <td>5NV / 52KH (10.4 KH/NV)</td>
+        <td>405.357đ</td>
+      </tr>
+      </tbody></table>
+    </div><div class="card">
+      <h2 style="color:#475569">GĐKV không thực thi dù đủ điều kiện — 40 case</h2>
+      <table class="tbl-example"><thead><tr>
+        <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+        <th class="left">NV gợi ý</th><th>Gửi thực tế</th><th>Nhận thực tế</th><th>ΔDT dự kiến</th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">575 AC (S21)</td>
+        <td class="left">99 TSN (S147)</td>
+        <td class="left">#20558 Trần Lê Yến My</td>
+        <td>7NV / 46KH (6.6 KH/NV)</td>
+        <td>5NV / 70KH (14.0 KH/NV)</td>
+        <td>1.433.336đ</td>
+      </tr><tr>
+        <td class="left">01/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">575 AC (S21)</td>
+        <td class="left">99 TSN (S147)</td>
+        <td class="left">#21269 Trần Thị Huỳnh Hoa</td>
+        <td>7NV / 46KH (6.6 KH/NV)</td>
+        <td>5NV / 70KH (14.0 KH/NV)</td>
+        <td>1.433.336đ</td>
+      </tr><tr>
+        <td class="left">02/09</td>
+        <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+        <td class="left">575 AC (S21)</td>
+        <td class="left">99 TSN (S147)</td>
+        <td class="left">#13775 Nguyễn Lê Huyền Trân</td>
+        <td>7NV / 67KH (9.6 KH/NV)</td>
+        <td>5NV / 78KH (15.6 KH/NV)</td>
+        <td>1.414.791đ</td>
+      </tr>
+      </tbody></table>
+    </div>
+
+  <div class="card">
+    <h2>5. Ví dụ "Bổ sung khác" — GĐKV tự điều NV khác ngoài gợi ý engine</h2>
+    <table class="tbl-example"><thead><tr>
+      <th class="left">Ngày</th><th class="left">Vị trí</th><th class="left">Salon gửi</th><th class="left">Salon nhận</th>
+      <th class="left">NV được gợi ý</th><th class="left">NV thực tế bổ sung</th><th>ΔDT dự kiến</th>
+    </tr></thead><tbody>
+    <tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20558 Trần Lê Yến My</td>
+      <td class="left">#10630, #19337</td>
+      <td>2.090.162đ</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Skinner">Skinner</span></td>
+      <td class="left">575 AC (S21)</td>
+      <td class="left">99 TSN (S147)</td>
+      <td class="left">#20886 Phùng Hoàng Như Thảo </td>
+      <td class="left">#10630, #19337</td>
+      <td>2.090.162đ</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20777 Lữ Công Minh</td>
+      <td class="left">#4388, #589</td>
+      <td>1.541.508đ</td>
+    </tr><tr>
+      <td class="left">05/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20313 Nguyễn Ngọc Sơn</td>
+      <td class="left">#4388, #589</td>
+      <td>1.541.508đ</td>
+    </tr><tr>
+      <td class="left">06/09</td>
+      <td class="left"><span class="vitri-tag Stylist">Stylist</span></td>
+      <td class="left">39 HBT (S200)</td>
+      <td class="left">173 TN (S250)</td>
+      <td class="left">#20313 Nguyễn Ngọc Sơn</td>
+      <td class="left">#19346, #589</td>
+      <td>1.056.689đ</td>
+    </tr>
+    </tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>6. Salon thiếu NV mãn tính (không được giải quyết ≥2 ngày trong kỳ)</h2>
+    <table class="tbl-example"><thead><tr>
+      <th class="left">Salon</th><th class="left">Vị trí thiếu</th><th>Số ngày không được giải quyết (/7)</th>
+    </tr></thead><tbody>
+    <tr><td class="left">25 TD (S45)</td><td class="left"><span class="vitri-tag Stylist">Stylist</span></td><td><b>5</b></td></tr><tr><td class="left">55A NVL (S245)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>5</b></td></tr><tr><td class="left">116 TK (S187)</td><td class="left"><span class="vitri-tag Stylist">Stylist</span></td><td><b>4</b></td></tr><tr><td class="left">90 NH (S194)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>4</b></td></tr><tr><td class="left">29 HB (S63)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>4</b></td></tr><tr><td class="left">202 DC (S196)</td><td class="left"><span class="vitri-tag Stylist">Stylist</span></td><td><b>3</b></td></tr><tr><td class="left">237 NTT (S145)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>3</b></td></tr><tr><td class="left">99 TSN (S147)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>2</b></td></tr><tr><td class="left">304 NT TH (S231)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>2</b></td></tr><tr><td class="left">32 NAT (S274)</td><td class="left"><span class="vitri-tag Skinner">Skinner</span></td><td><b>2</b></td></tr><tr><td class="left">12 LDT (S12)</td><td class="left"><span class="vitri-tag Stylist">Stylist</span></td><td><b>2</b></td></tr><tr><td class="left">237 NTT (S145)</td><td class="left"><span class="vitri-tag Stylist">Stylist</span></td><td><b>2</b></td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>7. Giới hạn phân tích &amp; phần chưa làm sâu</h2>
+    <ul class="caveat-list">
+      <li><b>"Đăng ký gốc" lấy từ <span class="mono">bi.flow_time_keeping_multi_salon_register</span></b> — đây là bảng backup định kỳ
+        (mỗi <span class="mono">work_date</span> chỉ có 1 <span class="mono">backup_date</span>), không phải snapshot chụp đúng thời điểm
+        engine chạy 14:20 hôm trước. Với <b>01/09 và 02/09</b>, <span class="mono">backup_date</span> lại RƠI SAU work_date (03/09) —
+        nghĩa là snapshot có thể đã chứa một phần điều chỉnh thủ công của GĐKV sau khi ngày đó đã diễn ra, khiến 2 ngày này
+        <b>có thể bị đánh giá thấp số case "Bổ sung khác"</b> và cao số case "Không TT" so với thực tế (0 case bổ sung ở cả 2 ngày,
+        thấp bất thường so với xu hướng tăng dần các ngày sau). Từ 04/09 trở đi, backup_date đứng TRƯỚC work_date 1 ngày — đúng
+        nghĩa "đăng ký gốc trước khi ngày đó diễn ra".</li>
+      <li><b>Nhóm "Salon gửi ≤2 NV thực tế" (GUI_LE_2NV) = 0 case trong kỳ này</b> — khác hẳn bản phân tích 05/2026 (36,7%, nhóm lớn nhất).
+        Số NV thực tế tại salon gửi trong kỳ này dao động 3–11 người, không có case nào ≤2. Có thể do engine hiện đã lọc điều kiện
+        biên chế tối thiểu tốt hơn, hoặc đơn giản là đặc thù của tuần này — cần theo dõi thêm nhiều kỳ mới kết luận được xu hướng.</li>
+      <li><b>Ngưỡng "Salon nhận không cần thêm NV" (NHAN_KHONG_CAN)</b> dùng ngưỡng OT nhóm Trung bình cố định
+        (Stylist 11,0/13,0 · Skinner 8,5/10,5 KH/NV — ngày thường/cuối tuần), <b>chưa phân biệt theo nhóm salon Lớn/TB/Nhỏ</b>
+        như engine gốc (run.js) — nếu tách theo nhóm, một số case có thể đổi nhóm nguyên nhân.</li>
+      <li><b>Chưa phân tích tỷ lệ vắng 30 ngày / thâm niên</b> của NV vắng mặt (mục 2.4 trong bản phân tích 05/2026) — chỉ liệt kê
+        trạng thái tức thời (<span class="mono">trang_thai</span> tại thời điểm chạy báo cáo). Đáng chú ý: NV #13779 Đoàn Ngọc Nhất
+        (Stylist, S51 → S45) vắng <b>4/7 ngày</b> trong kỳ này — trùng với NV đã bị flag "vắng tỷ lệ cao 62,5%" trong bản phân tích
+        05/2026, cho thấy đây là NV vắng mặt mãn tính cần GĐKV xử lý riêng.</li>
+      <li><b>"Bổ sung khác" chỉ xác nhận salon nhận có thêm NV ngoài đăng ký gốc</b>, chưa xác minh việc bổ sung đó có phải do GĐKV
+        chủ động điều chuyển liên salon hay chỉ là tăng ca nội bộ/gọi thêm NV nghỉ (Hướng 2 của engine) — cần đối chiếu thêm nếu
+        muốn tách 2 nguồn này.</li>
+      <li>Nhóm theo GĐKV dùng <b>GDKV_gui</b> (GĐKV quản lý salon gửi); nếu nhóm theo GĐKV nhận, tỷ lệ theo từng GĐKV có thể khác
+        (đa số case "Cùng GĐKV" nên chênh lệch tổng thể không lớn).</li>
+    </ul>
+  </div>
+
+  <footer>
+    Engine N+1 · Check thực thi kỳ 01/09–07/09/2026 · Sinh ngày 8/9/2026 ·
+    File nguồn: n1_check_thucthi_2026-09-01_2026-09-07.csv (output/phan_tich/)
+  </footer>
+</div>
+<script>
+function showGdkv(id, el) {
+  document.querySelectorAll('.gdkv-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.gdkv-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>
