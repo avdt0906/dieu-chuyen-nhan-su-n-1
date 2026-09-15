@@ -63,24 +63,6 @@
 </div></header>
 <div class="wrap">
   <div class="card">
-    <h2 class="section">Tổng hợp thực thi <span class="muted">(400 lượt flag THIẾU)</span></h2>
-    <div class="stats-grid">
-      <div class="stat ok"><div class="num">139</div><div class="lbl">Có bổ sung NV — 34.8%</div></div>
-      <div class="stat neutral"><div class="num">261</div><div class="lbl">Không bổ sung — 65.3%</div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2 class="section">Nguồn bổ sung <span class="muted">(215 lượt NV bổ sung — tra theo salon gốc)</span></h2>
-    <div class="stats-grid">
-      <div class="stat src"><div class="num">16</div><div class="lbl">Nhân sự hỗ trợ từ salon khác — 7.4%</div></div>
-      <div class="stat"><div class="num" style="color:var(--gold-dark)">199</div><div class="lbl">NV của salon (gọi thêm ngoài đăng ký) — 92.6%</div></div>
-      <div class="stat"><div class="num" style="color:#7c3aed">0</div><div class="lbl">NV mới (chưa có trong view_staff) — 0.0%</div></div>
-    </div>
-    <p class="hint">"Nhân sự hỗ trợ" = salon gốc (main.view_staff.salon_id) khác với salon đang bị flag THIẾU — phần "Nguồn kéo nhân sự" bên dưới tổng hợp nhóm này để xem salon nào đang bị rút người nhiều nhất.</p>
-  </div>
-
-  <div class="card">
     <h2 class="section">Hiệu quả dự án theo ngày <span class="muted">(xu hướng xử lý THIẾU trong kỳ)</span></h2>
     <div class="table-wrap">
     <table>
@@ -148,7 +130,6 @@
         </select>
       </label>
     </div>
-    <p class="hint">Chi tiết từng khung 2 tiếng (60 salon × 11 ngày × 2 vị trí × 6 khung). Dự báo/Thực tế/Kết quả tính theo khung (thống kê Đúng/Sai bên dưới cũng theo khung, 1 khung = 1 đơn vị). Riêng AOV tổng hợp bên dưới tính theo SALON-NGÀY (dùng AOV chính thức, tránh 1 salon-ngày bị đếm lặp 12 lần do 6 khung × 2 vị trí). "Bổ sung NV" và "AOV (ngày)" trong bảng chi tiết là số liệu CẢ NGÀY nên lặp lại ở mọi khung cùng salon-ngày — dùng để đối chiếu, không cộng dồn. <b>Cột "AOV (khung)" trong bảng chi tiết tính từ doanh thu bill THÔ (total_money, chưa trừ khuyến mãi/phân bổ topup) nên lệch khoảng 10-15% so với AOV (ngày) chính thức — không so sánh trực tiếp 2 số này.</b> Lưu ý: bản backtest gốc (N1_De_xuat_do_gio_cao_diem.md, ~65% đúng) chỉ đo trên ngày cuối tuần T7/CN; kỳ này gồm cả ngày thường nên tỉ lệ có thể khác.</p>
     <div class="stats-grid" style="margin-bottom:16px">
       <div class="stat" style="grid-column:1/-1">
         <div class="lbl" style="font-weight:700;color:var(--ink);margin-bottom:8px">Độ chính xác dự báo (theo khung)</div>
@@ -6577,7 +6558,7 @@
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">190 HB</td><td class="left">Skinner</td><td>4</td><td>3</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">202 DC</td><td class="left">Stylist</td><td>4</td><td>4</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><ul class="src-list"><li class="tag-HO_TRO">Nhân sự hỗ trợ từ salon khác: Trương Tuấn Giang - NQ — thuộc 104 CB NQ</li></ul></td></tr>
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">202 DC</td><td class="left">Skinner</td><td>7</td><td>6</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">236 DBT</td><td class="left">Skinner</td><td>4</td><td>6</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thị Ngọc Giàu — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">huyen.sup00 — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">236 DBT</td><td class="left">Skinner</td><td>4</td><td>6</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">huyen.sup00 — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thị Ngọc Giàu — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">237 NTT</td><td class="left">Stylist</td><td>9</td><td>9</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">237 NTT</td><td class="left">Skinner</td><td>7</td><td>7</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-04"><td class="left">04/09</td><td class="left">255 NAN</td><td class="left">Stylist</td><td>5</td><td>6</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Phúc Vinh — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
@@ -6648,7 +6629,7 @@
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">7 DTP LA</td><td class="left">Stylist</td><td>2</td><td>3</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Phạm Anh Dũng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">927 HG</td><td class="left">Stylist</td><td>9</td><td>9</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Stylist</td><td>8</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Từ Hồng Phấn — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Từ Hồng Phấn — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">109 TQH</td><td class="left">Stylist</td><td>7</td><td>7</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">109 TQH</td><td class="left">Skinner</td><td>7</td><td>6</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">11 PKT</td><td class="left">Stylist</td><td>4</td><td>4</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
@@ -6765,7 +6746,7 @@
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">290 QT TH</td><td class="left">Stylist</td><td>3</td><td>4</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Văn Quốc — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">290 QT TH</td><td class="left">Skinner</td><td>2</td><td>3</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Lê Thị Phượng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Stylist</td><td>8</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Skinner</td><td>7</td><td>9</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thị Diểm My — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Huỳnh Thị Anh Thư — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Skinner</td><td>7</td><td>9</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Huỳnh Thị Anh Thư — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thị Diểm My — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">362 NGT BN</td><td class="left">Stylist</td><td>6</td><td>6</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">363 LNQ TN</td><td class="left">Stylist</td><td>4</td><td>2</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 2)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">39 HBT</td><td class="left">Stylist</td><td>5</td><td>5</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
