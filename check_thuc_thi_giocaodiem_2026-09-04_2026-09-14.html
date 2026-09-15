@@ -150,12 +150,35 @@
     </div>
     <p class="hint">Chi tiết từng khung 2 tiếng (60 salon × 11 ngày × 2 vị trí × 6 khung). Dự báo/Thực tế/Kết quả tính theo khung (thống kê Đúng/Sai bên dưới cũng theo khung, 1 khung = 1 đơn vị). Riêng AOV tổng hợp bên dưới tính theo SALON-NGÀY (dùng AOV chính thức, tránh 1 salon-ngày bị đếm lặp 12 lần do 6 khung × 2 vị trí). "Bổ sung NV" và "AOV (ngày)" trong bảng chi tiết là số liệu CẢ NGÀY nên lặp lại ở mọi khung cùng salon-ngày — dùng để đối chiếu, không cộng dồn. <b>Cột "AOV (khung)" trong bảng chi tiết tính từ doanh thu bill THÔ (total_money, chưa trừ khuyến mãi/phân bổ topup) nên lệch khoảng 10-15% so với AOV (ngày) chính thức — không so sánh trực tiếp 2 số này.</b> Lưu ý: bản backtest gốc (N1_De_xuat_do_gio_cao_diem.md, ~65% đúng) chỉ đo trên ngày cuối tuần T7/CN; kỳ này gồm cả ngày thường nên tỉ lệ có thể khác.</p>
     <div class="stats-grid" style="margin-bottom:16px">
-      <div class="stat ok"><div class="num">5298</div><div class="lbl">Khung Dự báo ĐÚNG (83.6%) — 249 thiếu đúng + 5049 đủ đúng</div></div>
-      <div class="stat bad"><div class="num">977</div><div class="lbl">SAI — dự báo THIẾU nhưng thực tế ĐỦ (báo động giả)</div></div>
-      <div class="stat bad"><div class="num">61</div><div class="lbl">SAI — dự báo ĐỦ nhưng thực tế lại THIẾU (bỏ sót)</div></div>
+      <div class="stat" style="grid-column:1/-1">
+        <div class="lbl" style="font-weight:700;color:var(--ink);margin-bottom:8px">Độ chính xác dự báo (theo khung)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:10px">
+          <div><div class="num" style="color:var(--green)">5298 <span style="font-size:14px;font-weight:500;color:var(--sub)">(83.6%)</span></div><div class="lbl">ĐÚNG — 249 thiếu đúng + 5049 đủ đúng</div></div>
+          <div><div class="num" style="color:var(--red)">977</div><div class="lbl">SAI — dự báo THIẾU nhưng thực tế ĐỦ (báo động giả)</div></div>
+          <div><div class="num" style="color:var(--red)">61</div><div class="lbl">SAI — dự báo ĐỦ nhưng thực tế lại THIẾU (bỏ sót)</div></div>
+        </div>
+        <div class="table-wrap">
+        <table>
+        <thead><tr><th class="left">GĐKV</th><th>Tổng khung</th><th>% Đúng</th><th>Báo động giả</th><th>Bỏ sót</th></tr></thead>
+        <tbody>
+<tr><td class="left">Nguyễn Thanh Sang GDKV</td><td>1056</td><td>74.8%</td><td>245</td><td>21</td></tr>
+<tr><td class="left">Phan Thị Hồng Gấm GDKV</td><td>924</td><td>82.7%</td><td>153</td><td>7</td></tr>
+<tr><td class="left">Nguyễn Như Quỳnh GDKV</td><td>660</td><td>83.2%</td><td>100</td><td>11</td></tr>
+<tr><td class="left">Đoàn Trung Đức GDKV</td><td>792</td><td>83.8%</td><td>118</td><td>10</td></tr>
+<tr><td class="left">Tống Xuân Quyền GDKV</td><td>792</td><td>83.8%</td><td>124</td><td>4</td></tr>
+<tr><td class="left">Nguyễn Việt Cường GDKV</td><td>924</td><td>86.6%</td><td>121</td><td>3</td></tr>
+<tr><td class="left">Trịnh Văn Quang GDKV</td><td>528</td><td>89.2%</td><td>55</td><td>2</td></tr>
+<tr><td class="left">Nguyễn Thị Huệ GDKV</td><td>660</td><td>90.3%</td><td>61</td><td>3</td></tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
       <div class="stat"><div class="num" style="color:var(--sub)">228.741đ</div><div class="lbl">AOV TB (salon-ngày) — Không thiếu (276 salon-ngày)</div></div>
       <div class="stat ok"><div class="num">227.383đ</div><div class="lbl">AOV TB (salon-ngày) — Thiếu, ĐÃ bổ sung (117 salon-ngày)</div></div>
       <div class="stat bad"><div class="num">230.280đ</div><div class="lbl">AOV TB (salon-ngày) — Thiếu, KHÔNG bổ sung (135 salon-ngày)</div></div>
+      <div class="stat"><div class="num" style="color:var(--sub)">33.0 phút</div><div class="lbl">TG phục vụ TB/khách — Không thiếu (276 salon-ngày)</div></div>
+      <div class="stat ok"><div class="num">31.8 phút</div><div class="lbl">TG phục vụ TB/khách — Thiếu, ĐÃ bổ sung (117 salon-ngày)</div></div>
+      <div class="stat bad"><div class="num">32.7 phút</div><div class="lbl">TG phục vụ TB/khách — Thiếu, KHÔNG bổ sung (135 salon-ngày)</div></div>
       <div class="stat ok"><div class="num">658/1226</div><div class="lbl">Khung THIẾU đã được bổ sung NV — 53.7%</div></div>
       <div class="stat bad"><div class="num">568/1226</div><div class="lbl">Khung THIẾU chưa được bổ sung — 46.3%</div></div>
     </div>
@@ -6625,7 +6648,7 @@
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">7 DTP LA</td><td class="left">Stylist</td><td>2</td><td>3</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Phạm Anh Dũng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">927 HG</td><td class="left">Stylist</td><td>9</td><td>9</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Stylist</td><td>8</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Từ Hồng Phấn — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-05"><td class="left">05/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Từ Hồng Phấn — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">109 TQH</td><td class="left">Stylist</td><td>7</td><td>7</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">109 TQH</td><td class="left">Skinner</td><td>7</td><td>6</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">11 PKT</td><td class="left">Stylist</td><td>4</td><td>4</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
@@ -6654,7 +6677,7 @@
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">202 DC</td><td class="left">Stylist</td><td>5</td><td>6</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-HO_TRO">Nhân sự hỗ trợ từ salon khác: Trương Tuấn Giang - NQ — thuộc 104 CB NQ</li></ul></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">202 DC</td><td class="left">Skinner</td><td>7</td><td>7</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">236 DBT</td><td class="left">Stylist</td><td>10</td><td>9</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">236 DBT</td><td class="left">Skinner</td><td>5</td><td>7</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">huyen.sup00 — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thị Ngọc Giàu — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">236 DBT</td><td class="left">Skinner</td><td>5</td><td>7</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thị Ngọc Giàu — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">huyen.sup00 — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">237 NTT</td><td class="left">Stylist</td><td>11</td><td>11</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">237 NTT</td><td class="left">Skinner</td><td>9</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 1)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-06"><td class="left">06/09</td><td class="left">255 NAN</td><td class="left">Stylist</td><td>7</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Phúc Vinh — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
@@ -6742,7 +6765,7 @@
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">290 QT TH</td><td class="left">Stylist</td><td>3</td><td>4</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Văn Quốc — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">290 QT TH</td><td class="left">Skinner</td><td>2</td><td>3</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Lê Thị Phượng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Stylist</td><td>8</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Skinner</td><td>7</td><td>9</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Huỳnh Thị Anh Thư — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thị Diểm My — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">312 LVS</td><td class="left">Skinner</td><td>7</td><td>9</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thị Diểm My — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Huỳnh Thị Anh Thư — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">362 NGT BN</td><td class="left">Stylist</td><td>6</td><td>6</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">363 LNQ TN</td><td class="left">Stylist</td><td>4</td><td>2</td><td class="left"><span class="badge neutral">Không bổ sung (thiếu 2)</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-07"><td class="left">07/09</td><td class="left">39 HBT</td><td class="left">Stylist</td><td>5</td><td>5</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
@@ -6912,7 +6935,7 @@
 <tr data-date="2026-09-13"><td class="left">13/09</td><td class="left">927 HG</td><td class="left">Stylist</td><td>9</td><td>9</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
 <tr data-date="2026-09-13"><td class="left">13/09</td><td class="left">927 HG</td><td class="left">Skinner</td><td>8</td><td>9</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Võ Thành Ngọc Anh — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-13"><td class="left">13/09</td><td class="left">99 TSN</td><td class="left">Stylist</td><td>8</td><td>8</td><td class="left"><span class="badge neutral">Không bổ sung</span></td><td class="left"><span class="none">—</span></td></tr>
-<tr data-date="2026-09-13"><td class="left">13/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thị Bích Tuyền — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
+<tr data-date="2026-09-13"><td class="left">13/09</td><td class="left">99 TSN</td><td class="left">Skinner</td><td>6</td><td>8</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Thị Bích Tuyền — NV của salon, gọi thêm ngoài đăng ký ngày</li><li class="tag-NOI_BO">Nguyễn Thuý Hằng — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-14"><td class="left">14/09</td><td class="left">109 TQH</td><td class="left">Stylist</td><td>4</td><td>5</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-HO_TRO">Nhân sự hỗ trợ từ salon khác: Trần Văn Bách — thuộc 65 CD</li></ul></td></tr>
 <tr data-date="2026-09-14"><td class="left">14/09</td><td class="left">113 THD AG</td><td class="left">Stylist</td><td>2</td><td>3</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Trần Minh Tiến — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
 <tr data-date="2026-09-14"><td class="left">14/09</td><td class="left">116 TK</td><td class="left">Stylist</td><td>6</td><td>7</td><td class="left"><span class="badge ok">Có bổ sung</span></td><td class="left"><ul class="src-list"><li class="tag-NOI_BO">Nguyễn Ngọc Hải — NV của salon, gọi thêm ngoài đăng ký ngày</li></ul></td></tr>
