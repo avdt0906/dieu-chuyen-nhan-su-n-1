@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check thực thi Giờ cao điểm 01/09 → 07/10/2026</title>
+<style>
+  :root{
+    --gold:#c9a24b; --gold-dark:#9c7a2f; --ink:#1c1c1e; --sub:#6b6b70; --bg:#f7f6f3; --card:#ffffff;
+    --border:#e6e2d8; --green:#1e7e34; --green-bg:#e8f5e9; --red:#c0392b; --red-bg:#fdecea;
+    --amber:#8a6d00; --amber-bg:#fff8e1; --blue:#2563eb; --blue-bg:#eaf1fe;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    margin:0;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 48px}
+  header{background:linear-gradient(135deg,#20232a,#3a3f4b);color:#fff;padding:32px 20px 40px;margin-bottom:-24px}
+  header .inner{max-width:1080px;margin:0 auto}
+  header .eyebrow{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  header h1{margin:0;font-size:24px;font-weight:700}
+  header p{margin:8px 0 0;color:#d3d5db;font-size:13.5px;max-width:760px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);margin-top:24px}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+  .stat{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:#fff}
+  .stat .num{font-size:26px;font-weight:800;line-height:1.1}
+  .stat .lbl{font-size:12.5px;color:var(--sub);margin-top:4px}
+  .stat.ok .num{color:var(--green)} .stat.bad .num{color:var(--red)} .stat.neutral .num{color:var(--amber)}
+  .stat.src .num{color:var(--blue)}
+  h2.section{font-size:15px;font-weight:700;margin:0 0 14px;color:var(--ink)}
+  h2.section .muted{font-weight:500;color:var(--sub);font-size:13px}
+  .section-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .section-head h2.section{margin:0}
+  .filter-label{font-size:13px;color:var(--sub);display:flex;align-items:center;gap:6px}
+  .filter-label select{font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;
+    background:#fff;color:var(--ink);font-family:inherit}
+  tr[hidden]{display:none}
+  table{border-collapse:collapse;width:100%;margin-top:4px;font-size:13px}
+  thead th{background:#faf9f6;border-bottom:2px solid var(--border);padding:9px 10px;text-align:right;
+    font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--sub);font-weight:700}
+  tbody td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;vertical-align:top}
+  tbody tr:hover{background:#faf8f2}
+  td.left,th.left{text-align:left}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;white-space:nowrap}
+  .badge.ok{background:var(--green-bg);color:var(--green)}
+  .badge.bad{background:var(--red-bg);color:var(--red)}
+  .badge.neutral{background:var(--amber-bg);color:var(--amber)}
+  ul.src-list{margin:0;padding-left:16px}
+  ul.src-list li{margin:2px 0}
+  .tag-HO_TRO{color:var(--blue)} .tag-NOI_BO{color:var(--gold-dark)} .tag-MOI{color:#7c3aed}
+  .trend-bar{display:inline-block;height:8px;border-radius:4px;background:var(--green);vertical-align:middle}
+  .trend-row{display:flex;align-items:center;gap:8px}
+  .trend-track{flex:1;background:var(--border);border-radius:4px;height:8px;overflow:hidden;display:flex}
+  .trend-track .seg-ok{background:var(--green)} .trend-track .seg-neutral{background:var(--amber)}
+  .hint{font-size:12.5px;color:var(--sub);margin:10px 0 0}
+  .none{color:#b9b9bd}
+  .grp-hd{text-align:center !important;font-size:11px;letter-spacing:.02em}
+  .grp-hd.grp-ok{background:var(--green-bg);color:var(--green)}
+  .grp-hd.grp-info{background:var(--blue-bg);color:var(--blue)}
+  .grp-hd.grp-warn{background:var(--amber-bg);color:var(--amber)}
+  .grp-hd.grp-bad{background:var(--red-bg);color:var(--red)}
+  table.gdkv-heat thead tr:first-child th{border-bottom:1px solid var(--border)}
+  .heat-good{background:var(--green-bg);color:var(--green);font-weight:700;border-radius:6px}
+  .heat-bad{background:var(--red-bg);color:var(--red);font-weight:700;border-radius:6px}
+  .heat-neutral{color:var(--sub)}
+  .table-wrap{overflow-x:auto}
+  footer{margin-top:28px;font-size:12px;color:var(--sub);text-align:center}
+  @media (max-width:640px){ header{padding:24px 16px 32px} .card{padding:16px} }
+</style></head>
+<body>
+<header><div class="inner">
+  <div class="eyebrow">Engine N+1 · Giờ cao điểm</div>
+  <h1>Check thực thi — 01/09 → 07/10/2026</h1>
+</div></header>
+<div class="wrap">
+  <div class="card">
+    <h2 class="section">Hiệu quả theo GĐKV <span class="muted">(mức xử lý THIẾU trong kỳ)</span></h2>
+    <div class="table-wrap">
+    <table>
+    <thead><tr><th class="left">GĐKV</th><th>Tổng flag</th><th class="left" style="min-width:180px">Xử lý</th><th>Có bổ sung</th><th>Không bổ sung</th></tr></thead>
+    <tbody>
+<tr><td class="left">Trịnh Văn Quang GDKV</td><td>93</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:29.0%"></span><span class="seg-neutral" style="width:71.0%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">29%</span></div></td><td>27</td><td>66</td></tr>
+<tr><td class="left">Phan Thị Hồng Gấm GDKV</td><td>236</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:35.2%"></span><span class="seg-neutral" style="width:64.8%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">35%</span></div></td><td>83</td><td>153</td></tr>
+<tr><td class="left">Đoàn Trung Đức GDKV</td><td>222</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:36.5%"></span><span class="seg-neutral" style="width:63.5%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">36%</span></div></td><td>81</td><td>141</td></tr>
+<tr><td class="left">Nguyễn Như Quỳnh GDKV</td><td>180</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:42.8%"></span><span class="seg-neutral" style="width:57.2%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">43%</span></div></td><td>77</td><td>103</td></tr>
+<tr><td class="left">Nguyễn Việt Cường GDKV</td><td>189</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:43.9%"></span><span class="seg-neutral" style="width:56.1%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">44%</span></div></td><td>83</td><td>106</td></tr>
+<tr><td class="left">Tống Xuân Quyền GDKV</td><td>179</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:44.1%"></span><span class="seg-neutral" style="width:55.9%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">44%</span></div></td><td>79</td><td>100</td></tr>
+<tr><td class="left">Nguyễn Thị Huệ GDKV</td><td>123</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:50.4%"></span><span class="seg-neutral" style="width:49.6%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">50%</span></div></td><td>62</td><td>61</td></tr>
+<tr><td class="left">Nguyễn Thanh Sang GDKV</td><td>333</td><td class="left"><div class="trend-row"><div class="trend-track"><span class="seg-ok" style="width:53.2%"></span><span class="seg-neutral" style="width:46.8%"></span></div><span style="font-size:12px;color:var(--sub);white-space:nowrap">53%</span></div></td><td>177</td><td>156</td></tr>
+    </tbody>
+    </table>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="section-head">
+      <h2 class="section">Dự báo, thực tế &amp; AOV theo giờ</h2>
+    </div>
+    <div class="stats-grid" style="margin-bottom:16px">
+      <div class="stat" style="grid-column:1/-1">
+        <div class="lbl" style="font-weight:700;color:var(--ink);margin-bottom:8px">Độ chính xác dự báo (theo khung)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:10px">
+          <div><div class="num" style="color:var(--green)">17082 <span style="font-size:14px;font-weight:500;color:var(--sub)">(80.2%)</span></div><div class="lbl">ĐÚNG — 1172 thiếu đúng + 15910 đủ đúng</div></div>
+          <div><div class="num" style="color:var(--red)">3996</div><div class="lbl">SAI — dự báo THIẾU nhưng thực tế ĐỦ (báo động giả)</div></div>
+          <div><div class="num" style="color:var(--red)">234</div><div class="lbl">SAI — dự báo ĐỦ nhưng thực tế lại THIẾU (bỏ sót)</div></div>
+        </div>
+        <div class="table-wrap">
+        <table>
+        <thead><tr><th class="left">GĐKV</th><th>Tổng khung</th><th>Dự báo đủ</th><th>Dự báo thiếu</th><th>Dự báo đúng</th><th>Bổ sung NV khi dự báo thiếu</th></tr></thead>
+        <tbody>
+<tr><td class="left">Nguyễn Thanh Sang GDKV</td><td>3552</td><td>2374 (66.8%)</td><td>1178 (33.2%)</td><td>2550 (71.8%)</td><td>879 (74.6%)</td></tr>
+<tr><td class="left">Đoàn Trung Đức GDKV</td><td>2664</td><td>1923 (72.2%)</td><td>741 (27.8%)</td><td>2088 (78.4%)</td><td>413 (55.7%)</td></tr>
+<tr><td class="left">Nguyễn Như Quỳnh GDKV</td><td>2220</td><td>1592 (71.7%)</td><td>628 (28.3%)</td><td>1765 (79.5%)</td><td>407 (64.8%)</td></tr>
+<tr><td class="left">Tống Xuân Quyền GDKV</td><td>2664</td><td>2074 (77.9%)</td><td>590 (22.1%)</td><td>2121 (79.6%)</td><td>373 (63.2%)</td></tr>
+<tr><td class="left">Phan Thị Hồng Gấm GDKV</td><td>3108</td><td>2268 (73.0%)</td><td>840 (27.0%)</td><td>2475 (79.6%)</td><td>525 (62.5%)</td></tr>
+<tr><td class="left">Nguyễn Việt Cường GDKV</td><td>3108</td><td>2502 (80.5%)</td><td>606 (19.5%)</td><td>2589 (83.3%)</td><td>429 (70.8%)</td></tr>
+<tr><td class="left">Trịnh Văn Quang GDKV</td><td>1776</td><td>1517 (85.4%)</td><td>259 (14.6%)</td><td>1551 (87.3%)</td><td>171 (66.0%)</td></tr>
+<tr><td class="left">Nguyễn Thị Huệ GDKV</td><td>2220</td><td>1894 (85.3%)</td><td>326 (14.7%)</td><td>1943 (87.5%)</td><td>276 (84.7%)</td></tr>
+<tr style="font-weight:700;border-top:2px solid var(--border)"><td class="left">Toàn công ty</td><td>21312</td><td>16144 (75.8%)</td><td>5168 (24.2%)</td><td>17082 (80.2%)</td><td>3473 (67.2%)</td></tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="stat" style="grid-column:1/-1">
+        <div class="lbl" style="font-weight:700;color:var(--ink);margin-bottom:8px">AOV &amp; thời gian phục vụ — theo mức độ thiếu nhân sự (đỉnh điểm trong ngày)</div>
+        <div class="table-wrap">
+        <table>
+        <thead><tr><th class="left">Nhóm</th><th>Số salon-ngày</th><th>AOV TB</th><th>TG phục vụ TB/khách</th><th>TG chờ TB/khách</th></tr></thead>
+        <tbody>
+          <tr><td class="left">Không thiếu</td><td>828</td><td>228.856đ</td><td>32.7 phút</td><td>128 giây</td></tr>
+          <tr><td class="left">Thiếu 1 nhân sự</td><td>216</td><td>234.222đ</td><td>32.9 phút</td><td>126 giây</td></tr>
+          <tr><td class="left">Thiếu 2 nhân sự</td><td>171</td><td>228.227đ</td><td>33.1 phút</td><td>136 giây</td></tr>
+          <tr><td class="left">Thiếu 3 nhân sự</td><td>133</td><td>220.675đ</td><td>32.0 phút</td><td>148 giây</td></tr>
+          <tr><td class="left">Thiếu 4+ nhân sự</td><td>426</td><td>222.826đ</td><td>30.9 phút</td><td>176 giây</td></tr>
+        </tbody>
+        </table>
+        </div>
+        <p class="hint" style="margin-top:10px">So nhóm <b>"Không thiếu"</b> với nhóm nghiêm trọng nhất <b>"Thiếu 4+ nhân sự"</b>: AOV 228.856đ so với 222.826đ, thời gian phục vụ 32.7 so với 30.9 phút, thời gian chờ 128 so với 176 giây. Mức thiếu tính theo <b>số nhân sự thiếu đỉnh điểm trong ngày</b> (khung giờ căng nhất), không phân biệt đã bổ sung hay chưa — xem mục "Chi tiết theo salon" bên dưới để biết salon nào đã được bổ sung. Lưu ý đây là so sánh giữa các NHÓM SALON khác nhau (không phải cùng 1 salon trước/sau), nên khác biệt nền tảng giữa các salon (quy mô, đội ngũ sẵn có) có thể lấn át tác động thật.</p>
+        <div class="lbl" style="font-weight:700;color:var(--ink);margin:22px 0 8px">AOV &amp; thời gian phục vụ theo GĐKV</div>
+        <div class="table-wrap">
+        <table class="gdkv-heat">
+        <thead>
+        <tr>
+          <th class="left" rowspan="2">GĐKV</th>
+          <th class="grp-hd grp-ok" colspan="4">Không thiếu</th>
+          <th class="grp-hd grp-info" colspan="4">Thiếu 1 nhân sự</th>
+          <th class="grp-hd grp-warn" colspan="4">Thiếu 2 nhân sự</th>
+          <th class="grp-hd grp-bad" colspan="4">Thiếu 3 nhân sự</th>
+          <th class="grp-hd grp-bad" colspan="4">Thiếu 4+ nhân sự</th>
+        </tr>
+        <tr><th>SL</th><th>AOV TB</th><th>TG/khách</th><th>TG chờ</th><th>SL</th><th>AOV TB</th><th>TG/khách</th><th>TG chờ</th><th>SL</th><th>AOV TB</th><th>TG/khách</th><th>TG chờ</th><th>SL</th><th>AOV TB</th><th>TG/khách</th><th>TG chờ</th><th>SL</th><th>AOV TB</th><th>TG/khách</th><th>TG chờ</th></tr>
+        </thead>
+        <tbody>
+<tr><td class="left">Đoàn Trung Đức GDKV</td><td>77</td><td>221.950đ</td><td>31.4 ph</td><td>153 s</td><td>32</td><td class="heat-good">240.948đ</td><td class="heat-neutral">31.8 ph</td><td class="heat-good">125 s</td><td>24</td><td class="heat-good">235.647đ</td><td class="heat-bad">32.9 ph</td><td class="heat-good">142 s</td><td>21</td><td class="heat-neutral">226.318đ</td><td class="heat-neutral">31.1 ph</td><td class="heat-good">143 s</td><td>68</td><td class="heat-bad">209.079đ</td><td class="heat-neutral">30.6 ph</td><td class="heat-bad">188 s</td></tr>
+<tr><td class="left">Nguyễn Như Quỳnh GDKV</td><td>79</td><td>225.251đ</td><td>31.5 ph</td><td>137 s</td><td>30</td><td class="heat-good">239.342đ</td><td class="heat-neutral">32.1 ph</td><td class="heat-good">124 s</td><td>16</td><td class="heat-bad">217.611đ</td><td class="heat-neutral">32.1 ph</td><td class="heat-good">133 s</td><td>14</td><td class="heat-bad">214.834đ</td><td class="heat-good">27.9 ph</td><td class="heat-bad">149 s</td><td>46</td><td class="heat-good">237.875đ</td><td class="heat-good">29.7 ph</td><td class="heat-bad">170 s</td></tr>
+<tr><td class="left">Nguyễn Thanh Sang GDKV</td><td>104</td><td>235.916đ</td><td>32.7 ph</td><td>156 s</td><td>42</td><td class="heat-bad">226.544đ</td><td class="heat-neutral">33.3 ph</td><td class="heat-neutral">161 s</td><td>29</td><td class="heat-neutral">238.091đ</td><td class="heat-neutral">33.2 ph</td><td class="heat-good">136 s</td><td>21</td><td class="heat-bad">222.360đ</td><td class="heat-neutral">32.2 ph</td><td class="heat-bad">163 s</td><td>100</td><td class="heat-bad">227.479đ</td><td class="heat-good">31.6 ph</td><td class="heat-bad">196 s</td></tr>
+<tr><td class="left">Nguyễn Thị Huệ GDKV</td><td>108</td><td>232.930đ</td><td>34.4 ph</td><td>127 s</td><td>27</td><td class="heat-neutral">232.011đ</td><td class="heat-neutral">34.6 ph</td><td class="heat-good">117 s</td><td>24</td><td class="heat-bad">210.817đ</td><td class="heat-good">32.4 ph</td><td class="heat-bad">144 s</td><td>15</td><td class="heat-bad">217.821đ</td><td class="heat-good">31.3 ph</td><td class="heat-bad">131 s</td><td>11</td><td class="heat-bad">211.770đ</td><td class="heat-good">33.1 ph</td><td class="heat-bad">154 s</td></tr>
+<tr><td class="left">Nguyễn Việt Cường GDKV</td><td>142</td><td>224.870đ</td><td>32.8 ph</td><td>78 s</td><td>30</td><td class="heat-neutral">230.442đ</td><td class="heat-neutral">33.2 ph</td><td class="heat-good">71 s</td><td>16</td><td class="heat-bad">215.191đ</td><td class="heat-neutral">32.9 ph</td><td class="heat-bad">86 s</td><td>13</td><td class="heat-bad">212.958đ</td><td class="heat-good">31.5 ph</td><td class="heat-bad">85 s</td><td>58</td><td class="heat-neutral">219.057đ</td><td class="heat-neutral">31.8 ph</td><td class="heat-bad">113 s</td></tr>
+<tr><td class="left">Phan Thị Hồng Gấm GDKV</td><td>112</td><td>220.883đ</td><td>31.5 ph</td><td>166 s</td><td>24</td><td class="heat-neutral">222.954đ</td><td class="heat-good">28.9 ph</td><td class="heat-neutral">163 s</td><td>27</td><td class="heat-neutral">221.593đ</td><td class="heat-neutral">30.7 ph</td><td class="heat-neutral">170 s</td><td>20</td><td class="heat-neutral">221.505đ</td><td class="heat-neutral">31.5 ph</td><td class="heat-bad">186 s</td><td>76</td><td class="heat-neutral">222.653đ</td><td class="heat-good">29.8 ph</td><td class="heat-bad">206 s</td></tr>
+<tr><td class="left">Tống Xuân Quyền GDKV</td><td>111</td><td>233.792đ</td><td>34.3 ph</td><td>131 s</td><td>21</td><td class="heat-good">257.457đ</td><td class="heat-bad">37.2 ph</td><td class="heat-good">125 s</td><td>25</td><td class="heat-good">251.961đ</td><td class="heat-bad">37.3 ph</td><td class="heat-good">118 s</td><td>18</td><td class="heat-bad">216.673đ</td><td class="heat-bad">37.0 ph</td><td class="heat-bad">159 s</td><td>47</td><td class="heat-bad">224.394đ</td><td class="heat-good">31.0 ph</td><td class="heat-bad">177 s</td></tr>
+<tr><td class="left">Trịnh Văn Quang GDKV</td><td>95</td><td>234.685đ</td><td>32.6 ph</td><td>99 s</td><td>10</td><td class="heat-bad">225.144đ</td><td class="heat-neutral">32.8 ph</td><td class="heat-neutral">101 s</td><td>10</td><td class="heat-bad">220.013đ</td><td class="heat-neutral">33.0 ph</td><td class="heat-bad">135 s</td><td>11</td><td class="heat-neutral">232.173đ</td><td class="heat-neutral">32.9 ph</td><td class="heat-bad">135 s</td><td>22</td><td class="heat-bad">224.173đ</td><td class="heat-good">31.0 ph</td><td class="heat-bad">135 s</td></tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>Engine N+1 · 30Shine Vận hành — dữ liệu bi.staff / main.flow_time_keeping_multi_salon / main.view_bill_service_his / bi.rta_bill_serve_time</footer>
+</div>
+</body></html>
