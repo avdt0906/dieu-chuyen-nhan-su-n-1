@@ -18,7 +18,7 @@
       radial-gradient(720px circle at 45% 105%, rgba(52,211,153,.26), transparent 65%);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
     font-size: 14px; line-height: 1.5;
   }
   .wrap { max-width: 1180px; margin: 0 auto; }
@@ -83,6 +83,23 @@
   .tk li { padding: 2px 0; border-bottom: 1px dashed var(--border); }
   .c1 { color: var(--red); font-weight: 700; } .c2 { color: var(--amber); font-weight: 700; }
   .empty { padding: 24px; text-align: center; color: var(--muted); }
+  /* Điện thoại */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  td:nth-child(1), th:nth-child(1) { position: sticky; left: 0; background: var(--panel); z-index: 1; }
+  td:nth-child(2), th:nth-child(2) { position: sticky; left: 52px; background: var(--panel); z-index: 1; box-shadow: 1px 0 0 var(--border); }
+  @media (max-width: 720px) {
+    body { padding: 10px; }
+    h1 { font-size: 17px; }
+    .filters { gap: 8px; }
+    .filters .card { flex: 1 1 100%; min-width: 0 !important; padding: 10px 12px; margin-bottom: 8px; }
+    .pill { padding: 6px 11px; font-size: 12.5px; }
+    input[type=date] { font-size: 16px; padding: 6px 10px; }
+    .kpi { gap: 8px; }
+    .kpi .card { flex: 1 1 calc(50% - 8px); min-width: 0; padding: 8px 12px; }
+    .gdkv-tab { font-size: 12px; }
+    h2 { font-size: 14px; }
+    table { font-size: 12px; }
+  }
 </style></head><body>
 <div class="wrap">
 <h1>Báo cáo giám sát camera (GSC) – 56 salon Công ty</h1>

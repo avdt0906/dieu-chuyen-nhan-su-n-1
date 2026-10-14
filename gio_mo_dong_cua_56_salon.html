@@ -18,7 +18,7 @@
       radial-gradient(720px circle at 45% 105%, rgba(52,211,153,.26), transparent 65%);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
     font-size: 14px; line-height: 1.5;
   }
   .wrap { max-width: 1180px; margin: 0 auto; }
@@ -67,7 +67,9 @@
   }
   table { table-layout: fixed; }
   td, th { overflow-wrap: anywhere; }
-  th:nth-child(1) { width: 52px } th:nth-child(2) { width: 96px } th:nth-child(3) { width: 76px } th:nth-child(4) { width: 86px } th:nth-child(5) { width: 170px } th:nth-child(6) { width: 70px } th:nth-child(7) { width: 80px } th:nth-child(8) { width: 92px } th:nth-child(9) { width: 170px } th:nth-child(10) { width: 70px } th:nth-child(11) { width: 150px }
+  table.d th:nth-child(1) { width: 52px } table.d th:nth-child(2) { width: 96px } table.d th:nth-child(3) { width: 76px } table.d th:nth-child(4) { width: 86px } table.d th:nth-child(5) { width: 170px } table.d th:nth-child(6) { width: 70px } table.d th:nth-child(7) { width: 80px } table.d th:nth-child(8) { width: 92px } table.d th:nth-child(9) { width: 170px } table.d th:nth-child(10) { width: 70px } table.d th:nth-child(11) { width: 150px }
+  table.r th:nth-child(1) { width: 52px } table.r th:nth-child(2) { width: 96px } table.r th:nth-child(3), table.r th:nth-child(4) { width: 76px } table.r th:nth-child(5), table.r th:nth-child(7) { width: 84px } table.r th:nth-child(6), table.r th:nth-child(8) { width: 84px } table.r th:nth-child(9), table.r th:nth-child(10) { width: 100px }
+  .tk { margin: 4px 0 0; padding-left: 16px; font-size: 11.5px; text-align: left } .tk li { margin: 2px 0 } details summary { cursor: pointer }
   thead th.left { text-align: left; }
   tbody td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: right; font-variant-numeric: tabular-nums; }
   tbody td.left { text-align: left; }
@@ -79,12 +81,29 @@
   .badge.ok { background: var(--green-bg); color: var(--green); }
   .note { color: var(--muted); font-size: 12px; margin-top: 4px; }
   .empty { padding: 24px; text-align: center; color: var(--muted); }
+  /* Điện thoại */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  td:nth-child(1), th:nth-child(1) { position: sticky; left: 0; background: var(--panel); z-index: 1; }
+  td:nth-child(2), th:nth-child(2) { position: sticky; left: 52px; background: var(--panel); z-index: 1; box-shadow: 1px 0 0 var(--border); }
+  @media (max-width: 720px) {
+    body { padding: 10px; }
+    h1 { font-size: 17px; }
+    .filters { gap: 8px; }
+    .filters .card { flex: 1 1 100%; min-width: 0 !important; padding: 10px 12px; margin-bottom: 8px; }
+    .pill { padding: 6px 11px; font-size: 12.5px; }
+    input[type=date] { font-size: 16px; padding: 6px 10px; }
+    .kpi { gap: 8px; }
+    .kpi .card { flex: 1 1 calc(50% - 8px); min-width: 0; padding: 8px 12px; }
+    .gdkv-tab { font-size: 12px; }
+    h2 { font-size: 14px; }
+    table { font-size: 12px; }
+  }
 </style></head><body>
 <div class="wrap">
 <h1>Báo cáo giờ mở cửa – đóng cửa 56 salon Công ty</h1>
 <div class="filters">
   <div class="card"><div class="lbl">Ngày</div><div class="row">
-    <button class="pill" id="prev" title="Ngày trước">‹</button><input type="date" id="date"><button class="pill" id="next" title="Ngày sau">›</button><button class="pill" id="yest">Hôm qua</button>
+    <span id="presets" style="display:contents"></span><input type="date" id="date" title="Chọn một ngày">
   </div></div>
   <div class="card" style="flex:1;min-width:280px"><div class="lbl">GĐKV</div><div class="row" id="gdkv"></div></div>
 </div>
@@ -99,8 +118,27 @@ const fmt=d=>d.split('-').reverse().join('/');
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const gdkvs=[...new Set(D.salons.map(s=>s.gdkv))];
 const who=i=>i?esc((D.staff[i]||'?')+' ('+i+')'):'—';
-let sel='Tất cả';
+let sel='Tất cả',cur='yesterday';
 const dEl=$('date');dEl.min=D.tu;dEl.max=D.den;dEl.value=D.den;
+const addD=(d,n)=>{const t=new Date(d+'T00:00:00Z');t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10)};
+const dow=new Date(D.den+'T00:00:00Z').getUTCDay(),mon=addD(D.den,-((dow+6)%7));
+const m1=D.den.slice(0,8)+'01',pm1=(()=>{const y=+D.den.slice(0,4),m=+D.den.slice(5,7);return m===1?(y-1)+'-12-01':y+'-'+String(m-1).padStart(2,'0')+'-01'})();
+const rg=(a,b)=>a===b?fmt(a).slice(0,5):fmt(a).slice(0,5)+'-'+fmt(b).slice(0,5);
+const PRE=[['yesterday','Hôm qua',D.den,D.den],['week','Tuần này',mon,D.den],['lastweek','Tuần trước',addD(mon,-7),addD(mon,-1)],['month','Tháng này',m1,D.den],['lastmonth','Tháng trước',pm1,addD(m1,-1)]];
+let rng={from:D.den,to:D.den};
+function setPre(k){cur=k;const p=PRE.find(x=>x[0]===k);rng={from:p[2],to:p[3]};dEl.value=p[2]===p[3]?p[2]:''}
+$('presets').innerHTML=PRE.map(p=>`<button class="pill" data-k="${p[0]}">${p[1]} (${rg(p[2],p[3])})</button>`).join('');
+const dow2=['CN','T2','T3','T4','T5','T6','T7'];
+function evalRange(s){
+  const days=D.dates.filter(d=>d>=rng.from&&d<=rng.to);
+  let lateN=0,lateMax=0,earlyN=0,earlyMax=0,noCi=0,noCo=0;const det=[];
+  for(const d of days){const e=evalRow(s,d);
+    if(!e.ci)noCi++;if(!e.co)noCo++;
+    if(e.late>0){lateN++;lateMax=Math.max(lateMax,e.late)}
+    if(e.early>0){earlyN++;earlyMax=Math.max(earlyMax,e.early)}
+    if(e.flag){const p=[];if(!e.ci)p.push('chưa checkin');else if(e.late>0)p.push('mở trễ '+e.late+'ph ('+e.ci+', '+e.nci+')');if(!e.co)p.push('chưa checkout');else if(e.early>0)p.push('đóng sớm '+e.early+'ph ('+e.co+', '+e.nco+')');det.push(`<li><span class="mu">${fmt(d).slice(0,5)}</span> · ${p.join(' · ')}</li>`)}}
+  return {n:days.length,lateN,lateMax,earlyN,earlyMax,noCi,noCo,det,flag:det.length>0};
+}
 function evalRow(s,d){
   const a=(D.act[s.id]||{})[d]||[null,null];const ci=a[0],co=a[1];
   const late=ci?mins(ci)-mins(s.open):null, early=co?mins(s.close)-mins(co):null;
@@ -113,25 +151,34 @@ function evalRow(s,d){
   return {ci,co,nci:who(a[2]),nco:who(a[3]),late,early,st,flag,none:!ci&&!co,okOpen:ci&&late<=0,okClose:co&&early<=0};
 }
 function render(){
-  const d=dEl.value;
-  const all=D.salons.map(s=>[s,evalRow(s,d)]);
+  const multi=rng.from!==rng.to;
+  const all=D.salons.map(s=>[s,multi?evalRange(s):evalRow(s,rng.from)]);
   const ev=all.filter(([s])=>sel==='Tất cả'||s.gdkv===sel);
   $('gdkv').innerHTML=['Tất cả',...gdkvs].map(g=>{
     const x=g==='Tất cả'?all:all.filter(([s])=>s.gdkv===g),f=x.filter(([,e])=>e.flag).length;
     return `<button class="gdkv-tab${g===sel?' active':''}${f?' flag':''}" data-g="${esc(g)}">${esc(g==='Tất cả'?g:g+' GDKV')}<span class="cnt">(${x.length} salon${f?', '+f+' cảnh báo':''})</span></button>`}).join('');
   const n=ev.length,flag=ev.filter(([,e])=>e.flag).length;
-  const mo=ev.filter(([,e])=>e.okOpen).length,dong=ev.filter(([,e])=>e.okClose).length;
-  $('kpi').innerHTML=`<div class="card"><b>${n}</b><span>salon</span></div><div class="card"><b>${mo}/${n}</b><span>mở cửa đúng giờ</span></div><div class="card"><b>${dong}/${n}</b><span>đóng cửa đúng giờ</span></div><div class="card"><b style="color:${flag?'var(--red)':'var(--green)'}">${flag}</b><span>salon cần chú ý</span></div>`;
+  if(multi){
+    const late=ev.filter(([,e])=>e.lateN).length,early=ev.filter(([,e])=>e.earlyN).length;
+    $('kpi').innerHTML=`<div class="card"><b>${n}</b><span>salon</span></div><div class="card"><b>${ev.reduce((a,[,e])=>a+e.lateN,0)}</b><span>lượt mở trễ (${late} salon)</span></div><div class="card"><b>${ev.reduce((a,[,e])=>a+e.earlyN,0)}</b><span>lượt đóng sớm (${early} salon)</span></div><div class="card"><b style="color:${flag?'var(--red)':'var(--green)'}">${flag}</b><span>salon cần chú ý</span></div>`;
+  }else{
+    const mo=ev.filter(([,e])=>e.okOpen).length,dong=ev.filter(([,e])=>e.okClose).length;
+    $('kpi').innerHTML=`<div class="card"><b>${n}</b><span>salon</span></div><div class="card"><b>${mo}/${n}</b><span>mở cửa đúng giờ</span></div><div class="card"><b>${dong}/${n}</b><span>đóng cửa đúng giờ</span></div><div class="card"><b style="color:${flag?'var(--red)':'var(--green)'}">${flag}</b><span>salon cần chú ý</span></div>`;
+  }
+  const dash=(v,bad)=>`<td class="${bad?'thieu':'mu'}">${bad?v:'—'}</td>`;
+  const head=multi?`<table class="r"><thead><tr><th class="left">Mã</th><th class="left">Salon</th><th>Mở chuẩn</th><th>Đóng chuẩn</th><th>Mở trễ (ngày)</th><th>Trễ nhất (ph)</th><th>Đóng sớm (ngày)</th><th>Sớm nhất (ph)</th><th>Chưa check-in (ngày)</th><th>Chưa check-out (ngày)</th><th class="left">Chi tiết</th></tr></thead><tbody>`:
+    `<table class="d"><thead><tr><th class="left">Mã</th><th class="left">Salon</th><th>Mở chuẩn</th><th>Check-in đầu</th><th class="left">NV check-in đầu</th><th>Trễ (ph)</th><th>Đóng chuẩn</th><th>Check-out cuối</th><th class="left">NV check-out cuối</th><th>Sớm (ph)</th><th class="left">Trạng thái</th></tr></thead><tbody>`;
+  const rowH=([s,e])=>multi?
+    `<tr><td class="left mu">${s.id}</td><td class="left"><b>${esc(s.code)}</b></td><td>${s.open}</td><td>${s.close}</td>${dash(e.lateN,e.lateN)}${dash(e.lateMax,e.lateN)}${dash(e.earlyN,e.earlyN)}${dash(e.earlyMax,e.earlyN)}${dash(e.noCi,e.noCi)}${dash(e.noCo,e.noCo)}<td class="left">${e.det.length?`<details><summary>${e.det.length} ngày cảnh báo</summary><ul class="tk">${e.det.join('')}</ul></details>`:'<span class="badge ok">Đúng giờ</span>'}</td></tr>`:
+    `<tr><td class="left mu">${s.id}</td><td class="left"><b>${esc(s.code)}</b></td><td>${s.open}</td><td>${e.ci||'—'}</td><td class="left">${e.nci}</td><td class="${e.late>0?'thieu':'mu'}">${e.late>0?e.late:'—'}</td><td>${s.close}</td><td>${e.co||'—'}</td><td class="left">${e.nco}</td><td class="${e.early>0?'thieu':'mu'}">${e.early>0?e.early:'—'}</td><td class="left">${e.st}</td></tr>`;
   const groups={};ev.forEach(x=>(groups[x[0].gdkv]??=[]).push(x));
   $('out').innerHTML=Object.keys(groups).length?Object.entries(groups).map(([g,v])=>{
     const f=v.filter(([,e])=>e.flag).length;
-    return `<div class="card"><h2>${esc(g)} GDKV<small>${v.length} salon${f?' · <span style="color:var(--red);font-weight:600">'+f+' cảnh báo</span>':''}</small></h2><div class="tw"><table><thead><tr><th class="left">Mã</th><th class="left">Salon</th><th>Mở chuẩn</th><th>Check-in đầu</th><th class="left">NV check-in đầu</th><th>Trễ (ph)</th><th>Đóng chuẩn</th><th>Check-out cuối</th><th class="left">NV check-out cuối</th><th>Sớm (ph)</th><th class="left">Trạng thái</th></tr></thead><tbody>`+
-    v.map(([s,e])=>`<tr><td class="left mu">${s.id}</td><td class="left"><b>${esc(s.code)}</b></td><td>${s.open}</td><td>${e.ci||'—'}</td><td class="left">${e.nci}</td><td class="${e.late>0?'thieu':'mu'}">${e.late>0?e.late:'—'}</td><td>${s.close}</td><td>${e.co||'—'}</td><td class="left">${e.nco}</td><td class="${e.early>0?'thieu':'mu'}">${e.early>0?e.early:'—'}</td><td class="left">${e.st}</td></tr>`).join('')+`</tbody></table></div></div>`}).join(''):'<div class="empty">Không có salon</div>';
-  $('prev').disabled=d<=D.tu;$('next').disabled=d>=D.den;
+    return `<div class="card"><h2>${esc(g)} GDKV<small>${v.length} salon${f?' · <span style="color:var(--red);font-weight:600">'+f+' cảnh báo</span>':''}</small></h2><div class="tw">${head}`+v.map(rowH).join('')+`</tbody></table></div></div>`}).join(''):'<div class="empty">Không có salon</div>';
+  document.querySelectorAll('#presets .pill').forEach(b=>b.style.cssText=b.dataset.k===cur?'background:var(--gold);color:#fff;border-color:var(--gold)':'');
 }
-function shift(n){const t=new Date(dEl.value+'T00:00:00Z');t.setUTCDate(t.getUTCDate()+n);const v=t.toISOString().slice(0,10);if(v>=D.tu&&v<=D.den){dEl.value=v;render()}}
-$('prev').onclick=()=>shift(-1);$('next').onclick=()=>shift(1);$('yest').onclick=()=>{dEl.value=D.den;render()};
-dEl.onchange=()=>{if(!dEl.value)dEl.value=D.den;render()};
+$('presets').onclick=e=>{const b=e.target.closest('button');if(b){setPre(b.dataset.k);render()}};
+dEl.onchange=()=>{if(!dEl.value){setPre('yesterday')}else{cur='';rng={from:dEl.value,to:dEl.value}}render()};
 $('gdkv').onclick=e=>{const b=e.target.closest('button');if(b){sel=b.dataset.g;render()}};
 render();
 </script></body></html>
