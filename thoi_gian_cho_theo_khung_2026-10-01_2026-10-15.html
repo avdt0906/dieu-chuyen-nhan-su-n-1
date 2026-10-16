@@ -15,17 +15,20 @@ th:first-child,td:first-child,th.l,td.l{text-align:left}th{font-size:12px;color:
 th.s{cursor:pointer}tr.tot td{font-weight:700}
 .tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px}.t1{background:var(--badbg);color:var(--bad)}.t0{background:var(--okbg);color:var(--ok)}
 .note{color:var(--mut);font-size:12px;margin-top:10px}
+tr.cl{cursor:pointer}tr.cl:hover td{background:rgba(31,111,235,.07)}.arr{display:inline-block;width:16px;color:var(--mut)}
+tr.s1 td:first-child{font-weight:600}tr.s2 td:first-child{padding-left:32px}tr.s3 td:first-child{padding-left:58px;color:var(--mut)}tr.s3 td{background:rgba(31,111,235,.03)}
+button{background:var(--card);color:var(--ac);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}
 </style></head><body><div class="w">
 <h1>Thời gian chờ lâu theo khung giờ</h1>
 <p class="sub">01–15/10/2026 · 56 salon Công ty · bill chờ &gt;15 phút · 6 khung, mỗi khung 2 giờ từ 8h30</p>
 <div class="cards" id="cards"></div>
 <h2>Bảng tổng 56 salon: tỉ lệ chờ lâu theo ngày và khung giờ</h2>
 <div class="tw"><table id="sum"></table></div>
-<h2>Chi tiết theo salon – ngày – khung</h2>
+<h2>Chi tiết theo salon</h2>
 <div class="bar"><select id="fd"></select><select id="fk"></select>
 <select id="ft"><option value="">Thiếu NV: tất cả</option><option value="1">Khung có thiếu NV</option><option value="0">Khung không thiếu NV</option></select>
-<input id="fs" placeholder="Tìm salon…"></div>
-<div class="tw"><table><thead><tr><th class="l s" data-k="0">Ngày</th><th class="l s" data-k="1">Salon</th><th class="l s" data-k="2">Khung</th><th class="s" data-k="3">Số bill</th><th class="s" data-k="4">Bill chờ &gt;15 phút</th><th class="s" data-k="10">Tỉ lệ</th><th class="l">Thiếu NV khung này</th></tr></thead><tbody id="tb"></tbody></table></div>
+<input id="fs" placeholder="Tìm salon…"><button id="ea" type="button">Mở tất cả</button><button id="ca" type="button">Thu tất cả</button></div>
+<div class="tw"><table><thead><tr><th class="l s" data-k="0">Salon ▸ Ngày ▸ Khung</th><th class="s" data-k="1">Số bill</th><th class="s" data-k="2">Bill chờ &gt;15 phút</th><th class="s" data-k="3">Tỉ lệ</th><th class="l">Thiếu NV</th></tr></thead><tbody id="tb"></tbody></table></div>
 <p class="note" id="cap"></p>
 <p class="note">Thời gian chờ của 1 bill = chờ Stylist + chờ Skinner; bill chờ lâu khi tổng này &gt; 15 phút (900 giây). Tỉ lệ = số bill chờ lâu / tổng số bill trong khung; khung xếp theo giờ bill được tạo (check-in), 6 khung × 2 giờ từ 8h30. Bảng tổng tính gộp theo số bill (không phải trung bình cộng tỉ lệ từng salon). Mỗi thành phần chờ trên 30 phút được coi là dữ liệu lỗi và bỏ ra khỏi phép cộng. "Thiếu NV" lấy từ cờ thiếu của báo cáo giờ cao điểm đã phát hành, đúng khung đó. Dữ liệu trễ khoảng 1 ngày.</p>
 </div>
@@ -42,14 +45,31 @@ $('cards').innerHTML=`<div class="c"><b>${pct(tot[1],tot[0]).toFixed(1)}%</b><sp
 const days=[...new Set(R.map(r=>r[0]))];
 $('fd').innerHTML='<option value="">Tất cả ngày</option>'+days.map(d=>`<option>${d}</option>`).join('');
 $('fk').innerHTML='<option value="">Tất cả khung</option>'+KH.map((k,i)=>`<option value="${i}">${k}</option>`).join('');
-let sk=10,sd=-1;const LIM=1000;
+let sk=3,sd=-1;const OS={},OD={};
+const fmtD=d=>d.slice(8)+'/'+d.slice(5,7);
+function sums(rs){let n=0,l=0,t=0;rs.forEach(r=>{n+=r[3];l+=r[4];if(r[5])t++});return{n,l,t}}
+function thieuCell(t,unit){return t?`<span class="tag t1">${t} ${unit} thiếu</span>`:`<span class="tag t0">Không</span>`}
 function render(){const fd=$('fd').value,fk=$('fk').value,ft=$('ft').value,q=$('fs').value.trim().toLowerCase();
- let rs=R.filter(r=>(!fd||r[0]===fd)&&(fk===''||r[2]==fk)&&(ft===''||(ft==='1')===!!r[5])&&(!q||r[1].toLowerCase().includes(q)));
- const val=(r,k)=>k===10?pct(r[4],r[3]):r[k];
- rs.sort((a,b)=>{const x=val(a,sk),y=val(b,sk);return typeof x==='string'?sd*x.localeCompare(y,'vi'):sd*(x-y)});
- const tot=rs.length;rs=rs.slice(0,LIM);
- $('tb').innerHTML=rs.map(r=>`<tr><td class="l">${r[0].slice(8)}/${r[0].slice(5,7)}</td><td class="l">${r[1]}</td><td class="l">${KH[r[2]]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${pct(r[4],r[3]).toFixed(1)}%</td><td class="l"><span class="tag ${r[5]?'t1':'t0'}">${r[5]?'Có: '+r[5].replace(/,/g,', '):'Không'}</span></td></tr>`).join('');
- $('cap').textContent=tot>LIM?`Hiển thị ${LIM}/${tot.toLocaleString('vi')} dòng đầu theo thứ tự sắp xếp — dùng bộ lọc để xem các dòng còn lại.`:`${tot.toLocaleString('vi')} dòng.`}
-document.querySelectorAll('th.s').forEach(h=>h.onclick=()=>{const k=+h.dataset.k;if(sk===k)sd=-sd;else{sk=k;sd=k<3?1:-1}render()});
+ const rs=R.filter(r=>(!fd||r[0]===fd)&&(fk===''||r[2]==fk)&&(ft===''||(ft==='1')===!!r[5])&&(!q||r[1].toLowerCase().includes(q)));
+ const G={};rs.forEach(r=>{((G[r[1]]=G[r[1]]||{})[r[0]]=G[r[1]][r[0]]||[]).push(r)});
+ let sal=Object.keys(G).map(s=>({s,rows:[].concat(...Object.values(G[s])),...sums([].concat(...Object.values(G[s])))}));
+ const val=(o,k)=>k===0?o.s:k===1?o.n:k===2?o.l:pct(o.l,o.n);
+ sal.sort((a,b)=>{const x=val(a,sk),y=val(b,sk);return typeof x==='string'?sd*x.localeCompare(y,'vi'):sd*(x-y)});
+ let h='';
+ sal.forEach(o=>{const op=OS[o.s];
+  h+=`<tr class="cl s1" data-s="${o.s}"><td class="l"><span class="arr">${op?'▾':'▸'}</span>${o.s}</td><td>${o.n}</td><td>${o.l}</td><td>${pct(o.l,o.n).toFixed(1)}%</td><td class="l">${thieuCell(o.t,'khung')}</td></tr>`;
+  if(!op)return;
+  Object.keys(G[o.s]).sort().forEach(d=>{const dr=G[o.s][d],m=sums(dr),key=o.s+'|'+d,od=OD[key];
+   h+=`<tr class="cl s2" data-d="${key}"><td class="l"><span class="arr">${od?'▾':'▸'}</span>${fmtD(d)}</td><td>${m.n}</td><td>${m.l}</td><td>${pct(m.l,m.n).toFixed(1)}%</td><td class="l">${thieuCell(m.t,'khung')}</td></tr>`;
+   if(!od)return;
+   dr.slice().sort((a,b)=>a[2]-b[2]).forEach(r=>{h+=`<tr class="s3"><td class="l">${KH[r[2]]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${pct(r[4],r[3]).toFixed(1)}%</td><td class="l"><span class="tag ${r[5]?'t1':'t0'}">${r[5]?'Có: '+r[5].replace(/,/g,', '):'Không'}</span></td></tr>`})
+  })});
+ $('tb').innerHTML=h;$('cap').textContent=`${sal.length} salon. Bấm vào salon để xổ các ngày, bấm vào ngày để xổ các khung giờ trong ngày đó.`;
+ document.querySelectorAll('tr.cl[data-s]').forEach(t=>t.onclick=()=>{OS[t.dataset.s]=!OS[t.dataset.s];render()});
+ document.querySelectorAll('tr.cl[data-d]').forEach(t=>t.onclick=()=>{OD[t.dataset.d]=!OD[t.dataset.d];render()});
+ window.__sal=sal.map(o=>o.s);window.__G=G}
+$('ea').onclick=()=>{(window.__sal||[]).forEach(s=>{OS[s]=true;Object.keys(window.__G[s]).forEach(d=>OD[s+'|'+d]=true)});render()};
+$('ca').onclick=()=>{Object.keys(OS).forEach(k=>delete OS[k]);Object.keys(OD).forEach(k=>delete OD[k]);render()};
+document.querySelectorAll('th.s').forEach(h=>h.onclick=()=>{const k=+h.dataset.k;if(sk===k)sd=-sd;else{sk=k;sd=k===0?1:-1}render()});
 ['fd','fk','ft','fs'].forEach(i=>$(i).oninput=render);render();
 </script></body></html>
