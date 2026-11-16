@@ -2,7 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Báo cáo Nhân sự Giờ cao điểm — Danh sách báo cáo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Báo cáo vận hành 30Shine</title>
 <style>
   :root {
     --bg: #F1F5F9; --panel: #FFFFFF; --border: #E2E8F0; --text: #0F172A; --muted: #64748B; --blue: #2563EB; --blue-bg: #EFF6FF;
@@ -12,26 +13,37 @@
     margin: 0; padding: 32px; background: var(--bg); color: var(--text);
     font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  .wrap { max-width: 640px; margin: 0 auto; }
-  h1 { font-size: 20px; color: var(--blue); margin: 0 0 4px; }
-  .sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
-  .list { display: flex; flex-direction: column; gap: 8px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 21px; color: var(--blue); margin: 0 0 18px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-top: 4px solid var(--blue); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(15,23,42,.06); }
+  .card h2 { font-size: 16px; margin: 0 0 4px; }
+  .card .sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
   a.item {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
     background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 12px 16px; text-decoration: none; color: var(--text);
+    padding: 10px 12px; text-decoration: none; color: var(--text);
   }
   a.item:hover { border-color: var(--blue); background: var(--blue-bg); }
   a.item .date { font-weight: 600; }
-  a.item .dow { color: var(--muted); font-size: 12.5px; }
+  a.item .dow { color: var(--muted); font-size: 12px; }
+  a.big { padding: 14px 16px; font-weight: 600; }
   .empty { color: var(--muted); font-style: italic; }
+  @media (max-width: 520px) { body { padding: 14px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Báo cáo Nhân sự Giờ cao điểm</h1>
-  <p class="sub">Chọn ngày để xem báo cáo chi tiết theo salon.</p>
-  <div class="list">
+  <h1>Báo cáo vận hành 30Shine</h1>
+  <div class="card">
+    <h2>Báo cáo vận hành</h2>
+    <p class="sub">Giám sát camera · Mở/đóng cửa · Kiểm tồn · Chấm vận hành · 5S</p>
+    <a class="item big" href="bao_cao_van_hanh.html"><span>Mở báo cáo vận hành</span><span class="dow">→</span></a>
+  </div>
+  <div class="card">
+    <h2>Báo cáo khung cao điểm</h2>
+    <p class="sub">Báo cáo nhân sự giờ cao điểm theo salon — các báo cáo trong 1 tháng gần nhất (từ 16/10/2026). Chọn ngày để xem chi tiết.</p>
+    <div class="grid">
 <a class="item" href="gio_cao_diem_2026-11-17.html"><span class="date">17/11/2026</span><span class="dow">Thứ Ba</span></a>
 <a class="item" href="gio_cao_diem_2026-11-16.html"><span class="date">16/11/2026</span><span class="dow">Thứ Hai</span></a>
 <a class="item" href="gio_cao_diem_2026-11-15.html"><span class="date">15/11/2026</span><span class="dow">Chủ Nhật</span></a>
@@ -64,55 +76,7 @@
 <a class="item" href="gio_cao_diem_2026-10-18.html"><span class="date">18/10/2026</span><span class="dow">Chủ Nhật</span></a>
 <a class="item" href="gio_cao_diem_2026-10-17.html"><span class="date">17/10/2026</span><span class="dow">Thứ Bảy</span></a>
 <a class="item" href="gio_cao_diem_2026-10-16.html"><span class="date">16/10/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-10-15.html"><span class="date">15/10/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-10-14.html"><span class="date">14/10/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-10-13.html"><span class="date">13/10/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-10-12.html"><span class="date">12/10/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-10-11.html"><span class="date">11/10/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-10-10.html"><span class="date">10/10/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-10-09.html"><span class="date">09/10/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-10-08.html"><span class="date">08/10/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-10-07.html"><span class="date">07/10/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-10-06.html"><span class="date">06/10/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-10-05.html"><span class="date">05/10/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-10-04.html"><span class="date">04/10/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-10-03.html"><span class="date">03/10/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-10-02.html"><span class="date">02/10/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-10-01.html"><span class="date">01/10/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-09-30.html"><span class="date">30/09/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-09-29.html"><span class="date">29/09/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-09-28.html"><span class="date">28/09/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-09-27.html"><span class="date">27/09/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-09-26.html"><span class="date">26/09/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-09-25.html"><span class="date">25/09/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-09-24.html"><span class="date">24/09/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-09-23.html"><span class="date">23/09/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-09-22.html"><span class="date">22/09/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-09-21.html"><span class="date">21/09/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-09-20.html"><span class="date">20/09/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-09-19.html"><span class="date">19/09/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-09-18.html"><span class="date">18/09/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-09-17.html"><span class="date">17/09/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-09-16.html"><span class="date">16/09/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-09-15.html"><span class="date">15/09/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-09-14.html"><span class="date">14/09/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-09-13.html"><span class="date">13/09/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-09-12.html"><span class="date">12/09/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-09-11.html"><span class="date">11/09/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-09-10.html"><span class="date">10/09/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-09-09.html"><span class="date">09/09/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-09-08.html"><span class="date">08/09/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-09-07.html"><span class="date">07/09/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-09-06.html"><span class="date">06/09/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-09-05.html"><span class="date">05/09/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-09-04.html"><span class="date">04/09/2026</span><span class="dow">Thứ Sáu</span></a>
-<a class="item" href="gio_cao_diem_2026-09-03.html"><span class="date">03/09/2026</span><span class="dow">Thứ Năm</span></a>
-<a class="item" href="gio_cao_diem_2026-09-02.html"><span class="date">02/09/2026</span><span class="dow">Thứ Tư</span></a>
-<a class="item" href="gio_cao_diem_2026-09-01.html"><span class="date">01/09/2026</span><span class="dow">Thứ Ba</span></a>
-<a class="item" href="gio_cao_diem_2026-08-31.html"><span class="date">31/08/2026</span><span class="dow">Thứ Hai</span></a>
-<a class="item" href="gio_cao_diem_2026-08-30.html"><span class="date">30/08/2026</span><span class="dow">Chủ Nhật</span></a>
-<a class="item" href="gio_cao_diem_2026-08-29.html"><span class="date">29/08/2026</span><span class="dow">Thứ Bảy</span></a>
-<a class="item" href="gio_cao_diem_2026-08-28.html"><span class="date">28/08/2026</span><span class="dow">Thứ Sáu</span></a>
+    </div>
   </div>
 </div>
 </body>
