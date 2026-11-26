@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quỹ party vùng</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root {
+  color-scheme: light;
+  --ink: #2e1735;
+  --muted: #655269;
+  --paper: #fff;
+  --line: #eee2ec;
+  --berry: #961054;
+  --berry-dark: #600a41;
+  --focus: #8226a9;
+  --shadow: 0 12px 30px #4f17470c, 0 2px 5px #4f174707;
+  --green: #18754f;
+  --green-ink: #12513a;
+  --green-tint: #effbf4;
+  --green-strong: #d7f4e5;
+  --orange: #be5715;
+  --orange-ink: #87360b;
+  --orange-tint: #fff6ea;
+  --orange-strong: #ffe7cb;
+  --purple: #783bb7;
+  --purple-ink: #592b88;
+  --purple-tint: #f8f1ff;
+  --purple-strong: #eadbfb;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 8% 0%, #ffdce9 0%, transparent 36rem),
+    radial-gradient(ellipse at 100% 24%, #f0e2ff 0%, transparent 34rem),
+    radial-gradient(ellipse at 0% 80%, #ffead9 0%, transparent 32rem), #faf5fa;
+  font: 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.wrap { max-width: 1400px; margin: auto; padding: 28px 24px 52px; }
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 385px;
+  margin-bottom: 24px;
+  padding: clamp(30px, 5.3vw, 72px);
+  border: 1px solid #823058;
+  border-radius: 30px;
+  color: #fff8f4;
+  background:
+    radial-gradient(ellipse at 90% 16%, #f94a8766 0%, transparent 52%),
+    radial-gradient(ellipse at 65% 116%, #8719bd 0%, transparent 58%),
+    linear-gradient(112deg, #2b1035 3%, #600d4b 48%, #a51157 100%);
+  box-shadow: 0 18px 40px #6a184e34;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: radial-gradient(circle, #fff 1px, transparent 1.5px) 0 0 / 20px 20px;
+  opacity: .12;
+  mask-image: linear-gradient(100deg, transparent 26%, #000 90%);
+}
+
+.hero-content { position: relative; width: min(56%, 570px); }
+.hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; }
+.brand { color: #ffdd99; font-size: .83rem; font-weight: 850; letter-spacing: .14em; }
+.period {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border: 1px solid #fff6d85c;
+  border-radius: 999px;
+  background: #ffeddf16;
+  font-size: .82rem;
+  font-weight: 650;
+}
+
+.hero h1 {
+  margin: 13px 0 17px;
+  font-size: clamp(2.85rem, 7.1vw, 6.45rem);
+  font-weight: 900;
+  line-height: 1.01;
+  letter-spacing: -.07em;
+  text-wrap: balance;
+}
+
+.hero h1 span { color: #ffca75; }
+.sub { max-width: 490px; margin: 0; color: #ffecf7; font-size: clamp(.91rem, 1.4vw, 1.04rem); }
+.hero-art {
+  position: absolute;
+  z-index: -1;
+  width: 57%;
+  height: 113%;
+  inset: -5% -1% auto auto;
+  pointer-events: none;
+}
+
+.icon { flex: none; width: 1.05em; height: 1.05em; }
+.card {
+  --section-ink: #713383;
+  --section-tint: #f2e5fa;
+  min-width: 0;
+  margin-bottom: 20px;
+  padding: clamp(16px, 2.25vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.card-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 18px; margin-bottom: 16px; }
+.card h2 { display: flex; align-items: center; gap: 11px; margin: 0; font-size: clamp(1.05rem, 1.7vw, 1.32rem); line-height: 1.25; letter-spacing: -.024em; }
+.section-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  border-radius: 11px;
+  color: var(--section-ink);
+  background: var(--section-tint);
+  font-size: 1.15rem;
+}
+
+#stages { --section-ink: var(--green-ink); --section-tint: var(--green-strong); }
+#rules, #cardKd { --section-ink: #91430c; --section-tint: #ffe9c9; }
+.import-card { --section-ink: var(--berry); --section-tint: #fbe2ef; }
+.stage-duration { color: var(--muted); font-size: .82rem; font-weight: 650; }
+.setup-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; margin-bottom: 20px; }
+.setup-grid > .card { margin: 0; }
+#rules { background: linear-gradient(145deg, #fff 48%, #fff8ed); }
+.rules-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.rules-list li {
+  padding: 10px 12px;
+  border: 1px solid #f4e5d4;
+  border-radius: 12px;
+  background: #fffcf7;
+  color: #544234;
+  font-size: .82rem;
+  box-shadow: 0 2px 5px #8a4a0c0a;
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+.rules-list li:hover { border-color: #ecc693; background: #fff2de; box-shadow: 0 4px 10px #8a4a0c17; }
+.rules-list strong { display: block; margin-bottom: 3px; color: #803b0c; font-size: .86rem; }
+.rule-example {
+  margin: 12px 0 0;
+  padding: 9px 12px;
+  border-inline-start: 3px solid #e69342;
+  border-radius: 0 10px 10px 0;
+  color: #673a1b;
+  background: #fff0db;
+  font-size: .81rem;
+}
+
+.row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+button, input::file-selector-button, select { font: inherit; }
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: linear-gradient(120deg, #a31359, #790b6f);
+  color: #fff;
+  box-shadow: 0 4px 9px #890d5e28;
+  font-size: .86rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background-color .2s, border-color .2s;
+}
+
+button:hover { transform: translateY(-2px); box-shadow: 0 7px 15px #890d5e40; }
+button:active { transform: translateY(0); }
+button.sec { border-color: #edd3e6; color: var(--berry-dark); background: #fbf0f7; box-shadow: none; }
+button.sec:hover { border-color: #d8a3ca; background: #f7e2f0; }
+.actions { align-items: stretch; }
+.actions > button { flex: 1 1 auto; }
+.actions > .demo { flex-basis: 100%; }
+.file-row {
+  margin-top: 12px;
+  padding: 11px 12px;
+  border: 1px dashed #dcadce;
+  border-radius: 12px;
+  background: #fffbfe;
+  font-size: .85rem;
+}
+.file-row label { flex-basis: 100%; color: var(--berry-dark); font-weight: 750; }
+input[type=file] { width: 100%; min-width: 0; color: var(--muted); font: inherit; }
+input::file-selector-button {
+  margin-inline-end: 8px;
+  padding: 5px 10px;
+  border: 1px solid #ebcfe4;
+  border-radius: 7px;
+  color: var(--berry-dark);
+  background: #f9e9f5;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+input:hover::file-selector-button { background: #f3d8ec; }
+select {
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #decae3;
+  border-radius: 9px;
+  color: var(--ink);
+  background: #fbf6ff;
+}
+:where(button, input, select, .tw):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.note { margin: 10px 0 0; color: var(--muted); font-size: .82rem; overflow-wrap: anywhere; }
+.msg { margin-top: 8px; padding: 8px 11px; border-inline-start: 3px solid currentColor; border-radius: 7px; font-size: .82rem; overflow-wrap: anywhere; }
+.msg.w { background: #fff1d9; color: #79400b; }
+.msg.e { background: #ffe7ed; color: #9b2244; }
+.msg.i { background: #ebf8f0; color: #1d6847; }
+
+.hs {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 7px;
+  text-align: center;
+  font-size: .76rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.hs div {
+  padding: 8px 2px 7px;
+  border: 1px solid var(--tier-edge);
+  border-radius: 11px;
+  color: var(--tier-ink);
+  background: linear-gradient(155deg, #ffffff60, transparent), var(--tier-tint);
+  transition: transform .2s, box-shadow .2s;
+}
+.hs div:hover { transform: translateY(-2px); box-shadow: 0 5px 13px #4f17471c; }
+.hs b { display: block; font-size: 1.3rem; font-weight: 850; line-height: 1.25; }
+.hs div:nth-child(1)  { --tier-tint: #ffdde7; --tier-edge: #efb8ca; --tier-ink: #8c2145; }
+.hs div:nth-child(2)  { --tier-tint: #ffe0de; --tier-edge: #f1bdb9; --tier-ink: #8c302c; }
+.hs div:nth-child(3)  { --tier-tint: #ffe6d4; --tier-edge: #f3c6a7; --tier-ink: #853b1e; }
+.hs div:nth-child(4)  { --tier-tint: #ffedc8; --tier-edge: #eeca89; --tier-ink: #774214; }
+.hs div:nth-child(5)  { --tier-tint: #fff2bf; --tier-edge: #ead581; --tier-ink: #72500c; }
+.hs div:nth-child(6)  { --tier-tint: #eef6c2; --tier-edge: #d8e18f; --tier-ink: #53620f; }
+.hs div:nth-child(7)  { --tier-tint: #e1f4c7; --tier-edge: #bcda96; --tier-ink: #39621e; }
+.hs div:nth-child(8)  { --tier-tint: #d3f2d4; --tier-edge: #9ed3aa; --tier-ink: #235d37; }
+.hs div:nth-child(9)  { --tier-tint: #c5efdd; --tier-edge: #8bceb5; --tier-ink: #1a614a; }
+.hs div:nth-child(10) { --tier-tint: #b7eee6; --tier-edge: #83cfc2; --tier-ink: #155950; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; margin-bottom: 20px; }
+.kpi {
+  --kpi-ink: #713383;
+  --kpi-tint: #f5e6fc;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--kpi-ink);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff 15%, var(--kpi-tint));
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+.kpi:hover { transform: translateY(-2px); box-shadow: 0 11px 26px #56184924; }
+.kpi:nth-child(1) { --kpi-ink: var(--green-ink); --kpi-tint: var(--green-strong); }
+.kpi:nth-child(2) { --kpi-ink: var(--orange-ink); --kpi-tint: var(--orange-strong); }
+.kpi:nth-child(3) {
+  --kpi-ink: #fff0bc;
+  color: #fff0bc;
+  border-color: #8b175b;
+  background: linear-gradient(135deg, #641460, #a0145c);
+}
+.kpi:nth-child(4):not(:last-child) { --kpi-ink: #8c4610; --kpi-tint: #ffedcc; }
+.kpi .l { color: var(--kpi-ink); font-size: .8rem; font-weight: 750; }
+.kpi .v { margin-top: 4px; font-size: clamp(1.25rem, 2.2vw, 1.66rem); line-height: 1.2; font-weight: 850; letter-spacing: -.045em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+.tw { max-width: 100%; overflow-x: auto; border: 1px solid #efdfec; border-radius: 12px; scrollbar-color: #c485b1 #f9eef7; }
+table { width: 100%; min-width: 820px; border-spacing: 0; font-size: .86rem; font-variant-numeric: tabular-nums; }
+#tblStage { min-width: 670px; }
+#tbl { min-width: 985px; }
+#tblKd { min-width: 860px; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th { color: var(--stage-ink, #5d2e60); background: var(--stage-strong, #f6e8f3); font-weight: 750; }
+th:first-child, td:first-child, .t-left { text-align: left; }
+th small { display: inline-block; color: inherit; font-weight: 600; font-size: .72rem; }
+tbody td { background: var(--stage-tint, #fff); transition: background-color .18s; }
+tbody tr:nth-child(even) td { background: var(--stage-tint, #fdf9fc); }
+tbody tr:hover td { background: var(--stage-strong, #f6e8f3); }
+tbody:last-child tr:last-child td, tfoot tr:last-child td { border-bottom: 0; }
+tfoot td { background: var(--stage-strong, #f6e8f3); color: var(--stage-ink, #522251); font-weight: 800; }
+#tbl tbody td:last-child, #tbl tfoot td:last-child { color: var(--berry-dark); background: #fbe9f3; }
+#tbl tbody tr:hover td:last-child { background: #f5d7e9; }
+#tblStage tbody td:first-child, #tblStage tbody td:nth-child(4) { color: var(--stage-ink); font-weight: 800; }
+#tblStage tbody td:first-child::before {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 8px;
+  border-radius: 50%;
+  background: var(--stage-color);
+  content: "";
+}
+#tblStage tbody td:last-child { min-width: 150px; white-space: normal; }
+
+/* Thể lệ dùng màu theo hàng, các bảng số liệu dùng màu theo nhóm cột. */
+#tblStage tbody tr:nth-child(1), #tbl tr > :nth-child(3),
+#tblDt tr > :nth-child(n+2):nth-child(-n+3), #tblNs tr > :nth-child(4) {
+  --stage-color: var(--green);
+  --stage-ink: var(--green-ink);
+  --stage-tint: var(--green-tint);
+  --stage-strong: var(--green-strong);
+}
+#tblStage tbody tr:nth-child(2), #tbl tr > :nth-child(4),
+#tblDt tr > :nth-child(n+4):nth-child(-n+5), #tblNs tr > :nth-child(5), .stage-1 {
+  --stage-color: var(--orange);
+  --stage-ink: var(--orange-ink);
+  --stage-tint: var(--orange-tint);
+  --stage-strong: var(--orange-strong);
+}
+#tblStage tbody tr:nth-child(3), #tbl tr > :nth-child(5),
+#tblDt tr > :nth-child(n+6):nth-child(-n+7), #tblNs tr > :nth-child(6), .stage-2 {
+  --stage-color: var(--purple);
+  --stage-ink: var(--purple-ink);
+  --stage-tint: var(--purple-tint);
+  --stage-strong: var(--purple-strong);
+}
+
+.pill, .stage-tag, .rank { display: inline-block; border-radius: 999px; font-size: .75rem; font-weight: 800; transition: box-shadow .2s; }
+tbody tr:hover :is(.pill, .stage-tag, .rank) { box-shadow: 0 2px 7px #54304a20; }
+.pill { min-width: 34px; padding: 2px 7px; border: 1px solid; text-align: center; }
+.pill.p-lo { color: #922445; background: #ffe6ed; border-color: #f1b9ca; }
+.pill.p-mid { color: #85420e; background: #ffebce; border-color: #f2c78e; }
+.pill.p-hi { color: #15573d; background: #dff6e9; border-color: #9cd3b5; }
+.stage-tag { padding: 3px 9px; color: var(--stage-ink); background: var(--stage-strong); }
+.rank {
+  min-width: 25px;
+  padding: 2px 5px;
+  border: 1px solid var(--rank-edge, #eee1eb);
+  color: var(--rank-ink, var(--ink));
+  background: linear-gradient(160deg, #fff9, transparent), var(--rank-tint, #f8f1f7);
+  text-align: center;
+}
+.rank-1 { --rank-ink: #684605; --rank-edge: #e5b748; --rank-tint: #ffda6c; }
+.rank-2 { --rank-ink: #374456; --rank-edge: #b9c2cf; --rank-tint: #e0e7f0; }
+.rank-3 { --rank-ink: #753910; --rank-edge: #db9e76; --rank-tint: #f6cbad; }
+#tblKd :is(th, td):nth-child(5) { text-align: center; }
+
+@media (max-width: 850px) {
+  .hero-content { width: 60%; }
+  .hero-art { width: 59%; inset-inline-end: -5%; }
+  .setup-grid { grid-template-columns: 1fr; }
+  .hs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .wrap { padding: 12px 12px 32px; }
+  .hero { align-items: flex-start; min-height: 0; padding: 24px 20px 150px; border-radius: 22px; }
+  .hero-content { width: 100%; }
+  .hero h1 { max-width: 12ch; margin: 13px 0 12px; font-size: clamp(2.6rem, 10.25vw, 3.85rem); letter-spacing: -.062em; text-wrap: initial; }
+  .hero-art { width: min(100%, 390px); height: 180px; inset: auto -8px -14px auto; }
+  .hero, .card, .setup-grid { margin-bottom: 14px; }
+  .setup-grid { gap: 14px; }
+  .card { border-radius: 17px; }
+  .card-head { gap: 8px 12px; margin-bottom: 12px; }
+  .section-icon { width: 32px; height: 32px; }
+  th, td { padding: 9px 10px; }
+}
+@media (max-width: 430px) {
+  .hs { gap: 4px; font-size: .7rem; }
+  .hs b { font-size: 1.12rem; }
+}
+@media (max-width: 380px) {
+  .rules-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 345px) {
+  .hs { grid-template-columns: repeat(2, minmax(0, 1fr)); font-size: .76rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+  button:hover, .kpi:hover, .hs div:hover { transform: none; }
+}
+
+/* ===== Theo từng chặng ===== */
+.stage-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
+.tab{display:flex;flex-direction:column;align-items:flex-start;gap:0;border:2px solid var(--stage-color,#713383);background:#fff;color:var(--stage-ink,#592b88);border-radius:14px;padding:7px 14px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+.tab small{font-weight:600;font-size:.72rem;opacity:.8}
+.tab:hover{transform:translateY(-2px);box-shadow:0 6px 14px #4f174720}
+.tab.on{background:var(--stage-color,#713383);color:#fff}
+.tab.on small{opacity:.9}
+.stage-all{--stage-color:#b01e63;--stage-ink:#7d1246;--stage-tint:#fff0f6;--stage-strong:#ffd9e8}
+.cols-wrap{overflow-x:auto;padding:4px 2px 10px}
+.cols{display:grid;grid-template-columns:repeat(var(--n,7),minmax(150px,1fr));gap:10px;min-width:min-content}
+.col{display:flex;flex-direction:column;gap:12px;padding:10px 8px 12px;border-radius:18px;border:2px solid var(--stage-color,#b01e63);background:linear-gradient(180deg,var(--stage-tint,#fff0f6),#fff 70%);box-shadow:0 8px 20px #4f17470f;transition:transform .2s,box-shadow .2s}
+.col:hover{transform:translateY(-3px);box-shadow:0 14px 28px #4f174720}
+.col h3{margin:0;text-align:center;font-size:1rem;color:var(--stage-ink,#7d1246);display:flex;flex-direction:column;gap:2px}
+.col .bang{font-size:.7rem;font-weight:700;color:var(--stage-color);background:var(--stage-strong);border-radius:99px;padding:1px 8px;align-self:center}
+.blk{border-radius:12px;background:#ffffffcc;padding:6px 4px 8px;text-align:center}
+.cap{font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--stage-ink,#7d1246);margin-bottom:2px}
+.pig{width:100%;height:auto;display:block;max-width:150px;margin:0 auto}
+.pig-fill,.rocket-fill{transition:y .5s ease}
+.val{font-weight:900;font-size:1.02rem;color:#14593a}
+.sub2{font-size:.72rem;color:var(--muted)}
+.rocket-row{display:flex;align-items:center;justify-content:center;gap:4px}
+.rocket{width:66px;height:auto;flex:none}
+.side{display:flex;flex-direction:column;gap:6px;text-align:left;font-size:.7rem;line-height:1.25;color:var(--muted)}
+.pctv{font-size:1.1rem;color:#5b2a86}
+.hsv b,.moneyv b{display:block;color:var(--ink);font-size:.82rem}
+.moneyv b{color:#b4234a}
+.barber{width:100%;height:auto;display:block;max-width:150px;margin:0 auto}
+.chip{display:inline-block;margin-top:2px;padding:2px 9px;border-radius:99px;font-size:.72rem;font-weight:800}
+.chip.up{background:#d7f4e5;color:#12513a}.chip.down{background:#ffe3e0;color:#9b2318}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-meta">
+        <span class="brand">30SHINE</span>
+        <span class="period"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4m8-4v4"/></svg>02/11 – 22/11/2026</span>
+      </div>
+      <h1>Quỹ party <span>vùng</span></h1>
+      <p class="sub">Nhân sự góp theo từng chặng. Công ty thưởng theo hệ số hoàn thành mục tiêu doanh thu vùng. Cùng thi đua qua 3 chặng và thách đấu liên vùng để tăng quỹ party.</p>
+    </div>
+    <svg class="hero-art" viewBox="0 0 560 386" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="discoLight" cx="31%" cy="24%" r="75%">
+          <stop stop-color="#fff0be"/><stop offset=".24" stop-color="#ffcc7e"/><stop offset=".51" stop-color="#fa8b7f"/><stop offset=".75" stop-color="#d73989"/><stop offset="1" stop-color="#67145d"/>
+        </radialGradient>
+        <linearGradient id="discoEdge" x2=".85" y2="1"><stop stop-color="#fff0b7"/><stop offset=".52" stop-color="#fb9fba"/><stop offset="1" stop-color="#9d378d"/></linearGradient>
+        <linearGradient id="orbitGlow"><stop stop-color="#ffe1ac" stop-opacity=".15"/><stop offset=".38" stop-color="#ffe1ac"/><stop offset=".74" stop-color="#ff9bc7"/><stop offset="1" stop-color="#f9badb" stop-opacity=".55"/></linearGradient>
+        <radialGradient id="balloonGold" cx="30%" cy="25%" r="76%"><stop stop-color="#fff1ae"/><stop offset=".36" stop-color="#ffd477"/><stop offset="1" stop-color="#dd6b42"/></radialGradient>
+        <radialGradient id="balloonRose" cx="32%" cy="26%" r="77%"><stop stop-color="#ffe7f3"/><stop offset=".35" stop-color="#fb9ac9"/><stop offset="1" stop-color="#ad2a80"/></radialGradient>
+        <radialGradient id="balloonViolet" cx="30%" cy="24%" r="78%"><stop stop-color="#efe0ff"/><stop offset=".38" stop-color="#c69df8"/><stop offset="1" stop-color="#763cbe"/></radialGradient>
+        <radialGradient id="artHalo"><stop stop-color="#fb9bbe" stop-opacity=".34"/><stop offset=".61" stop-color="#ee5ba1" stop-opacity=".15"/><stop offset="1" stop-color="#fc4f90" stop-opacity="0"/></radialGradient>
+        <clipPath id="discoClip"><circle cx="322" cy="205" r="109"/></clipPath>
+        <path id="discoSpark" d="M0-13Q2-2 13 0Q2 2 0 13Q-2 2-13 0Q-2-2 0-13Z"/>
+      </defs>
+      <circle cx="321" cy="193" r="198" fill="url(#artHalo)"/>
+      <g fill="none" stroke="#ffddf0" opacity=".25">
+        <circle cx="320" cy="205" r="137" stroke-dasharray="2 6"/>
+        <circle cx="320" cy="205" r="161" stroke-dasharray="65 21 4 11 108 100 72 21 4 11 185 120" transform="rotate(-24 320 205)"/>
+        <path d="M171 239a153 153 0 0 0 74 101m202-83a141 141 0 0 0-47-172"/>
+      </g>
+      <g fill="none" stroke-linecap="round" stroke-width="2">
+        <path d="M447 112c6 20-21 39-11 64" stroke="#f5b2da"/>
+        <path d="M489 128c-14 25 12 40-7 69" stroke="#ffd799"/>
+        <path d="M520 172c2 18-17 34-9 52" stroke="#e4c7ff"/>
+      </g>
+      <g transform="rotate(-16 445 83)">
+        <path d="m441 115-5 8 12 0-5-8" fill="#ee84bd"/>
+        <path d="M445 37c-18 0-31 17-31 37 0 23 15 44 29 44 16 0 33-23 33-45 0-20-13-36-31-36Z" fill="url(#balloonRose)"/>
+        <path d="M425 67c1-7 4-12 10-15" fill="none" stroke="#fff4fa" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <g transform="rotate(11 491 94)">
+        <path d="m486 129-5 8 12 0-5-8" fill="#f0a05c"/>
+        <path d="M489 55c-17 0-29 14-29 34 0 19 13 42 28 42s30-24 30-44c0-19-12-32-29-32Z" fill="url(#balloonGold)"/>
+        <path d="M471 85c1-7 5-12 9-14" fill="none" stroke="#fff6da" stroke-opacity=".77" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <g transform="rotate(20 523 146)">
+        <path d="m518 171-4 8 10-1-4-7" fill="#b57de8"/>
+        <path d="M522 113c-13 0-22 12-22 26 0 17 10 35 19 35 12 0 25-18 25-36 0-15-9-25-22-25Z" fill="url(#balloonViolet)"/>
+        <path d="M508 136c1-5 3-8 6-10" fill="none" stroke="#faeaff" stroke-opacity=".73" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+      <ellipse cx="322" cy="204" rx="191" ry="56" transform="rotate(-21 322 204)" fill="none" stroke="url(#orbitGlow)" stroke-width="2" opacity=".65"/>
+      <path d="M322 20v77" stroke="#ffdcac" stroke-opacity=".45"/>
+      <path d="M311 98v-5a5 5 0 0 1 5-5h12a5 5 0 0 1 5 5v5" fill="#ed9e94" stroke="#ffe3a6"/>
+      <circle cx="322" cy="205" r="109" fill="url(#discoLight)"/>
+      <g clip-path="url(#discoClip)">
+        <g fill="none" stroke="#62215d" stroke-width="1.5" opacity=".43">
+          <ellipse cx="322" cy="205" rx="89" ry="112"/><ellipse cx="322" cy="205" rx="61" ry="112"/><ellipse cx="322" cy="205" rx="32" ry="112"/>
+          <path d="M322 94v222M219 163q103 23 206 0m-214 26q111 16 222 0m-224 26q113 4 226 0m-223 25q110-7 220 0m-210 26q100-23 200 0m-177 23q77-21 154 0m-153-145q76 17 152 0m-133-23q57 12 114 0"/>
+        </g>
+        <g fill="#fff7d5">
+          <path d="M266 149l28 2-3 21-28-3zM321 130l23-1 5 25-27 1zM236 190l25 4-1 22-27-1zM291 219h30v18l-29 1zM353 195l29-2 1 24-30 1zM299 105l22 1v20l-26-1z" opacity=".56"/>
+          <path d="M291 175l31 1v22l-32-1zM235 216l26 1 1 23-23 1z" opacity=".78"/>
+          <path d="M375 255l25 4-10 21-23-3zM321 250l29 1-4 23h-25zM264 242l28-2 3 16-26 3z" opacity=".24"/>
+        </g>
+        <path fill="#ffde8f" opacity=".56" d="M350 155l23-3 7 19-28 3zM407 195l22-4 3 24-21 1zM264 260l31-3 4 18-22 4zM323 276l23 1-9 24-14-2zM243 145l22 3-9 19-26-4z"/>
+        <path fill="#f159a5" opacity=".46" d="M263 218h27l1 20-26 2zM353 219l28-1-2 22-27-1zM295 131l26 1v23l-29-2zM403 169l20-4 5 23-20 2zM234 243l30-2 5 19-26 4z"/>
+        <path fill="#6a216d" opacity=".36" d="M322 220h29l-2 18h-27zM381 240l27 1-6 19-24-4zM291 176l-2 20-27-2 2-22zM360 280l25 3-16 20-17-4zM293 276l29 1v21h-20z"/>
+      </g>
+      <circle cx="322" cy="205" r="109" fill="none" stroke="url(#discoEdge)" stroke-width="2"/>
+      <path d="M143 272c11 28 100 32 200-7s170-91 157-121" fill="none" stroke="url(#orbitGlow)" stroke-width="2.5" stroke-linecap="round"/>
+      <g fill="#fff3c6">
+        <use href="#discoSpark" transform="translate(254 141) scale(1.6)"/>
+        <use href="#discoSpark" transform="translate(395 217) scale(.9)"/>
+        <use href="#discoSpark" transform="translate(183 100) scale(.78)"/>
+        <use href="#discoSpark" transform="translate(391 324) scale(1.13)"/>
+        <use href="#discoSpark" transform="translate(183 259) scale(.5)"/>
+        <use href="#discoSpark" transform="translate(529 251) scale(.8)"/>
+      </g>
+      <g fill="none" stroke-width="3" stroke-linecap="round">
+        <path d="M217 50q-15 8-10 20t-8 19M481 245q12 1 14 12t14 13M157 290q6 12-3 21t-2 19" stroke="#ff97ce"/>
+        <path d="M124 182q-13 1-14 12t-13 11M471 301q-9 0-12 11t-14 12" stroke="#ffc26e"/>
+        <path d="M143 86l-8-9m22 1-1-12m14 16 6-9M217 326l-3 9m15-3 4 10" stroke="#fbb5e4"/>
+      </g>
+      <g fill="#fac280">
+        <rect x="162" y="149" width="6" height="13" rx="2" transform="rotate(-33 165 155)"/>
+        <rect x="377" y="61" width="7" height="13" rx="2" transform="rotate(32 381 68)"/>
+        <rect x="508" y="290" width="6" height="12" rx="2" transform="rotate(38 511 296)"/>
+        <circle cx="191" cy="307" r="3"/><circle cx="482" cy="221" r="3"/><circle cx="274" cy="68" r="3"/>
+      </g>
+      <g fill="#f7a5e1">
+        <rect x="474" y="35" width="6" height="13" rx="2" transform="rotate(35 477 42)"/>
+        <rect x="133" y="235" width="6" height="13" rx="2" transform="rotate(42 136 241)"/>
+        <rect x="312" y="340" width="6" height="13" rx="2" transform="rotate(-31 315 346)"/>
+        <circle cx="530" cy="80" r="3.5"/><circle cx="122" cy="131" r="2.5"/><circle cx="465" cy="343" r="3.5"/>
+      </g>
+    </svg>
+  </header>
+
+  <section class="card" id="stages">
+    <div class="card-head">
+      <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4m0 1c5-5 9 4 15 0v10c-6 4-10-5-15 0"/></svg></span>Thể lệ 3 chặng</h2>
+      <span class="stage-duration">Mỗi chặng 1 tuần</span>
+    </div>
+    <div class="tw" role="region" tabindex="0" aria-label="Bảng thể lệ 3 chặng"><table id="tblStage"></table></div>
+  </section>
+
+  <div class="setup-grid">
+    <section class="card" id="rules">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0V4Zm0 2H4v2a3 3 0 0 0 4 3m8-5h4v2a3 3 0 0 1-4 3m-4 2v6m-4 1h8"/></svg></span>Kèo thách đấu liên vùng (từ chặng 2)</h2>
+      </div>
+      <ul class="rules-list" role="list">
+        <li><strong>Bốc thăm chia bảng</strong>Hết chặng 1, mỗi vùng bốc thăm chia bảng và thách đấu với tối đa 2 vùng khác.</li>
+        <li><strong>Đưa vào quỹ</strong>Các vùng tự thống nhất mức đưa vào quỹ, tối đa 50% tiền Công ty thưởng của chặng. Giữ nguyên tiền anh em góp.</li>
+        <li><strong>Chia quỹ thách đấu</strong>Vùng nhất nhận 60%, vùng nhì nhận 40% tổng quỹ thách đấu của bảng. Vùng xếp cuối không nhận.</li>
+        <li><strong>Xếp hạng</strong>Vùng có tỷ lệ hoàn thành mục tiêu doanh thu trong chặng cao hơn xếp trên.</li>
+      </ul>
+      <p class="rule-example"><strong>Ví dụ.</strong> Ba vùng cùng bảng góp 5 triệu mỗi vùng vào quỹ thách đấu, tổng quỹ là 15 triệu. Vùng nhất nhận 9 triệu, vùng nhì nhận 6 triệu, vùng cuối không nhận.</p>
+    </section>
+
+    <section class="card import-card">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-5 5 5-5 5 5M4 16v4h16v-4"/></svg></span>1. Nhập dữ liệu</h2>
+      </div>
+      <div class="row actions">
+        <button class="sec" id="btnTpl"><span aria-hidden="true">⬇</span> Tải file mẫu</button>
+        <button class="sec" id="btnDemoFile"><span aria-hidden="true">⬇</span> Tải file demo (có số liệu)</button>
+        <button class="demo" id="btnDemoLoad"><span aria-hidden="true">▶</span> Chạy thử bằng dữ liệu demo</button>
+      </div>
+      <div class="row file-row">
+        <label for="file">Chọn file Excel</label>
+        <input type="file" id="file" accept=".xlsx,.xls" aria-describedby="file-help">
+      </div>
+      <p class="note" id="file-help">File gồm 3 sheet bắt buộc <b>NS_gop</b> (Vùng, Mã NV, Họ tên, Tiền góp chặng 1/2/3) · <b>Doanh_thu_salon</b> (Vùng, Salon, DT thực tế chặng 1/2/3) · <b>Muc_tieu_vung</b> (Vùng, Mục tiêu chặng 1/2/3). Thêm sheet <b>Keo_thach_dau</b> (Vùng, Bảng, Quỹ thách đấu chặng 2/3) khi đã bốc thăm chia bảng. Tên vùng phải giống nhau ở các sheet.</p>
+      <div id="msgs" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <div class="card-head">
+      <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19v-5m5 5v-8m5 8V8m5 11V4"/></svg></span>Bảng hệ số (% DT thực tế trên mục tiêu vùng)</h2>
+    </div>
+    <div class="hs" id="hs"></div>
+    <p class="note">Cận dưới tính vào mức đó (đúng 80% → 0,6, đúng 100% → 1,0).</p>
+  </section>
+
+  <div id="out" style="display:none">
+    <div class="kpis" id="kpis"></div>
+    <section class="card stage-view" id="stageView">
+      <div class="card-head"><h2>Theo từng chặng</h2></div>
+      <div class="stage-tabs" id="stageTabs"></div>
+      <div class="cols-wrap" role="region" tabindex="0" aria-label="Số liệu từng vùng theo chặng"><div class="cols" id="stageCols"></div></div>
+      <p class="note">Lợn đất: mức đầy xếp theo thứ hạng tiền góp (góp nhiều nhất đầy nhất, ít nhất vơi nhất), không theo số thực · Tên lửa: vạch thật từ 80% đến 120% mục tiêu doanh thu vùng · Thợ cắt tóc: tổng quỹ party = tiền góp + công ty thưởng ± thách đấu</p>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18m-12 0v9m6-9v9"/></svg></span>2. Tổng hợp theo vùng</h2>
+        <button id="btnExport"><span aria-hidden="true">⬇</span> Xuất kết quả Excel</button>
+      </div>
+      <div class="tw" role="region" tabindex="0" aria-label="Bảng tổng hợp theo vùng"><table id="tbl"></table></div>
+      <p class="note">Công ty thưởng = Σ (tiền góp chặng × hệ số chặng) · Quỹ party vùng = Nhân sự góp + Công ty thưởng + Thách đấu (nhận − đưa vào)</p>
+    </section>
+    <section class="card" id="cardKd" style="display:none">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="10" r="6"/><path d="m8 15-2 6 6-2 6 2-2-6"/></svg></span>3. Kèo thách đấu liên vùng</h2>
+      </div>
+      <div class="tw" role="region" tabindex="0" aria-label="Bảng kết quả kèo thách đấu liên vùng"><table id="tblKd"></table></div>
+      <p class="note">Quỹ đưa vào bị giới hạn tối đa 50% Công ty thưởng của chặng · Nhất 60% – Nhì 40% – còn lại 0 (tính trên tổng quỹ của bảng) · Xếp hạng theo % hoàn thành mục tiêu doanh thu chặng</p>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M5 15l5-5 4 2 6-7m-5 0h5v5"/></svg></span>Doanh thu &amp; mục tiêu vùng theo chặng</h2>
+      </div>
+      <div class="tw" role="region" tabindex="0" aria-label="Bảng doanh thu và mục tiêu theo chặng"><table id="tblDt"></table></div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <h2><span class="section-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="8" r="3"/><path d="M4 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2m1-15a3 3 0 0 1 0 6m2 3a4 4 0 0 1 2 4v2"/></svg></span>4. Chi tiết từng nhân sự</h2>
+        <select id="selV" aria-label="Lọc nhân sự theo vùng"></select>
+      </div>
+      <div class="tw" role="region" tabindex="0" aria-label="Bảng chi tiết từng nhân sự"><table id="tblNs"></table></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const DEMO = {"ns": [["Vùng 1", "V1-01", "Nhân sự mẫu V1-01", 30000, 80000, 50000], ["Vùng 1", "V1-02", "Nhân sự mẫu V1-02", 50000, 50000, 120000], ["Vùng 1", "V1-03", "Nhân sự mẫu V1-03", 0, 80000, 140000], ["Vùng 1", "V1-04", "Nhân sự mẫu V1-04", 20000, 30000, 140000], ["Vùng 1", "V1-05", "Nhân sự mẫu V1-05", 0, 80000, 100000], ["Vùng 1", "V1-06", "Nhân sự mẫu V1-06", 0, 30000, 100000], ["Vùng 1", "V1-07", "Nhân sự mẫu V1-07", 50000, 80000, 140000], ["Vùng 1", "V1-08", "Nhân sự mẫu V1-08", 30000, 80000, 50000], ["Vùng 1", "V1-09", "Nhân sự mẫu V1-09", 50000, 30000, 100000], ["Vùng 1", "V1-10", "Nhân sự mẫu V1-10", 50000, 60000, 140000], ["Vùng 1", "V1-11", "Nhân sự mẫu V1-11", 50000, 30000, 120000], ["Vùng 1", "V1-12", "Nhân sự mẫu V1-12", 50000, 30000, 140000], ["Vùng 2", "V2-01", "Nhân sự mẫu V2-01", 30000, 80000, 120000], ["Vùng 2", "V2-02", "Nhân sự mẫu V2-02", 50000, 60000, 100000], ["Vùng 2", "V2-03", "Nhân sự mẫu V2-03", 20000, 50000, 140000], ["Vùng 2", "V2-04", "Nhân sự mẫu V2-04", 30000, 80000, 100000], ["Vùng 2", "V2-05", "Nhân sự mẫu V2-05", 20000, 80000, 120000], ["Vùng 2", "V2-06", "Nhân sự mẫu V2-06", 50000, 80000, 120000], ["Vùng 2", "V2-07", "Nhân sự mẫu V2-07", 50000, 80000, 140000], ["Vùng 2", "V2-08", "Nhân sự mẫu V2-08", 30000, 80000, 120000], ["Vùng 2", "V2-09", "Nhân sự mẫu V2-09", 30000, 80000, 100000], ["Vùng 2", "V2-10", "Nhân sự mẫu V2-10", 20000, 60000, 140000], ["Vùng 2", "V2-11", "Nhân sự mẫu V2-11", 30000, 30000, 100000], ["Vùng 3", "V3-01", "Nhân sự mẫu V3-01", 50000, 80000, 50000], ["Vùng 3", "V3-02", "Nhân sự mẫu V3-02", 20000, 80000, 50000], ["Vùng 3", "V3-03", "Nhân sự mẫu V3-03", 50000, 50000, 120000], ["Vùng 3", "V3-04", "Nhân sự mẫu V3-04", 30000, 80000, 50000], ["Vùng 3", "V3-05", "Nhân sự mẫu V3-05", 30000, 60000, 50000], ["Vùng 3", "V3-06", "Nhân sự mẫu V3-06", 50000, 80000, 50000], ["Vùng 3", "V3-07", "Nhân sự mẫu V3-07", 30000, 80000, 140000], ["Vùng 3", "V3-08", "Nhân sự mẫu V3-08", 50000, 50000, 50000], ["Vùng 3", "V3-09", "Nhân sự mẫu V3-09", 20000, 60000, 140000], ["Vùng 3", "V3-10", "Nhân sự mẫu V3-10", 50000, 30000, 100000], ["Vùng 3", "V3-11", "Nhân sự mẫu V3-11", 20000, 80000, 50000], ["Vùng 4", "V4-01", "Nhân sự mẫu V4-01", 20000, 60000, 140000], ["Vùng 4", "V4-02", "Nhân sự mẫu V4-02", 20000, 60000, 50000], ["Vùng 4", "V4-03", "Nhân sự mẫu V4-03", 50000, 60000, 50000], ["Vùng 4", "V4-04", "Nhân sự mẫu V4-04", 50000, 60000, 50000], ["Vùng 4", "V4-05", "Nhân sự mẫu V4-05", 50000, 60000, 50000], ["Vùng 4", "V4-06", "Nhân sự mẫu V4-06", 50000, 80000, 140000], ["Vùng 4", "V4-07", "Nhân sự mẫu V4-07", 0, 80000, 50000], ["Vùng 4", "V4-08", "Nhân sự mẫu V4-08", 20000, 30000, 140000], ["Vùng 4", "V4-09", "Nhân sự mẫu V4-09", 50000, 80000, 100000], ["Vùng 5", "V5-01", "Nhân sự mẫu V5-01", 50000, 50000, 50000], ["Vùng 5", "V5-02", "Nhân sự mẫu V5-02", 50000, 80000, 50000], ["Vùng 5", "V5-03", "Nhân sự mẫu V5-03", 0, 80000, 140000], ["Vùng 5", "V5-04", "Nhân sự mẫu V5-04", 30000, 60000, 50000], ["Vùng 5", "V5-05", "Nhân sự mẫu V5-05", 50000, 50000, 120000], ["Vùng 5", "V5-06", "Nhân sự mẫu V5-06", 0, 30000, 140000], ["Vùng 5", "V5-07", "Nhân sự mẫu V5-07", 50000, 50000, 140000], ["Vùng 5", "V5-08", "Nhân sự mẫu V5-08", 50000, 60000, 120000], ["Vùng 5", "V5-09", "Nhân sự mẫu V5-09", 50000, 30000, 50000], ["Vùng 5", "V5-10", "Nhân sự mẫu V5-10", 50000, 80000, 100000], ["Vùng 5", "V5-11", "Nhân sự mẫu V5-11", 50000, 30000, 120000], ["Vùng 5", "V5-12", "Nhân sự mẫu V5-12", 20000, 80000, 120000], ["Vùng 6", "V6-01", "Nhân sự mẫu V6-01", 30000, 80000, 50000], ["Vùng 6", "V6-02", "Nhân sự mẫu V6-02", 20000, 30000, 140000], ["Vùng 6", "V6-03", "Nhân sự mẫu V6-03", 0, 60000, 140000], ["Vùng 6", "V6-04", "Nhân sự mẫu V6-04", 50000, 30000, 140000], ["Vùng 6", "V6-05", "Nhân sự mẫu V6-05", 20000, 60000, 100000], ["Vùng 6", "V6-06", "Nhân sự mẫu V6-06", 30000, 30000, 120000], ["Vùng 6", "V6-07", "Nhân sự mẫu V6-07", 20000, 30000, 100000], ["Vùng 6", "V6-08", "Nhân sự mẫu V6-08", 30000, 80000, 100000], ["Vùng 7", "V7-01", "Nhân sự mẫu V7-01", 50000, 80000, 140000], ["Vùng 7", "V7-02", "Nhân sự mẫu V7-02", 20000, 80000, 140000], ["Vùng 7", "V7-03", "Nhân sự mẫu V7-03", 30000, 30000, 140000], ["Vùng 7", "V7-04", "Nhân sự mẫu V7-04", 50000, 50000, 100000], ["Vùng 7", "V7-05", "Nhân sự mẫu V7-05", 20000, 30000, 50000], ["Vùng 7", "V7-06", "Nhân sự mẫu V7-06", 30000, 80000, 140000], ["Vùng 7", "V7-07", "Nhân sự mẫu V7-07", 20000, 80000, 100000], ["Vùng 7", "V7-08", "Nhân sự mẫu V7-08", 0, 50000, 140000], ["Vùng 7", "V7-09", "Nhân sự mẫu V7-09", 0, 30000, 140000], ["Vùng 7", "V7-10", "Nhân sự mẫu V7-10", 20000, 80000, 50000], ["Vùng 7", "V7-11", "Nhân sự mẫu V7-11", 0, 80000, 120000]], "dt": [["Vùng 1", "Salon mẫu V1-1", 311955000, 266604000, 296117000], ["Vùng 1", "Salon mẫu V1-2", 317217000, 304239000, 304993000], ["Vùng 1", "Salon mẫu V1-3", 248302000, 254570000, 260674000], ["Vùng 1", "Salon mẫu V1-4", 229372000, 279218000, 213943000], ["Vùng 1", "Salon mẫu V1-5", 247331000, 241892000, 303835000], ["Vùng 1", "Salon mẫu V1-6", 255202000, 292676000, 304618000], ["Vùng 1", "Salon mẫu V1-7", 305371000, 278041000, 255940000], ["Vùng 2", "Salon mẫu V2-1", 280321000, 349269000, 321694000], ["Vùng 2", "Salon mẫu V2-2", 282432000, 343384000, 272695000], ["Vùng 2", "Salon mẫu V2-3", 319488000, 276994000, 373172000], ["Vùng 2", "Salon mẫu V2-4", 311466000, 335238000, 323069000], ["Vùng 2", "Salon mẫu V2-5", 298175000, 337412000, 351447000], ["Vùng 2", "Salon mẫu V2-6", 308821000, 306545000, 298130000], ["Vùng 2", "Salon mẫu V2-7", 276977000, 314959000, 258983000], ["Vùng 3", "Salon mẫu V3-1", 261371000, 395388000, 315142000], ["Vùng 3", "Salon mẫu V3-2", 325130000, 326555000, 340893000], ["Vùng 3", "Salon mẫu V3-3", 282025000, 348496000, 257409000], ["Vùng 3", "Salon mẫu V3-4", 347881000, 301462000, 254912000], ["Vùng 3", "Salon mẫu V3-5", 321740000, 323510000, 350967000], ["Vùng 3", "Salon mẫu V3-6", 260584000, 354680000, 278826000], ["Vùng 3", "Salon mẫu V3-7", 343409000, 301789000, 300469000], ["Vùng 4", "Salon mẫu V4-1", 321503000, 368564000, 362481000], ["Vùng 4", "Salon mẫu V4-2", 399020000, 375367000, 286531000], ["Vùng 4", "Salon mẫu V4-3", 343189000, 356045000, 320021000], ["Vùng 4", "Salon mẫu V4-4", 388483000, 326070000, 300616000], ["Vùng 4", "Salon mẫu V4-5", 315371000, 296830000, 280524000], ["Vùng 4", "Salon mẫu V4-6", 332064000, 279945000, 338536000], ["Vùng 4", "Salon mẫu V4-7", 371321000, 274179000, 409221000], ["Vùng 5", "Salon mẫu V5-1", 354572000, 293935000, 424368000], ["Vùng 5", "Salon mẫu V5-2", 437903000, 388189000, 400277000], ["Vùng 5", "Salon mẫu V5-3", 463976000, 311893000, 433202000], ["Vùng 5", "Salon mẫu V5-4", 482698000, 363786000, 400439000], ["Vùng 5", "Salon mẫu V5-5", 385919000, 416644000, 341415000], ["Vùng 5", "Salon mẫu V5-6", 363134000, 393040000, 317534000], ["Vùng 5", "Salon mẫu V5-7", 366378000, 382513000, 450565000], ["Vùng 6", "Salon mẫu V6-1", 402539000, 419330000, 382190000], ["Vùng 6", "Salon mẫu V6-2", 361401000, 444331000, 399506000], ["Vùng 6", "Salon mẫu V6-3", 371498000, 397787000, 416136000], ["Vùng 6", "Salon mẫu V6-4", 326925000, 398263000, 386960000], ["Vùng 6", "Salon mẫu V6-5", 376986000, 320764000, 451814000], ["Vùng 6", "Salon mẫu V6-6", 303274000, 383806000, 352768000], ["Vùng 6", "Salon mẫu V6-7", 321878000, 341639000, 339575000], ["Vùng 7", "Salon mẫu V7-1", 429387000, 399376000, 347911000], ["Vùng 7", "Salon mẫu V7-2", 480358000, 450766000, 459250000], ["Vùng 7", "Salon mẫu V7-3", 412341000, 389623000, 435167000], ["Vùng 7", "Salon mẫu V7-4", 428060000, 408207000, 471048000], ["Vùng 7", "Salon mẫu V7-5", 448913000, 359506000, 480034000], ["Vùng 7", "Salon mẫu V7-6", 455937000, 501032000, 460946000], ["Vùng 7", "Salon mẫu V7-7", 485404000, 480389000, 458144000]], "mt": [["Vùng 1", 2553000000, 2458000000, 2366000000], ["Vùng 2", 2361000000, 2695000000, 2471000000], ["Vùng 3", 2354000000, 2502000000, 2358000000], ["Vùng 4", 2601000000, 2300000000, 2369000000], ["Vùng 5", 2693000000, 2500000000, 2636000000], ["Vùng 6", 2325000000, 2416000000, 2415000000], ["Vùng 7", 2617000000, 2430000000, 2490000000]], "kd": [["Vùng 1", "A", 100000, 250000], ["Vùng 2", "A", 100000, 250000], ["Vùng 3", "A", 100000, 250000], ["Vùng 4", "B", 150000, 300000], ["Vùng 5", "B", 150000, 300000], ["Vùng 6", "C", 200000, 400000], ["Vùng 7", "C", 200000, 400000]], "tpl2": {"ns": [["Vùng 1", "V1-01", "Nguyễn Văn A (ví dụ)", 50000, 80000, 140000], ["Vùng 1", "V1-02", "Trần Văn B (ví dụ)", 30000, 50000, 100000]], "dt": [["Vùng 1", "Salon ví dụ 1", 300000000, 320000000, 310000000], ["Vùng 1", "Salon ví dụ 2", 280000000, 290000000, 300000000]], "mt": [["Vùng 1", 600000000, 600000000, 600000000]], "kd": [["Vùng 1", "A", 100000, 250000]]}, "heads": {"NS_gop": ["Vùng", "Mã NV", "Họ tên", "Tiền góp Chặng 1 (02–08/11)", "Tiền góp Chặng 2 (09–15/11)", "Tiền góp Chặng 3 (16–22/11)"], "Doanh_thu_salon": ["Vùng", "Salon", "DT thực tế Chặng 1 (02–08/11)", "DT thực tế Chặng 2 (09–15/11)", "DT thực tế Chặng 3 (16–22/11)"], "Muc_tieu_vung": ["Vùng", "Mục tiêu DT vùng Chặng 1 (02–08/11)", "Mục tiêu DT vùng Chặng 2 (09–15/11)", "Mục tiêu DT vùng Chặng 3 (16–22/11)"], "Keo_thach_dau": ["Vùng", "Bảng", "Quỹ thách đấu chặng 2 (VNĐ)", "Quỹ thách đấu chặng 3 (VNĐ)"]}, "ch": ["Chặng 1 (02–08/11)", "Chặng 2 (09–15/11)", "Chặng 3 (16–22/11)"]};
+const TIERS = [ // [cận dưới %, hệ số, nhãn]
+  [0,0.5,'<80%'],[80,0.6,'80–85%'],[85,0.7,'85–90%'],[90,0.8,'90–95%'],[95,0.9,'95–100%'],
+  [100,1.0,'100–105%'],[105,1.15,'105–110%'],[110,1.3,'110–115%'],[115,1.45,'115–120%'],[120,1.5,'≥120%']
+];
+const STAGES = [
+  {ten:'1. Khởi động',tg:'02 – 08/11/2026',han:'01/11/2026',cap:50000,keo:'Chưa có. Hết chặng bốc thăm chia bảng'},
+  {ten:'2. Tăng tốc', tg:'09 – 15/11/2026',han:'08/12/2026',cap:80000,keo:'Có'},
+  {ten:'3. Về đích',  tg:'16 – 22/11/2026',han:'15/11/2026',cap:140000,keo:'Có'}
+];
+const HEADS = DEMO.heads, CH = DEMO.ch, NC = CH.length;
+const SHORT = ['Chặng 1','Chặng 2','Chặng 3'];
+const CAP = STAGES.map(s=>s.cap), CAP_ALL = CAP.reduce((a,b)=>a+b,0);
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('vi-VN');
+const fmtPct = n => (n*100).toLocaleString('vi-VN',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+const fmtHs = n => n.toLocaleString('vi-VN');
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let LAST = null, LASTKD = [];
+
+$('hs').innerHTML = TIERS.map(t=>`<div>${t[2]}<b>${fmtHs(t[1])}</b></div>`).join('');
+$('tblStage').innerHTML = `<thead><tr><th>Chặng</th><th>Thời gian</th><th>Hạn góp</th><th>Mức góp tối đa / người</th><th class="t-left">Kèo thách đấu liên vùng</th></tr></thead><tbody>`+
+  STAGES.map(s=>`<tr><td>${s.ten}</td><td>${s.tg}</td><td>${s.han}</td><td>${fmt(s.cap)}đ</td><td class="t-left">${s.keo}</td></tr>`).join('')+
+  `</tbody><tfoot><tr><td>Cả kỳ</td><td></td><td></td><td>Tối đa ${fmt(CAP_ALL)}đ</td><td></td></tr></tfoot>`;
+
+function heso(pct){ // pct: 1 = 100%
+  const p = pct*100; let h = TIERS[0];
+  for (const t of TIERS) if (p >= t[0] - 1e-9) h = t;
+  return h;
+}
+const norm = s => String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/gi,'d').toLowerCase().replace(/\s+/g,' ').trim();
+function num(v){
+  if (typeof v === 'number') return v;
+  let s = String(v??'').replace(/[\s₫đĐ]|vnd|vnđ/gi,'');
+  if (!s) return NaN;
+  if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g,'').replace(',','.');
+  else if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g,'');
+  else s = s.replace(',','.');
+  return Number(s);
+}
+
+function makeWb(data){
+  const wb = XLSX.utils.book_new();
+  const names = ['NS_gop','Doanh_thu_salon','Muc_tieu_vung','Keo_thach_dau'];
+  const rows = [data.ns, data.dt, data.mt, data.kd];
+  names.forEach((n,i)=>{
+    const ws = XLSX.utils.aoa_to_sheet([HEADS[n], ...rows[i]]);
+    ws['!cols'] = HEADS[n].map((_,k)=>({wch:k===0?14:30}));
+    XLSX.utils.book_append_sheet(wb, ws, n);
+  });
+  const g = [['HƯỚNG DẪN ĐIỀN FILE'],
+    ['Kỳ tính: 02/11 – 22/11, chia 3 chặng, mỗi chặng 1 tuần (02–08/11, 09–15/11, 16–22/11).'],
+    ['1. Sheet NS_gop: mỗi dòng 1 nhân sự (Vùng, Mã NV, Họ tên, tiền góp từng chặng). Mức góp tối đa/người: chặng 1 = 50.000đ, chặng 2 = 80.000đ, chặng 3 = 140.000đ (cả kỳ tối đa 270.000đ); không góp thì để 0.'],
+    ['2. Sheet Doanh_thu_salon: mỗi dòng 1 salon, doanh thu thực tế của từng chặng (3 cột).'],
+    ['3. Sheet Muc_tieu_vung: mỗi vùng 1 dòng, mục tiêu doanh thu vùng của từng chặng (3 cột).'],
+    ['4. Sheet Keo_thach_dau (không bắt buộc): sau khi bốc thăm chia bảng, mỗi vùng 1 dòng (Vùng, Bảng, Quỹ thách đấu đưa vào ở chặng 2, chặng 3). Mức đưa vào tối đa 50% công ty thưởng của chặng, không lấy từ tiền nhân sự góp.'],
+    ['5. Tên Vùng phải viết giống nhau ở các sheet. Số tiền nhập dạng số, đơn vị VNĐ.'],
+    ['6. Giữ nguyên tên sheet, thứ tự cột và dòng tiêu đề.'],
+    ['Cách tính: mỗi chặng tính % DT thực tế / mục tiêu vùng → hệ số. Công ty thưởng = Σ (tiền góp chặng × hệ số chặng). Quỹ party vùng = nhân sự góp + công ty thưởng − quỹ thách đấu đưa vào + quỹ thách đấu nhận được.']];
+  const wg = XLSX.utils.aoa_to_sheet(g); wg['!cols']=[{wch:120}];
+  XLSX.utils.book_append_sheet(wb, wg, 'Huong_dan');
+  return wb;
+}
+$('btnTpl').onclick = () => XLSX.writeFile(makeWb(DEMO.tpl2), 'quy-party-vung-MAU.xlsx');
+$('btnDemoFile').onclick = () => XLSX.writeFile(makeWb(DEMO), 'quy-party-vung-DEMO.xlsx');
+$('btnDemoLoad').onclick = () => compute(DEMO.ns, DEMO.dt, DEMO.mt, DEMO.kd);
+
+function findSheet(wb, name, idx){
+  const k = wb.SheetNames.find(n=>norm(n).replace(/[ _]/g,'')===norm(name).replace(/[ _]/g,''));
+  return wb.Sheets[k ?? (idx==null ? null : wb.SheetNames[idx])];
+}
+function readRows(ws){
+  if (!ws) return [];
+  const a = XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+  return a.slice(1).filter(r=>r.some(c=>String(c).trim()!==''));
+}
+$('file').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = ev => {
+    try{
+      const wb = XLSX.read(ev.target.result,{type:'array'});
+      compute(readRows(findSheet(wb,'NS_gop',0)), readRows(findSheet(wb,'Doanh_thu_salon',1)), readRows(findSheet(wb,'Muc_tieu_vung',2)), readRows(findSheet(wb,'Keo_thach_dau')));
+    }catch(err){ showMsgs([['e','Không đọc được file: '+err.message]]); }
+  };
+  rd.readAsArrayBuffer(f);
+};
+function showMsgs(list){
+  $('msgs').innerHTML = list.map(([t,m])=>`<div class="msg ${t}">${m}</div>`).join('');
+}
+
+function compute(ns, dt, mt, kdRows){
+  const msgs = [];
+  const V = new Map();
+  const get = raw => {
+    const name = String(raw).trim(); const k = norm(name);
+    if (!k) return null;
+    if (!V.has(k)) V.set(k,{name,people:[],rev:Array(NC).fill(0),salons:0,target:Array(NC).fill(null)});
+    return V.get(k);
+  };
+  let bad = 0; const over = [];
+  ns.forEach(r=>{
+    const v = get(r[0]); if (!v){ bad++; return; }
+    const g = [0,1,2].map(c=>{ const a = num(r[3+c]); return isNaN(a)?0:a; });
+    g.forEach((a,c)=>{ if (a>CAP[c]) over.push(`${esc(v.name)} – ${esc(String(r[1]).trim()||String(r[2]).trim())} (${SHORT[c]}: ${fmt(a)}đ)`); });
+    v.people.push({ma:String(r[1]).trim(),ten:String(r[2]).trim(),g});
+  });
+  dt.forEach(r=>{
+    const v = get(r[0]); if (!v){ bad++; return; }
+    let any = false;
+    for (let c=0;c<NC;c++){ const a = num(r[2+c]); if (!isNaN(a)){ v.rev[c]+=a; any=true; } }
+    if (any) v.salons++; else bad++;
+  });
+  mt.forEach(r=>{
+    const v = get(r[0]); if (!v){ bad++; return; }
+    for (let c=0;c<NC;c++){ const a = num(r[1+c]); if (!isNaN(a)) v.target[c]=a; }
+  });
+  if (bad) msgs.push(['w',`Bỏ qua ${bad} dòng thiếu vùng hoặc số tiền không hợp lệ.`]);
+  if (over.length) msgs.push(['w',`${over.length} lượt góp vượt mức tối đa/người (vẫn được tính): ${over.slice(0,5).join('; ')}${over.length>5?'; …':''}`]);
+
+  const res = [];
+  for (const v of V.values()){
+    const gopC = [0,1,2].map(c=>v.people.reduce((s,p)=>s+p.g[c],0));
+    const gop = gopC.reduce((a,b)=>a+b,0);
+    const ch = [];
+    for (let c=0;c<NC;c++){
+      const ok = v.target[c]>0 && v.salons>0;
+      const pct = ok ? v.rev[c]/v.target[c] : null;
+      const t = ok ? heso(pct) : null;
+      const hs = t?t[1]:0;
+      ch.push({gop:gopC[c],rev:v.rev[c],target:v.target[c],pct,hs,has:!!t,tier:t?t[2]:'—',thuong:gopC[c]*hs});
+      if (!ok && gopC[c]>0) msgs.push(['e',`<b>${esc(v.name)}</b> – ${SHORT[c]}: thiếu mục tiêu hoặc doanh thu → hệ số chặng này = 0.`]);
+    }
+    if (!v.people.length && ch.some(x=>x.has)) msgs.push(['w',`<b>${esc(v.name)}</b>: có doanh thu/mục tiêu nhưng không có nhân sự góp.`]);
+    const thuong = Math.round(ch.reduce((s,x)=>s+x.thuong,0));
+    res.push({name:v.name,people:v.people,n:v.people.length,gop,gopC,salons:v.salons,ch,
+      hsAvg:gop>0?thuong/gop:0,rev:ch.reduce((s,x)=>s+x.rev,0),thuong,kd:0,dua:0,nhan:0,quy:gop+thuong});
+  }
+  res.sort((a,b)=>a.name.localeCompare(b.name,'vi',{numeric:true}));
+  const KD = challenge(res, kdRows||[], msgs);
+  if (!res.length){ showMsgs([['e','File không có dữ liệu hợp lệ.'],...msgs]); $('out').style.display='none'; return; }
+  msgs.unshift(['i',`Đã đọc ${res.length} vùng · ${res.reduce((s,r)=>s+r.n,0)} nhân sự · ${res.reduce((s,r)=>s+r.salons,0)} salon.`]);
+  showMsgs(msgs);
+  LAST = res; LASTKD = KD;
+  render(res);
+}
+
+/* Kèo thách đấu liên vùng: chặng 2 và 3 (chỉ số 1, 2) */
+const SHARE = [0.6, 0.4];
+function challenge(res, kdRows, msgs){
+  const byKey = new Map(res.map(r=>[norm(r.name),r]));
+  const groups = new Map();
+  kdRows.forEach(row=>{
+    const k = norm(row[0]), bang = String(row[1]).trim();
+    if (!k || !bang) return;
+    const r = byKey.get(k);
+    if (!r){ msgs.push(['w',`Keo_thach_dau: vùng <b>${esc(String(row[0]).trim())}</b> không có trong dữ liệu – bỏ qua.`]); return; }
+    const gk = norm(bang);
+    if (!groups.has(gk)) groups.set(gk,{bang,mem:[]});
+    groups.get(gk).mem.push({r,dua:[num(row[2]),num(row[3])].map(a=>isNaN(a)?0:a)});
+  });
+  const out = [];
+  for (const g of groups.values()){
+    if (g.mem.length<2){ msgs.push(['w',`Bảng <b>${esc(g.bang)}</b> chỉ có 1 vùng – không có kèo thách đấu.`]); continue; }
+    if (g.mem.length>3) msgs.push(['w',`Bảng <b>${esc(g.bang)}</b> có ${g.mem.length} vùng – mỗi vùng chỉ thách đấu tối đa 2 vùng khác (bảng tối đa 3 vùng).`]);
+    if (g.mem.length===2) msgs.push(['i',`Bảng <b>${esc(g.bang)}</b> chỉ có 2 vùng: đang chia Nhất 60% – Nhì 40%.`]);
+    for (const c of [1,2]){
+      const rows = [];
+      g.mem.forEach(m=>{
+        const x = m.r.ch[c];
+        if (!x.has){ msgs.push(['e',`Bảng <b>${esc(g.bang)}</b> – ${SHORT[c]}: <b>${esc(m.r.name)}</b> thiếu dữ liệu doanh thu/mục tiêu → không xếp hạng.`]); return; }
+        const max = x.thuong*0.5;
+        let dua = m.dua[c-1];
+        if (dua>max+1e-6){ msgs.push(['w',`<b>${esc(m.r.name)}</b> – ${SHORT[c]}: mức đưa vào quỹ thách đấu ${fmt(dua)}đ vượt 50% Công ty thưởng (${fmt(max)}đ) → tính ${fmt(max)}đ.`]); dua = max; }
+        rows.push({r:m.r,pct:x.pct,dua,nhan:0,hang:0});
+      });
+      if (rows.length<2) continue;
+      const quy = rows.reduce((s,x)=>s+x.dua,0);
+      rows.sort((a,b)=>b.pct-a.pct);
+      rows.forEach((x,i)=>{ x.hang=i+1; x.nhan=quy*(SHARE[i]||0); x.r.dua+=x.dua; x.r.nhan+=x.nhan; x.r.kd+=x.nhan-x.dua; });
+      rows.forEach(x=>out.push({chang:c,bang:g.bang,quy,...x}));
+    }
+  }
+  res.forEach(r=>{ r.quy = Math.round(r.gop+r.thuong+r.kd); });
+  out.sort((a,b)=>a.chang-b.chang||a.bang.localeCompare(b.bang,'vi',{numeric:true})||a.hang-b.hang);
+  return out;
+}
+
+/* ===== Giao diện theo từng chặng: lợn đất – tên lửa – thợ cắt tóc ===== */
+let STAGE_SEL = 0; // 0..NC-1 = chặng, -1 = cả kỳ
+function pigSVG(level, id){
+  const y = 114 - level*104;
+  const shapes = `<ellipse cx="78" cy="64" rx="54" ry="38"/><rect x="42" y="92" width="18" height="22" rx="6"/><rect x="96" y="92" width="18" height="22" rx="6"/><ellipse cx="132" cy="68" rx="16" ry="13"/><path d="M102 34 L110 10 L126 36 Z"/>`;
+  return `<svg class="pig" viewBox="0 0 160 124" role="img" aria-label="Lợn đất, mức đầy ${Math.round(level*100)}%">
+    <defs><clipPath id="${id}c">${shapes}</clipPath>
+      <linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#43d98a"/><stop offset="1" stop-color="#17894f"/></linearGradient></defs>
+    <path d="M24 60 q-16 -6 -9 -19 q7 -8 13 1" fill="none" stroke="#14593a" stroke-width="5" stroke-linecap="round"/>
+    <g fill="#14593a" stroke="#14593a" stroke-width="7" stroke-linejoin="round">${shapes}</g>
+    <g fill="#ecf9f1">${shapes}</g>
+    <rect x="0" y="${y.toFixed(1)}" width="160" height="${(124-y).toFixed(1)}" fill="url(#${id}g)" clip-path="url(#${id}c)" class="pig-fill"/>
+    <text x="78" y="78" text-anchor="middle" font-size="30" font-weight="800" fill="#14593a" opacity=".35">₫</text>
+    <rect x="62" y="30" width="30" height="5" rx="2.5" fill="#14593a"/>
+    <circle cx="116" cy="56" r="3.6" fill="#14312a"/>
+    <ellipse cx="127" cy="68" rx="2.2" ry="3.6" fill="#14312a"/><ellipse cx="138" cy="68" rx="2.2" ry="3.6" fill="#14312a"/>
+  </svg>`;
+}
+function rocketSVG(pct, id){
+  const Y = p => 150 - (p-80)/40*(150-30);
+  const v = pct==null ? 80 : Math.max(80, Math.min(120, pct*100));
+  const yv = v>=120 ? 12 : Y(v);
+  let ticks = '';
+  for (let p=80;p<=120;p+=5){
+    const major = p%10===0, y = Y(p);
+    ticks += `<line x1="${major?16:19}" y1="${y}" x2="26" y2="${y}" stroke="#5b2a86" stroke-width="${major?1.6:1}"/>`;
+    if (major) ticks += `<text x="14" y="${y+2.6}" text-anchor="end" font-size="7.5" font-weight="700" fill="#5b2a86">${p}</text>`;
+  }
+  const body = 'M44 12 C58 30 60 60 60 100 L60 150 L28 150 L28 100 C28 60 30 30 44 12 Z';
+  return `<svg class="rocket" viewBox="0 0 72 200" role="img" aria-label="Tên lửa, ${pct==null?'chưa có số':fmtPct(pct)}">
+    <defs><clipPath id="${id}c"><path d="${body}"/></clipPath>
+      <linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#ef4d3f"/></linearGradient></defs>
+    <path d="M28 128 L12 158 L28 150 Z M60 128 L76 158 L60 150 Z" fill="#e0407a" stroke="#5b2a86" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M32 150 Q44 196 56 150 Z" fill="#ffd34d" stroke="#ef8a1d" stroke-width="2"/>
+    <path d="${body}" fill="#5b2a86" stroke="#5b2a86" stroke-width="6" stroke-linejoin="round"/>
+    <path d="${body}" fill="#f6edff"/>
+    <rect x="0" y="${yv.toFixed(1)}" width="72" height="${(150-yv).toFixed(1)}" fill="url(#${id}g)" clip-path="url(#${id}c)" class="rocket-fill"/>
+    <circle cx="44" cy="84" r="8" fill="#e8f7ff" stroke="#5b2a86" stroke-width="2.4"/>
+    ${ticks}
+    ${pct==null?'':`<path d="M30 ${yv} L22 ${yv-4} L22 ${yv+4} Z" fill="#5b2a86"/><line x1="28" y1="${yv}" x2="60" y2="${yv}" stroke="#5b2a86" stroke-width="2" stroke-dasharray="3 2"/>`}
+  </svg>`;
+}
+function barberSVG(amount){
+  const t = fmt(amount), fs = Math.min(17, 100/(t.length*0.62));
+  return `<svg class="barber" viewBox="0 0 150 172" role="img" aria-label="Thợ cắt tóc cầm bảng ${t} đồng">
+    <rect x="38" y="70" width="74" height="102" rx="20" fill="#fff" stroke="#2b1f3a" stroke-width="3"/>
+    <path d="M46 78 L75 100 L104 78 L104 172 L46 172 Z" fill="#2f2a5a"/>
+    <path d="M75 100 L58 172 M75 100 L92 172" stroke="#fff" stroke-width="2" opacity=".5"/>
+    <path d="M63 76 L75 82 L63 90 Z M87 76 L75 82 L87 90 Z" fill="#e63946" stroke="#2b1f3a" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="75" cy="83" r="4" fill="#e63946" stroke="#2b1f3a" stroke-width="1.5"/>
+    <path d="M44 86 L18 120 M106 86 L132 120" stroke="#f1c6a0" stroke-width="10" stroke-linecap="round"/>
+    <rect x="16" y="94" width="118" height="52" rx="7" fill="#fff4cf" stroke="#7a4a1c" stroke-width="3.5"/>
+    <text x="75" y="110" text-anchor="middle" font-size="8.5" font-weight="800" fill="#9a5b1d" letter-spacing=".6">QUỸ PARTY</text>
+    <text x="75" y="133" text-anchor="middle" font-size="${fs.toFixed(1)}" font-weight="900" fill="#b4234a">${t}</text>
+    <text x="127" y="141" text-anchor="end" font-size="8" font-weight="700" fill="#9a5b1d">đ</text>
+    <circle cx="17" cy="120" r="7" fill="#f1c6a0" stroke="#7a4a1c" stroke-width="1.5"/><circle cx="133" cy="120" r="7" fill="#f1c6a0" stroke="#7a4a1c" stroke-width="1.5"/>
+    <circle cx="75" cy="42" r="23" fill="#f1c6a0" stroke="#2b1f3a" stroke-width="3"/>
+    <circle cx="52" cy="44" r="5" fill="#f1c6a0" stroke="#2b1f3a" stroke-width="2"/><circle cx="98" cy="44" r="5" fill="#f1c6a0" stroke="#2b1f3a" stroke-width="2"/>
+    <path d="M51 38 C48 8 102 8 99 38 C92 24 80 20 70 24 C62 26 56 30 51 38 Z" fill="#2b1b17"/>
+    <circle cx="67" cy="43" r="2.6" fill="#2b1b17"/><circle cx="83" cy="43" r="2.6" fill="#2b1b17"/>
+    <path d="M62 54 Q75 48 88 54 Q75 59 62 54 Z" fill="#2b1b17"/>
+    <path d="M68 59 Q75 64 82 59" fill="none" stroke="#2b1b17" stroke-width="2" stroke-linecap="round"/>
+  </svg>`;
+}
+function stageData(c){
+  return LAST.map(r=>{
+    let gop,pct,hs,thuong,net=0,bang='',hang=null;
+    if (c>=0){
+      const x = r.ch[c]; gop = r.gopC[c]; pct = x.has?x.pct:null; hs = x.has?x.hs:null; thuong = x.thuong;
+      const k = LASTKD.find(k=>k.chang===c && k.r===r); if (k){ net = k.nhan-k.dua; bang = k.bang; hang = k.hang; }
+    } else {
+      gop = r.gop; const tg = r.ch.reduce((s,x)=>s+(x.target||0),0);
+      pct = tg>0 ? r.rev/tg : null; hs = r.hsAvg; thuong = r.thuong; net = r.kd;
+    }
+    return {r,gop,pct,hs,thuong,net,bang,hang,total:gop+thuong+net};
+  });
+}
+function renderStageView(){
+  const c = STAGE_SEL, N = LAST.length, data = stageData(c);
+  $('stageTabs').innerHTML = STAGES.map((s,i)=>`<button type="button" class="tab stage-${i}${i===c?' on':''}" data-c="${i}">${esc(s.ten)}<small>${esc(s.tg)}</small></button>`).join('')
+    + `<button type="button" class="tab stage-all${c<0?' on':''}" data-c="-1">Cả kỳ<small>02 – 22/11/2026</small></button>`;
+  const box = $('stageCols');
+  box.className = 'cols ' + (c>=0 ? 'stage-'+c : 'stage-all');
+  box.style.setProperty('--n', N);
+  data.forEach(d=>{ d.rank = 1 + data.filter(o=>o.gop>d.gop).length; d.level = d.gop>0 ? (N-d.rank+1)/N : 0; });
+  box.innerHTML = data.map((d,i)=>{
+    const id = `s${c<0?'k':c}v${i}`;
+    const chip = c!==0 && (d.net!==0) ? `<div class="chip ${d.net>0?'up':'down'}">Thách đấu ${d.net>0?'+':''}${fmt(d.net)}đ</div>` : '';
+    const sub = c>=0 && d.bang ? `<span class="bang">Bảng ${esc(d.bang)} · hạng ${d.hang}</span>` : '';
+    return `<article class="col">
+      <h3>${esc(d.r.name)}${sub}</h3>
+      <div class="blk"><div class="cap">Tiền nhân sự góp</div>${pigSVG(d.level,id+'p')}<div class="val">${fmt(d.gop)}đ</div><div class="sub2">Hạng ${d.rank}/${N}</div></div>
+      <div class="blk"><div class="cap">% mục tiêu doanh thu</div>
+        <div class="rocket-row">${rocketSVG(d.pct,id+'r')}
+          <div class="side"><b class="pctv">${d.pct==null?'—':fmtPct(d.pct)}</b>
+            <span class="hsv">${c>=0?'Hệ số':'Hệ số bình quân'}<br><b>×${d.hs==null?'—':fmtHs(Math.round(d.hs*1000)/1000)}</b></span>
+            <span class="moneyv">Công ty thưởng<br><b>${fmt(d.thuong)}đ</b></span></div></div></div>
+      <div class="blk"><div class="cap">Tổng quỹ party</div>${barberSVG(d.total)}${chip}</div>
+    </article>`;
+  }).join('');
+}
+$('stageTabs').onclick = e => {
+  const b = e.target.closest ? e.target.closest('button[data-c]') : null;
+  if (!b || !LAST) return;
+  STAGE_SEL = +b.dataset.c; renderStageView();
+};
+
+function render(res){
+  const tot = k => res.reduce((s,r)=>s+r[k],0);
+  $('kpis').innerHTML = [
+    ['Nhân sự góp (tổng)',fmt(tot('gop'))],
+    ['Công ty thưởng (tổng)',fmt(tot('thuong'))],
+    ['Quỹ party (tổng)',fmt(tot('quy'))],
+    ...(LASTKD.length?[['Quỹ thách đấu (tổng)',fmt(LASTKD.reduce((s,x)=>s+x.dua,0))]]:[]),
+    ['Số vùng / nhân sự',res.length+' / '+tot('n')]
+  ].map(k=>`<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div></div>`).join('');
+
+  const cls = h => h==null?'':h<0.8?'p-lo':h<1?'p-mid':'p-hi';
+  const cell = x => x.has ? `${fmtPct(x.pct)} <span class="pill ${cls(x.hs)}">${fmtHs(x.hs)}</span>` : '—';
+  $('tbl').innerHTML = `<thead><tr><th>Vùng</th><th>① Tiền nhân sự góp</th>`+
+    SHORT.map(s=>`<th>② ${s}<br><small>% mục tiêu · hệ số</small></th>`).join('')+
+    `<th>② Hệ số bình quân</th><th>③ Công ty thưởng</th><th>Thách đấu<br><small>nhận − đưa vào</small></th><th>④ Quỹ party vùng</th></tr></thead><tbody>`+
+  res.map(r=>`<tr><td>${esc(r.name)}</td><td>${fmt(r.gop)}</td>${r.ch.map(x=>`<td>${cell(x)}</td>`).join('')}<td>${fmtHs(Math.round(r.hsAvg*1000)/1000)}</td><td>${fmt(r.thuong)}</td><td>${r.dua||r.nhan?(r.kd>0?'+':'')+fmt(r.kd):'—'}</td><td><b>${fmt(r.quy)}</b></td></tr>`).join('')+
+  `</tbody><tfoot><tr><td>Tổng</td><td>${fmt(tot('gop'))}</td><td></td><td></td><td></td><td></td><td>${fmt(tot('thuong'))}</td><td>${fmt(tot('kd'))}</td><td>${fmt(tot('quy'))}</td></tr></tfoot>`;
+
+  $('cardKd').style.display = LASTKD.length?'block':'none';
+  $('tblKd').innerHTML = `<thead><tr><th>Chặng</th><th class="t-left">Bảng</th><th class="t-left">Vùng</th><th>% mục tiêu</th><th>Hạng</th><th>Đưa vào quỹ</th><th>Tổng quỹ bảng</th><th>Nhận từ quỹ</th><th>Chênh lệch</th></tr></thead><tbody>`+
+  LASTKD.map(x=>`<tr><td><span class="stage-tag stage-${x.chang}">${SHORT[x.chang]}</span></td><td class="t-left">${esc(x.bang)}</td><td class="t-left">${esc(x.r.name)}</td><td>${fmtPct(x.pct)}</td><td><span class="rank rank-${x.hang}">${x.hang}</span></td><td>${fmt(x.dua)}</td><td>${fmt(x.quy)}</td><td>${fmt(x.nhan)}</td><td>${(x.nhan-x.dua>0?'+':'')+fmt(x.nhan-x.dua)}</td></tr>`).join('')+`</tbody>`;
+
+  $('tblDt').innerHTML = `<thead><tr><th>Vùng</th>`+CH.map(c=>`<th>Mục tiêu<br><small>${c}</small></th><th>DT thực tế<br><small>${c}</small></th>`).join('')+`</tr></thead><tbody>`+
+  res.map(r=>`<tr><td>${esc(r.name)}</td>${r.ch.map(x=>`<td>${x.target!=null?fmt(x.target):'—'}</td><td>${fmt(x.rev)}</td>`).join('')}</tr>`).join('')+`</tbody>`;
+
+  $('selV').innerHTML = `<option value="*">Tất cả vùng</option>`+res.map((r,i)=>`<option value="${i}">${esc(r.name)}</option>`).join('');
+  renderNs();
+  renderStageView();
+  $('out').style.display='block';
+}
+function renderNs(){
+  const sel = $('selV').value;
+  const list = [];
+  LAST.forEach((r,i)=>{ if (sel==='*'||+sel===i) r.people.forEach(p=>{
+    const th = Math.round(p.g.reduce((s,a,c)=>s+a*r.ch[c].hs,0));
+    list.push({v:r.name,th,...p}); }); });
+  $('tblNs').innerHTML = `<thead><tr><th>Vùng</th><th class="t-left">Mã NV</th><th class="t-left">Họ tên</th>`+SHORT.map(s=>`<th>Góp ${s}</th>`).join('')+`<th>Tổng góp</th><th>Công ty thưởng</th><th>Tổng</th></tr></thead><tbody>`+
+  list.map(p=>{const g=p.g.reduce((a,b)=>a+b,0);return `<tr><td>${esc(p.v)}</td><td class="t-left">${esc(p.ma)}</td><td class="t-left">${esc(p.ten)}</td>${p.g.map(a=>`<td>${fmt(a)}</td>`).join('')}<td>${fmt(g)}</td><td>${fmt(p.th)}</td><td>${fmt(g+p.th)}</td></tr>`}).join('')+`</tbody>`;
+}
+$('selV').onchange = renderNs;
+
+$('btnExport').onclick = () => {
+  if (!LAST) return;
+  const wb = XLSX.utils.book_new();
+  const h = ['Vùng','Tiền nhân sự góp'];
+  SHORT.forEach(s=>h.push(`Góp ${s}`,`Mục tiêu ${s}`,`DT ${s}`,`% ${s}`,`Hệ số ${s}`));
+  h.push('Hệ số bình quân','Công ty thưởng','Thách đấu (nhận − đưa vào)','Quỹ party vùng');
+  const a = [h, ...LAST.map(r=>[r.name,r.gop,...r.ch.flatMap(x=>[x.gop,x.target,x.rev,x.pct,x.has?x.hs:null]),r.hsAvg,r.thuong,r.kd,r.quy])];
+  const ws = XLSX.utils.aoa_to_sheet(a); ws['!cols']=h.map(()=>({wch:18}));
+  for (let i=1;i<a.length;i++) for (let c=0;c<h.length;c++){
+    const cell = ws[XLSX.utils.encode_cell({r:i,c})]; if (!cell) continue;
+    if (c>=2 && c<2+NC*5){ const k=(c-2)%5; if (k===3) cell.z='0.0%'; else if (k<3) cell.z='#,##0'; }
+    else if (c===1||c>=h.length-3) cell.z='#,##0';
+  }
+  XLSX.utils.book_append_sheet(wb,ws,'Tong_hop_vung');
+  if (LASTKD.length){
+    const k = [['Chặng','Bảng','Vùng','% mục tiêu','Hạng','Đưa vào quỹ','Tổng quỹ bảng','Nhận từ quỹ','Chênh lệch'],
+      ...LASTKD.map(x=>[SHORT[x.chang],x.bang,x.r.name,x.pct,x.hang,x.dua,x.quy,x.nhan,x.nhan-x.dua])];
+    const wk = XLSX.utils.aoa_to_sheet(k); wk['!cols']=k[0].map(()=>({wch:16}));
+    for (let i=1;i<k.length;i++){ wk['D'+(i+1)].z='0.0%'; ['F','G','H','I'].forEach(c=>wk[c+(i+1)].z='#,##0'); }
+    XLSX.utils.book_append_sheet(wb,wk,'Keo_thach_dau');
+  }
+  const b = [['Vùng','Mã NV','Họ tên',...SHORT.map(s=>`Góp ${s}`),'Tổng góp','Công ty thưởng','Tổng']];
+  LAST.forEach(r=>r.people.forEach(p=>{const g=p.g.reduce((x,y)=>x+y,0);const th=Math.round(p.g.reduce((s,a,c)=>s+a*r.ch[c].hs,0));b.push([r.name,p.ma,p.ten,...p.g,g,th,g+th]);}));
+  const w2 = XLSX.utils.aoa_to_sheet(b); w2['!cols']=b[0].map(()=>({wch:20}));
+  XLSX.utils.book_append_sheet(wb,w2,'Chi_tiet_nhan_su');
+  XLSX.writeFile(wb,'quy-party-vung-ket-qua.xlsx');
+};
+</script>
+</body>
+</html>
